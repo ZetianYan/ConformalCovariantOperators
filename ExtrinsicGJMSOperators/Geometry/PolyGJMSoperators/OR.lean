@@ -1,0 +1,2 @@
+import ExtrinsicGJMSOperators.Geometry.PolyGJMSoperators.OR.ClosedOperator
+import ExtrinsicGJMSOperators.Geometry.PolyGJMSoperators.OR.Coefficients.ClosedSatisfiesRecurrence
