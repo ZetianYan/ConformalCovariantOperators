@@ -1,0 +1,535 @@
+\documentclass{article}
+\input{header}
+
+\title{Higher order extrinsic GJMS operators}
+\author{Zetian Yan}
+\date{January 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Background on Riemannian and sub-Riemannian geometry}
+
+For a Riemannian manifold $(M^n,g)$, we denote the Levi-Civita connection by $\nabla^g$, the curvature tensor by $R_{ijkl}$, the Ricci tensor by $\Ric(g)$ or $R_{ij}=R^k{}_{ikj}$, and the scalar curvature by $R=R^i{}_i$. Our sign convention for $R_{ijkl}$ is such that spheres have positive scalar curvature. The Schouten tensor of $(M,g)$ is
+\[
+P_{ij}
+=
+\frac{1}{n-2}
+\left(
+R_{ij}-\frac{R}{2(n-1)}g_{ij}
+\right),
+\]
+and the Weyl tensor is defined by the decomposition
+\[
+R_{ijkl}
+=
+W_{ijkl}
++
+P_{ik}g_{jl}
+-
+P_{jk}g_{il}
+-
+P_{il}g_{jk}
++
+P_{jl}g_{ik}.
+\]
+The Cotton and Bach tensors are
+\[
+C_{ijk}=\nabla^g_k P_{ij}-\nabla^g_j P_{ik},
+\qquad
+B_{ij}=\nabla^g_k C_{ijk}-P_{kl}W^{k\;\;\;l}_{\;\;ij}.
+\]
+
+Latin indices $i,j,k$ run between $1$ and $n$ in local coordinates, or can be interpreted as labels for $TM$ or its dual in invariant expressions such as those above (Penrose abstract index notation).
+
+We will denote by $\Sigma$ a submanifold of $(M,g)$ of dimension $k$, $1\le k\le n-1$. All considerations in this paper are local, so all submanifolds are assumed to be embedded. We use $\alpha,\beta,\gamma$ as index labels for $T\Sigma$ and $\alpha',\beta',\gamma'$ for the normal bundle $N\Sigma$. A Latin index $i$ thus specializes either to an $\alpha$ or an $\alpha'$. For instance, when restricted to $\Sigma$, the Schouten tensor $P_{ij}$ splits into its tangential $P_{\alpha\beta}$, mixed $P_{\alpha\alpha'}$, and normal $P_{\alpha'\beta'}$ pieces. Likewise, the restriction of the metric $g_{ij}$ to $\Sigma$ can be identified with the metric $g_{\alpha\beta}$ induced on $\Sigma$ together with the bundle metric $g_{\alpha'\beta'}$ induced on $N\Sigma$. We use $g_{\alpha\beta}$ and $g_{\alpha'\beta'}$ and their inverses to lower and raise unprimed and primed indices.
+
+The second fundamental form $L\colon S^2T\Sigma\to N\Sigma$ is defined by
+\[
+L(X,Y)=(\nabla^g_XY)^\perp .
+\]
+We typically write it as $L^{\alpha'}_{\alpha\beta}$, or perhaps as $L_{\alpha\beta\alpha'}$ or $L_\alpha{}^\beta{}_{\alpha'}$ upon lowering and/or raising indices. Since $L$ has only one primed index and is symmetric in $\alpha\beta$, it is not necessary to pay attention to the order of the three indices. The mean curvature vector is
+\[
+H=\frac{1}{k}\tr L,
+\qquad
+H^{\alpha'}=\frac{1}{k}g^{\alpha\beta}L^{\alpha'}_{\alpha\beta}
+=\frac{1}{k}L^\alpha{}_{\alpha}{}^{\alpha'} .
+\]
+
+The Levi-Civita connection of $g$ induces connections on $T\Sigma$ and $N\Sigma$ together with their duals and tensor products, all of which we denote by $\nabla$. For instance, we can form the covariant derivative $\nabla_\alpha H^{\alpha'}$, which is a section of $T^*\Sigma\otimes N\Sigma$.
+
+When working in coordinates, we always use a local coordinate system
+\[
+z^i=(x^\alpha,u^{\alpha'}),\qquad
+1\le\alpha\le k,\quad k+1\le\alpha'\le n,
+\]
+for $M$ near $\Sigma$, with the properties that $\Sigma=\{u^{\alpha'}=0\}$ and $\partial_\alpha\perp\partial_{\alpha'}$ on $\Sigma$. We call such a coordinate system \emph{adapted}. The coordinates $x^\alpha$ restrict to a coordinate system on $\Sigma$. On $\Sigma$, the vectors $\partial_\alpha$ span $T\Sigma$, the $\partial_{\alpha'}$ span $N\Sigma$, and the mixed metric components $g_{\alpha\alpha'}$ vanish.
+
+Partial derivatives in local coordinates are expressed using either of the two notations $\partial_\alpha u^\beta=u^\beta{}_{,\alpha}$. In \S6, indices preceded by a semicolon, such as $u^\beta{}_{;\alpha}$, denote covariant differentiation.
+
+By a (scalar, linear) \emph{natural differential operator} on $k$-dimensional submanifolds of $n$-dimensional Riemannian manifolds, we will mean an assignment to each $\Sigma^k\subset(M^n,g)$ of a differential operator $P$ on $\Sigma$ such that:
+
+\begin{enumerate}
+\item If $\Sigma'\subset(M',g')$ and $\varphi:(M,g)\to(M',g')$ is an isometry for which $\varphi(\Sigma)=\Sigma'$, then $\varphi^*P'=P$.
+\item There are $m\in\mathbb N\cup\{0\}$ and universal polynomials $q_{\mI}$ such that in any adapted local coordinate system $z=(x,u)$, $P$ has the form
+\begin{equation}\label{eq:natural-operator}
+Pf(x)
+=
+\sum_{|\mI|\le m}
+q_{\mI}\!\left(
+g^{\alpha\beta},g^{\alpha'\beta'},\partial^{\mJ}_z g_{ij}
+\right)
+\partial^{\mI}_x f(x),
+\qquad f\in C^\infty(\Sigma).
+\end{equation}
+\end{enumerate}
+
+Here $\mJ$ is an $n$-multiindex and $\mI$ is a $k$-multiindex. The argument $\partial^{\mJ}_z g_{ij}$ denotes all derivatives of all $g_{ij}$ of orders up to $N$, for some $N$, except that the variables $\partial^{\mJ}_x g_{\alpha\alpha'}$ for $k$-multiindices $\mJ$ do not appear (since these vanish in adapted coordinates). The quantities $g^{\alpha\beta}$, $g^{\alpha'\beta'}$, and $\partial^{\mJ}_z g_{ij}$ are evaluated at $z=(x,0)$.
+
+To clarify, $q_{\mI}$ is a polynomial function on the vector space in which the inverse metric and the metric and its derivatives take values in local coordinates, taking into account the symmetry in the metric and partial derivative indices.
+
+The special case $m=0$ serves to define natural scalars of $k$-dimensional submanifolds of $n$-dimensional Riemannian manifolds.
+
+Our sign convention for Laplacians is that $\Delta=\sum_i\partial_i^2$ on Euclidean space. Norms are always taken with respect to the metric on tensor products induced by the metric on the underlying bundle.
+
+\section{Background: Smooth Even Formal Asymptotics}
+
+In this section we review the formal asymptotics of Poincar\'e metrics and minimal
+submanifolds thereof. We restrict consideration here to smooth even expansions, which
+we use in \S4 to derive extrinsic GJMS operators. We largely follow for
+Poincar\'e metrics and for minimal submanifold asymptotics. 
+
+Let $(M^n,[g])$ be a conformal manifold, $n\ge2$, and $g$ a chosen metric in the
+conformal class. Set
+\[
+X=M\times[0,\varepsilon_0)_r,
+\qquad
+X^\circ=M\times(0,\varepsilon_0)_r,
+\]
+and identify $M$ with $M\times\{0\}\subset X$.
+By an \emph{even Poincar\'e metric in normal form relative to $g$}, we will mean a
+metric $g_+$ on $X^\circ$, for some $\varepsilon_0>0$, of the form
+\begin{equation}\label{eq:3.1}
+g_+
+=
+\frac{dr^2+g_r}{r^2},
+\end{equation}
+where $g_r$ is a smooth one-parameter family of metrics on $M$ for which $g_0=g$,
+such that the Taylor expansion of $g_r$ at $r=0$ is even, and satisfying the following:
+\begin{enumerate}
+\item If $n$ is odd, then $\Ric(g_+)+ng_+$ vanishes to infinite order at $r=0$.
+\item If $n$ is even, then $|\Ric(g_+)+ng_+|_{g_+}=O(r^n)$.
+\end{enumerate}
+
+An even Poincar\'e metric in normal form relative to $g$ exists and $g_r$ is unique,
+to infinite order if $n$ is odd, and modulo $O(r^n)$ if $n$ is even. Even Poincar\'e
+metrics in normal form relative to conformally related metrics are related, to infinite
+order if $n$ is odd, and modulo $O(r^n)$ if $n$ is even, by an even diffeomorphism
+between neighborhoods of $M$ in $X$ which restricts to the identity on $M$. Set $g=r^2g_+=dr^2+g_r$. We view $M=\partial X$ as the boundary at infinity
+relative to $g_+$.
+
+Let $\Sigma\subset M$ be a smooth embedded submanifold of dimension $k$, $1\le k\le n-1$.
+Let $Y^{k+1}\subset X$ be a smooth submanifold which is transverse to $M$ and satisfies
+$Y\cap M=\Sigma$. We describe $Y$ near $\Sigma$ in terms of a one-parameter family of
+sections of the $g$-normal bundle $N\Sigma$ of $\Sigma$ in $M$ as follows. The normal
+exponential map of $\Sigma$ with respect to $g$, denoted $\exp_\Sigma$, defines a
+diffeomorphism from a neighborhood of the zero section in $N\Sigma$ to a neighborhood
+of $\Sigma$ in $M$. For $r\ge0$ small, let $Y_r\subset M$ denote the slice of $Y$ at
+height $r$, defined by
+\[
+Y\cap(M\times\{r\})=Y_r\times\{r\}.
+\]
+Then $Y_r$ is a smooth submanifold of $M$ of dimension $k$ and $Y_0=\Sigma$. For each
+$r$, there is a unique section $U_r\in\Gamma(N\Sigma)$ so that
+\[
+\exp_\Sigma\{U_r(p):p\in\Sigma\}=Y_r.
+\]
+This defines a smooth one-parameter family $U_r$ of sections of $N\Sigma$ for which,
+near $\Sigma$, we have
+\begin{equation}\label{eq:3.2}
+Y=
+\left\{
+\bigl(\exp_\Sigma U_r(p),r\bigr):p\in\Sigma,\ r\ge0
+\right\}.
+\end{equation}
+In particular, $U_0=0$. The submanifolds $Y\subset X$ that we consider will all be
+orthogonal to $M$ along $\Sigma$ with respect to $g$. Thus the tangent bundle to $Y$
+along $\Sigma$ is $T\Sigma\oplus\mathrm{span}\,\partial_r$, and the normal bundle to
+$Y$ along $\Sigma$ can be identified with $N\Sigma$. Orthogonality of $Y$ to $M$ along
+$\Sigma$ is equivalent to the condition $\partial_rU_r|_{r=0}=0$, i.e.\ $U_r=O(r^2)$.
+
+The inverse normal exponential map determines a boundary identification diffeomorphism
+$\psi$ from a neighborhood of $\Sigma$ in $Y$ to a neighborhood of $\Sigma$ in
+$\Sigma\times[0,\varepsilon_0)$ by
+\[
+\psi(q,r)=\bigl(\pi((\exp_\Sigma)^{-1}q),r\bigr),
+\]
+where $(q,r)\in Y\subset M\times[0,\varepsilon_0)$ and $\pi:N\Sigma\to\Sigma$ is the
+projection onto the base. It is easily seen that $\psi$ is indeed a diffeomorphism if
+$Y$ is transverse to $M$.
+
+It is useful to realize $\psi$ explicitly in terms of geodesic normal coordinates.
+Choose a local coordinate system $\{x^\alpha:1\le\alpha\le k\}$ for an open subset
+$V\subset\Sigma$ and a local frame $\{e_{\alpha'}(x):1\le\alpha'\le n-k\}$ for
+$N\Sigma|_V$. Let $\{u^{\alpha'}:1\le\alpha'\le n-k\}$ denote the corresponding linear
+coordinates on the fibers of $N\Sigma|_V$. The map
+\[
+u^{\alpha'}e_{\alpha'}(x)\longmapsto(x,u)
+\]
+defines a geodesic normal coordinate system $(x^\alpha,u^{\alpha'})$ in a neighborhood
+$W$ of $V$ in $M$, with respect to which $\Sigma$ is given by $u^{\alpha'}=0$. For each
+$(x,u)$, the curve $t\mapsto(x,tu)$ is a geodesic for $g$ normal to $\Sigma$. In
+particular, in these coordinates the mixed metric components $g_{\alpha\alpha'}$
+vanish on $V$, so that $(x,u)$ is an adapted coordinate system as defined in \S2. Extend
+the coordinates $(x,u)$ to $W\times[0,\varepsilon_0)\subset X$ to be constant in $r$.
+In these coordinates, the diffeomorphism $\psi$ is given by $\psi(x,u,r)=(x,r)$ for
+$(x,u,r)\in Y$. The coordinates $(x,r)$ restrict to a coordinate system on $Y$.
+
+If $U_r$ is a one-parameter family of sections of $N\Sigma$ and we define
+$u^{\alpha'}(x,r)$ by
+\[
+U_r(x)=u^{\alpha'}(x,r)e_{\alpha'}(x),
+\]
+then the description \eqref{eq:3.2} of $Y$ is the same as saying that, in the coordinates
+$(x,u,r)$ on $X$, $Y$ is the graph $u^{\alpha'}=u^{\alpha'}(x,r)$. The notation
+$u^{\alpha'}(x,r)$ can therefore be interpreted as the components of $U_r$ in the frame
+$e_{\alpha'}(x)=\partial_{\alpha'}$, or equivalently as the graphing function
+$u^{\alpha'}=u^{\alpha'}(x,r)$ for $Y$ in these coordinates. When we write
+$U_r^{\alpha'}$, the index is interpreted as an abstract index indicating that $U_r$ is
+a section of $N\Sigma$.
+
+We now impose the condition that $Y$ is asymptotically minimal with respect to the
+metric $g_+$. This becomes a system of partial differential equations on the normal
+vector fields $U_r$. Recall that minimality of $Y$ is equivalent to the statement that
+the mean curvature vector field of $Y$ with respect to $g_+$ obeys $H_Y=0$.
+
+\begin{proposition}\label{prop:3.1}
+Let $g_+$ be an even Poincar\'e metric in normal form and $\Sigma$ a submanifold of $M$
+as above.
+\begin{enumerate}
+\item If $k$ is odd, then there exists $U_r$ whose Taylor expansion in $r$ at $r=0$ is
+even and for which $H_Y$ vanishes to infinite order. Such $U_r$ is unique to infinite
+order. If $n$ is even, the Taylor expansion of $U_r$ modulo $O(r^{n+2})$ is independent
+of the $O(r^n)$ ambiguity in $g_r$.
+\item If $k$ is even, then there exists $U_r$ so that $|H_Y|_g=O(r^{k+2})$. The Taylor
+expansion of $U_r$ modulo $O(r^{k+2})$ is uniquely determined (and is independent of the
+$O(r^n)$ ambiguity in $g_r$ if $n$ is even) and is even modulo $O(r^{k+2})$.
+\end{enumerate}
+\end{proposition}
+
+%Proposition~\ref{prop:3.1} is proved in \cite[Theorem~3.1]{GR} for $k$ even. It is
+%straightforward to verify that the same sort of analysis can be used to prove
+%Proposition~\ref{prop:3.1} for $k$ odd. The main point is that the minimal submanifold
+%equation respects parity and has indicial roots of $0$ and $k+2$. The freedom at the
+%indicial root of $0$ corresponds to the freedom to prescribe $\Sigma$ arbitrarily. When
+%$k$ is odd, the freedom at the indicial root of $k+2$ is fixed by requiring the expansion
+%of $U_r$ to be even. When $k$ is even, the indicial root of $k+2$ generates an
+%obstruction to existence of a smooth solution. Note that $U_r=O(r^2)$; a minimal
+%submanifold is orthogonal to $M$ along $\Sigma$.
+
+If $\varphi$ is an even diffeomorphism that restricts to the identity on $M$ and pulls
+back $g_+$ to another even Poincar\'e metric $\tilde g_+$ in normal form relative to a
+conformally related metric, then $\varphi$ pulls back the minimal extension $Y$ for
+$g_+$ to that for $\tilde g_+$, to infinite order if $k$ is odd, and modulo $O(r^{k+2})$
+if $k$ is even. This follows from the isometry invariance of the minimality condition,
+the parity preservation of $\varphi$, and the uniqueness of $Y$. In this sense $Y$ is
+conformally invariant, to infinite order if $k$ and $n$ are odd, to order $O(r^{n+2})$ if
+$k$ is odd and $n$ is even, and to order $O(r^{k+2})$ if $k$ is even.
+
+In case (2), the condition $|H_Y|_g=O(r^{k+2})$ only determines the expansion of $U_r$
+modulo $O(r^{k+2})$. Here and in \S4 we will take the expansion to be even to infinite
+order, so that the full Taylor expansion of $U_r$ is even in all cases. We write the
+expansion of $U_r$ in the form
+\begin{equation}\label{eq:3.3}
+\textcolor{red}{U_r=U^{(2)}r^2+U^{(4)}r^4+\cdots,}
+\end{equation}
+where the $U^{(2j)}$ are globally and invariantly defined sections of $N\Sigma$
+determined by the choice of metric $g$ in the conformal class, up to the order specified
+by Proposition~\ref{prop:3.1}. The first coefficient is given by
+$U^{(2)}=\frac12H$, where $H$ is the mean curvature vector of $\Sigma\subset M$ with
+respect to $g$.
+
+Let $h_+$ denote the metric on $Y$ induced by $g_+$. Since $g_+$ and $Y$ are invariant up
+to diffeomorphism to the orders stated above under conformal change of $g$, it follows
+that $h_+$ is likewise invariant up to diffeomorphism. Set $h=r^2h_+$, so that $h$ is
+the metric induced by $g=dr^2+g_r$. \textcolor{red}{In terms of the coordinates $(x^\alpha,r)$ on $Y$
+introduced above, $h$ is given by}
+\begin{align}\label{eq:3.4}
+h_{\alpha\beta}
+&=
+g_{\alpha\beta}
++
+2g_{\alpha'(\alpha}u^{\alpha'}{}_{,\beta)}
++
+g_{\alpha'\beta'}u^{\alpha'}{}_{,\alpha}u^{\beta'}{}_{,\beta},
+\\
+h_{\alpha0}
+&=
+g_{\alpha\alpha'}u^{\alpha'}{}_{,r}
++
+g_{\alpha'\beta'}u^{\alpha'}{}_{,\alpha}u^{\beta'}{}_{,r},
+\\
+h_{00}
+&=
+1+
+g_{\alpha'\beta'}u^{\alpha'}{}_{,r}u^{\beta'}{}_{,r}.
+\end{align}
+We use a ``$0$'' index for the $r$-direction. The components of $h$ and the derivatives
+of $u$ are evaluated at $(x,r)$. The above formulas for components of $h$ were obtained
+from the pullback of $g$ upon writing
+\[
+g_r
+=
+g_{\alpha\beta}(x,u,r)\,dx^\alpha dx^\beta
++
+2g_{\alpha\alpha'}(x,u,r)\,dx^\alpha du^{\alpha'}
++
+g_{\alpha'\beta'}(x,u,r)\,du^{\alpha'}du^{\beta'}.
+\]
+In \eqref{eq:3.4}, all $g_{ij}$ are understood to be evaluated at $(x,u(x,r),r)$. Since
+the expansions of $g_r$ and $u(x,r)$ are even in $r$, it follows upon inspection of
+\eqref{eq:3.4} that the Taylor expansions of $h_{\alpha\beta}$ and $h_{00}$ in $r$ at
+$r=0$ are even and the Taylor expansion of $h_{\alpha0}$ is odd.
+
+\begin{proposition}\label{prop:3.2}
+\begin{enumerate}
+\item If $n$ and $k$ are both odd, then the infinite order Taylor expansions of
+$h_{\alpha\beta}$, $h_{\alpha0}$, and $h_{00}$ are uniquely determined by $\Sigma$ and
+$g$.
+\item If $n$ is even and $k$ is odd, then the Taylor expansions of $h_{\alpha\beta}$ and
+$h_{00}$ mod $O(r^n)$ and of $h_{\alpha0}$ mod $O(r^{n+1})$ are independent of the
+$O(r^n)$ ambiguity in $g_r$, and therefore are uniquely determined by $\Sigma$ and $g$.
+\item If $k$ is even, then the Taylor expansions of $h_{\alpha\beta}$ and $h_{00}$ mod
+$O(r^{k+2})$ and of $h_{\alpha0}$ mod $O(r^{k+3})$ are independent of the
+$O(r^{k+2})$ ambiguity in $U_r$ (and independent of the $O(r^n)$ ambiguity in $g_r$ if
+$n$ is even), and therefore are uniquely determined by $\Sigma$ and $g$.
+\end{enumerate}
+\end{proposition}
+
+Since $g_{\alpha\alpha'}=O(r^2)$ and $u^{\alpha'}=O(r^2)$, it is evident from
+\eqref{eq:3.4} that $h_{\alpha0}=O(r^3)$ and $h_{00}=1+O(r^2)$. In particular, $h_+$ is
+asymptotically hyperbolic since $|dr|_{h}^2=1$ at $r=0$.
+
+\section{Extrinsic GJMS Operators: $P_2$ and $P_4$}
+
+The conclusions of general extrinsic GJMS/Q-curvature construction are summarized in the following proposition.
+We formulate the characterization of the operators as obstructions to the existence of
+smooth expansions for eigenfunctions of the Laplacian of the asymptotically hyperbolic
+metric, rather than by the equivalent characterization as log coefficients in the
+expansions of non-smooth solutions. Our choice of notation is governed by our intended
+application to extrinsic GJMS operators.
+
+\begin{proposition}\label{prop:4.1}
+Let $Y^{k+1}$ be a manifold with boundary $\Sigma^k$, $k\ge1$. Let $h_+$ be an
+asymptotically hyperbolic metric on $Y^\circ$. Let $h$ be a representative of the
+conformal infinity of $h_+$ and let $r$ be a defining function for $\Sigma$ satisfying
+$r^2h_+|_{T\Sigma}=h$. Let $\ell\in\mathbb N$.
+\begin{enumerate}
+\item Given $f\in C^\infty(\Sigma)$, there exists $F\in C^\infty(Y)$, uniquely
+determined modulo $O(r^{2\ell})$, so that $F|_\Sigma=f$ and
+\[
+u:=r^{k/2-\ell}F
+\]
+satisfies
+\[
+\left(
+\Delta_{h_+}+\bigl((k/2)^2-\ell^2\bigr)
+\right)u
+=
+O(r^{k/2+\ell}).
+\]
+The function
+\begin{equation}\label{eq:4.1}
+\left.
+r^{-k/2-\ell}
+\left(
+\Delta_{h_+}+\bigl((k/2)^2-\ell^2\bigr)
+\right)u
+\right|_{\Sigma}
+\end{equation}
+is independent of the $O(r^{2\ell})$ ambiguity in $F$, independent of the choice of
+$r$, and can be written as $a_\ell P_{2\ell}f$, where
+\[
+a_\ell^{-1}=(-1)^\ell 2^{2(\ell-1)}(\ell-1)!^2,
+\]
+and $P_{2\ell}$ is a formally self-adjoint differential operator on $\Sigma$ with
+leading term $(-\Delta_h)^\ell$. If $\hat h=e^{2\omega}h$ for $\omega\in
+C^\infty(\Sigma)$, then
+\begin{equation}\label{eq:4.2}
+\hat P_{2\ell}
+=
+e^{(-k/2-\ell)\omega}\circ P_{2\ell}\circ e^{(k/2-\ell)\omega}.
+\end{equation}
+
+\item There is a function $Q_{2\ell}$ which depends polynomially on $k$ so that
+$P_{2\ell}1=(k/2-\ell)Q_{2\ell}$. For $k$ even, if $\hat h=e^{2\omega}h$ for
+$\omega\in C^\infty(\Sigma)$, then
+\[
+e^{k\omega}\hat Q_k=Q_k+P_k\omega.
+\]
+\end{enumerate}
+\end{proposition}
+
+
+In Proposition~\ref{prop:4.1}, it is clear that if $\tilde Y$ is a second manifold with
+boundary $\Sigma$ and $\varphi:\tilde Y\to Y$ is a diffeomorphism that restricts to the
+identity on $\Sigma$, then for each representative $h$, the operators $P_{2\ell}$
+generated by $\varphi^*h_+$ are the same as those generated by $h_+$. In particular,
+one can take $h_+$ to be in normal form relative to $h$. In the next lemma, we calculate
+explicitly the operators $P_2$ and $P_4$ for a general asymptotically hyperbolic metric
+$h_+$ that is even and in normal form.
+
+\textcolor{red}{In the next lemma, we compute the explicit expressions for $P_2$ and $P_4$, which serve to illustrate the general strategy.}
+
+
+
+\begin{lemma}\label{lem:4.7}
+Let
+\[
+\textcolor{red}{h_+=r^{-2}(dr^2+h_r)}
+\]
+be an asymptotically hyperbolic metric in normal form on $\Sigma\times(0,\varepsilon_0)$,
+where $\Sigma$ has dimension $k$. Suppose
+\[
+h_r=h+h_2r^2+h_4r^4+\cdots .
+\]
+Then
+\begin{equation}\label{eq:4.3}
+P_2=-\Delta+\frac{k-2}{2}Q_2,
+\qquad
+P_4=\Delta^2+\nabla_\alpha(T^{\alpha\beta}\nabla_\beta)
++\frac{k-4}{2}Q_4,
+\end{equation}
+where
+\begin{equation}\label{eq:4.4}
+\begin{aligned}
+Q_2&=-\operatorname{tr}h_2,\\
+T&=-4h_2+(k-2)(\operatorname{tr}h_2)h,\\
+Q_4&=
+8\,\operatorname{tr}h_4
++\Delta(\operatorname{tr}h_2)
+-4|h_2|^2
++\frac{k}{2}(\operatorname{tr}h_2)^2 .
+\end{aligned}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Introduce $\rho=r^2$. Then
+\begin{align*}
+h_+=\frac{d\rho^2}{4\rho^2}+\frac{\mathrm{h}_\rho}{\rho},
+\qquad
+\mathrm{h}_\rho&:=h_r\\
+&=h_0+h_2\rho+h_4\rho^2+\cdots.
+\end{align*}
+At $\rho=0$ we have
+\begin{equation}\label{eq:4.5}
+\mathrm{h}' = h_2,\qquad \mathrm{h}''=2h_4,
+\end{equation}
+where $'=\partial_\rho$. The Laplacian $\Delta_{h_+}$ takes the form
+\[
+\Delta_{h_+}
+=
+4\rho^2\partial_\rho^2
++2(2-k)\rho\partial_\rho
++2\rho^2h^{\alpha\beta}h'_{\alpha\beta}\partial_\rho
++\rho\Delta_{h_\rho}.
+\]
+A direct calculation shows that
+\begin{equation}\label{eq:4.6}
+\begin{split}
+r^{\ell-k/2-2}
+\circ&
+\left(
+\Delta_{h_+}+\bigl((k/2)^2-\ell^2\bigr)
+\right)
+\circ
+r^{k/2-\ell}\\
+&=4\rho\partial_\rho^2+4\left(1-\ell+\frac12\rho h^{\alpha\beta}h'_{\alpha\beta}\right)\partial_\rho+\Delta_{h_\rho}+(k/2-\ell)h^{\alpha\beta}h'_{\alpha\beta}.
+\end{split}
+\end{equation}
+Recall that we are going to figure out
+\begin{align*}
+    \left.r^{-k/2-\ell}
+\left(
+\Delta_{h_+}+\bigl((k/2)^2-\ell^2\bigr)
+\right)\left(r^{k/2-\ell} F\right)=:G,
+\right|_{\Sigma}
+\end{align*}
+where $G|_{\rho=0}=a_{\ell}P_{2\ell}f$.
+Therefore, we know that
+\begin{align*}
+    \begin{split}
+r^{\ell-k/2-2}\circ&
+\left(
+\Delta_{h_+}+\bigl((k/2)^2-\ell^2\bigr)
+\right)
+\left(r^{k/2-\ell}F\right)=r^{2\ell-2}G=\rho^{\ell-1}G.
+    \end{split}
+\end{align*}
+\textcolor{red}{Hence, differentiating $\ell-1$ times both side with respect to $\rho$ and evaluating at $\rho=0$ yield the desired explicit form.}
+
+\begin{enumerate}
+    \item Set $\ell=1$ and $\rho=0$. \eqref{eq:4.6} becomes
+    \begin{align*}
+        \Delta_{h_0}+\left(k/2-\ell\right)\operatorname{tr}(h'),
+    \end{align*}
+which gives $P_2=-\Delta-(k/2-1)\operatorname{tr}h_2$.
+    \item Set $\ell=2$ and $\rho=0$. \eqref{eq:4.6} becomes
+\begin{align*}
+    &4\cdot 0\cdot\partial^2_{\rho}F+4\left(1-2+\frac{1}{2} \cdot 0\cdot h^{\alpha\beta}h^{'}_{\alpha\beta}\right)\partial_{\rho}F\\
+    &+\Delta_{h_0}F+\left(k/2-2\right)\operatorname{tr}(h')F,
+\end{align*}
+which implies 
+\begin{align}\label{eq:2-1}
+    4F^{'}=\left(\Delta_{h_0}+\frac{k-4}{2}\tr h_2\right)F.
+\end{align}
+Differentiating \eqref{eq:4.6} and evaluating at $\rho=0$ become
+\begin{align}
+    &4 \cdot 0\cdot \partial^2_{\rho} F^{'}+4\partial^2_{\rho} F\\
+    &+4\left(1-2+\frac{1}{2}\cdot 0\cdot h^{\alpha\beta}h^{'}_{\alpha\beta}\right)\partial^2_{\rho} F+2\left(h^{\alpha\beta}h^{'}_{\alpha\beta}+0\cdot \left(h^{\alpha\beta}h^{'}_{\alpha\beta}\right)^{'}\right)\partial_{\rho}F\\
+    &\left(\Delta_{h_\rho}+(k/2-2)h^{\alpha\beta}h'_{\alpha\beta}\right)^{'}F+\left(\Delta_{h_\rho}+(k/2-2)h^{\alpha\beta}h'_{\alpha\beta}\right)\partial_{\rho}F\\
+    =&4\partial^2_{\rho} F-4\partial^2_{\rho} F+2\tr h^{'}\partial_{\rho}F+\left(\Delta_{h_\rho}+(k/2-2)\tr h'\right)\partial_{\rho}F\\
+    &+\left(\Delta_{h_\rho}+(k/2-2)h^{\alpha\beta}h'_{\alpha\beta}\right)^{'}F\\
+    =&\left(\Delta_{h_\rho}+\frac{k}{2}\tr h'\right)\partial_{\rho}F+\left(\left(\Delta_{h_\rho}\right)^{'}+\frac{k-4}{2}\left(\tr h'_{\alpha\beta}\right)^{'}\right)F.
+\end{align}
+Now we have to calculate the first variation of the Laplacian $\Delta_{h_{\rho}}$:
+\begin{align*}
+    \left(\Delta_{h_\rho}\right)^{'}=-\left(h^{'}\right)^{\alpha\beta}\nabla^2_{\alpha\beta}-\left(\nabla_{\beta}\left(h^{'}\right)^{\alpha\beta}-\frac{1}{2}\nabla^{\alpha} \left(h^{'}\right)^{\beta}_{\;\;\beta}\right)\nabla_{\alpha},
+\end{align*}
+and
+the derivative of 
+\begin{align*}
+    \left(\tr h'_{\alpha\beta}\right)^{'}=\tr h^{''}-|h^{'}|^2.
+\end{align*}
+Combining them together yields
+\begin{align*}
+    P_4=&\left(\Delta_{h_\rho}+\frac{k}{2}\tr h_2\right)\left(\Delta_{h_\rho}+\frac{k-4}{2}\tr h_2\right)\\
+&-4\left(h^{'}\right)^{\alpha\beta}\nabla^2_{\alpha\beta}-\left(\nabla_{\beta}\left(h^{'}\right)^{\alpha\beta}-4\frac{1}{2}\nabla^{\alpha} \left(h^{'}\right)^{\beta}_{\;\;\beta}\right)\nabla_{\alpha}\\
+&2(k-4)\left(2\tr h_4-|h_2|^2\right).
+\end{align*}
+
+\end{enumerate}
+
+
+\end{proof}
+
+
+
+
+\section{General strategy}
+\subsection{Preliminaries}
+\begin{enumerate}
+    \item Taylor expansion of the vector-valued graph function $U_r$ and the associated metric $h_r$ with respect to $r$. They are contained in the paper: Graham--Reichert: Higher-dimensional Willmore energies via minimal submanifold.
+    \item The first variations of basic tensors and operators: Laplacian, etc.
+\end{enumerate}
+
+\subsection{Algorithm}
+\begin{enumerate}
+    \item For fixed integer $\ell$, we have to differentiate \eqref{eq:4.6} $\ell-1$ times.
+    \item Evaluate \eqref{eq:4.6} up to its $\ell-1$-th derivatives. So we have $\ell$ equations involving $F$ and its derivatives which will be substitute into \eqref{eq:4.6}'s $\ell-1$-th derivative for simplification.
+    \item In the previous step, to figure out all appearing tensors, we have to use the data in preliminaries.
+\end{enumerate}
+
+\end{document}

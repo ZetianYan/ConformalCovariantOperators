@@ -1,0 +1,15 @@
+name = "ExtrinsicGJMSOperators"
+version = "0.1.0"
+defaultTargets = ["extrinsicgjmsoperators"]
+
+[[lean_lib]]
+name = "ExtrinsicGJMSOperators"
+
+[[lean_exe]]
+name = "extrinsicgjmsoperators"
+root = "Main"
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.26.0"
