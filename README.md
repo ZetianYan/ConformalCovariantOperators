@@ -1,7 +1,8 @@
-# Higher Order Extrinsic GJMS Operators
+# Conformal Covariant Operators
 
-This repository is a Lean 4 formalization project for higher-order extrinsic
-GJMS operators and related ambient, poly-GJMS, Ovsienko-Redou, and Juhl-type
+This repository is a Lean 4 formalization project for conformally covariant
+differential operators, including higher-order extrinsic GJMS operators and
+related ambient, poly-GJMS, Ovsienko-Redou, tree-recurrence, and Juhl-type
 formula structures.
 
 The project is being developed by ZeTian Yan and Victor Xiao.
@@ -10,72 +11,89 @@ The project is being developed by ZeTian Yan and Victor Xiao.
 
 ```mermaid
 mindmap
-  root((ExtrinsicGJMSOperators))
-    Geometry
-      Conformal
+  root((ConformalCovariantOperators))
+    Conformal
+      Basic
+      Density
+    Ambient
+      Ambientbasic
+      Ambientdensity
+      Ambientoperator
+      Ambienttangential
+      FG
+        Index
+        NormalForm
+        InverseMetric
+        Christoffel
+        Laplacian
+        Commutators
+        CalculusInstance
+        RicciNormalForm
+        FormalJets
+        Recursion
+        Obstruction
+    GJMSoperators
+      Basic
+      Ambientconstruction
+      Tangentiality
+    PolyGJMSoperators
+      Basic
+      Homogeneity
+      Operators
+      Boundary
+      Tangential
+      Bidifferential
+      LaplacianWords
+      Tree
+        TreeLaplacianWords
+        TreeRecurrence
+        TreeDefectCancellation
+        TreeChainComplex
+      LinearCombination
+      PolyLaplacianCombination
+      OvsienkoRedou
+      OR
+        Index
+        OperatorData
+        DefectCancellation
+        ClosedOperator
+        Coefficients
+          Parameters
+          Combinatorics
+          Recurrence
+          RatioLemmas
+          ClosedFormula
+          ClosedSatisfiesRecurrence
+    Juhlformula
+      Juhloperators
         Basic
-        Density
-      Ambient
-        Ambientbasic
-        Ambientdensity
-        Ambientoperator
-        Ambienttangential
-      GJMSoperators
-        Basic
-        Ambientconstruction
-        Tangentiality
-      PolyGJMSoperators
-        Basic
-        Homogeneity
-        Operators
-        Boundary
-        Tangential
-        Bidifferential
-        LaplacianWords
-        Tree
-          TreeLaplacianWords
-          TreeRecurrence
-          TreeDefectCancellation
-          TreeChainComplex
-        LinearCombination
-        PolyLaplacianCombination
-        OvsienkoRedou
-        OR
-          Index
-          OperatorData
-          DefectCancellation
-          ClosedOperator
-          Coefficients
-            Parameters
-            Combinatorics
-            Recurrence
-            RatioLemmas
-            ClosedFormula
-            ClosedSatisfiesRecurrence
-      Juhlformula
-        Juhloperators
-          Basic
-          Composition
-          GJMSComposition
-          Coefficients
-        Juhlcombinatorics
-          FormalJets
-          Recursion
-          LowOrderCheck
-          FormalStatement
-          ORBridge
-          CurvedORJuhlFormula
+        Composition
+        GJMSComposition
+        Coefficients
+      Juhlcombinatorics
+        FormalJets
+        Recursion
+        LowOrderCheck
+        FormalStatement
+        ORBridge
+        CurvedORJuhlFormula
 ```
 
 ## Mathematical Layers
 
 ### 1. Conformal and Ambient Foundations
 
-The files under `Geometry/Conformal` and `Geometry/Ambient` provide the formal
+The files under `Conformal` and `Ambient` provide the formal
 background objects used by the operator constructions:
 
 - conformal structures and densities;
 - formal ambient bundles and straight-form ambient data;
+- Fefferman-Graham straight normal-form component calculus, including ambient
+  indices, metric components, inverse metric components, Christoffel symbols,
+  normal-form `Q = 2 rho t^2`, commutator identities, and a bridge to
+  `Calculus.AlgebraicIdentities`;
+- Fefferman-Graham Ricci normal-form equations, finite formal metric jets,
+  finite-order recursion scaffolding, and even-dimensional obstruction data;
 - ambient scalar functions, ambient Laplacian powers, homogeneity, and `Q`-mod
   tangentiality;
 - weighted tangential ambient operators.
@@ -84,7 +102,7 @@ These files are the base layer for both the GJMS and poly-GJMS developments.
 
 ### 2. GJMS Operators
 
-The `Geometry/GJMSoperators` directory packages powers of the ambient Laplacian
+The `GJMSoperators` directory packages powers of the ambient Laplacian
 as abstract GJMS-type operators.
 
 Important interfaces include:
@@ -100,7 +118,7 @@ side.
 
 ### 3. Poly-GJMS and Ovsienko-Redou Side
 
-The `Geometry/PolyGJMSoperators` directory develops the poly-laplacian and
+The `PolyGJMSoperators` directory develops the poly-laplacian and
 Ovsienko-Redou formalism.
 
 The main ingredients are:
@@ -134,7 +152,7 @@ only on the general rank `(r+1)` tangentiality and recurrence side.
 
 ### 4. Juhl Formula: Composition Side
 
-The `Geometry/Juhlformula/Juhloperators` directory formalizes the ordered
+The `Juhlformula/Juhloperators` directory formalizes the ordered
 composition side of Juhl-type formulas.
 
 Current files:
@@ -152,7 +170,7 @@ P_{2I} = P_{2I_1} o ... o P_{2I_r}.
 
 ### 5. Juhl Formula: Formal Obstruction Side
 
-The `Geometry/Juhlformula/Juhlcombinatorics` directory formalizes the
+The `Juhlformula/Juhlcombinatorics` directory formalizes the
 syntax-level obstruction recursion.
 
 Current files:
@@ -234,19 +252,25 @@ lake build
 To build the current Juhl formula scaffold:
 
 ```bash
-lake build ExtrinsicGJMSOperators.Geometry.Juhlformula.Juhlcombinatorics
+lake build ConformalCovariantOperators.Juhlformula.Juhlcombinatorics
 ```
 
 To build the rank-general left-comb tree formalization:
 
 ```bash
-lake build ExtrinsicGJMSOperators.Geometry.PolyGJMSoperators.Tree
+lake build ConformalCovariantOperators.PolyGJMSoperators.Tree
+```
+
+To build the Fefferman-Graham normal-form scaffold:
+
+```bash
+lake build ConformalCovariantOperators.Ambient.FG
 ```
 
 To check exported Juhl interfaces interactively:
 
 ```lean
-import ExtrinsicGJMSOperators.Geometry.Juhlformula.Juhlcombinatorics
+import ConformalCovariantOperators.Juhlformula.Juhlcombinatorics
 
 #check ConformalStructure.Ambient.Operators.Calculus.Juhl.FormalExpr
 #check ConformalStructure.Ambient.Operators.Calculus.Juhl.formalP
@@ -256,7 +280,7 @@ import ExtrinsicGJMSOperators.Geometry.Juhlformula.Juhlcombinatorics
 To check exported tree-word interfaces interactively:
 
 ```lean
-import ExtrinsicGJMSOperators.Geometry.PolyGJMSoperators.Tree
+import ConformalCovariantOperators.PolyGJMSoperators.Tree
 
 #check ConformalStructure.Ambient.Operators.Calculus.CombIndex
 #check ConformalStructure.Ambient.Operators.Calculus.CombIndex.toOperator
@@ -269,6 +293,10 @@ import ExtrinsicGJMSOperators.Geometry.PolyGJMSoperators.Tree
 Implemented:
 
 - ambient formal calculus and tangentiality framework;
+- Fefferman-Graham straight normal-form scaffold and
+  `FG_algebraicIdentities` bridge into the existing ambient calculus;
+- Fefferman-Graham Ricci normal-form symbolic equations, formal metric jets,
+  finite recursion wrappers, and obstruction tensor scaffold;
 - abstract and canonical GJMS operators;
 - poly-GJMS and OR coefficient infrastructure;
 - rank-general left-comb tree Laplacian word syntax;
@@ -300,8 +328,9 @@ Next natural steps:
 Useful imports:
 
 ```lean
-import ExtrinsicGJMSOperators.Geometry.GJMSoperators.Tangentiality
-import ExtrinsicGJMSOperators.Geometry.PolyGJMSoperators.Tree
-import ExtrinsicGJMSOperators.Geometry.PolyGJMSoperators.OR
-import ExtrinsicGJMSOperators.Geometry.Juhlformula.Juhlcombinatorics
+import ConformalCovariantOperators.GJMSoperators.Tangentiality
+import ConformalCovariantOperators.Ambient.FG
+import ConformalCovariantOperators.PolyGJMSoperators.Tree
+import ConformalCovariantOperators.PolyGJMSoperators.OR
+import ConformalCovariantOperators.Juhlformula.Juhlcombinatorics
 ```

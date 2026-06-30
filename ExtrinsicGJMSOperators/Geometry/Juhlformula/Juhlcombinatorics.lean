@@ -1,6 +1,0 @@
-import ExtrinsicGJMSOperators.Geometry.Juhlformula.Juhlcombinatorics.FormalJets
-import ExtrinsicGJMSOperators.Geometry.Juhlformula.Juhlcombinatorics.Recursion
-import ExtrinsicGJMSOperators.Geometry.Juhlformula.Juhlcombinatorics.LowOrderCheck
-import ExtrinsicGJMSOperators.Geometry.Juhlformula.Juhlcombinatorics.FormalStatement
-import ExtrinsicGJMSOperators.Geometry.Juhlformula.Juhlcombinatorics.ORBridge
-import ExtrinsicGJMSOperators.Geometry.Juhlformula.Juhlcombinatorics.CurvedORJuhlFormula

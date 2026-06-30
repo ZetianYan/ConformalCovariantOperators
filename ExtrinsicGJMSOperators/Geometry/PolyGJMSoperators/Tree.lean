@@ -1,4 +1,0 @@
-import ExtrinsicGJMSOperators.Geometry.PolyGJMSoperators.TreeLaplacianWords
-import ExtrinsicGJMSOperators.Geometry.PolyGJMSoperators.TreeRecurrence
-import ExtrinsicGJMSOperators.Geometry.PolyGJMSoperators.TreeDefectCancellation
-import ExtrinsicGJMSOperators.Geometry.PolyGJMSoperators.TreeChainComplex

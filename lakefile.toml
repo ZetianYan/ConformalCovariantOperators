@@ -1,12 +1,12 @@
-name = "ExtrinsicGJMSOperators"
+name = "ConformalCovariantOperators"
 version = "0.1.0"
-defaultTargets = ["extrinsicgjmsoperators"]
+defaultTargets = ["conformalcovariantoperators"]
 
 [[lean_lib]]
-name = "ExtrinsicGJMSOperators"
+name = "ConformalCovariantOperators"
 
 [[lean_exe]]
-name = "extrinsicgjmsoperators"
+name = "conformalcovariantoperators"
 root = "Main"
 
 [[require]]

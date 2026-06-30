@@ -1,1 +1,0 @@
-import ExtrinsicGJMSOperators.Geometry.Conformal.Basic
