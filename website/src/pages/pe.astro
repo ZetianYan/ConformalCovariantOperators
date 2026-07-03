@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Math from '../components/Math.astro'
+import { sourceFile } from '../data/site'
+---
+
+<BaseLayout title="Poincaré–Einstein Geometry">
+  <section class="page-intro">
+    <div class="site-shell">
+      <p class="eyebrow">Poincaré–Einstein Geometry</p>
+
+      <h1>Compactification, normal form, Einstein data, and the ambient cone bridge.</h1>
+
+      <p>
+        The PE layer turns conformally compact bulk-and-boundary data into a
+        formal interface for normal-form geometry, renormalization, and
+        invariant applications.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell grid-2">
+      <article class="card">
+        <h3>Defining Functions</h3>
+
+        <Math display tex="r>0,\qquad r=0\ \text{on}\ \partial X" />
+
+        <Math display tex="\overline g=r^2g_+" />
+
+        <p>
+          Boundary defining functions compactify the PE metric. Geodesic
+          defining functions additionally encode the normalized gradient
+          condition required by Poincaré normal form.
+        </p>
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Ambient/PE/DefiningFunction.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open DefiningFunction.lean ↗
+        </a>
+      </article>
+
+      <article class="card">
+        <h3>Poincaré Normal Form</h3>
+
+        <Math display tex="g_+=r^{-2}(dr^2+h_r)" />
+
+        <p>
+          The formal PE normal-form package records the boundary metric
+          <Math tex="h_0" />, the collar family <Math tex="h_r" />, and their
+          compatibility with conformal infinity.
+        </p>
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Ambient/PE/NormalForm.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open NormalForm.lean ↗
+        </a>
+      </article>
+
+      <article class="card">
+        <h3>Einstein Equation and Parity</h3>
+
+        <Math display tex="\operatorname{Ric}(g_+)=-ng_+" />
+
+        <Math display tex="h_r=h_0+h_2r^2+h_4r^4+\cdots" />
+
+        <p>
+          The implementation records the PE Einstein condition with formal
+          even-expansion and trace-free obstruction certificates.
+        </p>
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Ambient/PE/EinsteinEquation.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open EinsteinEquation.lean ↗
+        </a>
+      </article>
+
+      <article class="card">
+        <h3>Ambient–PE Bridge</h3>
+
+        <Math display tex="\rho=-\frac{r^2}{2},\qquad s=rt" />
+
+        <Math display tex="g_{\mathrm{ambient}}=-ds^2+s^2g_+" />
+
+        <p>
+          The bridge connects Fefferman–Graham normal-form data with PE
+          geometry through the radial coordinate change and cone decomposition.
+        </p>
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Ambient/PE/AmbientBridge.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open AmbientBridge.lean ↗
+        </a>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

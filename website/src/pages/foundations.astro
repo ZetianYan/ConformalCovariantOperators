@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Math from '../components/Math.astro'
+import { sourceFile } from '../data/site'
+---
+
+<BaseLayout title="Foundations">
+  <section class="page-intro">
+    <div class="site-shell">
+      <p class="eyebrow">Foundations</p>
+
+      <h1>Conformal structures, densities, and formal ambient calculus.</h1>
+
+      <p>
+        The foundational layer provides the abstract objects used by later
+        GJMS, Fefferman–Graham, and Poincaré–Einstein developments.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell grid-2">
+      <article class="card">
+        <h3>Conformal Structure</h3>
+
+        <p>
+          A conformal structure records a positive ray of compatible metrics
+          over each point. A chosen scale selects one representative.
+        </p>
+
+        <Math display tex="\mathcal G \to M" />
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Conformal/Basic.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open Basic.lean ↗
+        </a>
+      </article>
+
+      <article class="card">
+        <h3>Conformal Densities</h3>
+
+        <p>
+          Densities are represented both through scale-dependent descriptions
+          and equivariant functions on the metric bundle.
+        </p>
+
+        <Math display tex="F(\delta_r u)=\chi(r)F(u)" />
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Conformal/Density.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open Density.lean ↗
+        </a>
+      </article>
+
+      <article class="card">
+        <h3>Ambient Bundle</h3>
+
+        <p>
+          The formal ambient carrier extends the metric bundle by the normal
+          coordinate <Math tex="\rho" />.
+        </p>
+
+        <Math display tex="\widetilde{\mathcal G}=\mathcal G\times\mathbb R_\rho" />
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Ambient/Ambientbasic.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open Ambientbasic.lean ↗
+        </a>
+      </article>
+
+      <article class="card">
+        <h3>Formal Ambient Calculus</h3>
+
+        <p>
+          The formal calculus stores the defining function <Math tex="Q" />,
+          the dilation field <Math tex="X" />, and Laplacian identities as
+          explicit algebraic laws.
+        </p>
+
+        <Math display tex="XQ=2Q" />
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Ambient/Ambientoperator.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open Ambientoperator.lean ↗
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section border-top">
+    <div class="site-shell">
+      <div class="note">
+        This layer intentionally separates abstract interfaces and certified
+        algebraic identities from a future full tensor-calculus realization.
+      </div>
+    </div>
+  </section>
+</BaseLayout>

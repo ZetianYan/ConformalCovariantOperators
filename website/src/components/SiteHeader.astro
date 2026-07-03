@@ -1,0 +1,62 @@
+---
+import { navigation, project } from '../data/site'
+
+const base = import.meta.env.BASE_URL
+
+const currentPath =
+  Astro.url.pathname
+    .replace(base.replace(/\/$/, ''), '')
+    .replace(/\/$/, '') || '/'
+
+function href(slug: string) {
+  return slug ? `${base}${slug}/` : base
+}
+
+function isActive(slug: string) {
+  if (!slug) return currentPath === '/'
+  return currentPath === `/${slug}`
+}
+---
+
+<header class="site-header">
+  <div class="site-shell header-inner">
+    <a class="brand" href={href('')} aria-label={`${project.title} home`}>
+      <span class="brand-mark">CCO</span>
+
+      <span class="brand-text">
+        <strong>Conformal Covariant Operators</strong>
+        <small>Lean 4 formalization</small>
+      </span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      {
+        navigation.map((item) => (
+          <a
+            href={href(item.slug)}
+            class:list={{ active: isActive(item.slug) }}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <details class="mobile-nav">
+      <summary>Menu</summary>
+
+      <div class="mobile-menu">
+        {
+          navigation.map((item) => (
+            <a
+              href={href(item.slug)}
+              class:list={{ active: isActive(item.slug) }}
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </div>
+    </details>
+  </div>
+</header>

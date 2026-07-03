@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Math from '../components/Math.astro'
+import { sourceFile } from '../data/site'
+---
+
+<BaseLayout title="Applications">
+  <section class="page-intro">
+    <div class="site-shell">
+      <p class="eyebrow">Applications</p>
+
+      <h1>Natural divergences, Case-type recursion, and Pfaffian applications.</h1>
+
+      <p>
+        The first development line culminates in formal proof pipelines for
+        renormalized curvature identities under explicit semantic and analytic
+        interfaces.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell grid-2">
+      <article class="card">
+        <h3>Natural Divergences</h3>
+
+        <Math display tex="I=\operatorname{div}F" />
+
+        <Math display tex="\operatorname{RInt}(\operatorname{div}F)=0" />
+
+        <p>
+          Under the stated even-dimensional and weight conditions, the
+          renormalization package records the vanishing of renormalized
+          integrals of natural divergences.
+        </p>
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Ambient/PE/Invariants/NaturalDivergence.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open NaturalDivergence.lean ↗
+        </a>
+      </article>
+
+      <article class="card">
+        <h3>Case-Type Recursion</h3>
+
+        <Math
+          display
+          tex="\mathcal L_{n,k,j}(I)=\Delta I-\frac{4(k+j)(n-2k-2j-1)}{n}JI"
+        />
+
+        <p>
+          The formal recursion tracks exact conformal-weight descent and
+          relates base invariants to iterated ambient Laplacians.
+        </p>
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Ambient/PE/Invariants/LaplacianRecursion.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open LaplacianRecursion.lean ↗
+        </a>
+      </article>
+
+      <article class="card">
+        <h3>Pfaffian-Type Invariants</h3>
+
+        <Math
+          display
+          tex="P_{\ell,n}=i^*\left(\widetilde\Delta^{n/2-\ell}\operatorname{Pf}_{\ell}(\widetilde{\operatorname{Rm}})\right)"
+        />
+
+        <p>
+          Pfaffian-like Weyl contractions and ambient counterparts produce
+          critical-weight scalar conformal invariants.
+        </p>
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Ambient/PE/Invariants/Pfaffian.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open Pfaffian.lean ↗
+        </a>
+      </article>
+
+      <article class="card">
+        <h3>Formal Pfaffian Application</h3>
+
+        <Math
+          display
+          tex="(2\pi)^{n/2}\chi(X)=(-1)^{n/2}(n-1)!!\operatorname{RenVol}(X)+\sum_{\ell=2}^{n/2}c_{n,\ell}\int P_{\ell,n}"
+        />
+
+        <p>
+          The final application assembles a Gauss–Bonnet-style identity from
+          explicit Albin and Pfaffian-reduction certificate inputs.
+        </p>
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Ambient/PE/Applications/PfaffianApplication.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open PfaffianApplication.lean ↗
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section border-top">
+    <div class="site-shell">
+      <div class="note">
+        The displayed theorem pipelines are formal results relative to named
+        semantic and analytic interfaces. They should not be read as
+        unconditional analytic proofs of every external geometric input.
+      </div>
+    </div>
+  </section>
+</BaseLayout>

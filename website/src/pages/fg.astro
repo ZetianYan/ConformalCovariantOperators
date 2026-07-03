@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Math from '../components/Math.astro'
+import { sourceFile } from '../data/site'
+---
+
+<BaseLayout title="Fefferman–Graham Geometry">
+  <section class="page-intro">
+    <div class="site-shell">
+      <p class="eyebrow">Fefferman–Graham Geometry</p>
+
+      <h1>Normal form, Ricci equations, finite jets, and obstruction data.</h1>
+
+      <p>
+        The FG layer organizes normal-form ambient metric components and the
+        formal Ricci-recursion structures that support later geometric
+        constructions.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell grid-2">
+      <article class="card">
+        <h3>Normal-Form Metric Components</h3>
+
+        <Math
+          display
+          tex="\widetilde g=2\rho\,dt^2+2t\,dt\,d\rho+t^2g_{ij}(x,\rho)\,dx^i dx^j"
+        />
+
+        <p>
+          The implementation records a component-level normal-form model,
+          including the inverse metric and coordinate-index decomposition.
+        </p>
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Ambient/FG/NormalForm.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open NormalForm.lean ↗
+        </a>
+      </article>
+
+      <article class="card">
+        <h3>Commutator Infrastructure</h3>
+
+        <Math
+          display
+          tex="\widetilde\Delta(Qf)=Q\widetilde\Delta f+2(2Xf+(n+2)f)"
+        />
+
+        <p>
+          These relations connect the defining function, homogeneity operator,
+          and ambient Laplacian used by tangentiality arguments.
+        </p>
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Ambient/FG/Commutators.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open Commutators.lean ↗
+        </a>
+      </article>
+
+      <article class="card">
+        <h3>Ricci Normal Form</h3>
+
+        <Math
+          display
+          tex="\widetilde{\operatorname{Ric}}_{ij}=\rho g''_{ij}-\rho(g'g^{-1}g')_{ij}+\cdots+\operatorname{Ric}(g_\rho)_{ij}"
+        />
+
+        <p>
+          Symbolic Ricci component equations are stored together with
+          certificate interfaces for base-base, base-infinity, and
+          infinity-infinity components.
+        </p>
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Ambient/FG/RicciNormalForm.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open RicciNormalForm.lean ↗
+        </a>
+      </article>
+
+      <article class="card">
+        <h3>Finite Jets and Obstruction</h3>
+
+        <Math display tex="g_\rho=g+\rho g^{(1)}+\cdots+\rho^K g^{(K)}" />
+
+        <Math display tex="g^{(1)}=2P" />
+
+        <p>
+          Finite metric jets, Ricci recursion data, and an even-dimensional
+          obstruction scaffold are prepared for later finite-order existence
+          theorems.
+        </p>
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Ambient/FG/FormalJets.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open FormalJets.lean ↗
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section border-top">
+    <div class="site-shell">
+      <div class="note">
+        The current FG layer provides formal normal-form data, symbolic Ricci
+        equations, and finite-recursion interfaces. It does not claim a
+        completed tensor-calculus derivation of every certificate field.
+      </div>
+    </div>
+  </section>
+</BaseLayout>

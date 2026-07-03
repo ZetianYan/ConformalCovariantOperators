@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Math from '../components/Math.astro'
+import { sourceFile } from '../data/site'
+---
+
+<BaseLayout title="Renormalization">
+  <section class="page-intro">
+    <div class="site-shell">
+      <p class="eyebrow">Renormalization</p>
+
+      <h1>Laurent–log expansions, finite parts, anomalies, and renormalized integrals.</h1>
+
+      <p>
+        The renormalization layer provides a reusable interface for
+        cutoff-dependent geometric quantities and their finite-part
+        regularization.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell grid-2">
+      <article class="card">
+        <h3>Laurent–Log Expansion</h3>
+
+        <Math
+          display
+          tex="\sum_m a_m\varepsilon^m+L\log\varepsilon+o(1)"
+        />
+
+        <p>
+          Finite exponent support, logarithmic coefficients, and parity
+          conditions are recorded separately from analytic remainder estimates.
+        </p>
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Ambient/PE/Renormalization/LaurentLogExpansion.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open LaurentLogExpansion.lean ↗
+        </a>
+      </article>
+
+      <article class="card">
+        <h3>Finite Parts and Anomalies</h3>
+
+        <Math display tex="\operatorname{FP}(E)=a_0" />
+
+        <Math display tex="\operatorname{Anom}_{\log}(E)=L" />
+
+        <p>
+          The constant Laurent coefficient defines the finite part, while the
+          logarithmic coefficient is retained as the anomaly.
+        </p>
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Ambient/PE/Renormalization/FinitePart.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open FinitePart.lean ↗
+        </a>
+      </article>
+
+      <article class="card">
+        <h3>Renormalized Volume</h3>
+
+        <Math
+          display
+          tex="\operatorname{RenVol}(X)=\operatorname{FP}(\operatorname{Vol}_\varepsilon(X))"
+        />
+
+        <p>
+          PE cutoff-volume data is connected to the generic finite-part
+          mechanism without claiming that the analytic volume expansion is
+          derived in this layer.
+        </p>
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Ambient/PE/Renormalization/Volume.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open Volume.lean ↗
+        </a>
+      </article>
+
+      <article class="card">
+        <h3>Renormalized Curvature Integrals</h3>
+
+        <Math
+          display
+          tex="\operatorname{Ren}\!\int I=\operatorname{FP}\!\left(\int_{r>\varepsilon}I\,dV_{g_+}\right)"
+        />
+
+        <p>
+          A generic invariant parameter allows later curvature-invariant
+          modules to use the same cutoff and finite-part infrastructure.
+        </p>
+
+        <a
+          class="source-link"
+          href={sourceFile('ConformalCovariantOperators/Ambient/PE/Renormalization/CurvatureIntegral.lean')}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open CurvatureIntegral.lean ↗
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section border-top">
+    <div class="site-shell">
+      <div class="note">
+        The current implementation formalizes finite-part extraction and the
+        interfaces connecting cutoff data to renormalized quantities. Analytic
+        existence, convergence, and asymptotic-expansion proofs remain explicit
+        external inputs where required.
+      </div>
+    </div>
+  </section>
+</BaseLayout>

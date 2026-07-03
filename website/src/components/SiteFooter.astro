@@ -1,0 +1,28 @@
+---
+import { project } from '../data/site'
+---
+
+<footer class="site-footer">
+  <div class="site-shell footer-inner">
+    <div>
+      <strong>{project.title}</strong>
+
+      <p>
+        Static research showcase for a Lean 4 formalization of conformal and
+        Poincaré–Einstein geometry.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <a
+        href={project.sourceRepository}
+        target="_blank"
+        rel="noreferrer"
+      >
+        Source Repository ↗
+      </a>
+
+      <span>Source code: {project.license}</span>
+    </div>
+  </div>
+</footer>

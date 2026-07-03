@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Math from '../components/Math.astro'
+import { project } from '../data/site'
+
+const base = import.meta.env.BASE_URL
+---
+
+<BaseLayout title={project.title}>
+  <section class="hero">
+    <div class="site-shell">
+      <p class="eyebrow">Lean 4 · Conformal Geometry · Ambient Construction</p>
+
+      <h1>From conformal structure to renormalized geometric invariants.</h1>
+
+      <p class="hero-copy">
+        A static research showcase for the first development line of
+        Conformal Covariant Operators: conformal densities, ambient geometry,
+        Fefferman–Graham normal form, Poincaré–Einstein geometry,
+        renormalization, and Pfaffian-type applications.
+      </p>
+
+      <div class="hero-actions">
+        <a class="button" href={`${base}foundations/`}>
+          Explore the first line
+        </a>
+
+        <a
+          class="button secondary"
+          href={project.sourceRepository}
+          target="_blank"
+          rel="noreferrer"
+        >
+          View Lean source ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell">
+      <div class="section-heading">
+        <h2>First development line</h2>
+
+        <p>
+          The mathematical narrative moves from conformal data to formal
+          ambient constructions, then through Poincaré–Einstein geometry toward
+          renormalized curvature identities.
+        </p>
+      </div>
+
+      <div class="pipeline">
+        <div class="pipeline-step">Conformal structures and densities</div>
+        <div class="pipeline-step">Ambient bundle and formal ambient calculus</div>
+        <div class="pipeline-step">Fefferman–Graham normal form</div>
+        <div class="pipeline-step">
+          Ricci equations, formal jets, recursion, and obstruction data
+        </div>
+        <div class="pipeline-step">
+          Poincaré–Einstein compactification and normal form
+        </div>
+        <div class="pipeline-step">Ambient–PE cone decomposition</div>
+        <div class="pipeline-step">
+          Symbolic invariants and ambient Laplacian recursion
+        </div>
+        <div class="pipeline-step">
+          Laurent–log renormalization and finite parts
+        </div>
+        <div class="pipeline-step">
+          Renormalized volume, curvature integrals, and Pfaffian applications
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section border-top">
+    <div class="site-shell">
+      <div class="section-heading">
+        <h2>Core geometric transitions</h2>
+
+        <p>
+          The website presents the formal interfaces and proved algebraic
+          mechanisms implemented in Lean, while clearly distinguishing them
+          from future tensor-calculus or analytic backends.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Ambient Geometry</h3>
+
+          <p>
+            Formal ambient data records the defining function, dilation field,
+            Laplacian identities, and tangentiality mechanisms.
+          </p>
+
+          <Math
+            display
+            tex="\widetilde{\Delta}^k : \mathcal E[k-\frac n2] \to \mathcal E[-k-\frac n2]"
+          />
+        </article>
+
+        <article class="card">
+          <h3>Poincaré–Einstein Geometry</h3>
+
+          <p>
+            The PE layer organizes defining functions, compactification,
+            Poincaré normal form, Einstein certificates, and the ambient cone
+            bridge.
+          </p>
+
+          <Math display tex="g_+ = r^{-2}(dr^2+h_r)" />
+        </article>
+
+        <article class="card">
+          <h3>Renormalized Invariants</h3>
+
+          <p>
+            Laurent–log expansions support finite-part extraction,
+            logarithmic anomalies, renormalized volume, and curvature
+            integrals.
+          </p>
+
+          <Math display tex="\operatorname{FP}(E)=a_0" />
+        </article>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
