@@ -74,7 +74,8 @@ export default function Home() {
   useEffect(() => {
     if (!selected?.file) return;
     setLoading(true); setCode("");
-    fetch(`/source/${selected.file}`).then(r => r.text()).then(setCode).catch(() => setCode("Unable to load this source file.")).finally(() => setLoading(false));
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+    fetch(`${basePath}/source/${selected.file}`).then(r => r.text()).then(setCode).catch(() => setCode("Unable to load this source file.")).finally(() => setLoading(false));
   }, [selected]);
 
   function find(node: MapNode): MapNode[] { const own = node.name.toLowerCase().includes(query.toLowerCase()) ? [node] : []; return [...own, ...(node.children?.flatMap(find) ?? [])]; }

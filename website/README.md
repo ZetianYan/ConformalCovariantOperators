@@ -26,5 +26,11 @@ Then open <http://localhost:3000>.
 npm run build
 ```
 
+The static export is written to `out/`. Pushes to `main` that modify this
+folder automatically deploy the site with GitHub Pages through
+`.github/workflows/deploy-website.yml`.
+
+Published URL: <https://zetianyan.github.io/ConformalCovariantOperators/>
+
 The website was developed for the Conformal Covariant Operators project by
 ZeTian Yan, Victor Xiao, and Tao Xu.
