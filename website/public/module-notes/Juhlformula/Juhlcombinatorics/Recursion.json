@@ -1,0 +1,131 @@
+{
+  "file": "Juhlformula/Juhlcombinatorics/Recursion.lean",
+  "title": "Recursion",
+  "status": "verified",
+  "summary": "Performs syntax-level recursive elimination of normal jets and defines the formal obstruction expression formalP.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Performs syntax-level recursive elimination of normal jets and defines the formal obstruction expression formalP.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Juhlformula/Juhlcombinatorics/Recursion.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "substF",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: subst F. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def substF (σ : ℕ → FormalExpr) : FormalExpr → FormalExpr | zero => zero | one => one | rat q => rat q | k => k | f => f | F m => σ m",
+      "line": 18
+    },
+    {
+      "leanDeclaration": "solveStepCoeff",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: solve Step Coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def solveStepCoeff (ell s : ℕ) : ℚ",
+      "line": 34
+    },
+    {
+      "leanDeclaration": "solvedJetAux",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: solved Jet Aux. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def solvedJetAux (ell : ℕ) : ℕ → FormalExpr | 0 => FormalExpr.f | s + 1 => let σ : ℕ → FormalExpr",
+      "line": 39
+    },
+    {
+      "leanDeclaration": "solvedJet",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: solved Jet. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def solvedJet (ell m : ℕ) : FormalExpr",
+      "line": 55
+    },
+    {
+      "leanDeclaration": "solvedJet_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: solved Jet zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem solvedJet_zero (ell : ℕ) : solvedJet ell 0 = FormalExpr.f",
+      "line": 59
+    },
+    {
+      "leanDeclaration": "solvedSubst",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: solved Subst. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def solvedSubst (ell : ℕ) : ℕ → FormalExpr",
+      "line": 64
+    },
+    {
+      "leanDeclaration": "obstructionCoeff",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: obstruction Coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def obstructionCoeff (ell : ℕ) : FormalExpr",
+      "line": 68
+    },
+    {
+      "leanDeclaration": "obstructionCoeff_one",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: obstruction Coeff one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem obstructionCoeff_one : obstructionCoeff 1 = FormalExpr.substF (solvedSubst 1) (Lcoeff 1 0)",
+      "line": 76
+    },
+    {
+      "leanDeclaration": "aEllInv",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: a Ell Inv. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def aEllInv (ell : ℕ) : ℚ",
+      "line": 82
+    },
+    {
+      "leanDeclaration": "formalP",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: formal P. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def formalP (ell : ℕ) : FormalExpr",
+      "line": 91
+    },
+    {
+      "leanDeclaration": "aEllInv_one",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: a Ell Inv one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem aEllInv_one : aEllInv 1 = -1",
+      "line": 95
+    },
+    {
+      "leanDeclaration": "aEllInv_two",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: a Ell Inv two. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem aEllInv_two : aEllInv 2 = 4",
+      "line": 100
+    },
+    {
+      "leanDeclaration": "aEllInv_three",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: a Ell Inv three. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem aEllInv_three : aEllInv 3 = -64",
+      "line": 105
+    }
+  ],
+  "prerequisites": [
+    "Juhlformula/Juhlcombinatorics/FormalJets.lean"
+  ],
+  "usedBy": [
+    "Juhlformula/Juhlcombinatorics/LowOrderCheck.lean",
+    "Juhlformula/Juhlcombinatorics.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "ChernYan-2024",
+      "locator": "Formal Juhl-type formula and OR bridge",
+      "note": "Primary source for the intended curved OR–Juhl identity."
+    },
+    {
+      "referenceId": "Juhl-2011",
+      "locator": "GJMS composition formulas",
+      "note": "Source for the Juhl side of the formal syntax."
+    }
+  ],
+  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+}

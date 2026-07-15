@@ -1,0 +1,99 @@
+{
+  "file": "Ambient/FG/Christoffel.lean",
+  "title": "Christoffel",
+  "status": "verified-under-interface",
+  "summary": "Records the Christoffel-symbol components associated with the straight ambient normal form.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Records the Christoffel-symbol components associated with the straight ambient normal form.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/FG/Christoffel.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "ChristoffelComponents",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Christoffel Components. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure ChristoffelComponents (ι : Type w) extends NormalInverseMetricComponents ι",
+      "line": 25
+    },
+    {
+      "leanDeclaration": "baseDelta",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: base Delta. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def baseDelta [DecidableEq ι] (i j : ι) : ℝ",
+      "line": 32
+    },
+    {
+      "leanDeclaration": "baseDelta_self",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: base Delta self. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem baseDelta_self [DecidableEq ι] (i : ι) : baseDelta i i = 1",
+      "line": 36
+    },
+    {
+      "leanDeclaration": "christoffelComp",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: christoffel Comp. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def christoffelComp [DecidableEq ι] (C : ChristoffelComponents ι) : AmbientIndex ι → AmbientIndex ι → AmbientIndex ι → ℝ | AmbientIndex.zero, AmbientIndex.base i, AmbientIndex.base j => -(1 / 2 : ℝ) * C.t * C.dRhoG i j | AmbientIndex.base k, AmbientIndex.zero, AmbientIndex.base j => C.t⁻¹ * baseDelta j k | AmbientIndex.base k, AmbientIndex.base j, AmbientIndex.zero =>",
+      "line": 41
+    },
+    {
+      "leanDeclaration": "christoffel_zero_base_base",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: christoffel zero base base. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem christoffel_zero_base_base [DecidableEq ι] (C : ChristoffelComponents ι) (i j : ι) : christoffelComp C AmbientIndex.zero (AmbientIndex.base i) (AmbientIndex.base j) = -(1 / 2 : ℝ) * C.t * C.dRhoG i j",
+      "line": 56
+    },
+    {
+      "leanDeclaration": "christoffel_base_zero_base",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: christoffel base zero base. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem christoffel_base_zero_base [DecidableEq ι] (C : ChristoffelComponents ι) (k j : ι) : christoffelComp C (AmbientIndex.base k) AmbientIndex.zero (AmbientIndex.base j) = C.t⁻¹ * baseDelta j k",
+      "line": 62
+    },
+    {
+      "leanDeclaration": "christoffel_base_base_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: christoffel base base zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem christoffel_base_base_zero [DecidableEq ι] (C : ChristoffelComponents ι) (k j : ι) : christoffelComp C (AmbientIndex.base k) (AmbientIndex.base j) AmbientIndex.zero = C.t⁻¹ * baseDelta j k",
+      "line": 68
+    },
+    {
+      "leanDeclaration": "christoffel_inf_base_base",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: christoffel inf base base. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem christoffel_inf_base_base [DecidableEq ι] (C : ChristoffelComponents ι) (i j : ι) : christoffelComp C AmbientIndex.inf (AmbientIndex.base i) (AmbientIndex.base j) = -C.g i j + C.rho * C.dRhoG i j",
+      "line": 74
+    },
+    {
+      "leanDeclaration": "christoffel_base_base_base",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: christoffel base base base. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem christoffel_base_base_base [DecidableEq ι] (C : ChristoffelComponents ι) (k i j : ι) : christoffelComp C (AmbientIndex.base k) (AmbientIndex.base i) (AmbientIndex.base j) = C.baseGamma k i j",
+      "line": 80
+    }
+  ],
+  "prerequisites": [
+    "Ambient/FG/InverseMetric.lean"
+  ],
+  "usedBy": [
+    "Ambient/FG/Laplacian.lean",
+    "Ambient/FG/RicciNormalForm.lean",
+    "Ambient/FG.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapters 2–3, ambient space and normal form",
+      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

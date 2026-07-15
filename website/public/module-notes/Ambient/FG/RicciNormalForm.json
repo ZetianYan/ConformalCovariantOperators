@@ -1,0 +1,126 @@
+{
+  "file": "Ambient/FG/RicciNormalForm.lean",
+  "title": "RicciNormalForm",
+  "status": "verified-under-interface",
+  "summary": "States symbolic Ricci-tensor components for an ambient metric in normal form.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "States symbolic Ricci-tensor components for an ambient metric in normal form.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/FG/RicciNormalForm.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "RicciNormalFormComponents",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Ricci Normal Form Components. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure RicciNormalFormComponents (ι : Type w) extends NormalInverseMetricComponents ι",
+      "line": 26
+    },
+    {
+      "leanDeclaration": "tracePrime",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: trace Prime. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def tracePrime (C : RicciNormalFormComponents ι) : ℝ",
+      "line": 43
+    },
+    {
+      "leanDeclaration": "traceDoublePrime",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: trace Double Prime. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def traceDoublePrime (C : RicciNormalFormComponents ι) : ℝ",
+      "line": 47
+    },
+    {
+      "leanDeclaration": "quadraticPrime",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: quadratic Prime. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def quadraticPrime (C : RicciNormalFormComponents ι) (i j : ι) : ℝ",
+      "line": 51
+    },
+    {
+      "leanDeclaration": "quadraticTracePrime",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: quadratic Trace Prime. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def quadraticTracePrime (C : RicciNormalFormComponents ι) : ℝ",
+      "line": 55
+    },
+    {
+      "leanDeclaration": "FG_RicciEq_ij",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: FG Ricci Eq ij. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def FG_RicciEq_ij (C : RicciNormalFormComponents ι) (i j : ι) : ℝ",
+      "line": 60
+    },
+    {
+      "leanDeclaration": "FG_RicciEq_iInf",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: FG Ricci Eq i Inf. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def FG_RicciEq_iInf (C : RicciNormalFormComponents ι) (i : ι) : ℝ",
+      "line": 69
+    },
+    {
+      "leanDeclaration": "FG_RicciEq_infInf",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: FG Ricci Eq inf Inf. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def FG_RicciEq_infInf (C : RicciNormalFormComponents ι) : ℝ",
+      "line": 75
+    },
+    {
+      "leanDeclaration": "RicciNormalFormCertificate",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Ricci Normal Form Certificate. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure RicciNormalFormCertificate [Fintype ι] (C : RicciNormalFormComponents ι)",
+      "line": 85
+    },
+    {
+      "leanDeclaration": "ricci_zero_left_normal_form",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ricci zero left normal form. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ricci_zero_left_normal_form [Fintype ι] {C : RicciNormalFormComponents ι} (H : RicciNormalFormCertificate C) (I : AmbientIndex ι) : H.Ricci AmbientIndex.zero I = 0",
+      "line": 114
+    },
+    {
+      "leanDeclaration": "ricci_base_base_normal_form",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ricci base base normal form. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ricci_base_base_normal_form [Fintype ι] {C : RicciNormalFormComponents ι} (H : RicciNormalFormCertificate C) (i j : ι) : H.Ricci (AmbientIndex.base i) (AmbientIndex.base j) = C.FG_RicciEq_ij i j",
+      "line": 122
+    },
+    {
+      "leanDeclaration": "ricci_base_inf_normal_form",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ricci base inf normal form. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ricci_base_inf_normal_form [Fintype ι] {C : RicciNormalFormComponents ι} (H : RicciNormalFormCertificate C) (i : ι) : H.Ricci (AmbientIndex.base i) AmbientIndex.inf = C.FG_RicciEq_iInf i",
+      "line": 131
+    },
+    {
+      "leanDeclaration": "ricci_inf_inf_normal_form",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ricci inf inf normal form. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ricci_inf_inf_normal_form [Fintype ι] {C : RicciNormalFormComponents ι} (H : RicciNormalFormCertificate C) : H.Ricci AmbientIndex.inf AmbientIndex.inf = C.FG_RicciEq_infInf",
+      "line": 140
+    }
+  ],
+  "prerequisites": [
+    "Ambient/FG/Christoffel.lean"
+  ],
+  "usedBy": [
+    "Ambient/FG/FormalJets.lean",
+    "Ambient/FG.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapters 2–3, ambient space and normal form",
+      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

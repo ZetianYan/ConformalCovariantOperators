@@ -1,0 +1,112 @@
+{
+  "file": "PolyGJMSoperators/PolyLaplacianCombination.lean",
+  "title": "PolyLaplacianCombination",
+  "status": "verified-under-interface",
+  "summary": "Specializes linear combinations to Laplacian words of fixed total order.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Specializes linear combinations to Laplacian words of fixed total order.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/PolyLaplacianCombination.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "PolyLaplacianCombinationData",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Poly Laplacian Combination Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure PolyLaplacianCombinationData (r : ℕ)",
+      "line": 28
+    },
+    {
+      "leanDeclaration": "outputWeight",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: output Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def outputWeight {r : ℕ} (D : PolyLaplacianCombinationData r) (CalConf : Calculus Conf) : ℝ",
+      "line": 39
+    },
+    {
+      "leanDeclaration": "toOperator",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def toOperator {r : ℕ} (D : PolyLaplacianCombinationData r) (CalConf : Calculus Conf) : CalConf.MultiOperator r",
+      "line": 46
+    },
+    {
+      "leanDeclaration": "toOperator_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: to Operator apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem toOperator_apply {r : ℕ} (D : PolyLaplacianCombinationData r) (F : CalConf.MultiInput r) (U : Conf.AmbientBundle) : D.toOperator CalConf F U = ∑ W ∈ D.support,",
+      "line": 55
+    },
+    {
+      "leanDeclaration": "expectedOutputWeight_eq_outputWeight_of_mem",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: expected Output Weight eq output Weight of mem. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem expectedOutputWeight_eq_outputWeight_of_mem {r : ℕ} (D : PolyLaplacianCombinationData r) (CalConf : Calculus Conf) {W : LaplacianWord r} (hW : W ∈ D.support) : W.expectedOutputWeight CalConf D.inputWeights =",
+      "line": 65
+    },
+    {
+      "leanDeclaration": "OperatorSumHomogeneityIdentities",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Operator Sum Homogeneity Identities. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure OperatorSumHomogeneityIdentities : Prop",
+      "line": 84
+    },
+    {
+      "leanDeclaration": "mapsWeights",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: maps Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem mapsWeights {r : ℕ} (D : PolyLaplacianCombinationData r) (H : CalConf.AlgebraicIdentities) (Hprod : CalConf.ProductHomogeneityIdentities) (Hsum : OperatorSumHomogeneityIdentities CalConf) : CalConf.MapsWeights",
+      "line": 96
+    },
+    {
+      "leanDeclaration": "PolyDefectExpansion",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Poly Defect Expansion. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure PolyDefectExpansion {r : ℕ} {κ : Type _} [DecidableEq κ] (D : PolyLaplacianCombinationData r) (CalConf : Calculus Conf) (K : Finset κ)",
+      "line": 122
+    },
+    {
+      "leanDeclaration": "SatisfiesDefectCancellation",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Satisfies Defect Cancellation. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def SatisfiesDefectCancellation {r : ℕ} {κ : Type _} [DecidableEq κ] (D : PolyLaplacianCombinationData r) (CalConf : Calculus Conf) {K : Finset κ}",
+      "line": 145
+    },
+    {
+      "leanDeclaration": "isTangentialAtWeights_of_defect_cancellation",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: is Tangential At Weights of defect cancellation. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem isTangentialAtWeights_of_defect_cancellation {r : ℕ} {κ : Type _} [DecidableEq κ] (D : PolyLaplacianCombinationData r) {K : Finset κ} (E : PolyDefectExpansion D CalConf K)",
+      "line": 175
+    },
+    {
+      "leanDeclaration": "toWeightedMultiTangentialOperator",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Weighted Multi Tangential Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def toWeightedMultiTangentialOperator {r : ℕ} (D : PolyLaplacianCombinationData r) (hmaps : CalConf.MapsWeights (D.toOperator CalConf) D.inputWeights",
+      "line": 216
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/LaplacianWords.lean"
+  ],
+  "usedBy": [
+    "Juhlformula/Juhlcombinatorics/ORBridge.lean",
+    "PolyGJMSoperators/OvsienkoRedou.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient bidifferential operator setup",
+      "note": "Source for multilinear tangentiality and Laplacian-word constructions."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

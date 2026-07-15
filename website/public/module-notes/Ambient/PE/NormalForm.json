@@ -1,0 +1,58 @@
+{
+  "file": "Ambient/PE/NormalForm.lean",
+  "title": "NormalForm",
+  "status": "verified-under-interface",
+  "summary": "Encodes the Poincaré normal form g_+ = r^{-2}(dr^2 + h_r) at the level of abstract metric data.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Encodes the Poincaré normal form g_+ = r^{-2}(dr^2 + h_r) at the level of abstract metric data.",
+      "formula": "g_+ = r^{-2}(dr^2+h_r)"
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/NormalForm.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "PoincareNormalFormData",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Poincare Normal Form Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure PoincareNormalFormData (X : PESpace.{u, v})",
+      "line": 24
+    },
+    {
+      "leanDeclaration": "hR_at_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: h R at zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem hR_at_zero : NF.hR 0 = NF.h0",
+      "line": 53
+    },
+    {
+      "leanDeclaration": "gPlus_eq_normalForm",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: g Plus eq normal Form. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem gPlus_eq_normalForm : NF.metric.gPlus = MetricSymbol.scaleByFunction (fun x => ((NF.r.r x) ^ 2)⁻¹) (MetricSymbol.add NF.drSquared NF.sliceMetric)",
+      "line": 58
+    }
+  ],
+  "prerequisites": [
+    "Ambient/PE/DefiningFunction.lean"
+  ],
+  "usedBy": [
+    "Ambient/PE/MetricComponents.lean",
+    "Ambient/PE/Renormalization/CurvatureIntegral.lean",
+    "Ambient/PE/Renormalization/Volume.lean",
+    "Ambient/PE.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4, Poincaré metrics",
+      "note": "Source for Poincaré normal form and its relation to straight ambient metrics."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

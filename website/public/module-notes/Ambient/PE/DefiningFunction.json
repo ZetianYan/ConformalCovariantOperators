@@ -1,0 +1,70 @@
+{
+  "file": "Ambient/PE/DefiningFunction.lean",
+  "title": "DefiningFunction",
+  "status": "verified-under-interface",
+  "summary": "Formalizes boundary defining functions, geodesic defining functions, and their normalization conditions.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Formalizes boundary defining functions, geodesic defining functions, and their normalization conditions.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/DefiningFunction.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "DefiningFunction",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Defining Function. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure DefiningFunction (X : PESpace.{u, v})",
+      "line": 21
+    },
+    {
+      "leanDeclaration": "compactifiedMetric",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: compactified Metric. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def compactifiedMetric {X : PESpace} (gPlus : MetricSymbol X.bulk) (r : DefiningFunction X) : MetricSymbol X.bulk",
+      "line": 31
+    },
+    {
+      "leanDeclaration": "GeodesicDefiningFunction",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Geodesic Defining Function. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure GeodesicDefiningFunction (X : PESpace.{u, v}) (gPlus : MetricSymbol X.bulk) extends DefiningFunction X",
+      "line": 45
+    },
+    {
+      "leanDeclaration": "compactification",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: compactification. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem compactification (r : GeodesicDefiningFunction X gPlus) : compactifiedMetric gPlus r.toDefiningFunction = MetricSymbol.scaleByFunction (fun x => (r.r x) ^ 2) gPlus",
+      "line": 62
+    },
+    {
+      "leanDeclaration": "normSqGradient_eq_one",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: norm Sq Gradient eq one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem normSqGradient_eq_one (r : GeodesicDefiningFunction X gPlus) {x : X.bulk} (hx : x ∈ X.interior) : r.normSqGradientCompactified x = 1",
+      "line": 69
+    }
+  ],
+  "prerequisites": [
+    "Ambient/PE/Basic.lean"
+  ],
+  "usedBy": [
+    "Ambient/PE/NormalForm.lean",
+    "Ambient/PE.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4, Poincaré metrics",
+      "note": "Source for Poincaré normal form and its relation to straight ambient metrics."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

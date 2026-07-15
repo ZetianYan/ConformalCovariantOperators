@@ -1,0 +1,74 @@
+{
+  "file": "PolyGJMSoperators/OR/Coefficients/Parameters.lean",
+  "title": "Parameters",
+  "status": "verified-under-interface",
+  "summary": "Defines the dimension, weight, and order parameters appearing in the OR coefficient formulas.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines the dimension, weight, and order parameters appearing in the OR coefficient formulas.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OR/Coefficients/Parameters.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "ORHalfShift",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ORHalf Shift. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ORHalfShift (N : ℕ) (n : ℚ) : ℚ",
+      "line": 27
+    },
+    {
+      "leanDeclaration": "ORAlpha",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ORAlpha. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ORAlpha (N : ℕ) (n w₁ w₂ : ℚ) : ℚ",
+      "line": 31
+    },
+    {
+      "leanDeclaration": "ORBeta",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ORBeta. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ORBeta (N : ℕ) (n w₁ : ℚ) : ℚ",
+      "line": 35
+    },
+    {
+      "leanDeclaration": "ORGamma",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ORGamma. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ORGamma (N : ℕ) (n w₂ : ℚ) : ℚ",
+      "line": 39
+    },
+    {
+      "leanDeclaration": "ORAlpha_add_b_add_c",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ORAlpha add b add c. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ORAlpha_add_b_add_c {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : ORAlpha N n w₁ w₂ + (I.b + I.c : ℕ) = -(2 * w₁ + 2 * w₂ + n - 2 * (N : ℚ) - 2 * I.b - 2 * I.c) / 2",
+      "line": 42
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/OR/Coefficients/Combinatorics.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/OR/Coefficients/ClosedFormula.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "OvsienkoRedou-2001",
+      "locator": "Classification of invariant bilinear differential operators",
+      "note": "Flat-model origin of the coefficient family."
+    },
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient classification and curved construction",
+      "note": "Primary curved ambient source for the encoded OR recurrence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

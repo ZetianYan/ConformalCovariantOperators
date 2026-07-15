@@ -1,0 +1,83 @@
+[
+  {
+    "id": "FG-AmbientMetric",
+    "authors": "Charles Fefferman and C. Robin Graham",
+    "title": "The Ambient Metric",
+    "year": 2012,
+    "publisher": "Princeton University Press, Annals of Mathematics Studies 178",
+    "url": "https://arxiv.org/abs/0710.0919",
+    "citation": "Fefferman, C.; Graham, C. R. The Ambient Metric. Annals of Mathematics Studies 178, Princeton University Press, 2012."
+  },
+  {
+    "id": "GJMS-1992",
+    "authors": "C. Robin Graham, Ralph Jenne, Lionel J. Mason, and George A. J. Sparling",
+    "title": "Conformally Invariant Powers of the Laplacian, I: Existence",
+    "year": 1992,
+    "publisher": "Journal of the London Mathematical Society 46, 557–565",
+    "url": "https://doi.org/10.1112/jlms/s2-46.3.557",
+    "citation": "Graham, C. R.; Jenne, R.; Mason, L. J.; Sparling, G. A. J. Conformally Invariant Powers of the Laplacian, I: Existence. JLMS 46 (1992), 557–565."
+  },
+  {
+    "id": "OvsienkoRedou-2001",
+    "authors": "Valentin Ovsienko and Pascal Redou",
+    "title": "Conformally Invariant Differential Operators on Tensor Densities",
+    "year": 2001,
+    "publisher": "arXiv:math/0104232",
+    "url": "https://arxiv.org/abs/math/0104232",
+    "citation": "Ovsienko, V.; Redou, P. Conformally invariant differential operators on tensor densities. arXiv:math/0104232."
+  },
+  {
+    "id": "CaseLinYuan-2022",
+    "authors": "Jeffrey S. Case, Yueh-Ju Lin, and Wei Yuan",
+    "title": "Curved Versions of the Ovsienko–Redou Operators",
+    "year": 2022,
+    "publisher": "arXiv:2206.02476",
+    "url": "https://arxiv.org/abs/2206.02476",
+    "citation": "Case, J. S.; Lin, Y.-J.; Yuan, W. Curved versions of the Ovsienko–Redou operators. arXiv:2206.02476."
+  },
+  {
+    "id": "CaseCieslak-2025",
+    "authors": "Jeffrey S. Case and Opal Cieslak",
+    "title": "A General Construction of Conformally Covariant Tridifferential Operators",
+    "year": 2025,
+    "publisher": "arXiv:2511.10402",
+    "url": "https://arxiv.org/abs/2511.10402",
+    "citation": "Case, J. S.; Cieslak, O. A general construction of conformally covariant tridifferential operators. arXiv:2511.10402."
+  },
+  {
+    "id": "Juhl-2011",
+    "authors": "Andreas Juhl",
+    "title": "Explicit Formulas for GJMS-Operators and Q-Curvatures",
+    "year": 2011,
+    "publisher": "arXiv:1108.0273",
+    "url": "https://arxiv.org/abs/1108.0273",
+    "citation": "Juhl, A. Explicit formulas for GJMS-operators and Q-curvatures. arXiv:1108.0273."
+  },
+  {
+    "id": "FeffermanGraham-Juhl-2012",
+    "authors": "Charles Fefferman and C. Robin Graham",
+    "title": "Juhl's Formulae for GJMS Operators and Q-Curvatures",
+    "year": 2012,
+    "publisher": "arXiv:1203.0360",
+    "url": "https://arxiv.org/abs/1203.0360",
+    "citation": "Fefferman, C.; Graham, C. R. Juhl's Formulae for GJMS Operators and Q-Curvatures. arXiv:1203.0360."
+  },
+  {
+    "id": "ChernYan-2024",
+    "authors": "Shane Chern and Zetian Yan",
+    "title": "Juhl Type Formulas for Curved Ovsienko–Redou Operators",
+    "year": 2024,
+    "publisher": "arXiv:2407.12280",
+    "url": "https://arxiv.org/abs/2407.12280",
+    "citation": "Chern, S.; Yan, Z. Juhl type formulas for curved Ovsienko–Redou operators. arXiv:2407.12280."
+  },
+  {
+    "id": "CaseKhaitanLinTyrrellYuan-2024",
+    "authors": "Jeffrey S. Case, Ayush Khaitan, Yueh-Ju Lin, Aaron J. Tyrrell, and Wei Yuan",
+    "title": "Computing Renormalized Curvature Integrals on Poincaré–Einstein Manifolds",
+    "year": 2024,
+    "publisher": "arXiv:2404.11319",
+    "url": "https://arxiv.org/abs/2404.11319",
+    "citation": "Case, J. S.; Khaitan, A.; Lin, Y.-J.; Tyrrell, A. J.; Yuan, W. Computing renormalized curvature integrals on Poincaré–Einstein manifolds. arXiv:2404.11319."
+  }
+]

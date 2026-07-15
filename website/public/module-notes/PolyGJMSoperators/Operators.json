@@ -1,0 +1,111 @@
+{
+  "file": "PolyGJMSoperators/Operators.lean",
+  "title": "Operators",
+  "status": "verified-under-interface",
+  "summary": "Provides core multilinear operator constructors and their evaluation rules.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Provides core multilinear operator constructors and their evaluation rules.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/Operators.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "multiZero",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: multi Zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def multiZero (r : ℕ) : CalConf.MultiOperator r",
+      "line": 24
+    },
+    {
+      "leanDeclaration": "multiAdd",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: multi Add. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def multiAdd {r : ℕ} (P Q : CalConf.MultiOperator r) : CalConf.MultiOperator r",
+      "line": 29
+    },
+    {
+      "leanDeclaration": "multiSub",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: multi Sub. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def multiSub {r : ℕ} (P Q : CalConf.MultiOperator r) : CalConf.MultiOperator r",
+      "line": 36
+    },
+    {
+      "leanDeclaration": "multiSmul",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: multi Smul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def multiSmul {r : ℕ} (c : ℝ) (P : CalConf.MultiOperator r) : CalConf.MultiOperator r",
+      "line": 43
+    },
+    {
+      "leanDeclaration": "postcomp",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: postcomp. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def postcomp {r : ℕ} (L : Function Conf → Function Conf) (P : CalConf.MultiOperator r) : CalConf.MultiOperator r",
+      "line": 51
+    },
+    {
+      "leanDeclaration": "precompSlot",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: precomp Slot. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def precompSlot {r : ℕ} (i : Fin r) (L : Function Conf → Function Conf) (P : CalConf.MultiOperator r) : CalConf.MultiOperator r",
+      "line": 59
+    },
+    {
+      "leanDeclaration": "precompAll",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: precomp All. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def precompAll {r : ℕ} (L : Fin r → Function Conf → Function Conf) (P : CalConf.MultiOperator r) : CalConf.MultiOperator r",
+      "line": 68
+    },
+    {
+      "leanDeclaration": "multiZero_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: multi Zero apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem multiZero_apply {r : ℕ} (F : CalConf.MultiInput r) : CalConf.multiZero r F = zero Conf",
+      "line": 76
+    },
+    {
+      "leanDeclaration": "multiAdd_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: multi Add apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem multiAdd_apply {r : ℕ} (P Q : CalConf.MultiOperator r) (F : CalConf.MultiInput r) (U : Conf.AmbientBundle) : CalConf.multiAdd P Q F U = P F U + Q F U",
+      "line": 83
+    },
+    {
+      "leanDeclaration": "multiSmul_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: multi Smul apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem multiSmul_apply {r : ℕ} (c : ℝ) (P : CalConf.MultiOperator r) (F : CalConf.MultiInput r) (U : Conf.AmbientBundle) : CalConf.multiSmul c P F U = c * P F U",
+      "line": 92
+    },
+    {
+      "leanDeclaration": "postcomp_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: postcomp apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem postcomp_apply {r : ℕ} (L : Function Conf → Function Conf) (P : CalConf.MultiOperator r) (F : CalConf.MultiInput r) : CalConf.postcomp L P F = L (P F)",
+      "line": 102
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/Homogeneity.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/Tangential.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient bidifferential operator setup",
+      "note": "Source for multilinear tangentiality and Laplacian-word constructions."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

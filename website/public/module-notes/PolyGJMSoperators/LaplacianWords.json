@@ -1,0 +1,163 @@
+{
+  "file": "PolyGJMSoperators/LaplacianWords.lean",
+  "title": "LaplacianWords",
+  "status": "verified-under-interface",
+  "summary": "Defines words built from ambient Laplacians and multiplication, together with total-power bookkeeping.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines words built from ambient Laplacians and multiplication, together with total-power bookkeeping.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/LaplacianWords.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "LaplacianWord",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Laplacian Word. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure LaplacianWord (r : ℕ)",
+      "line": 34
+    },
+    {
+      "leanDeclaration": "inputProduct",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: input Product. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def inputProduct {r : ℕ} (W : LaplacianWord r) (CalConf : Calculus Conf) (F : CalConf.MultiInput r) : Function Conf",
+      "line": 44
+    },
+    {
+      "leanDeclaration": "toOperator",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def toOperator {r : ℕ} (W : LaplacianWord r) (CalConf : Calculus Conf) : CalConf.MultiOperator r",
+      "line": 53
+    },
+    {
+      "leanDeclaration": "totalPower",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: total Power. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def totalPower {r : ℕ} (W : LaplacianWord r) : ℕ",
+      "line": 61
+    },
+    {
+      "leanDeclaration": "expectedOutputWeight",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: expected Output Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def expectedOutputWeight {r : ℕ} (W : LaplacianWord r) (CalConf : Calculus Conf) (w : Fin r → ℝ) : ℝ",
+      "line": 67
+    },
+    {
+      "leanDeclaration": "inputProduct_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: input Product apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem inputProduct_apply {r : ℕ} (W : LaplacianWord r) (F : CalConf.MultiInput r) (U : Conf.AmbientBundle) : W.inputProduct CalConf F U = ∏ i : Fin r, CalConf.lapPow (W.inputPower i) (F i) U",
+      "line": 75
+    },
+    {
+      "leanDeclaration": "toOperator_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: to Operator apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem toOperator_apply {r : ℕ} (W : LaplacianWord r) (F : CalConf.MultiInput r) : W.toOperator CalConf F = CalConf.lapPow W.outputPower (W.inputProduct CalConf F)",
+      "line": 85
+    },
+    {
+      "leanDeclaration": "ProductHomogeneityIdentities",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Product Homogeneity Identities. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure ProductHomogeneityIdentities : Prop",
+      "line": 101
+    },
+    {
+      "leanDeclaration": "inputProduct_mapsWeight",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: input Product maps Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem inputProduct_mapsWeight (H : CalConf.AlgebraicIdentities) (Hprod : CalConf.ProductHomogeneityIdentities) {r : ℕ} (W : LaplacianWord r) {w : Fin r → ℝ} {F : CalConf.MultiInput r}",
+      "line": 114
+    },
+    {
+      "leanDeclaration": "mapsWeights",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: maps Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem mapsWeights (H : CalConf.AlgebraicIdentities) (Hprod : CalConf.ProductHomogeneityIdentities) {r : ℕ} (W : LaplacianWord r) (w : Fin r → ℝ) : CalConf.MapsWeights",
+      "line": 132
+    },
+    {
+      "leanDeclaration": "mk",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: mk. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def mk (a b c : ℕ) : LaplacianWord 2",
+      "line": 160
+    },
+    {
+      "leanDeclaration": "mk_outputPower",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: mk output Power. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem mk_outputPower (a b c : ℕ) : (mk a b c).outputPower = a",
+      "line": 165
+    },
+    {
+      "leanDeclaration": "mk_inputPower_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: mk input Power zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem mk_inputPower_zero (a b c : ℕ) : (mk a b c).inputPower 0 = b",
+      "line": 171
+    },
+    {
+      "leanDeclaration": "mk_inputPower_one",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: mk input Power one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem mk_inputPower_one (a b c : ℕ) : (mk a b c).inputPower 1 = c",
+      "line": 177
+    },
+    {
+      "leanDeclaration": "totalPower",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: total Power. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem totalPower (a b c : ℕ) : (mk a b c).totalPower = a + b + c",
+      "line": 182
+    },
+    {
+      "leanDeclaration": "expectedOutputWeight",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: expected Output Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem expectedOutputWeight (a b c : ℕ) (w₁ w₂ : ℝ) : (mk a b c).expectedOutputWeight CalConf (CalConf.biWeights w₁ w₂) = w₁ + w₂ - 2 * ((a + b + c : ℕ) : ℝ)",
+      "line": 190
+    },
+    {
+      "leanDeclaration": "toOperator_pairInput_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: to Operator pair Input apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem toOperator_pairInput_apply (a b c : ℕ) (f g : Function Conf) : (mk a b c).toOperator CalConf (CalConf.pairInput f g) = CalConf.lapPow a (fun U =>",
+      "line": 200
+    },
+    {
+      "leanDeclaration": "mk",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: mk. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def mk (a b c d : ℕ) : LaplacianWord 3",
+      "line": 221
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/LinearCombination.lean",
+    "PolyGJMSoperators/Bidifferential.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/OR/Index.lean",
+    "PolyGJMSoperators/PolyLaplacianCombination.lean",
+    "PolyGJMSoperators/TreeLaplacianWords.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient bidifferential operator setup",
+      "note": "Source for multilinear tangentiality and Laplacian-word constructions."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

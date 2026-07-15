@@ -1,0 +1,96 @@
+{
+  "file": "PolyGJMSoperators/OR/OperatorData.lean",
+  "title": "OperatorData",
+  "status": "verified-under-interface",
+  "summary": "Packages the weighted OR operator data and the Laplacian word attached to each OR index.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Packages the weighted OR operator data and the Laplacian word attached to each OR index.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OR/OperatorData.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "OROperatorData",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: OROperator Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure OROperatorData",
+      "line": 30
+    },
+    {
+      "leanDeclaration": "inputWeights",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: input Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def inputWeights (D : OROperatorData) (CalConf : Calculus Conf) : Fin 2 → ℝ",
+      "line": 40
+    },
+    {
+      "leanDeclaration": "outputWeight",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: output Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def outputWeight (D : OROperatorData) : ℝ",
+      "line": 46
+    },
+    {
+      "leanDeclaration": "toOperator",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def toOperator (D : OROperatorData) (CalConf : Calculus Conf) : CalConf.BiOperator",
+      "line": 50
+    },
+    {
+      "leanDeclaration": "toOperator_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: to Operator apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem toOperator_apply (D : OROperatorData) (F : CalConf.BiInput) (U : Conf.AmbientBundle) : D.toOperator CalConf F U = ∑ I ∈ ORIndex.support D.N, (D.coeffSystem.coeff I : ℝ) * I.toWord.toOperator CalConf F U",
+      "line": 60
+    },
+    {
+      "leanDeclaration": "toWord_expectedOutputWeight",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: to Word expected Output Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem toWord_expectedOutputWeight (D : OROperatorData) (I : ORIndex D.N) : I.toWord.expectedOutputWeight CalConf (D.inputWeights CalConf) = D.outputWeight",
+      "line": 69
+    },
+    {
+      "leanDeclaration": "mapsWeights",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: maps Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem mapsWeights (D : OROperatorData) (H : CalConf.AlgebraicIdentities) (Hprod : CalConf.ProductHomogeneityIdentities) (Hsum : PolyLaplacianCombinationData.OperatorSumHomogeneityIdentities CalConf) : CalConf.MapsWeights",
+      "line": 81
+    },
+    {
+      "leanDeclaration": "toOvsienkoRedouData",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Ovsienko Redou Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def toOvsienkoRedouData (D : OROperatorData) : OvsienkoRedouData",
+      "line": 108
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/OvsienkoRedou.lean",
+    "PolyGJMSoperators/OR/Coefficients/Recurrence.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/OR/DefectCancellation.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "OvsienkoRedou-2001",
+      "locator": "Classification of invariant bilinear differential operators",
+      "note": "Flat-model origin of the coefficient family."
+    },
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient classification and curved construction",
+      "note": "Primary curved ambient source for the encoded OR recurrence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

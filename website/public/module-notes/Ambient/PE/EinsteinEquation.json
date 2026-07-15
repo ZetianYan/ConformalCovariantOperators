@@ -1,0 +1,78 @@
+{
+  "file": "Ambient/PE/EinsteinEquation.lean",
+  "title": "EinsteinEquation",
+  "status": "verified-under-interface",
+  "summary": "Packages the Einstein equation and parity/expansion certificates used by later PE constructions.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Packages the Einstein equation and parity/expansion certificates used by later PE constructions.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/EinsteinEquation.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "can",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: can. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem can construct these certificates from ambient Ricci-flatness. -/",
+      "line": 18
+    },
+    {
+      "leanDeclaration": "PEFormalExpansion",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: PEFormal Expansion. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure PEFormalExpansion (X : PESpace.{u, v})",
+      "line": 22
+    },
+    {
+      "leanDeclaration": "HasEvenExpansionToOrder",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Has Even Expansion To Order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def HasEvenExpansionToOrder (N : Nat) : Prop",
+      "line": 37
+    },
+    {
+      "leanDeclaration": "hasEvenExpansionToBoundaryOrder",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: has Even Expansion To Boundary Order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem hasEvenExpansionToBoundaryOrder : E.HasEvenExpansionToOrder X.boundaryDim",
+      "line": 40
+    },
+    {
+      "leanDeclaration": "IsPoincareEinstein",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Is Poincare Einstein. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure IsPoincareEinstein {X : PESpace.{u, v}} (NF : PoincareNormalFormData.{u, v, w} X)",
+      "line": 52
+    },
+    {
+      "leanDeclaration": "PE_expansion_even_to_order",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: PE expansion even to order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem PE_expansion_even_to_order {X : PESpace} {NF : PoincareNormalFormData X} (hPE : IsPoincareEinstein NF) : hPE.formalExpansion.HasEvenExpansionToOrder X.boundaryDim",
+      "line": 62
+    }
+  ],
+  "prerequisites": [
+    "Ambient/PE/MetricComponents.lean"
+  ],
+  "usedBy": [
+    "Ambient/PE/AmbientBridge.lean",
+    "Ambient/PE/Renormalization/DivergenceVanishing.lean",
+    "Ambient/PE.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4, Poincaré metrics",
+      "note": "Source for Poincaré normal form and its relation to straight ambient metrics."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

@@ -1,0 +1,154 @@
+{
+  "file": "PolyGJMSoperators/TreeRecurrence.lean",
+  "title": "TreeRecurrence",
+  "status": "verified-under-interface",
+  "summary": "Defines paths, descendants, subtree weights, defect coefficients, and the first recurrence differential for a left-comb tree.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines paths, descendants, subtree weights, defect coefficients, and the first recurrence differential for a left-comb tree.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/TreeRecurrence.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "CombCoeffSpace",
+      "kind": "abbrev",
+      "mathematicalMeaning": "Definition: Comb Coeff Space. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "abbrev CombCoeffSpace (r k : ℕ) : Type",
+      "line": 30
+    },
+    {
+      "leanDeclaration": "leafVertex",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: leaf Vertex. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def leafVertex {r : ℕ} (j : Fin r) : Fin (leftCombVertexCount r)",
+      "line": 36
+    },
+    {
+      "leanDeclaration": "IsInternal",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Is Internal. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def IsInternal {r : ℕ} (v : Fin (leftCombVertexCount r)) : Prop",
+      "line": 43
+    },
+    {
+      "leanDeclaration": "leafBelow",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: leaf Below. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def leafBelow {r : ℕ} (v : Fin (leftCombVertexCount r)) (j : Fin r) : Prop",
+      "line": 47
+    },
+    {
+      "leanDeclaration": "onPathToRoot",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: on Path To Root. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def onPathToRoot {r : ℕ} (j : Fin r) (v : Fin (leftCombVertexCount r)) : Prop",
+      "line": 56
+    },
+    {
+      "leanDeclaration": "pathToRoot",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: path To Root. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def pathToRoot {r : ℕ} (j : Fin r) : Finset (Fin (leftCombVertexCount r))",
+      "line": 63
+    },
+    {
+      "leanDeclaration": "isDescendant",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: is Descendant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def isDescendant {r : ℕ} (v x : Fin (leftCombVertexCount r)) : Prop",
+      "line": 68
+    },
+    {
+      "leanDeclaration": "descendants",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: descendants. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def descendants {r : ℕ} (v : Fin (leftCombVertexCount r)) : Finset (Fin (leftCombVertexCount r))",
+      "line": 75
+    },
+    {
+      "leanDeclaration": "subtreeWeight",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: subtree Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def subtreeWeight {r : ℕ} (v : Fin (leftCombVertexCount r)) (w : Fin r → ℝ) : ℝ",
+      "line": 81
+    },
+    {
+      "leanDeclaration": "descendantPowerSum",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: descendant Power Sum. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def descendantPowerSum {r s : ℕ} (β : CombIndex r s) (v : Fin (leftCombVertexCount r)) : ℕ",
+      "line": 87
+    },
+    {
+      "leanDeclaration": "defectCoeff",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: defect Coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def defectCoeff {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (β : CombIndex r s) (v : Fin (leftCombVertexCount r)) : ℝ",
+      "line": 98
+    },
+    {
+      "leanDeclaration": "lowerAtVertex",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: lower At Vertex. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def lowerAtVertex {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (v : Fin (leftCombVertexCount r)) (A : CombCoeffSpace r (s + 1)) : CombCoeffSpace r s",
+      "line": 109
+    },
+    {
+      "leanDeclaration": "pathDefectCoeff",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: path Defect Coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def pathDefectCoeff {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (A : CombCoeffSpace r (s + 1)) (j : Fin r) (β : CombIndex r s) : ℝ",
+      "line": 118
+    },
+    {
+      "leanDeclaration": "dOne",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: d One. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def dOne {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (A : CombCoeffSpace r (s + 1)) : Fin r → CombCoeffSpace r s",
+      "line": 128
+    },
+    {
+      "leanDeclaration": "RankRecurrenceAtLevel",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Rank Recurrence At Level. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def RankRecurrenceAtLevel {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (A : CombCoeffSpace r (s + 1)) : Prop",
+      "line": 136
+    },
+    {
+      "leanDeclaration": "RankRecurrence",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Rank Recurrence. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def RankRecurrence {r k : ℕ} (n : ℝ) (w : Fin r → ℝ) (A : CombCoeffSpace r k) : Prop",
+      "line": 147
+    },
+    {
+      "leanDeclaration": "recurrence_iff_dOne_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: recurrence iff d One zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem recurrence_iff_dOne_zero {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (A : CombCoeffSpace r (s + 1)) : RankRecurrenceAtLevel n w A ↔ dOne n w A = fun _j => (fun _β => 0)",
+      "line": 155
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/TreeLaplacianWords.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/Tree.lean",
+    "PolyGJMSoperators/TreeDefectCancellation.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseCieslak-2025",
+      "locator": "Main ambient construction and tangentiality results",
+      "note": "Motivation for rank-general nested Laplacian words; the Lean tree complex goes beyond what is currently instantiated."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

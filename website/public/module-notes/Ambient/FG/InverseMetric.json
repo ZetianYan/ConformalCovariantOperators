@@ -1,0 +1,105 @@
+{
+  "file": "Ambient/FG/InverseMetric.lean",
+  "title": "InverseMetric",
+  "status": "verified-under-interface",
+  "summary": "Specifies inverse ambient metric components and verifies the formal block inverse identities in normal coordinates.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Specifies inverse ambient metric components and verifies the formal block inverse identities in normal coordinates.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/FG/InverseMetric.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "NormalInverseMetricComponents",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Normal Inverse Metric Components. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure NormalInverseMetricComponents (ι : Type w) extends NormalMetricComponents ι",
+      "line": 30
+    },
+    {
+      "leanDeclaration": "inverseMetricComp",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: inverse Metric Comp. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def inverseMetricComp (C : NormalInverseMetricComponents ι) : AmbientIndex ι → AmbientIndex ι → ℝ | AmbientIndex.zero, AmbientIndex.zero => 0 | AmbientIndex.zero, AmbientIndex.base _ => 0 | AmbientIndex.zero, AmbientIndex.inf => C.t⁻¹ | AmbientIndex.base _, AmbientIndex.zero => 0 | AmbientIndex.base i, AmbientIndex.base j => (C.t ^ 2)⁻¹ * C.gInv i j",
+      "line": 35
+    },
+    {
+      "leanDeclaration": "inverseMetricComp_zero_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: inverse Metric Comp zero zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem inverseMetricComp_zero_zero (C : NormalInverseMetricComponents ι) : inverseMetricComp C AmbientIndex.zero AmbientIndex.zero = 0",
+      "line": 48
+    },
+    {
+      "leanDeclaration": "inverseMetricComp_zero_inf",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: inverse Metric Comp zero inf. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem inverseMetricComp_zero_inf (C : NormalInverseMetricComponents ι) : inverseMetricComp C AmbientIndex.zero AmbientIndex.inf = C.t⁻¹",
+      "line": 52
+    },
+    {
+      "leanDeclaration": "inverseMetricComp_inf_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: inverse Metric Comp inf zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem inverseMetricComp_inf_zero (C : NormalInverseMetricComponents ι) : inverseMetricComp C AmbientIndex.inf AmbientIndex.zero = C.t⁻¹",
+      "line": 56
+    },
+    {
+      "leanDeclaration": "inverseMetricComp_base_base",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: inverse Metric Comp base base. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem inverseMetricComp_base_base (C : NormalInverseMetricComponents ι) (i j : ι) : inverseMetricComp C (AmbientIndex.base i) (AmbientIndex.base j) = (C.t ^ 2)⁻¹ * C.gInv i j",
+      "line": 60
+    },
+    {
+      "leanDeclaration": "inverseMetricComp_inf_inf",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: inverse Metric Comp inf inf. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem inverseMetricComp_inf_inf (C : NormalInverseMetricComponents ι) : inverseMetricComp C AmbientIndex.inf AmbientIndex.inf = -2 * C.rho * (C.t ^ 2)⁻¹",
+      "line": 66
+    },
+    {
+      "leanDeclaration": "BaseLeftInverse",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Base Left Inverse. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def BaseLeftInverse [Fintype ι] [DecidableEq ι] (C : NormalInverseMetricComponents ι) : Prop",
+      "line": 71
+    },
+    {
+      "leanDeclaration": "BaseRightInverse",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Base Right Inverse. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def BaseRightInverse [Fintype ι] [DecidableEq ι] (C : NormalInverseMetricComponents ι) : Prop",
+      "line": 77
+    },
+    {
+      "leanDeclaration": "inverse_metric_base_base_left",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: inverse metric base base left. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem inverse_metric_base_base_left [Fintype ι] [DecidableEq ι] (C : NormalInverseMetricComponents ι) (ht : C.t ≠ 0) (hbase : BaseLeftInverse C) (i j : ι) : (∑ k : ι,",
+      "line": 86
+    }
+  ],
+  "prerequisites": [
+    "Ambient/FG/NormalForm.lean"
+  ],
+  "usedBy": [
+    "Ambient/FG/Christoffel.lean",
+    "Ambient/FG.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapters 2–3, ambient space and normal form",
+      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

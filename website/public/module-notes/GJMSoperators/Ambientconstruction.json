@@ -1,0 +1,130 @@
+{
+  "file": "GJMSoperators/Ambientconstruction.lean",
+  "title": "Ambientconstruction",
+  "status": "verified-under-interface",
+  "summary": "Packages powers of the ambient Laplacian as weighted operators and proves their weight shift under the algebraic calculus interface.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Packages powers of the ambient Laplacian as weighted operators and proves their weight shift under the algebraic calculus interface.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in GJMSoperators/Ambientconstruction.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "ambientLaplacianPowerOperator",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ambient Laplacian Power Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ambientLaplacianPowerOperator (k : ℕ) : Operator (Conf",
+      "line": 50
+    },
+    {
+      "leanDeclaration": "ambientLaplacianPowerOperator_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Laplacian Power Operator apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientLaplacianPowerOperator_apply (k : ℕ) (f : Function Conf) : ambientLaplacianPowerOperator CalConf k f = CalConf.lapPow k f",
+      "line": 55
+    },
+    {
+      "leanDeclaration": "ambientLaplacianPowerOperator_zero_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Laplacian Power Operator zero apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientLaplacianPowerOperator_zero_apply (f : Function Conf) : ambientLaplacianPowerOperator CalConf 0 f = f",
+      "line": 62
+    },
+    {
+      "leanDeclaration": "ambientLaplacianPowerOperator_one_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Laplacian Power Operator one apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientLaplacianPowerOperator_one_apply (f : Function Conf) : ambientLaplacianPowerOperator CalConf 1 f = CalConf.lap f",
+      "line": 69
+    },
+    {
+      "leanDeclaration": "ambientLaplacianPower_maps_GJMS_weight",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Laplacian Power maps GJMS weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientLaplacianPower_maps_GJMS_weight (H : CalConf.AlgebraicIdentities) (k : ℕ) : CalConf.MapsHomogeneousWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k) (calculusOutputWeight CalConf k)",
+      "line": 84
+    },
+    {
+      "leanDeclaration": "lapPow_maps_GJMS_weight",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: lap Pow maps GJMS weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem lapPow_maps_GJMS_weight (H : CalConf.AlgebraicIdentities) (k : ℕ) {f : Function Conf} (hf : CalConf.IsXHomogeneous (calculusInputWeight CalConf k) f) : CalConf.IsXHomogeneous (calculusOutputWeight CalConf k)",
+      "line": 103
+    },
+    {
+      "leanDeclaration": "ambientLaplacianPowerWeightedTangentialOperator",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ambient Laplacian Power Weighted Tangential Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ambientLaplacianPowerWeightedTangentialOperator (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) :",
+      "line": 122
+    },
+    {
+      "leanDeclaration": "ambientLaplacianPowerWeightedTangentialOperator_inputWeight",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Laplacian Power Weighted Tangential Operator input Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientLaplacianPowerWeightedTangentialOperator_inputWeight (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) :",
+      "line": 137
+    },
+    {
+      "leanDeclaration": "ambientLaplacianPowerWeightedTangentialOperator_outputWeight",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Laplacian Power Weighted Tangential Operator output Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientLaplacianPowerWeightedTangentialOperator_outputWeight (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) :",
+      "line": 150
+    },
+    {
+      "leanDeclaration": "ambientLaplacianPowerWeightedTangentialOperator_toOperator",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Laplacian Power Weighted Tangential Operator to Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientLaplacianPowerWeightedTangentialOperator_toOperator (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) :",
+      "line": 163
+    },
+    {
+      "leanDeclaration": "ambientLaplacianPowerAbstractOperator",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ambient Laplacian Power Abstract Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ambientLaplacianPowerAbstractOperator (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) :",
+      "line": 182
+    },
+    {
+      "leanDeclaration": "ambientLaplacianPowerAbstractOperator_k",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Laplacian Power Abstract Operator k. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientLaplacianPowerAbstractOperator_k (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) :",
+      "line": 197
+    },
+    {
+      "leanDeclaration": "ambientLaplacianPowerAbstractOperator_order",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Laplacian Power Abstract Operator order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientLaplacianPowerAbstractOperator_order (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) :",
+      "line": 208
+    }
+  ],
+  "prerequisites": [
+    "GJMSoperators/Basic.lean"
+  ],
+  "usedBy": [
+    "GJMSoperators/Tangentiality.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "GJMS-1992",
+      "locator": "pp. 557–565, ambient extension construction",
+      "note": "Original construction of conformally invariant powers of the Laplacian."
+    },
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Ambient Laplacian and homogeneous extension discussion",
+      "note": "Ambient-metric background for the formal construction."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

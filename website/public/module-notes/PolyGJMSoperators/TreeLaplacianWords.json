@@ -1,0 +1,133 @@
+{
+  "file": "PolyGJMSoperators/TreeLaplacianWords.lean",
+  "title": "TreeLaplacianWords",
+  "status": "verified-under-interface",
+  "summary": "Defines rank-general left-comb indices and evaluates the associated nested multilinear Laplacian word.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines rank-general left-comb indices and evaluates the associated nested multilinear Laplacian word.",
+      "formula": "\\widetilde\\Delta^{a_0}(\\widetilde\\Delta^{a_1}((\\widetilde\\Delta^{a_2}u_0)(\\widetilde\\Delta^{a_3}u_1))\\cdots)"
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/TreeLaplacianWords.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "leftCombVertexCount",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: left Comb Vertex Count. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def leftCombVertexCount (r : ℕ) : ℕ",
+      "line": 35
+    },
+    {
+      "leanDeclaration": "CombIndex",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Comb Index. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure CombIndex (r k : ℕ)",
+      "line": 39
+    },
+    {
+      "leanDeclaration": "PolyTreeIndex",
+      "kind": "abbrev",
+      "mathematicalMeaning": "Definition: Poly Tree Index. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "abbrev PolyTreeIndex",
+      "line": 49
+    },
+    {
+      "leanDeclaration": "totalPower",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: total Power. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def totalPower {r k : ℕ} (I : CombIndex r k) : ℕ",
+      "line": 56
+    },
+    {
+      "leanDeclaration": "totalPower_eq",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: total Power eq. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem totalPower_eq {r k : ℕ} (I : CombIndex r k) : I.totalPower = k",
+      "line": 60
+    },
+    {
+      "leanDeclaration": "powerAt",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: power At. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def powerAt {r k : ℕ} (I : CombIndex r k) (i : ℕ) : ℕ",
+      "line": 67
+    },
+    {
+      "leanDeclaration": "powerAt_of_fin",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: power At of fin. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem powerAt_of_fin {r k : ℕ} (I : CombIndex r k) (v : Fin (leftCombVertexCount r)) : I.powerAt v.val = I.power v",
+      "line": 74
+    },
+    {
+      "leanDeclaration": "addAt",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: add At. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def addAt {r s : ℕ} (I : CombIndex r s) (v : Fin (leftCombVertexCount r)) : CombIndex r (s + 1)",
+      "line": 80
+    },
+    {
+      "leanDeclaration": "addAt_power_same",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: add At power same. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem addAt_power_same {r s : ℕ} (I : CombIndex r s) (v : Fin (leftCombVertexCount r)) : (I.addAt v).power v = I.power v + 1",
+      "line": 104
+    },
+    {
+      "leanDeclaration": "addAt_power_ne",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: add At power ne. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem addAt_power_ne {r s : ℕ} (I : CombIndex r s) {v x : Fin (leftCombVertexCount r)} (hxv : x ≠ v) : (I.addAt v).power x = I.power x",
+      "line": 112
+    },
+    {
+      "leanDeclaration": "multinomialCoeffQ",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: multinomial Coeff Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def multinomialCoeffQ {r k : ℕ} (I : CombIndex r k) : ℚ",
+      "line": 121
+    },
+    {
+      "leanDeclaration": "leftCombEvalFrom",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: left Comb Eval From. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def leftCombEvalFrom (CalConf : Calculus Conf) : (r : ℕ) → (ℕ → ℕ) → CalConf.MultiInput r → Function Conf | 0, _p, _F => zero Conf | 1, p, F => CalConf.lapPow (p 0) (F 0) | r + 2, p, F => let leftInput : CalConf.MultiInput (r + 1)",
+      "line": 136
+    },
+    {
+      "leanDeclaration": "toOperator",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def toOperator {r k : ℕ} (I : CombIndex r k) (CalConf : Calculus Conf) : CalConf.MultiOperator r",
+      "line": 156
+    },
+    {
+      "leanDeclaration": "toOperator_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: to Operator apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem toOperator_apply {r k : ℕ} (I : CombIndex r k) (F : CalConf.MultiInput r) : I.toOperator CalConf F = leftCombEvalFrom CalConf r I.powerAt F",
+      "line": 163
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/LaplacianWords.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/Tree.lean",
+    "PolyGJMSoperators/TreeRecurrence.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseCieslak-2025",
+      "locator": "Main ambient construction and tangentiality results",
+      "note": "Motivation for rank-general nested Laplacian words; the Lean tree complex goes beyond what is currently instantiated."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

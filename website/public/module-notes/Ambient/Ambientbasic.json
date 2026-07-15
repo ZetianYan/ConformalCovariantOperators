@@ -1,0 +1,162 @@
+{
+  "file": "Ambient/Ambientbasic.lean",
+  "title": "Ambientbasic",
+  "status": "verified",
+  "summary": "Builds the ambient bundle, dilation action, straight metric data, the cone inclusion at rho = 0, and the straight normal-form interface.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Builds the ambient bundle, dilation action, straight metric data, the cone inclusion at rho = 0, and the straight normal-form interface.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/Ambientbasic.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "AmbientBundle",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Ambient Bundle. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def AmbientBundle",
+      "line": 28
+    },
+    {
+      "leanDeclaration": "AmbientPointMetricBundle",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Ambient Point Metric Bundle. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def AmbientPointMetricBundle",
+      "line": 31
+    },
+    {
+      "leanDeclaration": "ambientProj",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ambient Proj. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ambientProj : Conf.AmbientBundle → M | (u, _) => u.1",
+      "line": 34
+    },
+    {
+      "leanDeclaration": "ambientPointProj",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ambient Point Proj. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ambientPointProj : Conf.AmbientPointMetricBundle → M | (u, _) => u.1",
+      "line": 38
+    },
+    {
+      "leanDeclaration": "rhoCoord",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: rho Coord. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def rhoCoord : Conf.AmbientBundle → ℝ | (_, ρ) => ρ",
+      "line": 42
+    },
+    {
+      "leanDeclaration": "rhoPointCoord",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: rho Point Coord. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def rhoPointCoord : Conf.AmbientPointMetricBundle → ℝ | (_, ρ) => ρ",
+      "line": 46
+    },
+    {
+      "leanDeclaration": "iota",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: iota. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def iota : Conf.MetricBundle → Conf.AmbientBundle",
+      "line": 50
+    },
+    {
+      "leanDeclaration": "iotaPoint",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: iota Point. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def iotaPoint : Conf.PointMetricBundle → Conf.AmbientPointMetricBundle",
+      "line": 54
+    },
+    {
+      "leanDeclaration": "ambientDilate",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ambient Dilate. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ambientDilate (a : PosReal) : Conf.AmbientBundle → Conf.AmbientBundle | (u, ρ) => (Conf.dilateBundle a u, ρ)",
+      "line": 58
+    },
+    {
+      "leanDeclaration": "ambientPointDilate",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ambient Point Dilate. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ambientPointDilate (a : PosReal) : Conf.AmbientPointMetricBundle → Conf.AmbientPointMetricBundle | (u, ρ) => (Conf.dilatePointMetricBundle a u, ρ)",
+      "line": 62
+    },
+    {
+      "leanDeclaration": "ambientPointToFiber",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ambient Point To Fiber. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ambientPointToFiber : Conf.AmbientPointMetricBundle → Conf.AmbientBundle | (u, ρ) => (Conf.pointToFiberBundle u, ρ)",
+      "line": 67
+    },
+    {
+      "leanDeclaration": "ambientTrivialization",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ambient Trivialization. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "noncomputable def ambientTrivialization (s : Conf.Scale) : Conf.AmbientBundle ≃ ((PosReal × M) × ℝ)",
+      "line": 130
+    },
+    {
+      "leanDeclaration": "StraightMetricData",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Straight Metric Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure StraightMetricData",
+      "line": 161
+    },
+    {
+      "leanDeclaration": "g0",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: g0. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def g0 (A : Conf.StraightMetricData) : Conf.MetricField",
+      "line": 176
+    },
+    {
+      "leanDeclaration": "baseRaySection",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: base Ray Section. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def baseRaySection (A : Conf.StraightMetricData) : ∀ x : M, Conf.MetricFiber x",
+      "line": 186
+    },
+    {
+      "leanDeclaration": "StraightForm",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Straight Form. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure StraightForm",
+      "line": 203
+    },
+    {
+      "leanDeclaration": "baseScale",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: base Scale. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def baseScale (G : Conf.StraightForm) : Conf.Scale",
+      "line": 211
+    },
+    {
+      "leanDeclaration": "gRho",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: g Rho. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def gRho (G : Conf.StraightForm) : ℝ → Conf.MetricField",
+      "line": 214
+    }
+  ],
+  "prerequisites": [
+    "Conformal/Basic.lean"
+  ],
+  "usedBy": [
+    "Ambient/Ambientdensity.lean",
+    "Ambient/Ambientoperator.lean",
+    "Ambient/FG/NormalForm.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapters 2–3, ambient space and normal form",
+      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+    }
+  ],
+  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+}

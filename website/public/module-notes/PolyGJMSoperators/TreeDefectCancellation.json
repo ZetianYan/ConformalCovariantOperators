@@ -1,0 +1,92 @@
+{
+  "file": "PolyGJMSoperators/TreeDefectCancellation.lean",
+  "title": "TreeDefectCancellation",
+  "status": "scaffold",
+  "summary": "States an abstract interface that turns the path-wise recurrence into cancellation of slot defects and hence tangentiality.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "States an abstract interface that turns the path-wise recurrence into cancellation of slot defects and hence tangentiality.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/TreeDefectCancellation.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "OperatorData",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Operator Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure OperatorData (r k : ℕ)",
+      "line": 38
+    },
+    {
+      "leanDeclaration": "toOperator",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def toOperator {r k : ℕ} (D : OperatorData r k) (CalConf : Calculus Conf) : CalConf.MultiOperator r",
+      "line": 45
+    },
+    {
+      "leanDeclaration": "toOperator_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: to Operator apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem toOperator_apply {r k : ℕ} (D : OperatorData r k) (F : CalConf.MultiInput r) (U : Conf.AmbientBundle) : D.toOperator CalConf F U = ∑ I ∈ D.support, D.coeff I * I.toOperator CalConf F U",
+      "line": 53
+    },
+    {
+      "leanDeclaration": "RecurrenceImpliesTangentiality",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Recurrence Implies Tangentiality. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure RecurrenceImpliesTangentiality (CalConf : Calculus Conf) (r k : ℕ) (w : Fin r → ℝ) : Prop",
+      "line": 71
+    },
+    {
+      "leanDeclaration": "recurrence_implies_tangential",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: recurrence implies tangential. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem recurrence_implies_tangential {r k : ℕ} {w : Fin r → ℝ} (H : RecurrenceImpliesTangentiality CalConf r k w) (D : OperatorData r k) (hrec : RankRecurrence CalConf.n w D.coeff) : CalConf.IsTangentialAtWeights (D.toOperator CalConf) w",
+      "line": 81
+    },
+    {
+      "leanDeclaration": "TangentialOperatorData",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Tangential Operator Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure TangentialOperatorData (r k : ℕ) (w : Fin r → ℝ)",
+      "line": 92
+    },
+    {
+      "leanDeclaration": "toOperator",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def toOperator {r k : ℕ} {w : Fin r → ℝ} (D : TangentialOperatorData CalConf r k w) : CalConf.MultiOperator r",
+      "line": 102
+    },
+    {
+      "leanDeclaration": "tangential",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: tangential. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem tangential {r k : ℕ} {w : Fin r → ℝ} (D : TangentialOperatorData CalConf r k w) : CalConf.IsTangentialAtWeights D.toOperator w",
+      "line": 108
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/TreeRecurrence.lean",
+    "PolyGJMSoperators/LinearCombination.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/Tree.lean",
+    "PolyGJMSoperators/TreeChainComplex.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseCieslak-2025",
+      "locator": "Main ambient construction and tangentiality results",
+      "note": "Motivation for rank-general nested Laplacian words; the Lean tree complex goes beyond what is currently instantiated."
+    }
+  ],
+  "limitations": "This file establishes syntax, aggregate imports, or an abstract bridge. It must not be read as a derivation of the corresponding geometric theorem from concrete tensor and analytic data."
+}

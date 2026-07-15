@@ -1,0 +1,63 @@
+{
+  "file": "Ambient/FG/Commutators.lean",
+  "title": "Commutators",
+  "status": "verified",
+  "summary": "Derives the Euler/defining-function/Laplacian identities used in the tangentiality argument, including XQ = 2Q and the Laplacian–Q commutator.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Derives the Euler/defining-function/Laplacian identities used in the tangentiality argument, including XQ = 2Q and the Laplacian–Q commutator.",
+      "formula": "XQ=2Q,\\qquad [X,\\widetilde\\Delta]=-2\\widetilde\\Delta"
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/FG/Commutators.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "straightForm_X_Q",
+      "kind": "theorem",
+      "mathematicalMeaning": "The Euler field satisfies X(Q)=2Q.",
+      "leanType": "theorem straightForm_X_Q (L : NormalLaplacianModel A) : L.X (normalQ A) = fun U => 2 * normalQ A U",
+      "line": 26
+    },
+    {
+      "leanDeclaration": "straightForm_X_laplacian_comm",
+      "kind": "theorem",
+      "mathematicalMeaning": "The Euler field and ambient Laplacian satisfy [X, \\widetilde\\Delta]=-2\\widetilde\\Delta.",
+      "leanType": "theorem straightForm_X_laplacian_comm (L : NormalLaplacianModel A) (f : Operators.Function Conf) : L.X (L.laplacian f) = fun U => L.laplacian (L.X f) U - 2 * L.laplacian f U",
+      "line": 31
+    },
+    {
+      "leanDeclaration": "straightForm_lap_Q_comm",
+      "kind": "theorem",
+      "mathematicalMeaning": "The ambient Laplacian of Qf is rewritten as Q\\widetilde\\Delta f plus the homogeneity correction.",
+      "leanType": "theorem straightForm_lap_Q_comm (L : NormalLaplacianModel A) (f : Operators.Function Conf) : L.laplacian (normalQmul A f) = fun U => normalQ A U * L.laplacian f U",
+      "line": 39
+    },
+    {
+      "leanDeclaration": "straightForm_lap_Qpow_of_XHomogeneous",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: straight Form lap Qpow of XHomogeneous. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem straightForm_lap_Qpow_of_XHomogeneous (L : NormalLaplacianModel A) (m : ℕ) {w : ℝ} {f : Operators.Function Conf} (hf : L.X f = fun U => w * f U) : L.laplacian (normalQpowMul A m f)",
+      "line": 49
+    }
+  ],
+  "prerequisites": [
+    "Ambient/FG/Laplacian.lean"
+  ],
+  "usedBy": [
+    "Ambient/FG/CalculusInstance.lean",
+    "Ambient/FG.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapters 2–3, ambient space and normal form",
+      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+    }
+  ],
+  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+}

@@ -1,0 +1,53 @@
+{
+  "file": "PolyGJMSoperators/OR/Coefficients/ClosedSatisfiesRecurrence.lean",
+  "title": "ClosedSatisfiesRecurrence",
+  "status": "verified-under-interface",
+  "summary": "Proves that the closed coefficient formula satisfies the encoded OR recurrence relations.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Proves that the closed coefficient formula satisfies the encoded OR recurrence relations.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OR/Coefficients/ClosedSatisfiesRecurrence.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "ORRegularClosedFormula_satisfiesRecurrence_of_defectCancellationQ",
+      "kind": "theorem",
+      "mathematicalMeaning": "The proposed closed coefficient expression satisfies the encoded neighboring-index recurrence.",
+      "leanType": "theorem ORRegularClosedFormula_satisfiesRecurrence_of_defectCancellationQ {N : ℕ} {κ : Type _} [DecidableEq κ] (n w₁ w₂ : ℚ) (K : Finset κ) (defectCoeffQ : ORIndex N → Fin 2 → κ → ℚ)",
+      "line": 33
+    },
+    {
+      "leanDeclaration": "ORRegularClosedFormula_satisfiesLemma31LocalRecurrences",
+      "kind": "theorem",
+      "mathematicalMeaning": "The proposed closed coefficient expression satisfies the encoded neighboring-index recurrence.",
+      "leanType": "theorem ORRegularClosedFormula_satisfiesLemma31LocalRecurrences {N : ℕ} (n w₁ w₂ : ℚ) : (∀ I : ORIndex N, ORRegularAFirstRecurrence n w₁ w₂ I) ∧ (∀ I : ORIndex N, ORRegularASecondRecurrence n w₁ w₂ I)",
+      "line": 53
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/OR/Coefficients/RatioLemmas.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/OR.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "OvsienkoRedou-2001",
+      "locator": "Classification of invariant bilinear differential operators",
+      "note": "Flat-model origin of the coefficient family."
+    },
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient classification and curved construction",
+      "note": "Primary curved ambient source for the encoded OR recurrence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

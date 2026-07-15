@@ -1,0 +1,84 @@
+{
+  "file": "Ambient/PE/AmbientBridge.lean",
+  "title": "AmbientBridge",
+  "status": "verified-under-interface",
+  "summary": "States the formal cone relationship between straight ambient geometry and the associated Poincaré–Einstein metric.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "States the formal cone relationship between straight ambient geometry and the associated Poincaré–Einstein metric.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/AmbientBridge.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "ambientRhoOfRadial",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ambient Rho Of Radial. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ambientRhoOfRadial (r : Real) : Real",
+      "line": 31
+    },
+    {
+      "leanDeclaration": "coneScale",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: cone Scale. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def coneScale (r t : Real) : Real",
+      "line": 35
+    },
+    {
+      "leanDeclaration": "ambientRhoOfRadial_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Rho Of Radial zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientRhoOfRadial_zero : ambientRhoOfRadial 0 = 0",
+      "line": 39
+    },
+    {
+      "leanDeclaration": "coneScale_eq_mul",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: cone Scale eq mul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem coneScale_eq_mul (r t : Real) : coneScale r t = r * t",
+      "line": 44
+    },
+    {
+      "leanDeclaration": "AmbientPEBridge",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Ambient PEBridge. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure AmbientPEBridge {M : Type u} {Conf : ConformalStructure.{u, v} M} (A : FG.NormalAmbientData Conf) {X : PESpace.{w, x}} (NF : PoincareNormalFormData.{w, x, y} X)",
+      "line": 49
+    },
+    {
+      "leanDeclaration": "boundary_family_from_ambient",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: boundary family from ambient. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem boundary_family_from_ambient (B : AmbientPEBridge A NF) (r : Real) : NF.hR r = B.boundaryMetricAdapter (A.gRho (ambientRhoOfRadial r))",
+      "line": 100
+    },
+    {
+      "leanDeclaration": "ambient_metric_cone_decomposition",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient metric cone decomposition. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambient_metric_cone_decomposition (B : AmbientPEBridge A NF) : B.ambientMetricInConeCoordinates = MetricSymbol.add (MetricSymbol.scaleByScalar (-1) B.dsSquared) (MetricSymbol.scaleByFunction (fun z => (B.s z) ^ 2) NF.metric.gPlus)",
+      "line": 109
+    }
+  ],
+  "prerequisites": [
+    "Ambient/FG/NormalForm.lean",
+    "Ambient/PE/EinsteinEquation.lean"
+  ],
+  "usedBy": [
+    "Ambient/PE.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4, Poincaré metrics",
+      "note": "Source for Poincaré normal form and its relation to straight ambient metrics."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

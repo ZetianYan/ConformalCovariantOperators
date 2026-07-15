@@ -1,0 +1,161 @@
+{
+  "file": "Ambient/Ambienttangential.lean",
+  "title": "Ambienttangential",
+  "status": "verified",
+  "summary": "Formalizes equality modulo the defining function Q and the condition that a weighted ambient operator descends to boundary data.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Formalizes equality modulo the defining function Q and the condition that a weighted ambient operator descends to boundary data.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/Ambienttangential.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "SameBoundaryValue",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Same Boundary Value. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def SameBoundaryValue (f g : Function Conf) : Prop",
+      "line": 46
+    },
+    {
+      "leanDeclaration": "SameBoundaryValueAtWeight",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Same Boundary Value At Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def SameBoundaryValueAtWeight (w : ℝ) (f g : Function Conf) : Prop",
+      "line": 56
+    },
+    {
+      "leanDeclaration": "SameBoundaryValue_def",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Same Boundary Value def. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem SameBoundaryValue_def (f g : Function Conf) : CalConf.SameBoundaryValue f g ↔ CalConf.EqModQ f g",
+      "line": 62
+    },
+    {
+      "leanDeclaration": "SameBoundaryValueAtWeight.sameBoundaryValue",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Same Boundary Value At Weight.same Boundary Value. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem SameBoundaryValueAtWeight.sameBoundaryValue {w : ℝ} {f g : Function Conf} (hfg : CalConf.SameBoundaryValueAtWeight w f g) : CalConf.SameBoundaryValue f g",
+      "line": 66
+    },
+    {
+      "leanDeclaration": "VanishesModQ_Qmul",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Vanishes Mod Q Qmul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem VanishesModQ_Qmul (h : Function Conf) : CalConf.VanishesModQ (CalConf.Qmul h)",
+      "line": 75
+    },
+    {
+      "leanDeclaration": "VanishesModQ_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Vanishes Mod Q zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem VanishesModQ_zero : CalConf.VanishesModQ (zero Conf)",
+      "line": 80
+    },
+    {
+      "leanDeclaration": "EqModQ_iff_exists_Qmul",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Eq Mod Q iff exists Qmul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem EqModQ_iff_exists_Qmul (f g : Function Conf) : CalConf.EqModQ f g ↔ ∃ h : Function Conf, (fun U => f U - g U) = CalConf.Qmul h",
+      "line": 87
+    },
+    {
+      "leanDeclaration": "SameBoundaryValue_refl",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Same Boundary Value refl. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem SameBoundaryValue_refl (f : Function Conf) : CalConf.SameBoundaryValue f f",
+      "line": 93
+    },
+    {
+      "leanDeclaration": "SameBoundaryValue_symm",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Same Boundary Value symm. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem SameBoundaryValue_symm {f g : Function Conf} (hfg : CalConf.SameBoundaryValue f g) : CalConf.SameBoundaryValue g f",
+      "line": 98
+    },
+    {
+      "leanDeclaration": "SameBoundaryValue_trans",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Same Boundary Value trans. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem SameBoundaryValue_trans {f g k : Function Conf} (hfg : CalConf.SameBoundaryValue f g) (hgk : CalConf.SameBoundaryValue g k) : CalConf.SameBoundaryValue f k",
+      "line": 112
+    },
+    {
+      "leanDeclaration": "SameBoundaryValue_of_eq",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Same Boundary Value of eq. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem SameBoundaryValue_of_eq {f g : Function Conf} (h : f = g) : CalConf.SameBoundaryValue f g",
+      "line": 130
+    },
+    {
+      "leanDeclaration": "SameBoundaryValue_add",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Same Boundary Value add. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem SameBoundaryValue_add {f₁ f₂ g₁ g₂ : Function Conf} (hf : CalConf.SameBoundaryValue f₁ f₂) (hg : CalConf.SameBoundaryValue g₁ g₂) : CalConf.SameBoundaryValue (add Conf f₁ g₁) (add Conf f₂ g₂)",
+      "line": 139
+    },
+    {
+      "leanDeclaration": "SameBoundaryValue_sub",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Same Boundary Value sub. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem SameBoundaryValue_sub {f₁ f₂ g₁ g₂ : Function Conf} (hf : CalConf.SameBoundaryValue f₁ f₂) (hg : CalConf.SameBoundaryValue g₁ g₂) : CalConf.SameBoundaryValue (sub Conf f₁ g₁) (sub Conf f₂ g₂)",
+      "line": 161
+    },
+    {
+      "leanDeclaration": "SameBoundaryValue_smul",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Same Boundary Value smul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem SameBoundaryValue_smul (c : ℝ) {f g : Function Conf} (hfg : CalConf.SameBoundaryValue f g) : CalConf.SameBoundaryValue (smul Conf c f) (smul Conf c g)",
+      "line": 183
+    },
+    {
+      "leanDeclaration": "Operator",
+      "kind": "abbrev",
+      "mathematicalMeaning": "Definition: Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "abbrev Operator : Type _",
+      "line": 204
+    },
+    {
+      "leanDeclaration": "IsTangentialOperator",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Is Tangential Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def IsTangentialOperator (P : Operator (Conf",
+      "line": 211
+    },
+    {
+      "leanDeclaration": "PreservesVanishesModQ",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Preserves Vanishes Mod Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def PreservesVanishesModQ (P : Operator (Conf",
+      "line": 223
+    },
+    {
+      "leanDeclaration": "IsTangentialOperator.id",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Is Tangential Operator.id. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem IsTangentialOperator.id : CalConf.IsTangentialOperator (fun f : Function Conf => f)",
+      "line": 228
+    }
+  ],
+  "prerequisites": [
+    "Ambient/Ambientoperator.lean"
+  ],
+  "usedBy": [
+    "GJMSoperators/Basic.lean",
+    "PolyGJMSoperators/Basic.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapters 2–3, ambient space and normal form",
+      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+    }
+  ],
+  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+}

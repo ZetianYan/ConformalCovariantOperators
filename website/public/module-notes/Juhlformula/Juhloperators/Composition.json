@@ -1,0 +1,139 @@
+{
+  "file": "Juhlformula/Juhloperators/Composition.lean",
+  "title": "Composition",
+  "status": "verified",
+  "summary": "Evaluates an ordered composition as P_{2I_1} composed with ... composed with P_{2I_r}.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Evaluates an ordered composition as P_{2I_1} composed with ... composed with P_{2I_r}.",
+      "formula": "P_{2I}=P_{2I_1}\\circ\\cdots\\circ P_{2I_r}"
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Juhlformula/Juhloperators/Composition.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "composeUnary",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: compose Unary. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def composeUnary (P Q : Function Conf → Function Conf) : Function Conf → Function Conf",
+      "line": 23
+    },
+    {
+      "leanDeclaration": "composeUnary_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: compose Unary apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem composeUnary_apply (P Q : Function Conf → Function Conf) (f : Function Conf) : composeUnary P Q f = P (Q f)",
+      "line": 29
+    },
+    {
+      "leanDeclaration": "idUnary",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: id Unary. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def idUnary : Function Conf → Function Conf",
+      "line": 36
+    },
+    {
+      "leanDeclaration": "idUnary_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: id Unary apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem idUnary_apply (f : Function Conf) : idUnary f = f",
+      "line": 40
+    },
+    {
+      "leanDeclaration": "abstractToUnary",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: abstract To Unary. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def abstractToUnary (P : GJMS.AbstractOperator CalConf) : Function Conf → Function Conf",
+      "line": 46
+    },
+    {
+      "leanDeclaration": "abstractToUnary_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: abstract To Unary apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem abstractToUnary_apply (P : GJMS.AbstractOperator CalConf) (f : Function Conf) : abstractToUnary CalConf P f = P.toWeightedTangentialOperator.toOperator f",
+      "line": 52
+    },
+    {
+      "leanDeclaration": "composeUnaryList",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: compose Unary List. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def composeUnaryList : List (Function Conf → Function Conf) → Function Conf → Function Conf | [] => idUnary | P :: Ps => composeUnary P (composeUnaryList Ps)",
+      "line": 63
+    },
+    {
+      "leanDeclaration": "composeUnaryList_nil",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: compose Unary List nil. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem composeUnaryList_nil : composeUnaryList (Conf",
+      "line": 69
+    },
+    {
+      "leanDeclaration": "composeUnaryList_cons",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: compose Unary List cons. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem composeUnaryList_cons (P : Function Conf → Function Conf) (Ps : List (Function Conf → Function Conf)) : composeUnaryList (Conf",
+      "line": 74
+    },
+    {
+      "leanDeclaration": "AbstractGJMSFamily",
+      "kind": "abbrev",
+      "mathematicalMeaning": "Definition: Abstract GJMSFamily. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "abbrev AbstractGJMSFamily",
+      "line": 83
+    },
+    {
+      "leanDeclaration": "operatorListOfComposition",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: operator List Of Composition. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def operatorListOfComposition (G : AbstractGJMSFamily CalConf) {N : Nat} (I : Composition N) : List (Function Conf → Function Conf)",
+      "line": 87
+    },
+    {
+      "leanDeclaration": "composeGJMS",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: compose GJMS. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def composeGJMS (G : AbstractGJMSFamily CalConf) {N : Nat} (I : Composition N) : Function Conf → Function Conf",
+      "line": 96
+    },
+    {
+      "leanDeclaration": "operatorList_singleton",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: operator List singleton. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem operatorList_singleton (G : AbstractGJMSFamily CalConf) (N : Nat) (hN : 0 < N) : operatorListOfComposition CalConf G (Composition.singleton N hN) = [abstractToUnary CalConf (G N hN)]",
+      "line": 104
+    },
+    {
+      "leanDeclaration": "composeGJMS_singleton",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: compose GJMS singleton. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem composeGJMS_singleton (G : AbstractGJMSFamily CalConf) (N : Nat) (hN : 0 < N) : composeGJMS CalConf G (Composition.singleton N hN) = abstractToUnary CalConf (G N hN)",
+      "line": 113
+    }
+  ],
+  "prerequisites": [
+    "Juhlformula/Juhloperators/Basic.lean",
+    "GJMSoperators/Basic.lean"
+  ],
+  "usedBy": [
+    "Juhlformula/Juhlcombinatorics/FormalStatement.lean",
+    "Juhlformula/Juhloperators/GJMSComposition.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "Juhl-2011",
+      "locator": "Composition formulas for GJMS operators",
+      "note": "Source for ordered GJMS compositions and coefficients."
+    },
+    {
+      "referenceId": "FeffermanGraham-Juhl-2012",
+      "locator": "Direct ambient proof of Juhl's formulas",
+      "note": "Ambient interpretation of the composition formula."
+    }
+  ],
+  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+}

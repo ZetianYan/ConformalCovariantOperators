@@ -1,0 +1,165 @@
+{
+  "file": "GJMSoperators/Tangentiality.lean",
+  "title": "Tangentiality",
+  "status": "verified-under-interface",
+  "summary": "Proves that the kth ambient Laplacian power is tangential at weight k - n/2 and packages the resulting canonical GJMS family.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Proves that the kth ambient Laplacian power is tangential at weight k - n/2 and packages the resulting canonical GJMS family.",
+      "formula": "f_1-f_2=Qh\\;\\Longrightarrow\\;i^*(\\widetilde\\Delta^k f_1)=i^*(\\widetilde\\Delta^k f_2)"
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in GJMSoperators/Tangentiality.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "vanishesModQ_Qmul_local",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: vanishes Mod Q Qmul local. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem vanishesModQ_Qmul_local (h : Function Conf) : CalConf.VanishesModQ (CalConf.Qmul h)",
+      "line": 54
+    },
+    {
+      "leanDeclaration": "sameBoundaryValue_of_difference_vanishes",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: same Boundary Value of difference vanishes. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem sameBoundaryValue_of_difference_vanishes {f g : Function Conf} (h : CalConf.VanishesModQ (fun U => f U - g U)) : CalConf.SameBoundaryValue f g",
+      "line": 63
+    },
+    {
+      "leanDeclaration": "lapPow_Qmul_vanishes_at_criticalWeight",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: lap Pow Qmul vanishes at critical Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem lapPow_Qmul_vanishes_at_criticalWeight (H : CalConf.AlgebraicIdentities) (k : ℕ) {h : Function Conf} (hh : CalConf.IsXHomogeneous (calculusInputWeight CalConf k - 2)",
+      "line": 86
+    },
+    {
+      "leanDeclaration": "lapPow_preserves_sameBoundaryValue_at_criticalWeight",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: lap Pow preserves same Boundary Value at critical Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem lapPow_preserves_sameBoundaryValue_at_criticalWeight (H : CalConf.AlgebraicIdentities) (k : ℕ) {f g : Function Conf} (_hf : CalConf.IsXHomogeneous (calculusInputWeight CalConf k)",
+      "line": 146
+    },
+    {
+      "leanDeclaration": "lapPow_isTangentialAtCriticalWeight",
+      "kind": "theorem",
+      "mathematicalMeaning": "The kth ambient Laplacian power descends at the critical weight k-n/2.",
+      "leanType": "theorem lapPow_isTangentialAtCriticalWeight (H : CalConf.AlgebraicIdentities) (k : ℕ) : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)",
+      "line": 213
+    },
+    {
+      "leanDeclaration": "canonicalAmbientGJMS",
+      "kind": "def",
+      "mathematicalMeaning": "The descended ambient Laplacian power is packaged as the canonical abstract GJMS operator.",
+      "leanType": "def canonicalAmbientGJMS (H : CalConf.AlgebraicIdentities) (k : ℕ) : AbstractOperator CalConf",
+      "line": 231
+    },
+    {
+      "leanDeclaration": "canonicalAmbientGJMS_k",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: canonical Ambient GJMS k. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem canonicalAmbientGJMS_k (H : CalConf.AlgebraicIdentities) (k : ℕ) : (canonicalAmbientGJMS CalConf H k).k = k",
+      "line": 239
+    },
+    {
+      "leanDeclaration": "canonicalAmbientGJMS_order",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: canonical Ambient GJMS order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem canonicalAmbientGJMS_order (H : CalConf.AlgebraicIdentities) (k : ℕ) : (canonicalAmbientGJMS CalConf H k).order = 2 * k",
+      "line": 247
+    },
+    {
+      "leanDeclaration": "canonicalAmbientGJMS_toOperator",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: canonical Ambient GJMS to Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem canonicalAmbientGJMS_toOperator (H : CalConf.AlgebraicIdentities) (k : ℕ) : (canonicalAmbientGJMS CalConf H k).toOperator = ambientLaplacianPowerOperator CalConf k",
+      "line": 255
+    },
+    {
+      "leanDeclaration": "canonicalAmbientGJMS_toOperator_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: canonical Ambient GJMS to Operator apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem canonicalAmbientGJMS_toOperator_apply (H : CalConf.AlgebraicIdentities) (k : ℕ) (f : Function Conf) : (canonicalAmbientGJMS CalConf H k).toOperator f = CalConf.lapPow k f",
+      "line": 268
+    },
+    {
+      "leanDeclaration": "canonicalAmbientGJMS_mapsWeight",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: canonical Ambient GJMS maps Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem canonicalAmbientGJMS_mapsWeight (H : CalConf.AlgebraicIdentities) (k : ℕ) : CalConf.MapsHomogeneousWeight (canonicalAmbientGJMS CalConf H k).toOperator (calculusInputWeight CalConf k) (calculusOutputWeight CalConf k)",
+      "line": 281
+    },
+    {
+      "leanDeclaration": "canonicalAmbientGJMS_tangential",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: canonical Ambient GJMS tangential. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem canonicalAmbientGJMS_tangential (H : CalConf.AlgebraicIdentities) (k : ℕ) : CalConf.IsTangentialAtWeight (canonicalAmbientGJMS CalConf H k).toOperator (calculusInputWeight CalConf k)",
+      "line": 296
+    },
+    {
+      "leanDeclaration": "canonicalAmbientGJMSFamily",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: canonical Ambient GJMSFamily. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def canonicalAmbientGJMSFamily (H : CalConf.AlgebraicIdentities) : Family CalConf",
+      "line": 314
+    },
+    {
+      "leanDeclaration": "canonicalAmbientGJMSFamily_get",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: canonical Ambient GJMSFamily get. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem canonicalAmbientGJMSFamily_get (H : CalConf.AlgebraicIdentities) (k : ℕ) : (canonicalAmbientGJMSFamily CalConf H).get k = canonicalAmbientGJMS CalConf H k",
+      "line": 323
+    },
+    {
+      "leanDeclaration": "canonicalAmbientGJMSFamily_get_order",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: canonical Ambient GJMSFamily get order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem canonicalAmbientGJMSFamily_get_order (H : CalConf.AlgebraicIdentities) (k : ℕ) : ((canonicalAmbientGJMSFamily CalConf H).get k).order = 2 * k",
+      "line": 331
+    },
+    {
+      "leanDeclaration": "canonicalAmbientGJMS_zero_toOperator_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: canonical Ambient GJMS zero to Operator apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem canonicalAmbientGJMS_zero_toOperator_apply (H : CalConf.AlgebraicIdentities) (f : Function Conf) : (canonicalAmbientGJMS CalConf H 0).toOperator f = f",
+      "line": 343
+    },
+    {
+      "leanDeclaration": "canonicalAmbientGJMS_one_toOperator_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: canonical Ambient GJMS one to Operator apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem canonicalAmbientGJMS_one_toOperator_apply (H : CalConf.AlgebraicIdentities) (f : Function Conf) : (canonicalAmbientGJMS CalConf H 1).toOperator f = CalConf.lap f",
+      "line": 353
+    },
+    {
+      "leanDeclaration": "canonicalAmbientGJMS_two_toOperator_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: canonical Ambient GJMS two to Operator apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem canonicalAmbientGJMS_two_toOperator_apply (H : CalConf.AlgebraicIdentities) (f : Function Conf) : (canonicalAmbientGJMS CalConf H 2).toOperator f = CalConf.lapPow 2 f",
+      "line": 364
+    }
+  ],
+  "prerequisites": [
+    "GJMSoperators/Ambientconstruction.lean"
+  ],
+  "usedBy": [
+    "Juhlformula/Juhloperators/GJMSComposition.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "GJMS-1992",
+      "locator": "pp. 557–565, ambient extension construction",
+      "note": "Original construction of conformally invariant powers of the Laplacian."
+    },
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Ambient Laplacian and homogeneous extension discussion",
+      "note": "Ambient-metric background for the formal construction."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

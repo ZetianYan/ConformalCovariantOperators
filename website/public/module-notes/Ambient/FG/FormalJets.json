@@ -1,0 +1,91 @@
+{
+  "file": "Ambient/FG/FormalJets.lean",
+  "title": "FormalJets",
+  "status": "verified-under-interface",
+  "summary": "Represents a finite rho-jet of the tangential metric g_rho and the condition that it solves the FG Ricci equations to finite order.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Represents a finite rho-jet of the tangential metric g_rho and the condition that it solves the FG Ricci equations to finite order.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/FG/FormalJets.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "Sym2Component",
+      "kind": "abbrev",
+      "mathematicalMeaning": "Definition: Sym2 Component. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "abbrev Sym2Component (ι : Type w)",
+      "line": 26
+    },
+    {
+      "leanDeclaration": "SymmetricComponent",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Symmetric Component. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def SymmetricComponent (T : Sym2Component ι) : Prop",
+      "line": 29
+    },
+    {
+      "leanDeclaration": "FormalMetricJet",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Formal Metric Jet. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure FormalMetricJet (ι : Type w) (K : ℕ)",
+      "line": 33
+    },
+    {
+      "leanDeclaration": "coeffAt",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: coeff At. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def coeffAt (J : FormalMetricJet ι K) (m : ℕ) (hm : m ≤ K) : Sym2Component ι",
+      "line": 46
+    },
+    {
+      "leanDeclaration": "coeffAt_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: coeff At zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem coeffAt_zero (J : FormalMetricJet ι K) : J.coeffAt 0 (Nat.zero_le K) = J.baseMetric",
+      "line": 50
+    },
+    {
+      "leanDeclaration": "firstCoeff",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: first Coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def firstCoeff (J : FormalMetricJet ι K) (hK : 1 ≤ K) : Sym2Component ι",
+      "line": 56
+    },
+    {
+      "leanDeclaration": "SatisfiesFGRicciToOrder",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Satisfies FGRicci To Order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure SatisfiesFGRicciToOrder (J : FormalMetricJet ι K) (order : ℕ) : Prop",
+      "line": 68
+    },
+    {
+      "leanDeclaration": "FG_first_jet",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: FG first jet. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem FG_first_jet (J : FormalMetricJet ι K) (H : SatisfiesFGRicciToOrder J 1) (i j : ι) : J.coeffAt 1 H.order_le i j = 2 * J.schouten i j",
+      "line": 81
+    }
+  ],
+  "prerequisites": [
+    "Ambient/FG/RicciNormalForm.lean"
+  ],
+  "usedBy": [
+    "Ambient/FG/Recursion.lean",
+    "Ambient/FG.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapters 2–3, ambient space and normal form",
+      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

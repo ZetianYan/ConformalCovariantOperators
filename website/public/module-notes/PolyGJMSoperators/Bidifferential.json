@@ -1,0 +1,146 @@
+{
+  "file": "PolyGJMSoperators/Bidifferential.lean",
+  "title": "Bidifferential",
+  "status": "verified-under-interface",
+  "summary": "Specializes the multilinear framework to two inputs, two weights, and bidifferential tangentiality.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Specializes the multilinear framework to two inputs, two weights, and bidifferential tangentiality.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/Bidifferential.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "BiInput",
+      "kind": "abbrev",
+      "mathematicalMeaning": "Definition: Bi Input. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "abbrev BiInput : Type _",
+      "line": 24
+    },
+    {
+      "leanDeclaration": "biWeights",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: bi Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def biWeights (_CalConf : Calculus Conf) (w₁ w₂ : ℝ) : Fin 2 → ℝ",
+      "line": 28
+    },
+    {
+      "leanDeclaration": "pairInput",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: pair Input. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def pairInput (f g : Function Conf) : CalConf.BiInput",
+      "line": 32
+    },
+    {
+      "leanDeclaration": "leftInput",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: left Input. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def leftInput (F : CalConf.BiInput) : Function Conf",
+      "line": 37
+    },
+    {
+      "leanDeclaration": "rightInput",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: right Input. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def rightInput (F : CalConf.BiInput) : Function Conf",
+      "line": 42
+    },
+    {
+      "leanDeclaration": "IsBiTangentialAtWeights",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Is Bi Tangential At Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def IsBiTangentialAtWeights (B : CalConf.BiOperator) (w₁ w₂ : ℝ) : Prop",
+      "line": 47
+    },
+    {
+      "leanDeclaration": "IsBiHomogeneous",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Is Bi Homogeneous. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def IsBiHomogeneous (w₁ w₂ : ℝ) (F : CalConf.BiInput) : Prop",
+      "line": 53
+    },
+    {
+      "leanDeclaration": "biOutputWeight",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: bi Output Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def biOutputWeight (w₁ w₂ : ℝ) (N : ℕ) : ℝ",
+      "line": 59
+    },
+    {
+      "leanDeclaration": "biWeights_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: bi Weights zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem biWeights_zero (w₁ w₂ : ℝ) : CalConf.biWeights w₁ w₂ 0 = w₁",
+      "line": 65
+    },
+    {
+      "leanDeclaration": "biWeights_one",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: bi Weights one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem biWeights_one (w₁ w₂ : ℝ) : CalConf.biWeights w₁ w₂ 1 = w₂",
+      "line": 71
+    },
+    {
+      "leanDeclaration": "pairInput_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: pair Input zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem pairInput_zero (f g : Function Conf) : CalConf.pairInput f g 0 = f",
+      "line": 77
+    },
+    {
+      "leanDeclaration": "pairInput_one",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: pair Input one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem pairInput_one (f g : Function Conf) : CalConf.pairInput f g 1 = g",
+      "line": 83
+    },
+    {
+      "leanDeclaration": "leftInput_pairInput",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: left Input pair Input. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem leftInput_pairInput (f g : Function Conf) : CalConf.leftInput (CalConf.pairInput f g) = f",
+      "line": 89
+    },
+    {
+      "leanDeclaration": "rightInput_pairInput",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: right Input pair Input. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem rightInput_pairInput (f g : Function Conf) : CalConf.rightInput (CalConf.pairInput f g) = g",
+      "line": 95
+    },
+    {
+      "leanDeclaration": "totalWeight_biWeights",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: total Weight bi Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem totalWeight_biWeights (w₁ w₂ : ℝ) : CalConf.totalWeight (CalConf.biWeights w₁ w₂) = w₁ + w₂",
+      "line": 100
+    },
+    {
+      "leanDeclaration": "biOutputWeight_eq",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: bi Output Weight eq. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem biOutputWeight_eq (w₁ w₂ : ℝ) (N : ℕ) : CalConf.biOutputWeight w₁ w₂ N = w₁ + w₂ - 2 * (N : ℝ)",
+      "line": 106
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/Tangential.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/LaplacianWords.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient bidifferential operator setup",
+      "note": "Source for multilinear tangentiality and Laplacian-word constructions."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

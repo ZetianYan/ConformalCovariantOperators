@@ -1,0 +1,111 @@
+{
+  "file": "PolyGJMSoperators/OR/Coefficients/ClosedFormula.lean",
+  "title": "ClosedFormula",
+  "status": "verified-under-interface",
+  "summary": "Defines the proposed closed product formula for OR coefficients.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines the proposed closed product formula for OR coefficients.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OR/Coefficients/ClosedFormula.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "ORClosedCoefficientFormula",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: ORClosed Coefficient Formula. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure ORClosedCoefficientFormula",
+      "line": 29
+    },
+    {
+      "leanDeclaration": "toCoefficientSystem",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Coefficient System. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def toCoefficientSystem (Φ : ORClosedCoefficientFormula) (N : ℕ) (n w₁ w₂ : ℚ) : ORCoefficientSystem N",
+      "line": 36
+    },
+    {
+      "leanDeclaration": "toCoefficientSystem_coeff",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: to Coefficient System coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem toCoefficientSystem_coeff (Φ : ORClosedCoefficientFormula) (N : ℕ) (n w₁ w₂ : ℚ) (I : ORIndex N) : (Φ.toCoefficientSystem N n w₁ w₂).coeff I = Φ.coeff N n w₁ w₂ I",
+      "line": 44
+    },
+    {
+      "leanDeclaration": "SatisfiesRecurrence",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Satisfies Recurrence. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def SatisfiesRecurrence {N : ℕ} {κ : Type _} [DecidableEq κ] (Φ : ORClosedCoefficientFormula) (n w₁ w₂ : ℚ) (K : Finset κ)",
+      "line": 54
+    },
+    {
+      "leanDeclaration": "ORRegularMultinomialFactor",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ORRegular Multinomial Factor. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ORRegularMultinomialFactor {N : ℕ} (I : ORIndex N) : ℚ",
+      "line": 72
+    },
+    {
+      "leanDeclaration": "ORRegularA",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ORRegular A. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ORRegularA {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : ℚ",
+      "line": 79
+    },
+    {
+      "leanDeclaration": "ORRegularCoeff",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ORRegular Coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ORRegularCoeff {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : ℚ",
+      "line": 88
+    },
+    {
+      "leanDeclaration": "ORRegularClosedFormula",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ORRegular Closed Formula. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ORRegularClosedFormula : ORClosedCoefficientFormula",
+      "line": 95
+    },
+    {
+      "leanDeclaration": "ORCoefficientSystem.regular",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ORCoefficient System.regular. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ORCoefficientSystem.regular (N : ℕ) (n w₁ w₂ : ℚ) : ORCoefficientSystem N",
+      "line": 99
+    },
+    {
+      "leanDeclaration": "ORCoefficientSystem.regular_coeff",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ORCoefficient System.regular coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ORCoefficientSystem.regular_coeff (N : ℕ) (n w₁ w₂ : ℚ) (I : ORIndex N) : (ORCoefficientSystem.regular N n w₁ w₂).coeff I = ORRegularCoeff n w₁ w₂ I",
+      "line": 106
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/OR/Coefficients/Parameters.lean",
+    "PolyGJMSoperators/OR/Coefficients/Recurrence.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/OR/ClosedOperator.lean",
+    "PolyGJMSoperators/OR/Coefficients/RatioLemmas.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "OvsienkoRedou-2001",
+      "locator": "Classification of invariant bilinear differential operators",
+      "note": "Flat-model origin of the coefficient family."
+    },
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient classification and curved construction",
+      "note": "Primary curved ambient source for the encoded OR recurrence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

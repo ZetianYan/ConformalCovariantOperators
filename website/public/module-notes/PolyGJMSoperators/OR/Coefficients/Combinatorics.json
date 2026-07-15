@@ -1,0 +1,146 @@
+{
+  "file": "PolyGJMSoperators/OR/Coefficients/Combinatorics.lean",
+  "title": "Combinatorics",
+  "status": "verified-under-interface",
+  "summary": "Provides factorial, Pochhammer-type, and rational combinatorial identities used by the coefficient proof.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Provides factorial, Pochhammer-type, and rational combinatorial identities used by the coefficient proof.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OR/Coefficients/Combinatorics.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "factorialQ",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: factorial Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def factorialQ (m : ℕ) : ℚ",
+      "line": 27
+    },
+    {
+      "leanDeclaration": "binomQ",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: binom Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def binomQ (m j : ℕ) : ℚ",
+      "line": 31
+    },
+    {
+      "leanDeclaration": "multinomialQ3",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: multinomial Q3. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def multinomialQ3 (N a b c : ℕ) : ℚ",
+      "line": 35
+    },
+    {
+      "leanDeclaration": "pochhammerQ",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: pochhammer Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def pochhammerQ (x : ℚ) (m : ℕ) : ℚ",
+      "line": 39
+    },
+    {
+      "leanDeclaration": "fallingFactorialQ",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: falling Factorial Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def fallingFactorialQ (x : ℚ) (m : ℕ) : ℚ",
+      "line": 43
+    },
+    {
+      "leanDeclaration": "factorialQ_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: factorial Q zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem factorialQ_zero : factorialQ 0 = 1",
+      "line": 47
+    },
+    {
+      "leanDeclaration": "factorialQ_succ",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: factorial Q succ. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem factorialQ_succ (m : ℕ) : factorialQ (m + 1) = ((m + 1 : ℕ) : ℚ) * factorialQ m",
+      "line": 51
+    },
+    {
+      "leanDeclaration": "binomQ_zero_right",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: binom Q zero right. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem binomQ_zero_right (m : ℕ) : binomQ m 0 = 1",
+      "line": 56
+    },
+    {
+      "leanDeclaration": "binomQ_self",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: binom Q self. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem binomQ_self (m : ℕ) : binomQ m m = 1",
+      "line": 61
+    },
+    {
+      "leanDeclaration": "pochhammerQ_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: pochhammer Q zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem pochhammerQ_zero (x : ℚ) : pochhammerQ x 0 = 1",
+      "line": 66
+    },
+    {
+      "leanDeclaration": "pochhammerQ_succ",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: pochhammer Q succ. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem pochhammerQ_succ (x : ℚ) (m : ℕ) : pochhammerQ x (m + 1) = pochhammerQ x m * (x + (m : ℚ))",
+      "line": 70
+    },
+    {
+      "leanDeclaration": "fallingFactorialQ_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: falling Factorial Q zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem fallingFactorialQ_zero (x : ℚ) : fallingFactorialQ x 0 = 1",
+      "line": 76
+    },
+    {
+      "leanDeclaration": "fallingFactorialQ_succ",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: falling Factorial Q succ. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem fallingFactorialQ_succ (x : ℚ) (m : ℕ) : fallingFactorialQ x (m + 1) = fallingFactorialQ x m * (x - (m : ℚ))",
+      "line": 80
+    },
+    {
+      "leanDeclaration": "pochhammerQ_eq_pred_mul",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: pochhammer Q eq pred mul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem pochhammerQ_eq_pred_mul (x : ℚ) {m : ℕ} (hm : 0 < m) : pochhammerQ x m = pochhammerQ x (m - 1) * (x + ((m - 1 : ℕ) : ℚ))",
+      "line": 85
+    },
+    {
+      "leanDeclaration": "fallingFactorialQ_eq_pred_mul",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: falling Factorial Q eq pred mul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem fallingFactorialQ_eq_pred_mul (x : ℚ) {m : ℕ} (hm : 0 < m) : fallingFactorialQ x m = fallingFactorialQ x (m - 1) * (x - ((m - 1 : ℕ) : ℚ))",
+      "line": 94
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/OR/Index.lean"
+  ],
+  "usedBy": [
+    "Juhlformula/Juhloperators/Coefficients.lean",
+    "PolyGJMSoperators/OR/Coefficients/Parameters.lean",
+    "PolyGJMSoperators/OR/Coefficients/Recurrence.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "OvsienkoRedou-2001",
+      "locator": "Classification of invariant bilinear differential operators",
+      "note": "Flat-model origin of the coefficient family."
+    },
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient classification and curved construction",
+      "note": "Primary curved ambient source for the encoded OR recurrence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

@@ -1,0 +1,144 @@
+{
+  "file": "PolyGJMSoperators/OR/Coefficients/RatioLemmas.lean",
+  "title": "RatioLemmas",
+  "status": "verified-under-interface",
+  "summary": "Proves ratios of neighboring closed coefficients needed to discharge the recurrence equations.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Proves ratios of neighboring closed coefficients needed to discharge the recurrence equations.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OR/Coefficients/RatioLemmas.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "ORFirstSlotMultiplier",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ORFirst Slot Multiplier. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ORFirstSlotMultiplier {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : ℚ",
+      "line": 28
+    },
+    {
+      "leanDeclaration": "ORSecondSlotMultiplier",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ORSecond Slot Multiplier. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ORSecondSlotMultiplier {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : ℚ",
+      "line": 35
+    },
+    {
+      "leanDeclaration": "ORFirstSlotLeftFactor",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ORFirst Slot Left Factor. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ORFirstSlotLeftFactor {N : ℕ} (n w₁ : ℚ) (I : ORIndex N) : ℚ",
+      "line": 42
+    },
+    {
+      "leanDeclaration": "ORSecondSlotLeftFactor",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ORSecond Slot Left Factor. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ORSecondSlotLeftFactor {N : ℕ} (n w₂ : ℚ) (I : ORIndex N) : ℚ",
+      "line": 49
+    },
+    {
+      "leanDeclaration": "ORRegularA_move_a_to_b_expanded",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ORRegular A move a to b expanded. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ORRegularA_move_a_to_b_expanded {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) (ha : 0 < I.a) : ORRegularA n w₁ w₂ (I.move_a_to_b ha) = pochhammerQ (ORAlpha N n w₁ w₂) ((I.b + 1) + I.c)",
+      "line": 59
+    },
+    {
+      "leanDeclaration": "ORRegularA_move_a_to_c_expanded",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ORRegular A move a to c expanded. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ORRegularA_move_a_to_c_expanded {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) (ha : 0 < I.a) : ORRegularA n w₁ w₂ (I.move_a_to_c ha) = pochhammerQ (ORAlpha N n w₁ w₂) (I.b + (I.c + 1))",
+      "line": 74
+    },
+    {
+      "leanDeclaration": "ORRegularAFirstRecurrence",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ORRegular AFirst Recurrence. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ORRegularAFirstRecurrence {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : Prop",
+      "line": 89
+    },
+    {
+      "leanDeclaration": "ORRegularASecondRecurrence",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ORRegular ASecond Recurrence. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ORRegularASecondRecurrence {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : Prop",
+      "line": 104
+    },
+    {
+      "leanDeclaration": "ORFirstSlotLeftFactor_eq_two_beta_last",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ORFirst Slot Left Factor eq two beta last. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ORFirstSlotLeftFactor_eq_two_beta_last {N : ℕ} (n w₁ : ℚ) (I : ORIndex N) (ha : 0 < I.a) : ORFirstSlotLeftFactor n w₁ I = 2 * (ORBeta N n w₁ + ((N - (I.b + 1) : ℕ) : ℚ))",
+      "line": 115
+    },
+    {
+      "leanDeclaration": "ORSecondSlotLeftFactor_eq_two_gamma_last",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ORSecond Slot Left Factor eq two gamma last. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ORSecondSlotLeftFactor_eq_two_gamma_last {N : ℕ} (n w₂ : ℚ) (I : ORIndex N) (ha : 0 < I.a) : ORSecondSlotLeftFactor n w₂ I = 2 * (ORGamma N n w₂ + ((N - (I.c + 1) : ℕ) : ℚ))",
+      "line": 129
+    },
+    {
+      "leanDeclaration": "neg_ORSlotMultiplier_eq_two_alpha_last",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: neg ORSlot Multiplier eq two alpha last. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem neg_ORSlotMultiplier_eq_two_alpha_last {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : -ORFirstSlotMultiplier n w₁ w₂ I = 2 * (ORAlpha N n w₁ w₂ + ((I.b + I.c : ℕ) : ℚ))",
+      "line": 143
+    },
+    {
+      "leanDeclaration": "neg_ORSecondSlotMultiplier_eq_two_alpha_last",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: neg ORSecond Slot Multiplier eq two alpha last. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem neg_ORSecondSlotMultiplier_eq_two_alpha_last {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : -ORSecondSlotMultiplier n w₁ w₂ I = 2 * (ORAlpha N n w₁ w₂ + ((I.b + I.c : ℕ) : ℚ))",
+      "line": 153
+    },
+    {
+      "leanDeclaration": "ORRegularA_firstRecurrence",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ORRegular A first Recurrence. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ORRegularA_firstRecurrence {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : ORRegularAFirstRecurrence n w₁ w₂ I",
+      "line": 163
+    },
+    {
+      "leanDeclaration": "ORRegularA_secondRecurrence",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ORRegular A second Recurrence. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ORRegularA_secondRecurrence {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : ORRegularASecondRecurrence n w₁ w₂ I",
+      "line": 186
+    },
+    {
+      "leanDeclaration": "ORRegularA_satisfiesLemma31Recurrences",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ORRegular A satisfies Lemma31 Recurrences. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ORRegularA_satisfiesLemma31Recurrences {N : ℕ} (n w₁ w₂ : ℚ) : (∀ I : ORIndex N, ORRegularAFirstRecurrence n w₁ w₂ I) ∧ (∀ I : ORIndex N, ORRegularASecondRecurrence n w₁ w₂ I)",
+      "line": 210
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/OR/Coefficients/ClosedFormula.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/OR/Coefficients/ClosedSatisfiesRecurrence.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "OvsienkoRedou-2001",
+      "locator": "Classification of invariant bilinear differential operators",
+      "note": "Flat-model origin of the coefficient family."
+    },
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient classification and curved construction",
+      "note": "Primary curved ambient source for the encoded OR recurrence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

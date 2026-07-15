@@ -1,0 +1,75 @@
+{
+  "file": "Juhlformula/Juhloperators/GJMSComposition.lean",
+  "title": "GJMSComposition",
+  "status": "verified",
+  "summary": "Specializes ordered compositions to the canonical ambient GJMS family.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Specializes ordered compositions to the canonical ambient GJMS family.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Juhlformula/Juhloperators/GJMSComposition.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "canonicalJuhlGJMSFamily",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: canonical Juhl GJMSFamily. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def canonicalJuhlGJMSFamily (H : CalConf.AlgebraicIdentities) : AbstractGJMSFamily CalConf",
+      "line": 23
+    },
+    {
+      "leanDeclaration": "canonicalGJMSComposition",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: canonical GJMSComposition. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def canonicalGJMSComposition (H : CalConf.AlgebraicIdentities) {N : Nat} (I : Composition N) : Function Conf → Function Conf",
+      "line": 32
+    },
+    {
+      "leanDeclaration": "canonicalGJMSComposition_singleton",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: canonical GJMSComposition singleton. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem canonicalGJMSComposition_singleton (H : CalConf.AlgebraicIdentities) (N : Nat) (hN : 0 < N) : canonicalGJMSComposition CalConf H (Composition.singleton N hN) = abstractToUnary CalConf (GJMS.canonicalAmbientGJMS CalConf H N)",
+      "line": 40
+    },
+    {
+      "leanDeclaration": "canonicalGJMSComposition_singleton_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: canonical GJMSComposition singleton apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem canonicalGJMSComposition_singleton_apply (H : CalConf.AlgebraicIdentities) (N : Nat) (hN : 0 < N) (f : Function Conf) : canonicalGJMSComposition CalConf H (Composition.singleton N hN) f = (GJMS.canonicalAmbientGJMS CalConf H N).toWeightedTangentialOperator.toOperator f",
+      "line": 49
+    },
+    {
+      "leanDeclaration": "canonicalGJMSComposition_singleton_apply_lapPow",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: canonical GJMSComposition singleton apply lap Pow. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem canonicalGJMSComposition_singleton_apply_lapPow (H : CalConf.AlgebraicIdentities) (N : Nat) (hN : 0 < N) (f : Function Conf) : canonicalGJMSComposition CalConf H (Composition.singleton N hN) f = CalConf.lapPow N f",
+      "line": 60
+    }
+  ],
+  "prerequisites": [
+    "Juhlformula/Juhloperators/Composition.lean",
+    "GJMSoperators/Tangentiality.lean"
+  ],
+  "usedBy": [
+    "Juhlformula/Juhlcombinatorics/CurvedORJuhlFormula.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "Juhl-2011",
+      "locator": "Composition formulas for GJMS operators",
+      "note": "Source for ordered GJMS compositions and coefficients."
+    },
+    {
+      "referenceId": "FeffermanGraham-Juhl-2012",
+      "locator": "Direct ambient proof of Juhl's formulas",
+      "note": "Ambient interpretation of the composition formula."
+    }
+  ],
+  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+}

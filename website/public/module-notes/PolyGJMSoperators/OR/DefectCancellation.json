@@ -1,0 +1,88 @@
+{
+  "file": "PolyGJMSoperators/OR/DefectCancellation.lean",
+  "title": "DefectCancellation",
+  "status": "verified-under-interface",
+  "summary": "Encodes coefficient conditions that cancel Q-commutator defects in the two input slots.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Encodes coefficient conditions that cancel Q-commutator defects in the two input slots.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OR/DefectCancellation.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "ORDefectExpansion",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: ORDefect Expansion. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure ORDefectExpansion {κ : Type _} [DecidableEq κ] (D : OROperatorData) (CalConf : Calculus Conf) (K : Finset κ)",
+      "line": 31
+    },
+    {
+      "leanDeclaration": "SatisfiesDefectCancellation",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Satisfies Defect Cancellation. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def SatisfiesDefectCancellation {κ : Type _} [DecidableEq κ] (D : OROperatorData) (CalConf : Calculus Conf) {K : Finset κ} (E : D.ORDefectExpansion CalConf K) : Prop",
+      "line": 54
+    },
+    {
+      "leanDeclaration": "SatisfiesRationalDefectCancellation",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Satisfies Rational Defect Cancellation. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def SatisfiesRationalDefectCancellation {κ : Type _} [DecidableEq κ] (D : OROperatorData) (K : Finset κ) (defectCoeffQ : ORIndex D.N → Fin 2 → κ → ℚ) : Prop",
+      "line": 66
+    },
+    {
+      "leanDeclaration": "satisfiesDefectCancellation_of_rational",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: satisfies Defect Cancellation of rational. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem satisfiesDefectCancellation_of_rational {κ : Type _} [DecidableEq κ] (D : OROperatorData) {K : Finset κ} (E : D.ORDefectExpansion CalConf K) (defectCoeffQ : ORIndex D.N → Fin 2 → κ → ℚ)",
+      "line": 74
+    },
+    {
+      "leanDeclaration": "isBiTangential_of_defect_cancellation",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: is Bi Tangential of defect cancellation. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem isBiTangential_of_defect_cancellation {κ : Type _} [DecidableEq κ] (D : OROperatorData) {K : Finset κ} (E : D.ORDefectExpansion CalConf K) (hcancel : D.SatisfiesDefectCancellation CalConf E) :",
+      "line": 106
+    },
+    {
+      "leanDeclaration": "isBiTangential_of_rational_defect_cancellation",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: is Bi Tangential of rational defect cancellation. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem isBiTangential_of_rational_defect_cancellation {κ : Type _} [DecidableEq κ] (D : OROperatorData) {K : Finset κ} (E : D.ORDefectExpansion CalConf K) (defectCoeffQ : ORIndex D.N → Fin 2 → κ → ℚ)",
+      "line": 153
+    },
+    {
+      "leanDeclaration": "toWeightedBiTangentialOperator",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Weighted Bi Tangential Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def toWeightedBiTangentialOperator (D : OROperatorData) (hmaps : CalConf.MapsWeights (D.toOperator CalConf) (D.inputWeights CalConf) D.outputWeight)",
+      "line": 176
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/OR/OperatorData.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/OR/ClosedOperator.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "OvsienkoRedou-2001",
+      "locator": "Classification of invariant bilinear differential operators",
+      "note": "Flat-model origin of the coefficient family."
+    },
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient classification and curved construction",
+      "note": "Primary curved ambient source for the encoded OR recurrence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

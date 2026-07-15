@@ -1,0 +1,162 @@
+{
+  "file": "Ambient/Ambientoperator.lean",
+  "title": "Ambientoperator",
+  "status": "verified",
+  "summary": "Packages the abstract ambient operator calculus: Q, the Euler operator X, the ambient Laplacian, powers, homogeneity, and commutator laws.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Packages the abstract ambient operator calculus: Q, the Euler operator X, the ambient Laplacian, powers, homogeneity, and commutator laws.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/Ambientoperator.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "Function",
+      "kind": "abbrev",
+      "mathematicalMeaning": "Definition: Function. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "abbrev Function : Type _",
+      "line": 44
+    },
+    {
+      "leanDeclaration": "zero",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def zero : Function Conf",
+      "line": 51
+    },
+    {
+      "leanDeclaration": "add",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: add. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def add (f g : Function Conf) : Function Conf",
+      "line": 55
+    },
+    {
+      "leanDeclaration": "sub",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: sub. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def sub (f g : Function Conf) : Function Conf",
+      "line": 59
+    },
+    {
+      "leanDeclaration": "mul",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: mul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def mul (f g : Function Conf) : Function Conf",
+      "line": 63
+    },
+    {
+      "leanDeclaration": "smul",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: smul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def smul (c : ℝ) (f : Function Conf) : Function Conf",
+      "line": 67
+    },
+    {
+      "leanDeclaration": "pow",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: pow. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def pow (f : Function Conf) (m : ℕ) : Function Conf",
+      "line": 71
+    },
+    {
+      "leanDeclaration": "Calculus",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Calculus. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure Calculus",
+      "line": 86
+    },
+    {
+      "leanDeclaration": "n",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: n. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def n : ℝ",
+      "line": 111
+    },
+    {
+      "leanDeclaration": "Qmul",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Qmul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def Qmul (f : Function Conf) : Function Conf",
+      "line": 115
+    },
+    {
+      "leanDeclaration": "QpowMul",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Qpow Mul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def QpowMul (m : ℕ) (f : Function Conf) : Function Conf",
+      "line": 119
+    },
+    {
+      "leanDeclaration": "VanishesModQ",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Vanishes Mod Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def VanishesModQ (f : Function Conf) : Prop",
+      "line": 123
+    },
+    {
+      "leanDeclaration": "EqModQ",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Eq Mod Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def EqModQ (f g : Function Conf) : Prop",
+      "line": 127
+    },
+    {
+      "leanDeclaration": "EqModQ_refl",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Eq Mod Q refl. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem EqModQ_refl (f : Function Conf) : CalConf.EqModQ f f",
+      "line": 131
+    },
+    {
+      "leanDeclaration": "lap",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: lap. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def lap (f : Function Conf) : Function Conf",
+      "line": 139
+    },
+    {
+      "leanDeclaration": "lapPow",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: lap Pow. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def lapPow (r : ℕ) (f : Function Conf) : Function Conf",
+      "line": 150
+    },
+    {
+      "leanDeclaration": "lapPow_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: lap Pow zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem lapPow_zero (f : Function Conf) : CalConf.lapPow 0 f = f",
+      "line": 156
+    },
+    {
+      "leanDeclaration": "lapPow_succ",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: lap Pow succ. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem lapPow_succ (r : ℕ) (f : Function Conf) : CalConf.lapPow (r + 1) f = CalConf.lap (CalConf.lapPow r f)",
+      "line": 160
+    }
+  ],
+  "prerequisites": [
+    "Ambient/Ambientbasic.lean",
+    "Ambient/Ambientdensity.lean"
+  ],
+  "usedBy": [
+    "Ambient/Ambienttangential.lean",
+    "Ambient/FG/Laplacian.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapters 2–3, ambient space and normal form",
+      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+    }
+  ],
+  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+}

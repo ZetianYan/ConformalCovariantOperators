@@ -1,0 +1,91 @@
+{
+  "file": "PolyGJMSoperators/LinearCombination.lean",
+  "title": "LinearCombination",
+  "status": "verified-under-interface",
+  "summary": "Defines finite linear combinations of multilinear ambient operators and their evaluation.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines finite linear combinations of multilinear ambient operators and their evaluation.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/LinearCombination.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "singleOperator",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: single Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def singleOperator {r : ℕ} (c : ℝ) (P : CalConf.MultiOperator r) : CalConf.MultiOperator r",
+      "line": 29
+    },
+    {
+      "leanDeclaration": "operatorSum",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: operator Sum. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def operatorSum {r : ℕ} {ι : Type _} [DecidableEq ι] (S : Finset ι) (c : ι → ℝ) (P : ι → CalConf.MultiOperator r) :",
+      "line": 37
+    },
+    {
+      "leanDeclaration": "singleOperator_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: single Operator apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem singleOperator_apply {r : ℕ} (c : ℝ) (P : CalConf.MultiOperator r) (F : CalConf.MultiInput r) (U : Conf.AmbientBundle) : CalConf.singleOperator c P F U = c * P F U",
+      "line": 48
+    },
+    {
+      "leanDeclaration": "operatorSum_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: operator Sum apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem operatorSum_apply {r : ℕ} {ι : Type _} [DecidableEq ι] (S : Finset ι) (c : ι → ℝ) (P : ι → CalConf.MultiOperator r)",
+      "line": 58
+    },
+    {
+      "leanDeclaration": "operatorSum_empty",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: operator Sum empty. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem operatorSum_empty {r : ℕ} {ι : Type _} [DecidableEq ι] (c : ι → ℝ) (P : ι → CalConf.MultiOperator r) : CalConf.operatorSum (∅ : Finset ι) c P = CalConf.multiZero r",
+      "line": 71
+    },
+    {
+      "leanDeclaration": "operatorSum_singleton",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: operator Sum singleton. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem operatorSum_singleton {r : ℕ} {ι : Type _} [DecidableEq ι] (i : ι) (c : ι → ℝ) (P : ι → CalConf.MultiOperator r) :",
+      "line": 82
+    },
+    {
+      "leanDeclaration": "SameBoundaryValue_finset_sum",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Same Boundary Value finset sum. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem SameBoundaryValue_finset_sum {ι : Type _} [DecidableEq ι] (S : Finset ι) (A B : ι → Function Conf) (hAB : ∀ i ∈ S, CalConf.SameBoundaryValue (A i) (B i)) : CalConf.SameBoundaryValue",
+      "line": 95
+    },
+    {
+      "leanDeclaration": "operatorSum",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: operator Sum. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem operatorSum {r : ℕ} {ι : Type _} [DecidableEq ι] (S : Finset ι) (c : ι → ℝ) (P : ι → CalConf.MultiOperator r)",
+      "line": 127
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/Tangential.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/LaplacianWords.lean",
+    "PolyGJMSoperators/TreeDefectCancellation.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient bidifferential operator setup",
+      "note": "Source for multilinear tangentiality and Laplacian-word constructions."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

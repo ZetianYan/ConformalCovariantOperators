@@ -1,0 +1,94 @@
+{
+  "file": "Ambient/PE/Renormalization/LaurentLogExpansion.lean",
+  "title": "LaurentLogExpansion",
+  "status": "verified-under-interface",
+  "summary": "Models a finite Laurent/log expansion, parity conditions, coefficient support, and logarithmic terms.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Models a finite Laurent/log expansion, parity conditions, coefficient support, and logarithmic terms.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/Renormalization/LaurentLogExpansion.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "LaurentLogExpansion",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Laurent Log Expansion. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure LaurentLogExpansion (R : Type u) [Zero R]",
+      "line": 25
+    },
+    {
+      "leanDeclaration": "activeExponents",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: active Exponents. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def activeExponents : Finset Int",
+      "line": 41
+    },
+    {
+      "leanDeclaration": "coeff_eq_zero_of_lt",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: coeff eq zero of lt. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem coeff_eq_zero_of_lt {m : Int} (hm : m < E.lowerBound) : E.coeff m = 0",
+      "line": 44
+    },
+    {
+      "leanDeclaration": "coeff_eq_zero_of_gt",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: coeff eq zero of gt. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem coeff_eq_zero_of_gt {m : Int} (hm : E.upperBound < m) : E.coeff m = 0",
+      "line": 50
+    },
+    {
+      "leanDeclaration": "EvenExpansionToOrder",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Even Expansion To Order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def EvenExpansionToOrder (N : Nat) : Prop",
+      "line": 57
+    },
+    {
+      "leanDeclaration": "OddExpansionToOrder",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Odd Expansion To Order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def OddExpansionToOrder (N : Nat) : Prop",
+      "line": 64
+    },
+    {
+      "leanDeclaration": "EvenExpansionToOrder",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Even Expansion To Order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def EvenExpansionToOrder {R : Type u} [Zero R] (E : LaurentLogExpansion R) (N : Nat) : Prop",
+      "line": 73
+    },
+    {
+      "leanDeclaration": "OddExpansionToOrder",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Odd Expansion To Order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def OddExpansionToOrder {R : Type u} [Zero R] (E : LaurentLogExpansion R) (N : Nat) : Prop",
+      "line": 82
+    }
+  ],
+  "prerequisites": [],
+  "usedBy": [
+    "Ambient/PE/Renormalization/FinitePart.lean",
+    "Ambient/PE/Renormalization.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseKhaitanLinTyrrellYuan-2024",
+      "locator": "Proposition 3.7, Proposition 3.10, Lemma 4.1, and Theorems 1.1/1.4 as applicable",
+      "note": "Primary source for the renormalized-curvature-integral mechanism represented by these modules."
+    },
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4",
+      "note": "Background for the ambient/Poincaré correspondence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

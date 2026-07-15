@@ -1,0 +1,76 @@
+{
+  "file": "PolyGJMSoperators/Boundary.lean",
+  "title": "Boundary",
+  "status": "verified-under-interface",
+  "summary": "Defines componentwise equality of multilinear inputs on the boundary and proves its equivalence-relation laws.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines componentwise equality of multilinear inputs on the boundary and proves its equivalence-relation laws.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/Boundary.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "SameBoundaryValues",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Same Boundary Values. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def SameBoundaryValues {r : ℕ} (F G : CalConf.MultiInput r) : Prop",
+      "line": 27
+    },
+    {
+      "leanDeclaration": "SameBoundaryValueAtWeights",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Same Boundary Value At Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def SameBoundaryValueAtWeights {r : ℕ} (w : Fin r → ℝ) (F G : CalConf.MultiInput r) : Prop",
+      "line": 33
+    },
+    {
+      "leanDeclaration": "SameBoundaryValues_refl",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Same Boundary Values refl. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem SameBoundaryValues_refl {r : ℕ} (F : CalConf.MultiInput r) : CalConf.SameBoundaryValues F F",
+      "line": 39
+    },
+    {
+      "leanDeclaration": "SameBoundaryValues_symm",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Same Boundary Values symm. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem SameBoundaryValues_symm {r : ℕ} {F G : CalConf.MultiInput r} (hFG : CalConf.SameBoundaryValues F G) : CalConf.SameBoundaryValues G F",
+      "line": 46
+    },
+    {
+      "leanDeclaration": "SameBoundaryValues_trans",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Same Boundary Values trans. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem SameBoundaryValues_trans {r : ℕ} {F G K : CalConf.MultiInput r} (hFG : CalConf.SameBoundaryValues F G) (hGK : CalConf.SameBoundaryValues G K) : CalConf.SameBoundaryValues F K",
+      "line": 54
+    },
+    {
+      "leanDeclaration": "SameBoundaryValueAtWeights.sameBoundaryValues",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Same Boundary Value At Weights.same Boundary Values. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem SameBoundaryValueAtWeights.sameBoundaryValues {r : ℕ} {w : Fin r → ℝ} {F G : CalConf.MultiInput r} (hFG : CalConf.SameBoundaryValueAtWeights w F G) : CalConf.SameBoundaryValues F G",
+      "line": 63
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/Basic.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/Homogeneity.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient bidifferential operator setup",
+      "note": "Source for multilinear tangentiality and Laplacian-word constructions."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

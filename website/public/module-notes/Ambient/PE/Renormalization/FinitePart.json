@@ -1,0 +1,75 @@
+{
+  "file": "Ambient/PE/Renormalization/FinitePart.lean",
+  "title": "FinitePart",
+  "status": "scaffold",
+  "summary": "Defines the finite part as the constant Laurent coefficient and the log anomaly as the logarithmic coefficient.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines the finite part as the constant Laurent coefficient and the log anomaly as the logarithmic coefficient.",
+      "formula": "\\operatorname{FP}_{\\varepsilon\\to0}F(\\varepsilon)=[\\varepsilon^0]F(\\varepsilon)"
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/Renormalization/FinitePart.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "finitePart",
+      "kind": "def",
+      "mathematicalMeaning": "Selects or identifies the constant term in a Laurent/log cutoff expansion.",
+      "leanType": "def finitePart {R : Type u} [Zero R] (E : LaurentLogExpansion R) : R",
+      "line": 18
+    },
+    {
+      "leanDeclaration": "logAnomaly",
+      "kind": "def",
+      "mathematicalMeaning": "Selects or identifies the logarithmic coefficient in a cutoff expansion.",
+      "leanType": "def logAnomaly {R : Type u} [Zero R] (E : LaurentLogExpansion R) : R",
+      "line": 26
+    },
+    {
+      "leanDeclaration": "HasNoLogTerm",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Has No Log Term. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def HasNoLogTerm {R : Type u} [Zero R] (E : LaurentLogExpansion R) : Prop",
+      "line": 34
+    },
+    {
+      "leanDeclaration": "finitePart_eq_coeff_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Selects or identifies the constant term in a Laurent/log cutoff expansion.",
+      "leanType": "theorem finitePart_eq_coeff_zero {R : Type u} [Zero R] (E : LaurentLogExpansion R) : finitePart E = E.coeff 0",
+      "line": 42
+    },
+    {
+      "leanDeclaration": "logAnomaly_eq_logCoeff",
+      "kind": "theorem",
+      "mathematicalMeaning": "Selects or identifies the logarithmic coefficient in a cutoff expansion.",
+      "leanType": "theorem logAnomaly_eq_logCoeff {R : Type u} [Zero R] (E : LaurentLogExpansion R) : logAnomaly E = E.logCoeff",
+      "line": 50
+    }
+  ],
+  "prerequisites": [
+    "Ambient/PE/Renormalization/LaurentLogExpansion.lean"
+  ],
+  "usedBy": [
+    "Ambient/PE/Renormalization/CutoffFunctional.lean",
+    "Ambient/PE/Renormalization.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseKhaitanLinTyrrellYuan-2024",
+      "locator": "Proposition 3.7, Proposition 3.10, Lemma 4.1, and Theorems 1.1/1.4 as applicable",
+      "note": "Primary source for the renormalized-curvature-integral mechanism represented by these modules."
+    },
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4",
+      "note": "Background for the ambient/Poincaré correspondence."
+    }
+  ],
+  "limitations": "This file establishes syntax, aggregate imports, or an abstract bridge. It must not be read as a derivation of the corresponding geometric theorem from concrete tensor and analytic data."
+}

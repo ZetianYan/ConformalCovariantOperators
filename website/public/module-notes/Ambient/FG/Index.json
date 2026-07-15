@@ -1,0 +1,89 @@
+{
+  "file": "Ambient/FG/Index.lean",
+  "title": "Index",
+  "status": "verified-under-interface",
+  "summary": "Introduces the ambient 0, base, and infinity index types and formal normal coordinates used by component calculations.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Introduces the ambient 0, base, and infinity index types and formal normal coordinates used by component calculations.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/FG/Index.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "AmbientIndex",
+      "kind": "inductive",
+      "mathematicalMeaning": "Definition: Ambient Index. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "inductive AmbientIndex (ι : Type u) : Type u",
+      "line": 29
+    },
+    {
+      "leanDeclaration": "kronecker",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: kronecker. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def kronecker [DecidableEq ι] (I J : AmbientIndex ι) : ℝ",
+      "line": 40
+    },
+    {
+      "leanDeclaration": "kronecker_self",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: kronecker self. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem kronecker_self [DecidableEq ι] (I : AmbientIndex ι) : kronecker I I = 1",
+      "line": 44
+    },
+    {
+      "leanDeclaration": "kronecker_zero_inf",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: kronecker zero inf. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem kronecker_zero_inf [DecidableEq ι] : kronecker (ι",
+      "line": 49
+    },
+    {
+      "leanDeclaration": "kronecker_inf_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: kronecker inf zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem kronecker_inf_zero [DecidableEq ι] : kronecker (ι",
+      "line": 54
+    },
+    {
+      "leanDeclaration": "kronecker_zero_base",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: kronecker zero base. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem kronecker_zero_base [DecidableEq ι] (i : ι) : kronecker zero (base i) = 0",
+      "line": 59
+    },
+    {
+      "leanDeclaration": "kronecker_base_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: kronecker base zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem kronecker_base_zero [DecidableEq ι] (i : ι) : kronecker (base i) zero = 0",
+      "line": 64
+    },
+    {
+      "leanDeclaration": "NormalCoord",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Normal Coord. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure NormalCoord (M : Type u)",
+      "line": 71
+    }
+  ],
+  "prerequisites": [],
+  "usedBy": [
+    "Ambient/FG/NormalForm.lean",
+    "Ambient/FG.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapters 2–3, ambient space and normal form",
+      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

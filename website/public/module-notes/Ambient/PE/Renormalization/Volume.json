@@ -1,0 +1,83 @@
+{
+  "file": "Ambient/PE/Renormalization/Volume.lean",
+  "title": "Volume",
+  "status": "verified-under-interface",
+  "summary": "Specializes cutoff functionals to renormalized PE volume and its anomaly.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Specializes cutoff functionals to renormalized PE volume and its anomaly.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/Renormalization/Volume.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "PEVolumeCutoffData",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: PEVolume Cutoff Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure PEVolumeCutoffData (X : PESpace.{u, v})",
+      "line": 22
+    },
+    {
+      "leanDeclaration": "volumeCutoffFunctional",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: volume Cutoff Functional. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def volumeCutoffFunctional (X : PESpace.{u, v}) : CutoffFunctional (PEVolumeCutoffData.{u, v, w} X) Real",
+      "line": 28
+    },
+    {
+      "leanDeclaration": "RenormalizedVolume",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Renormalized Volume. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def RenormalizedVolume {X : PESpace} (D : PEVolumeCutoffData X) : Real",
+      "line": 35
+    },
+    {
+      "leanDeclaration": "VolumeAnomaly",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Volume Anomaly. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def VolumeAnomaly {X : PESpace} (D : PEVolumeCutoffData X) : Real",
+      "line": 42
+    },
+    {
+      "leanDeclaration": "RenormalizedVolume_eq_finitePart",
+      "kind": "theorem",
+      "mathematicalMeaning": "Selects or identifies the constant term in a Laurent/log cutoff expansion.",
+      "leanType": "theorem RenormalizedVolume_eq_finitePart {X : PESpace} (D : PEVolumeCutoffData X) : RenormalizedVolume D = finitePart D.volumeExpansion",
+      "line": 49
+    },
+    {
+      "leanDeclaration": "VolumeAnomaly_eq_logAnomaly",
+      "kind": "theorem",
+      "mathematicalMeaning": "Selects or identifies the logarithmic coefficient in a cutoff expansion.",
+      "leanType": "theorem VolumeAnomaly_eq_logAnomaly {X : PESpace} (D : PEVolumeCutoffData X) : VolumeAnomaly D = logAnomaly D.volumeExpansion",
+      "line": 56
+    }
+  ],
+  "prerequisites": [
+    "Ambient/PE/NormalForm.lean",
+    "Ambient/PE/Renormalization/CutoffFunctional.lean"
+  ],
+  "usedBy": [
+    "Ambient/PE/Applications/PfaffianApplication.lean",
+    "Ambient/PE/Renormalization.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseKhaitanLinTyrrellYuan-2024",
+      "locator": "Proposition 3.7, Proposition 3.10, Lemma 4.1, and Theorems 1.1/1.4 as applicable",
+      "note": "Primary source for the renormalized-curvature-integral mechanism represented by these modules."
+    },
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4",
+      "note": "Background for the ambient/Poincaré correspondence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

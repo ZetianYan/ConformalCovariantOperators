@@ -1,0 +1,118 @@
+{
+  "file": "Juhlformula/Juhloperators/Coefficients.lean",
+  "title": "Coefficients",
+  "status": "verified",
+  "summary": "Defines abstract composition coefficients and a placeholder closed coefficient system.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines abstract composition coefficients and a placeholder closed coefficient system.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Juhlformula/Juhloperators/Coefficients.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "CoefficientSystem",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Coefficient System. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure CoefficientSystem",
+      "line": 21
+    },
+    {
+      "leanDeclaration": "SingletonNormalized",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Singleton Normalized. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def SingletonNormalized (C : CoefficientSystem) : Prop",
+      "line": 28
+    },
+    {
+      "leanDeclaration": "pairNCoeff",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: pair NCoeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def pairNCoeff (C : CoefficientSystem) (a b : ℕ) (ha : 0 < a) (hb : 0 < b) : ℚ",
+      "line": 33
+    },
+    {
+      "leanDeclaration": "partialSums",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: partial Sums. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def partialSums {N : ℕ} (I : Composition N) : List ℕ",
+      "line": 45
+    },
+    {
+      "leanDeclaration": "partsProdQ",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: parts Prod Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def partsProdQ {N : ℕ} (I : Composition N) : ℚ",
+      "line": 49
+    },
+    {
+      "leanDeclaration": "factorialPartsProdQ",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: factorial Parts Prod Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def factorialPartsProdQ {N : ℕ} (I : Composition N) : ℚ",
+      "line": 53
+    },
+    {
+      "leanDeclaration": "mCoeffQ",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: m Coeff Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def mCoeffQ {N : ℕ} (_I : Composition N) : ℚ",
+      "line": 65
+    },
+    {
+      "leanDeclaration": "nCoeffQ",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: n Coeff Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def nCoeffQ {N : ℕ} (_I : Composition N) : ℚ",
+      "line": 73
+    },
+    {
+      "leanDeclaration": "closedCoefficientSystem",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: closed Coefficient System. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def closedCoefficientSystem : CoefficientSystem",
+      "line": 77
+    },
+    {
+      "leanDeclaration": "nCoeffQ_singleton",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: n Coeff Q singleton. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem nCoeffQ_singleton (N : ℕ) (hN : 0 < N) : nCoeffQ (Composition.singleton N hN) = 1",
+      "line": 82
+    },
+    {
+      "leanDeclaration": "closedCoefficientSystem_singletonNormalized",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: closed Coefficient System singleton Normalized. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem closedCoefficientSystem_singletonNormalized : CoefficientSystem.SingletonNormalized closedCoefficientSystem",
+      "line": 87
+    }
+  ],
+  "prerequisites": [
+    "Juhlformula/Juhloperators/Basic.lean",
+    "PolyGJMSoperators/OR/Coefficients/Combinatorics.lean"
+  ],
+  "usedBy": [
+    "Juhlformula/Juhlcombinatorics/FormalJets.lean",
+    "Juhlformula/Juhlcombinatorics/FormalStatement.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "Juhl-2011",
+      "locator": "Composition formulas for GJMS operators",
+      "note": "Source for ordered GJMS compositions and coefficients."
+    },
+    {
+      "referenceId": "FeffermanGraham-Juhl-2012",
+      "locator": "Direct ambient proof of Juhl's formulas",
+      "note": "Ambient interpretation of the composition formula."
+    }
+  ],
+  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+}

@@ -1,0 +1,147 @@
+{
+  "file": "Ambient/PE/MetricComponents.lean",
+  "title": "MetricComponents",
+  "status": "verified-under-interface",
+  "summary": "Records the metric and inverse-metric block components of a Poincaré normal-form metric.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Records the metric and inverse-metric block components of a Poincaré normal-form metric.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/MetricComponents.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "PEIndex",
+      "kind": "inductive",
+      "mathematicalMeaning": "Definition: PEIndex. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "inductive PEIndex (Iota : Type u)",
+      "line": 25
+    },
+    {
+      "leanDeclaration": "kronecker",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: kronecker. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def kronecker [DecidableEq Iota] (I J : PEIndex Iota) : Real",
+      "line": 35
+    },
+    {
+      "leanDeclaration": "kronecker_self",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: kronecker self. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem kronecker_self [DecidableEq Iota] (I : PEIndex Iota) : kronecker I I = 1",
+      "line": 39
+    },
+    {
+      "leanDeclaration": "kronecker_radial_tangential",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: kronecker radial tangential. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem kronecker_radial_tangential [DecidableEq Iota] (i : Iota) : kronecker radial (tangential i) = 0",
+      "line": 44
+    },
+    {
+      "leanDeclaration": "kronecker_tangential_radial",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: kronecker tangential radial. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem kronecker_tangential_radial [DecidableEq Iota] (i : Iota) : kronecker (tangential i) radial = 0",
+      "line": 51
+    },
+    {
+      "leanDeclaration": "equivOption",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: equiv Option. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def equivOption : PEIndex Iota ≃ Option Iota",
+      "line": 58
+    },
+    {
+      "leanDeclaration": "sum_index",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: sum index. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem sum_index {R : Type w} [Fintype Iota] [AddCommMonoid R] (f : PEIndex Iota -> R) : (∑ I : PEIndex Iota, f I) =",
+      "line": 73
+    },
+    {
+      "leanDeclaration": "PENormalMetricComponents",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: PENormal Metric Components. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure PENormalMetricComponents (Iota : Type u)",
+      "line": 95
+    },
+    {
+      "leanDeclaration": "gPlusDown",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: g Plus Down. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def gPlusDown (C : PENormalMetricComponents Iota) : PEIndex Iota -> PEIndex Iota -> Real | PEIndex.radial, PEIndex.radial => (C.r ^ 2)⁻¹ | PEIndex.radial, PEIndex.tangential _ => 0 | PEIndex.tangential _, PEIndex.radial => 0 | PEIndex.tangential i, PEIndex.tangential j => (C.r ^ 2)⁻¹ * C.h i j",
+      "line": 101
+    },
+    {
+      "leanDeclaration": "gPlusUp",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: g Plus Up. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def gPlusUp (C : PENormalMetricComponents Iota) : PEIndex Iota -> PEIndex Iota -> Real | PEIndex.radial, PEIndex.radial => C.r ^ 2 | PEIndex.radial, PEIndex.tangential _ => 0 | PEIndex.tangential _, PEIndex.radial => 0 | PEIndex.tangential i, PEIndex.tangential j => C.r ^ 2 * C.hInv i j",
+      "line": 110
+    },
+    {
+      "leanDeclaration": "gPlusDown_radial_radial",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: g Plus Down radial radial. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem gPlusDown_radial_radial (C : PENormalMetricComponents Iota) : gPlusDown C PEIndex.radial PEIndex.radial = (C.r ^ 2)⁻¹",
+      "line": 119
+    },
+    {
+      "leanDeclaration": "gPlusDown_tangential_tangential",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: g Plus Down tangential tangential. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem gPlusDown_tangential_tangential (C : PENormalMetricComponents Iota) (i j : Iota) : gPlusDown C (PEIndex.tangential i) (PEIndex.tangential j) = (C.r ^ 2)⁻¹ * C.h i j",
+      "line": 123
+    },
+    {
+      "leanDeclaration": "gPlusUp_radial_radial",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: g Plus Up radial radial. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem gPlusUp_radial_radial (C : PENormalMetricComponents Iota) : gPlusUp C PEIndex.radial PEIndex.radial = C.r ^ 2",
+      "line": 131
+    },
+    {
+      "leanDeclaration": "gPlusUp_tangential_tangential",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: g Plus Up tangential tangential. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem gPlusUp_tangential_tangential (C : PENormalMetricComponents Iota) (i j : Iota) : gPlusUp C (PEIndex.tangential i) (PEIndex.tangential j) = C.r ^ 2 * C.hInv i j",
+      "line": 135
+    },
+    {
+      "leanDeclaration": "BoundaryLeftInverse",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Boundary Left Inverse. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def BoundaryLeftInverse [Fintype Iota] [DecidableEq Iota] (C : PENormalMetricComponents Iota) : Prop",
+      "line": 143
+    },
+    {
+      "leanDeclaration": "gPlusUp_mul_gPlusDown",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: g Plus Up mul g Plus Down. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem gPlusUp_mul_gPlusDown [Fintype Iota] [DecidableEq Iota] (C : PENormalMetricComponents Iota) (hr : C.r ≠ 0) (hbase : BoundaryLeftInverse C) (I J : PEIndex Iota) :",
+      "line": 156
+    }
+  ],
+  "prerequisites": [
+    "Ambient/PE/NormalForm.lean"
+  ],
+  "usedBy": [
+    "Ambient/PE/EinsteinEquation.lean",
+    "Ambient/PE.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4, Poincaré metrics",
+      "note": "Source for Poincaré normal form and its relation to straight ambient metrics."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

@@ -1,0 +1,96 @@
+{
+  "file": "Juhlformula/Juhlcombinatorics/LowOrderCheck.lean",
+  "title": "LowOrderCheck",
+  "status": "verified",
+  "summary": "Normalizes formal expressions and verifies the encoded raw P2 and P4 low-order identities.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Normalizes formal expressions and verifies the encoded raw P2 and P4 low-order identities.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Juhlformula/Juhlcombinatorics/LowOrderCheck.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "normalizeRat",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: normalize Rat. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def normalizeRat (q : ℚ) : FormalExpr",
+      "line": 18
+    },
+    {
+      "leanDeclaration": "normalize",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: normalize. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def normalize : FormalExpr → FormalExpr | zero => zero | one => one | rat q => normalizeRat q | k => k | f => f | F m => F m",
+      "line": 31
+    },
+    {
+      "leanDeclaration": "expectedF1ForP4",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: expected F1 For P4. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def expectedF1ForP4 : FormalExpr",
+      "line": 64
+    },
+    {
+      "leanDeclaration": "expectedP2",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: expected P2. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def expectedP2 : FormalExpr",
+      "line": 70
+    },
+    {
+      "leanDeclaration": "expectedP2Expanded",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: expected P2 Expanded. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def expectedP2Expanded : FormalExpr",
+      "line": 76
+    },
+    {
+      "leanDeclaration": "expectedP4Raw",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: expected P4 Raw. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def expectedP4Raw : FormalExpr",
+      "line": 83
+    },
+    {
+      "leanDeclaration": "formalP_one_eq_expectedP2",
+      "kind": "theorem",
+      "mathematicalMeaning": "The normalized formal recursion agrees with the encoded raw second-order expression.",
+      "leanType": "theorem formalP_one_eq_expectedP2 : (formalP 1).normalize = expectedP2.normalize",
+      "line": 92
+    },
+    {
+      "leanDeclaration": "formalP_two_eq_expectedP4Raw",
+      "kind": "theorem",
+      "mathematicalMeaning": "The normalized formal recursion agrees with the encoded raw fourth-order expression.",
+      "leanType": "theorem formalP_two_eq_expectedP4Raw : (formalP 2).normalize = expectedP4Raw.normalize",
+      "line": 96
+    }
+  ],
+  "prerequisites": [
+    "Juhlformula/Juhlcombinatorics/Recursion.lean"
+  ],
+  "usedBy": [
+    "Juhlformula/Juhlcombinatorics/FormalStatement.lean",
+    "Juhlformula/Juhlcombinatorics.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "ChernYan-2024",
+      "locator": "Formal Juhl-type formula and OR bridge",
+      "note": "Primary source for the intended curved OR–Juhl identity."
+    },
+    {
+      "referenceId": "Juhl-2011",
+      "locator": "GJMS composition formulas",
+      "note": "Source for the Juhl side of the formal syntax."
+    }
+  ],
+  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+}

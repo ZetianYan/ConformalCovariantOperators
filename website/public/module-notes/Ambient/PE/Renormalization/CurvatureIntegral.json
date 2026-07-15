@@ -1,0 +1,83 @@
+{
+  "file": "Ambient/PE/Renormalization/CurvatureIntegral.lean",
+  "title": "CurvatureIntegral",
+  "status": "verified-under-interface",
+  "summary": "Specializes the finite-part framework to renormalized integrals of curvature invariants.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Specializes the finite-part framework to renormalized integrals of curvature invariants.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/Renormalization/CurvatureIntegral.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "CurvatureIntegralCutoffData",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Curvature Integral Cutoff Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure CurvatureIntegralCutoffData (X : PESpace.{u, v}) {Invariant : Type z} (I : Invariant)",
+      "line": 22
+    },
+    {
+      "leanDeclaration": "curvatureIntegralCutoffFunctional",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: curvature Integral Cutoff Functional. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def curvatureIntegralCutoffFunctional (X : PESpace.{u, v}) {Invariant : Type z} (I : Invariant) : CutoffFunctional (CurvatureIntegralCutoffData.{u, v, w, z} X I) Real",
+      "line": 31
+    },
+    {
+      "leanDeclaration": "RenormalizedCurvatureIntegral",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Renormalized Curvature Integral. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def RenormalizedCurvatureIntegral {X : PESpace} {Invariant : Type z} {I : Invariant} (D : CurvatureIntegralCutoffData X I) : Real",
+      "line": 42
+    },
+    {
+      "leanDeclaration": "CurvatureIntegralAnomaly",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Curvature Integral Anomaly. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def CurvatureIntegralAnomaly {X : PESpace} {Invariant : Type z} {I : Invariant} (D : CurvatureIntegralCutoffData X I) : Real",
+      "line": 51
+    },
+    {
+      "leanDeclaration": "RenormalizedCurvatureIntegral_eq_finitePart",
+      "kind": "theorem",
+      "mathematicalMeaning": "Selects or identifies the constant term in a Laurent/log cutoff expansion.",
+      "leanType": "theorem RenormalizedCurvatureIntegral_eq_finitePart {X : PESpace} {Invariant : Type z} {I : Invariant} (D : CurvatureIntegralCutoffData X I) : RenormalizedCurvatureIntegral D = finitePart D.cutoffExpansion",
+      "line": 60
+    },
+    {
+      "leanDeclaration": "CurvatureIntegralAnomaly_eq_logAnomaly",
+      "kind": "theorem",
+      "mathematicalMeaning": "Selects or identifies the logarithmic coefficient in a cutoff expansion.",
+      "leanType": "theorem CurvatureIntegralAnomaly_eq_logAnomaly {X : PESpace} {Invariant : Type z} {I : Invariant} (D : CurvatureIntegralCutoffData X I) : CurvatureIntegralAnomaly D = logAnomaly D.cutoffExpansion",
+      "line": 69
+    }
+  ],
+  "prerequisites": [
+    "Ambient/PE/NormalForm.lean",
+    "Ambient/PE/Renormalization/CutoffFunctional.lean"
+  ],
+  "usedBy": [
+    "Ambient/PE/Renormalization/DivergenceVanishing.lean",
+    "Ambient/PE/Renormalization.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseKhaitanLinTyrrellYuan-2024",
+      "locator": "Proposition 3.7, Proposition 3.10, Lemma 4.1, and Theorems 1.1/1.4 as applicable",
+      "note": "Primary source for the renormalized-curvature-integral mechanism represented by these modules."
+    },
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4",
+      "note": "Background for the ambient/Poincaré correspondence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

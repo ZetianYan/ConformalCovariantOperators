@@ -1,0 +1,41 @@
+{
+  "file": "Ambient/FG.lean",
+  "title": "FG",
+  "status": "scaffold",
+  "summary": "Aggregate entry point for the Fefferman–Graham straight ambient normal-form component calculus.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Aggregate entry point for the Fefferman–Graham straight ambient normal-form component calculus.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/FG.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [],
+  "prerequisites": [
+    "Ambient/FG/Index.lean",
+    "Ambient/FG/NormalForm.lean",
+    "Ambient/FG/InverseMetric.lean",
+    "Ambient/FG/Christoffel.lean",
+    "Ambient/FG/Laplacian.lean",
+    "Ambient/FG/Commutators.lean",
+    "Ambient/FG/CalculusInstance.lean",
+    "Ambient/FG/RicciNormalForm.lean",
+    "Ambient/FG/FormalJets.lean",
+    "Ambient/FG/Recursion.lean",
+    "Ambient/FG/Obstruction.lean"
+  ],
+  "usedBy": [],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapters 2–3, ambient space and normal form",
+      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+    }
+  ],
+  "limitations": "This file establishes syntax, aggregate imports, or an abstract bridge. It must not be read as a derivation of the corresponding geometric theorem from concrete tensor and analytic data."
+}

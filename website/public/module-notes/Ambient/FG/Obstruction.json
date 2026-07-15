@@ -1,0 +1,69 @@
+{
+  "file": "Ambient/FG/Obstruction.lean",
+  "title": "Obstruction",
+  "status": "verified-under-interface",
+  "summary": "Defines even-dimensional obstruction-order data, an abstract obstruction tensor, and unobstructedness.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines even-dimensional obstruction-order data, an abstract obstruction tensor, and unobstructedness.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/FG/Obstruction.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "obstructionOrder",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: obstruction Order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def obstructionOrder (n : ℕ) : ℕ",
+      "line": 26
+    },
+    {
+      "leanDeclaration": "AmbientObstructionData",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Ambient Obstruction Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure AmbientObstructionData (J : FormalMetricJet ι K)",
+      "line": 30
+    },
+    {
+      "leanDeclaration": "obstructionTensor",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: obstruction Tensor. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def obstructionTensor (O : AmbientObstructionData (ι",
+      "line": 49
+    },
+    {
+      "leanDeclaration": "obstructionTensor_symmetric",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: obstruction Tensor symmetric. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem obstructionTensor_symmetric (O : AmbientObstructionData (ι",
+      "line": 53
+    },
+    {
+      "leanDeclaration": "IsUnobstructed",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Is Unobstructed. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def IsUnobstructed (O : AmbientObstructionData (ι",
+      "line": 59
+    }
+  ],
+  "prerequisites": [
+    "Ambient/FG/Recursion.lean"
+  ],
+  "usedBy": [
+    "Ambient/FG.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapters 2–3, ambient space and normal form",
+      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

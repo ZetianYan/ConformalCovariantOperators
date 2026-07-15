@@ -1,0 +1,39 @@
+{
+  "file": "PolyGJMSoperators/OR.lean",
+  "title": "OR",
+  "status": "verified-under-interface",
+  "summary": "Aggregate entry point for OR indices, recurrence, defect cancellation, coefficients, and the closed operator.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Aggregate entry point for OR indices, recurrence, defect cancellation, coefficients, and the closed operator.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OR.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [],
+  "prerequisites": [
+    "PolyGJMSoperators/OR/ClosedOperator.lean",
+    "PolyGJMSoperators/OR/Coefficients/ClosedSatisfiesRecurrence.lean"
+  ],
+  "usedBy": [
+    "Juhlformula/Juhlcombinatorics/ORBridge.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "OvsienkoRedou-2001",
+      "locator": "Classification of invariant bilinear differential operators",
+      "note": "Flat-model origin of the coefficient family."
+    },
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient classification and curved construction",
+      "note": "Primary curved ambient source for the encoded OR recurrence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

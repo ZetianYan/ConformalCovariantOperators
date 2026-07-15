@@ -1,0 +1,89 @@
+{
+  "file": "Juhlformula/Juhlcombinatorics/CurvedORJuhlFormula.lean",
+  "title": "CurvedORJuhlFormula",
+  "status": "scaffold",
+  "summary": "Composes FormalJuhlStatement with ORBridge to obtain the final formal curved OR–Juhl equality.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Composes FormalJuhlStatement with ORBridge to obtain the final formal curved OR–Juhl equality.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Juhlformula/Juhlcombinatorics/CurvedORJuhlFormula.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "CurvedORJuhlTypeFormula",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Curved ORJuhl Type Formula. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure CurvedORJuhlTypeFormula (N : ℕ)",
+      "line": 21
+    },
+    {
+      "leanDeclaration": "orSide",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: or Side. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def orSide {N : ℕ} (F : CurvedORJuhlTypeFormula N) : FormalExpr",
+      "line": 30
+    },
+    {
+      "leanDeclaration": "formula",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: formula. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem formula {N : ℕ} (F : CurvedORJuhlTypeFormula N) : FormalEq (formalP N) F.orSide",
+      "line": 36
+    },
+    {
+      "leanDeclaration": "curvedORJuhlFormula_one",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: curved ORJuhl Formula one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def curvedORJuhlFormula_one : CurvedORJuhlTypeFormula 1",
+      "line": 48
+    },
+    {
+      "leanDeclaration": "curvedORJuhlFormula_one_identity",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: curved ORJuhl Formula one identity. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem curvedORJuhlFormula_one_identity : FormalEq (formalP 1) curvedORJuhlFormula_one.orSide",
+      "line": 53
+    },
+    {
+      "leanDeclaration": "curvedORJuhlFormula_two_raw",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: curved ORJuhl Formula two raw. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def curvedORJuhlFormula_two_raw : CurvedORJuhlTypeFormula 2",
+      "line": 58
+    },
+    {
+      "leanDeclaration": "curvedORJuhlFormula_two_raw_identity",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: curved ORJuhl Formula two raw identity. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem curvedORJuhlFormula_two_raw_identity : FormalEq (formalP 2) curvedORJuhlFormula_two_raw.orSide",
+      "line": 63
+    }
+  ],
+  "prerequisites": [
+    "Juhlformula/Juhlcombinatorics/ORBridge.lean",
+    "Juhlformula/Juhloperators/GJMSComposition.lean"
+  ],
+  "usedBy": [
+    "Juhlformula/Juhlcombinatorics.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "ChernYan-2024",
+      "locator": "Formal Juhl-type formula and OR bridge",
+      "note": "Primary source for the intended curved OR–Juhl identity."
+    },
+    {
+      "referenceId": "Juhl-2011",
+      "locator": "GJMS composition formulas",
+      "note": "Source for the Juhl side of the formal syntax."
+    }
+  ],
+  "limitations": "This file establishes syntax, aggregate imports, or an abstract bridge. It must not be read as a derivation of the corresponding geometric theorem from concrete tensor and analytic data."
+}

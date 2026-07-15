@@ -1,0 +1,34 @@
+{
+  "file": "PolyGJMSoperators/Tree.lean",
+  "title": "Tree",
+  "status": "verified-under-interface",
+  "summary": "Aggregate entry point for rank-general left-comb Laplacian words and recurrence interfaces.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Aggregate entry point for rank-general left-comb Laplacian words and recurrence interfaces.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/Tree.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [],
+  "prerequisites": [
+    "PolyGJMSoperators/TreeLaplacianWords.lean",
+    "PolyGJMSoperators/TreeRecurrence.lean",
+    "PolyGJMSoperators/TreeDefectCancellation.lean",
+    "PolyGJMSoperators/TreeChainComplex.lean"
+  ],
+  "usedBy": [],
+  "references": [
+    {
+      "referenceId": "CaseCieslak-2025",
+      "locator": "Main ambient construction and tangentiality results",
+      "note": "Motivation for rank-general nested Laplacian words; the Lean tree complex goes beyond what is currently instantiated."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

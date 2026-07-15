@@ -1,0 +1,76 @@
+{
+  "file": "Ambient/PE/Applications/PfaffianApplication.lean",
+  "title": "PfaffianApplication",
+  "status": "verified-under-interface",
+  "summary": "Packages the Pfaffian-like specialization and formal Theorem 1.1 assembly.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Packages the Pfaffian-like specialization and formal Theorem 1.1 assembly.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/Applications/PfaffianApplication.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "renormalizedIntegral_WeylPfLike",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: renormalized Integral Weyl Pf Like. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem renormalizedIntegral_WeylPfLike (X : PESpace.{u, v}) [InvariantEvaluationModel] [EinsteinAmbientLaplacianFormula] [CaseEinsteinEvaluationFormula] [PfLikeStraightness] [P : PERenormalizationPackage X]",
+      "line": 25
+    },
+    {
+      "leanDeclaration": "PfaffianCaseCoeff",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Pfaffian Case Coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def PfaffianCaseCoeff (n ell : Nat) : Real",
+      "line": 49
+    },
+    {
+      "leanDeclaration": "PfaffianVolumeCoeff",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Pfaffian Volume Coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def PfaffianVolumeCoeff (n : Nat) : Real",
+      "line": 56
+    },
+    {
+      "leanDeclaration": "PfaffianApplicationData",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Pfaffian Application Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure PfaffianApplicationData (X : PESpace.{u, v}) [InvariantEvaluationModel] [P : PERenormalizationPackage X]",
+      "line": 66
+    },
+    {
+      "leanDeclaration": "theorem_1_1_formal",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: theorem 1 1 formal. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem theorem_1_1_formal (X : PESpace.{u, v}) [InvariantEvaluationModel] [P : PERenormalizationPackage X] (D : PfaffianApplicationData X) : (2 * Real.pi) ^ (X.bulkDim / 2) * (D.eulerCharacteristic : Real)",
+      "line": 90
+    }
+  ],
+  "prerequisites": [
+    "Ambient/PE/Applications/CaseKhaitanLinTyrrellYuan.lean",
+    "Ambient/PE/Invariants/Pfaffian.lean",
+    "Ambient/PE/Renormalization/Volume.lean"
+  ],
+  "usedBy": [
+    "Ambient/PE/Applications.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseKhaitanLinTyrrellYuan-2024",
+      "locator": "Proposition 3.7, Proposition 3.10, Lemma 4.1, and Theorems 1.1/1.4 as applicable",
+      "note": "Primary source for the renormalized-curvature-integral mechanism represented by these modules."
+    },
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4",
+      "note": "Background for the ambient/Poincaré correspondence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

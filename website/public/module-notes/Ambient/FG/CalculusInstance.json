@@ -1,0 +1,69 @@
+{
+  "file": "Ambient/FG/CalculusInstance.lean",
+  "title": "CalculusInstance",
+  "status": "scaffold",
+  "summary": "Transfers the FG normal-form component identities into the abstract AlgebraicIdentities interface consumed by the operator calculus.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Transfers the FG normal-form component identities into the abstract AlgebraicIdentities interface consumed by the operator calculus.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/FG/CalculusInstance.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "toCalculus",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Calculus. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def toCalculus (A : NormalAmbientData Conf) (L : NormalLaplacianModel A) : Operators.Calculus Conf",
+      "line": 28
+    },
+    {
+      "leanDeclaration": "toCalculus_Q",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: to Calculus Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem toCalculus_Q (A : NormalAmbientData Conf) (L : NormalLaplacianModel A) : (A.toCalculus L).Q = normalQ A",
+      "line": 39
+    },
+    {
+      "leanDeclaration": "toCalculus_lap",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: to Calculus lap. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem toCalculus_lap (A : NormalAmbientData Conf) (L : NormalLaplacianModel A) (f : Operators.Function Conf) : (A.toCalculus L).lap f = L.laplacian f",
+      "line": 45
+    },
+    {
+      "leanDeclaration": "FG_algebraicIdentities",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: FG algebraic Identities. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem FG_algebraicIdentities (A : NormalAmbientData Conf) (L : NormalLaplacianModel A) : (A.toCalculus L).AlgebraicIdentities",
+      "line": 57
+    },
+    {
+      "leanDeclaration": "straightForm_instantiates_AlgebraicIdentities",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: straight Form instantiates Algebraic Identities. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem straightForm_instantiates_AlgebraicIdentities (A : NormalAmbientData Conf) (L : NormalLaplacianModel A) : (A.toCalculus L).AlgebraicIdentities",
+      "line": 84
+    }
+  ],
+  "prerequisites": [
+    "Ambient/FG/Commutators.lean"
+  ],
+  "usedBy": [
+    "Ambient/FG.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapters 2–3, ambient space and normal form",
+      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+    }
+  ],
+  "limitations": "This file establishes syntax, aggregate imports, or an abstract bridge. It must not be read as a derivation of the corresponding geometric theorem from concrete tensor and analytic data."
+}

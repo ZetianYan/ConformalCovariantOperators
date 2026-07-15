@@ -1,0 +1,99 @@
+{
+  "file": "Ambient/PE/Basic.lean",
+  "title": "Basic",
+  "status": "verified-under-interface",
+  "summary": "Defines the formal Poincaré–Einstein space, its bulk and boundary dimensions, compactification data, and Einstein condition.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines the formal Poincaré–Einstein space, its bulk and boundary dimensions, compactification data, and Einstein condition.",
+      "formula": "\\operatorname{Ric}(g_+)=-n g_+"
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/Basic.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "PESpace",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: PESpace. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure PESpace",
+      "line": 26
+    },
+    {
+      "leanDeclaration": "bulkDim_eq_boundaryDim_add_one",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: bulk Dim eq boundary Dim add one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem bulkDim_eq_boundaryDim_add_one (X : PESpace) : X.bulkDim = X.boundaryDim + 1",
+      "line": 48
+    },
+    {
+      "leanDeclaration": "FunctionSymbol",
+      "kind": "abbrev",
+      "mathematicalMeaning": "Definition: Function Symbol. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "abbrev FunctionSymbol (X : Type u)",
+      "line": 55
+    },
+    {
+      "leanDeclaration": "MetricSymbol",
+      "kind": "inductive",
+      "mathematicalMeaning": "Definition: Metric Symbol. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "inductive MetricSymbol (X : Type u)",
+      "line": 63
+    },
+    {
+      "leanDeclaration": "scaleByFunction",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: scale By Function. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def scaleByFunction (a : FunctionSymbol X) (g : MetricSymbol X) : MetricSymbol X",
+      "line": 76
+    },
+    {
+      "leanDeclaration": "scaleByScalar",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: scale By Scalar. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def scaleByScalar (a : Real) (g : MetricSymbol X) : MetricSymbol X",
+      "line": 83
+    },
+    {
+      "leanDeclaration": "ConformalInfinity",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Conformal Infinity. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure ConformalInfinity (X : PESpace.{u, v})",
+      "line": 92
+    },
+    {
+      "leanDeclaration": "PEMetricData",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: PEMetric Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure PEMetricData (X : PESpace.{u, v})",
+      "line": 101
+    },
+    {
+      "leanDeclaration": "einsteinRHS",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: einstein RHS. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def einsteinRHS (X : PESpace) (gPlus : MetricSymbol X.bulk) : MetricSymbol X.bulk",
+      "line": 107
+    }
+  ],
+  "prerequisites": [
+    "Conformal/Basic.lean"
+  ],
+  "usedBy": [
+    "Ambient/PE/DefiningFunction.lean",
+    "Ambient/PE/Renormalization/CutoffFunctional.lean",
+    "Ambient/PE.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4, Poincaré metrics",
+      "note": "Source for Poincaré normal form and its relation to straight ambient metrics."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

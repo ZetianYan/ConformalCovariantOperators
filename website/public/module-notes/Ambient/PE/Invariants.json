@@ -1,0 +1,42 @@
+{
+  "file": "Ambient/PE/Invariants.lean",
+  "title": "Invariants",
+  "status": "scaffold",
+  "summary": "Aggregate entry point for the symbolic PE invariant calculus.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Aggregate entry point for the symbolic PE invariant calculus.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/Invariants.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [],
+  "prerequisites": [
+    "Ambient/PE/Invariants/RiemannianInvariant.lean",
+    "Ambient/PE/Invariants/Straightenable.lean",
+    "Ambient/PE/Invariants/LaplacianRecursion.lean",
+    "Ambient/PE/Invariants/NaturalDivergence.lean",
+    "Ambient/PE/Invariants/Pfaffian.lean"
+  ],
+  "usedBy": [
+    "Ambient/PE.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseKhaitanLinTyrrellYuan-2024",
+      "locator": "Proposition 3.7, Proposition 3.10, Lemma 4.1, and Theorems 1.1/1.4 as applicable",
+      "note": "Primary source for the renormalized-curvature-integral mechanism represented by these modules."
+    },
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4",
+      "note": "Background for the ambient/Poincaré correspondence."
+    }
+  ],
+  "limitations": "This file establishes syntax, aggregate imports, or an abstract bridge. It must not be read as a derivation of the corresponding geometric theorem from concrete tensor and analytic data."
+}

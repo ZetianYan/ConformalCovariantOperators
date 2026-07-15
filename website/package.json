@@ -7,10 +7,12 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "generate-notes": "node scripts/generate-module-notes.mjs",
+    "validate-content": "node scripts/validate-module-content.mjs",
+    "build": "npm run validate-content && next build",
     "start": "next start",
     "test": "npm run build",
-    "lint": "eslint . --ignore-pattern out --ignore-pattern .next",
+    "lint": "eslint . --ignore-pattern out --ignore-pattern .next --ignore-pattern dist --ignore-pattern .vinext",
     "db:generate": "drizzle-kit generate"
   },
   "dependencies": {

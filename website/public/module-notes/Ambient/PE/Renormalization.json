@@ -1,0 +1,43 @@
+{
+  "file": "Ambient/PE/Renormalization.lean",
+  "title": "Renormalization",
+  "status": "scaffold",
+  "summary": "Aggregate entry point for Laurent/log expansions, finite parts, cutoff functionals, volume, and curvature integrals.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Aggregate entry point for Laurent/log expansions, finite parts, cutoff functionals, volume, and curvature integrals.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/Renormalization.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [],
+  "prerequisites": [
+    "Ambient/PE/Renormalization/LaurentLogExpansion.lean",
+    "Ambient/PE/Renormalization/FinitePart.lean",
+    "Ambient/PE/Renormalization/CutoffFunctional.lean",
+    "Ambient/PE/Renormalization/Volume.lean",
+    "Ambient/PE/Renormalization/CurvatureIntegral.lean",
+    "Ambient/PE/Renormalization/DivergenceVanishing.lean"
+  ],
+  "usedBy": [
+    "Ambient/PE.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseKhaitanLinTyrrellYuan-2024",
+      "locator": "Proposition 3.7, Proposition 3.10, Lemma 4.1, and Theorems 1.1/1.4 as applicable",
+      "note": "Primary source for the renormalized-curvature-integral mechanism represented by these modules."
+    },
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4",
+      "note": "Background for the ambient/Poincaré correspondence."
+    }
+  ],
+  "limitations": "This file establishes syntax, aggregate imports, or an abstract bridge. It must not be read as a derivation of the corresponding geometric theorem from concrete tensor and analytic data."
+}

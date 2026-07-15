@@ -1,0 +1,166 @@
+{
+  "file": "GJMSoperators/Basic.lean",
+  "title": "Basic",
+  "status": "verified-under-interface",
+  "summary": "Defines the critical input/output density weights, abstract GJMS operators, and operator families of order 2k.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines the critical input/output density weights, abstract GJMS operators, and operator families of order 2k.",
+      "formula": "P_{2k}:\\mathcal E[k-n/2]\\longrightarrow\\mathcal E[-k-n/2]"
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in GJMSoperators/Basic.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "inputWeight",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: input Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def inputWeight (n : ℝ) (k : ℕ) : ℝ",
+      "line": 49
+    },
+    {
+      "leanDeclaration": "outputWeight",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: output Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def outputWeight (n : ℝ) (k : ℕ) : ℝ",
+      "line": 59
+    },
+    {
+      "leanDeclaration": "outputWeight_eq_inputWeight_sub_two_mul",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: output Weight eq input Weight sub two mul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem outputWeight_eq_inputWeight_sub_two_mul (n : ℝ) (k : ℕ) : outputWeight n k = inputWeight n k - 2 * (k : ℝ)",
+      "line": 67
+    },
+    {
+      "leanDeclaration": "inputWeight_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: input Weight zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem inputWeight_zero (n : ℝ) : inputWeight n 0 = - n / 2",
+      "line": 74
+    },
+    {
+      "leanDeclaration": "outputWeight_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: output Weight zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem outputWeight_zero (n : ℝ) : outputWeight n 0 = - n / 2",
+      "line": 80
+    },
+    {
+      "leanDeclaration": "inputWeight_one",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: input Weight one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem inputWeight_one (n : ℝ) : inputWeight n 1 = 1 - n / 2",
+      "line": 86
+    },
+    {
+      "leanDeclaration": "outputWeight_one",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: output Weight one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem outputWeight_one (n : ℝ) : outputWeight n 1 = -1 - n / 2",
+      "line": 92
+    },
+    {
+      "leanDeclaration": "inputWeight_two",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: input Weight two. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem inputWeight_two (n : ℝ) : inputWeight n 2 = 2 - n / 2",
+      "line": 98
+    },
+    {
+      "leanDeclaration": "outputWeight_two",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: output Weight two. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem outputWeight_two (n : ℝ) : outputWeight n 2 = -2 - n / 2",
+      "line": 104
+    },
+    {
+      "leanDeclaration": "calculusInputWeight",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: calculus Input Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def calculusInputWeight (k : ℕ) : ℝ",
+      "line": 116
+    },
+    {
+      "leanDeclaration": "calculusOutputWeight",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: calculus Output Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def calculusOutputWeight (k : ℕ) : ℝ",
+      "line": 123
+    },
+    {
+      "leanDeclaration": "calculusOutputWeight_eq_calculusInputWeight_sub_two_mul",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: calculus Output Weight eq calculus Input Weight sub two mul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem calculusOutputWeight_eq_calculusInputWeight_sub_two_mul (k : ℕ) : calculusOutputWeight CalConf k = calculusInputWeight CalConf k - 2 * (k : ℝ)",
+      "line": 126
+    },
+    {
+      "leanDeclaration": "calculusInputWeight_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: calculus Input Weight zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem calculusInputWeight_zero : calculusInputWeight CalConf 0 = - CalConf.n / 2",
+      "line": 135
+    },
+    {
+      "leanDeclaration": "calculusOutputWeight_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: calculus Output Weight zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem calculusOutputWeight_zero : calculusOutputWeight CalConf 0 = - CalConf.n / 2",
+      "line": 141
+    },
+    {
+      "leanDeclaration": "calculusInputWeight_one",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: calculus Input Weight one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem calculusInputWeight_one : calculusInputWeight CalConf 1 = 1 - CalConf.n / 2",
+      "line": 147
+    },
+    {
+      "leanDeclaration": "calculusOutputWeight_one",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: calculus Output Weight one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem calculusOutputWeight_one : calculusOutputWeight CalConf 1 = -1 - CalConf.n / 2",
+      "line": 153
+    },
+    {
+      "leanDeclaration": "calculusInputWeight_two",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: calculus Input Weight two. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem calculusInputWeight_two : calculusInputWeight CalConf 2 = 2 - CalConf.n / 2",
+      "line": 159
+    },
+    {
+      "leanDeclaration": "calculusOutputWeight_two",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: calculus Output Weight two. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem calculusOutputWeight_two : calculusOutputWeight CalConf 2 = -2 - CalConf.n / 2",
+      "line": 165
+    }
+  ],
+  "prerequisites": [
+    "Ambient/Ambienttangential.lean"
+  ],
+  "usedBy": [
+    "GJMSoperators/Ambientconstruction.lean",
+    "Juhlformula/Juhloperators/Composition.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "GJMS-1992",
+      "locator": "pp. 557–565, ambient extension construction",
+      "note": "Original construction of conformally invariant powers of the Laplacian."
+    },
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Ambient Laplacian and homogeneous extension discussion",
+      "note": "Ambient-metric background for the formal construction."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

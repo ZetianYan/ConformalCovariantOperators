@@ -1,0 +1,1672 @@
+[
+  {
+    "file": "Ambient/Ambientbasic.lean",
+    "title": "Ambientbasic",
+    "status": "verified",
+    "summary": "Builds the ambient bundle, dilation action, straight metric data, the cone inclusion at rho = 0, and the straight normal-form interface.",
+    "declarations": [
+      "AmbientBundle",
+      "AmbientPointMetricBundle",
+      "ambientProj",
+      "ambientPointProj",
+      "rhoCoord",
+      "rhoPointCoord",
+      "iota",
+      "iotaPoint",
+      "ambientDilate",
+      "ambientPointDilate",
+      "ambientPointToFiber",
+      "ambientTrivialization",
+      "StraightMetricData",
+      "g0",
+      "baseRaySection",
+      "StraightForm",
+      "baseScale",
+      "gRho"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/Ambientdensity.lean",
+    "title": "Ambientdensity",
+    "status": "verified",
+    "summary": "Defines homogeneous ambient densities and their restriction to conformal densities on the null cone.",
+    "declarations": [
+      "AmbientWeight",
+      "Density",
+      "restrictToBoundary",
+      "restrictToScaleDependent",
+      "Density"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/Ambientoperator.lean",
+    "title": "Ambientoperator",
+    "status": "verified",
+    "summary": "Packages the abstract ambient operator calculus: Q, the Euler operator X, the ambient Laplacian, powers, homogeneity, and commutator laws.",
+    "declarations": [
+      "Function",
+      "zero",
+      "add",
+      "sub",
+      "mul",
+      "smul",
+      "pow",
+      "Calculus",
+      "n",
+      "Qmul",
+      "QpowMul",
+      "VanishesModQ",
+      "EqModQ",
+      "EqModQ_refl",
+      "lap",
+      "lapPow",
+      "lapPow_zero",
+      "lapPow_succ"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/Ambienttangential.lean",
+    "title": "Ambienttangential",
+    "status": "verified",
+    "summary": "Formalizes equality modulo the defining function Q and the condition that a weighted ambient operator descends to boundary data.",
+    "declarations": [
+      "SameBoundaryValue",
+      "SameBoundaryValueAtWeight",
+      "SameBoundaryValue_def",
+      "SameBoundaryValueAtWeight.sameBoundaryValue",
+      "VanishesModQ_Qmul",
+      "VanishesModQ_zero",
+      "EqModQ_iff_exists_Qmul",
+      "SameBoundaryValue_refl",
+      "SameBoundaryValue_symm",
+      "SameBoundaryValue_trans",
+      "SameBoundaryValue_of_eq",
+      "SameBoundaryValue_add",
+      "SameBoundaryValue_sub",
+      "SameBoundaryValue_smul",
+      "Operator",
+      "IsTangentialOperator",
+      "PreservesVanishesModQ",
+      "IsTangentialOperator.id"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/FG.lean",
+    "title": "FG",
+    "status": "scaffold",
+    "summary": "Aggregate entry point for the Fefferman–Graham straight ambient normal-form component calculus.",
+    "declarations": [],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/FG/CalculusInstance.lean",
+    "title": "CalculusInstance",
+    "status": "scaffold",
+    "summary": "Transfers the FG normal-form component identities into the abstract AlgebraicIdentities interface consumed by the operator calculus.",
+    "declarations": [
+      "toCalculus",
+      "toCalculus_Q",
+      "toCalculus_lap",
+      "FG_algebraicIdentities",
+      "straightForm_instantiates_AlgebraicIdentities"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/FG/Christoffel.lean",
+    "title": "Christoffel",
+    "status": "verified-under-interface",
+    "summary": "Records the Christoffel-symbol components associated with the straight ambient normal form.",
+    "declarations": [
+      "ChristoffelComponents",
+      "baseDelta",
+      "baseDelta_self",
+      "christoffelComp",
+      "christoffel_zero_base_base",
+      "christoffel_base_zero_base",
+      "christoffel_base_base_zero",
+      "christoffel_inf_base_base",
+      "christoffel_base_base_base"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/FG/Commutators.lean",
+    "title": "Commutators",
+    "status": "verified",
+    "summary": "Derives the Euler/defining-function/Laplacian identities used in the tangentiality argument, including XQ = 2Q and the Laplacian–Q commutator.",
+    "declarations": [
+      "straightForm_X_Q",
+      "straightForm_X_laplacian_comm",
+      "straightForm_lap_Q_comm",
+      "straightForm_lap_Qpow_of_XHomogeneous"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/FG/FormalJets.lean",
+    "title": "FormalJets",
+    "status": "verified-under-interface",
+    "summary": "Represents a finite rho-jet of the tangential metric g_rho and the condition that it solves the FG Ricci equations to finite order.",
+    "declarations": [
+      "Sym2Component",
+      "SymmetricComponent",
+      "FormalMetricJet",
+      "coeffAt",
+      "coeffAt_zero",
+      "firstCoeff",
+      "SatisfiesFGRicciToOrder",
+      "FG_first_jet"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/FG/Index.lean",
+    "title": "Index",
+    "status": "verified-under-interface",
+    "summary": "Introduces the ambient 0, base, and infinity index types and formal normal coordinates used by component calculations.",
+    "declarations": [
+      "AmbientIndex",
+      "kronecker",
+      "kronecker_self",
+      "kronecker_zero_inf",
+      "kronecker_inf_zero",
+      "kronecker_zero_base",
+      "kronecker_base_zero",
+      "NormalCoord"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/FG/InverseMetric.lean",
+    "title": "InverseMetric",
+    "status": "verified-under-interface",
+    "summary": "Specifies inverse ambient metric components and verifies the formal block inverse identities in normal coordinates.",
+    "declarations": [
+      "NormalInverseMetricComponents",
+      "inverseMetricComp",
+      "inverseMetricComp_zero_zero",
+      "inverseMetricComp_zero_inf",
+      "inverseMetricComp_inf_zero",
+      "inverseMetricComp_base_base",
+      "inverseMetricComp_inf_inf",
+      "BaseLeftInverse",
+      "BaseRightInverse",
+      "inverse_metric_base_base_left"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/FG/Laplacian.lean",
+    "title": "Laplacian",
+    "status": "verified-under-interface",
+    "summary": "Introduces the normal-form defining function Q = 2 rho t^2 and an interface for the ambient Laplacian in these coordinates.",
+    "declarations": [
+      "posRealToReal",
+      "scaleT",
+      "normalQ",
+      "normalQ_apply",
+      "normalQmul",
+      "normalQpowMul",
+      "NormalLaplacianModel",
+      "straightForm_Q_eq"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/FG/NormalForm.lean",
+    "title": "NormalForm",
+    "status": "verified-under-interface",
+    "summary": "Encodes straight ambient metrics in normal form and their block metric components in the t, base, and rho directions.",
+    "declarations": [
+      "NormalAmbientData",
+      "toStraightForm",
+      "baseScale",
+      "gRho",
+      "compat0",
+      "NormalMetricComponents",
+      "ambientMetricComp",
+      "ambientMetricComp_zero_zero",
+      "ambientMetricComp_zero_base",
+      "ambientMetricComp_base_zero",
+      "ambientMetricComp_zero_inf",
+      "ambientMetricComp_inf_zero",
+      "ambientMetricComp_base_base",
+      "ambientMetricComp_base_inf",
+      "ambientMetricComp_inf_base",
+      "ambientMetricComp_inf_inf",
+      "ambientMetricComp_symm"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/FG/Obstruction.lean",
+    "title": "Obstruction",
+    "status": "verified-under-interface",
+    "summary": "Defines even-dimensional obstruction-order data, an abstract obstruction tensor, and unobstructedness.",
+    "declarations": [
+      "obstructionOrder",
+      "AmbientObstructionData",
+      "obstructionTensor",
+      "obstructionTensor_symmetric",
+      "IsUnobstructed"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/FG/Recursion.lean",
+    "title": "Recursion",
+    "status": "verified-under-interface",
+    "summary": "Packages finite-order Ricci recursion data and the first-jet relation with the Schouten tensor.",
+    "declarations": [
+      "FormalRicciRecursion",
+      "solvedAt",
+      "solvedAt_zero",
+      "solved_firstJet_eq_two_schouten",
+      "FGRicciSolvedToOrder",
+      "FGRicciSolvedToOrder.firstJet"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/FG/RicciNormalForm.lean",
+    "title": "RicciNormalForm",
+    "status": "verified-under-interface",
+    "summary": "States symbolic Ricci-tensor components for an ambient metric in normal form.",
+    "declarations": [
+      "RicciNormalFormComponents",
+      "tracePrime",
+      "traceDoublePrime",
+      "quadraticPrime",
+      "quadraticTracePrime",
+      "FG_RicciEq_ij",
+      "FG_RicciEq_iInf",
+      "FG_RicciEq_infInf",
+      "RicciNormalFormCertificate",
+      "ricci_zero_left_normal_form",
+      "ricci_base_base_normal_form",
+      "ricci_base_inf_normal_form",
+      "ricci_inf_inf_normal_form"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE.lean",
+    "title": "PE",
+    "status": "scaffold",
+    "summary": "Aggregate entry point for Poincaré–Einstein geometry, the ambient bridge, invariants, renormalization, and applications.",
+    "declarations": [],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/AmbientBridge.lean",
+    "title": "AmbientBridge",
+    "status": "verified-under-interface",
+    "summary": "States the formal cone relationship between straight ambient geometry and the associated Poincaré–Einstein metric.",
+    "declarations": [
+      "ambientRhoOfRadial",
+      "coneScale",
+      "ambientRhoOfRadial_zero",
+      "coneScale_eq_mul",
+      "AmbientPEBridge",
+      "boundary_family_from_ambient",
+      "ambient_metric_cone_decomposition"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/Applications.lean",
+    "title": "Applications",
+    "status": "scaffold",
+    "summary": "Aggregate entry point for the PE renormalized-curvature-integral theorem and Pfaffian application.",
+    "declarations": [],
+    "referenceIds": [
+      "CaseKhaitanLinTyrrellYuan-2024",
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/Applications/CaseKhaitanLinTyrrellYuan.lean",
+    "title": "CaseKhaitanLinTyrrellYuan",
+    "status": "verified-under-interface",
+    "summary": "Assembles the formal finite-part identity corresponding to Theorem 1.4 from explicit evaluation, recursion, divergence, and renormalization interfaces.",
+    "declarations": [
+      "doubleFactorial",
+      "doubleFactorial_pos",
+      "doubleFactorial_ne_zero",
+      "criticalCaseMultiplierQ",
+      "CaseCoeff",
+      "criticalCaseMultiplierQ_pos",
+      "CaseCoeff_mul_criticalCaseMultiplier",
+      "CaseCoeff_eq_closedForm",
+      "CaseEinsteinEvaluationFormula",
+      "CaseCriticalInvariant",
+      "theorem_1_4_renormalizedIntegral",
+      "theorem_1_4_formal"
+    ],
+    "referenceIds": [
+      "CaseKhaitanLinTyrrellYuan-2024",
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/Applications/PfaffianApplication.lean",
+    "title": "PfaffianApplication",
+    "status": "verified-under-interface",
+    "summary": "Packages the Pfaffian-like specialization and formal Theorem 1.1 assembly.",
+    "declarations": [
+      "renormalizedIntegral_WeylPfLike",
+      "PfaffianCaseCoeff",
+      "PfaffianVolumeCoeff",
+      "PfaffianApplicationData",
+      "theorem_1_1_formal"
+    ],
+    "referenceIds": [
+      "CaseKhaitanLinTyrrellYuan-2024",
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/Basic.lean",
+    "title": "Basic",
+    "status": "verified-under-interface",
+    "summary": "Defines the formal Poincaré–Einstein space, its bulk and boundary dimensions, compactification data, and Einstein condition.",
+    "declarations": [
+      "PESpace",
+      "bulkDim_eq_boundaryDim_add_one",
+      "FunctionSymbol",
+      "MetricSymbol",
+      "scaleByFunction",
+      "scaleByScalar",
+      "ConformalInfinity",
+      "PEMetricData",
+      "einsteinRHS"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/DefiningFunction.lean",
+    "title": "DefiningFunction",
+    "status": "verified-under-interface",
+    "summary": "Formalizes boundary defining functions, geodesic defining functions, and their normalization conditions.",
+    "declarations": [
+      "DefiningFunction",
+      "compactifiedMetric",
+      "GeodesicDefiningFunction",
+      "compactification",
+      "normSqGradient_eq_one"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/EinsteinEquation.lean",
+    "title": "EinsteinEquation",
+    "status": "verified-under-interface",
+    "summary": "Packages the Einstein equation and parity/expansion certificates used by later PE constructions.",
+    "declarations": [
+      "can",
+      "PEFormalExpansion",
+      "HasEvenExpansionToOrder",
+      "hasEvenExpansionToBoundaryOrder",
+      "IsPoincareEinstein",
+      "PE_expansion_even_to_order"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/Invariants.lean",
+    "title": "Invariants",
+    "status": "scaffold",
+    "summary": "Aggregate entry point for the symbolic PE invariant calculus.",
+    "declarations": [],
+    "referenceIds": [
+      "CaseKhaitanLinTyrrellYuan-2024",
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/Invariants/LaplacianRecursion.lean",
+    "title": "LaplacianRecursion",
+    "status": "verified-under-interface",
+    "summary": "Formalizes the iterative ambient-Laplacian recursion corresponding to Proposition 3.7 in the PE renormalized-integral reference.",
+    "declarations": [
+      "caseLaplacianCoefficient",
+      "CaseLaplacianFactor",
+      "CaseLaplacianFactor_weight",
+      "CaseLaplacianRecursion",
+      "CaseLaplacianRecursion_zero",
+      "CaseLaplacianRecursion_succ",
+      "CaseLaplacianRecursion_weight",
+      "ambientLaplacianIter",
+      "ambientLaplacianIter_zero",
+      "ambientLaplacianIter_succ",
+      "ambientLaplacianIter_weight",
+      "EinsteinAmbientLaplacianFormula",
+      "straightenable_laplacian_step",
+      "straightenable_laplacian_iterate",
+      "ambient_laplacian_iter_einstein_slice_conformal"
+    ],
+    "referenceIds": [
+      "CaseKhaitanLinTyrrellYuan-2024",
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/Invariants/NaturalDivergence.lean",
+    "title": "NaturalDivergence",
+    "status": "verified-under-interface",
+    "summary": "Packages natural divergences and the cone-rule interface used to convert ambient identities into PE divergence statements.",
+    "declarations": [
+      "NaturalDivergence",
+      "NaturalDivergenceAtWeight",
+      "NaturalDivergenceAtWeight.toNaturalDivergence",
+      "XAnnihilatesLastIndex",
+      "proposition310Invariant",
+      "AmbientRankOneDivergenceRule",
+      "ambient_rank_one_divergence_is_natural_divergence"
+    ],
+    "referenceIds": [
+      "CaseKhaitanLinTyrrellYuan-2024",
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/Invariants/Pfaffian.lean",
+    "title": "Pfaffian",
+    "status": "verified-under-interface",
+    "summary": "Defines Pfaffian-like symbolic invariants and the P_l_n family used in the Gauss–Bonnet-type application.",
+    "declarations": [
+      "WeylPfLike",
+      "AmbientRmPfLike",
+      "WeylPfLike_weight",
+      "AmbientRmPfLike_weight",
+      "PfLikeStraightness",
+      "WeylPfLike_straightenable",
+      "P_l_n",
+      "P_l_n_weight",
+      "P_l_n_conformal",
+      "FullPfaffianInvariant"
+    ],
+    "referenceIds": [
+      "CaseKhaitanLinTyrrellYuan-2024",
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/Invariants/RiemannianInvariant.lean",
+    "title": "RiemannianInvariant",
+    "status": "verified-under-interface",
+    "summary": "Defines symbolic scalar/tensor Riemannian invariants with rank, conformal weight, tensor weight, and parity bookkeeping.",
+    "declarations": [
+      "InvariantParity",
+      "tensorProduct",
+      "IndexPairing",
+      "pairCount",
+      "TensorInvariantExpr",
+      "TensorInvariant",
+      "AmbientInvariant",
+      "ScalarInvariant",
+      "OneFormInvariant",
+      "AmbientScalarInvariant",
+      "AmbientOneFormInvariant",
+      "tensorWeight",
+      "ambientTensorWeight",
+      "scalarOne",
+      "ambientScalarOne",
+      "tensorProdInvariant",
+      "ambientTensorProdInvariant",
+      "contractInvariant"
+    ],
+    "referenceIds": [
+      "CaseKhaitanLinTyrrellYuan-2024",
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/Invariants/Straightenable.lean",
+    "title": "Straightenable",
+    "status": "verified-under-interface",
+    "summary": "Defines invariants that admit evaluation through a chosen ambient model and proves closure operations at the interface level.",
+    "declarations": [
+      "InvariantEvaluationModel",
+      "IsNaturalInvariant",
+      "IsScalarConformalInvariant",
+      "Straightenable",
+      "ScalarStraightenable",
+      "straightenable_one",
+      "straightenable_tensorProd",
+      "straightenable_contract",
+      "WeylTensorInvariant",
+      "AmbientRiemannTensorInvariant",
+      "WeylAmbientStraightness",
+      "Weyl_straightenable_AmbientRm",
+      "weylPower",
+      "ambientRiemannPower",
+      "weylPower_rank",
+      "weylPower_weight",
+      "ambientRiemannPower_rank",
+      "ambientRiemannPower_weight"
+    ],
+    "referenceIds": [
+      "CaseKhaitanLinTyrrellYuan-2024",
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/MetricComponents.lean",
+    "title": "MetricComponents",
+    "status": "verified-under-interface",
+    "summary": "Records the metric and inverse-metric block components of a Poincaré normal-form metric.",
+    "declarations": [
+      "PEIndex",
+      "kronecker",
+      "kronecker_self",
+      "kronecker_radial_tangential",
+      "kronecker_tangential_radial",
+      "equivOption",
+      "sum_index",
+      "PENormalMetricComponents",
+      "gPlusDown",
+      "gPlusUp",
+      "gPlusDown_radial_radial",
+      "gPlusDown_tangential_tangential",
+      "gPlusUp_radial_radial",
+      "gPlusUp_tangential_tangential",
+      "BoundaryLeftInverse",
+      "gPlusUp_mul_gPlusDown"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/NormalForm.lean",
+    "title": "NormalForm",
+    "status": "verified-under-interface",
+    "summary": "Encodes the Poincaré normal form g_+ = r^{-2}(dr^2 + h_r) at the level of abstract metric data.",
+    "declarations": [
+      "PoincareNormalFormData",
+      "hR_at_zero",
+      "gPlus_eq_normalForm"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/Renormalization.lean",
+    "title": "Renormalization",
+    "status": "scaffold",
+    "summary": "Aggregate entry point for Laurent/log expansions, finite parts, cutoff functionals, volume, and curvature integrals.",
+    "declarations": [],
+    "referenceIds": [
+      "CaseKhaitanLinTyrrellYuan-2024",
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/Renormalization/CurvatureIntegral.lean",
+    "title": "CurvatureIntegral",
+    "status": "verified-under-interface",
+    "summary": "Specializes the finite-part framework to renormalized integrals of curvature invariants.",
+    "declarations": [
+      "CurvatureIntegralCutoffData",
+      "curvatureIntegralCutoffFunctional",
+      "RenormalizedCurvatureIntegral",
+      "CurvatureIntegralAnomaly",
+      "RenormalizedCurvatureIntegral_eq_finitePart",
+      "CurvatureIntegralAnomaly_eq_logAnomaly"
+    ],
+    "referenceIds": [
+      "CaseKhaitanLinTyrrellYuan-2024",
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/Renormalization/CutoffFunctional.lean",
+    "title": "CutoffFunctional",
+    "status": "verified-under-interface",
+    "summary": "Packages cutoff-dependent quantities whose asymptotic expansion defines a renormalized value.",
+    "declarations": [
+      "CutoffFunctional",
+      "renormalizedValue",
+      "anomalyValue",
+      "renormalizedValue_eq_coeff_zero",
+      "anomalyValue_eq_logCoeff",
+      "renormalizedValue",
+      "anomalyValue",
+      "RenormalizableGeometricObject"
+    ],
+    "referenceIds": [
+      "CaseKhaitanLinTyrrellYuan-2024",
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/Renormalization/DivergenceVanishing.lean",
+    "title": "DivergenceVanishing",
+    "status": "verified-under-interface",
+    "summary": "States the weighted divergence-vanishing interface corresponding to the parity input used in Lemma 4.1.",
+    "declarations": [
+      "PERenormalizationPackage",
+      "renormalizedIntegral",
+      "renormalizedIntegral_eq_phaseB",
+      "renormalizedIntegral_naturalDivergence_eq_zero"
+    ],
+    "referenceIds": [
+      "CaseKhaitanLinTyrrellYuan-2024",
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/Renormalization/FinitePart.lean",
+    "title": "FinitePart",
+    "status": "scaffold",
+    "summary": "Defines the finite part as the constant Laurent coefficient and the log anomaly as the logarithmic coefficient.",
+    "declarations": [
+      "finitePart",
+      "logAnomaly",
+      "HasNoLogTerm",
+      "finitePart_eq_coeff_zero",
+      "logAnomaly_eq_logCoeff"
+    ],
+    "referenceIds": [
+      "CaseKhaitanLinTyrrellYuan-2024",
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/Renormalization/LaurentLogExpansion.lean",
+    "title": "LaurentLogExpansion",
+    "status": "verified-under-interface",
+    "summary": "Models a finite Laurent/log expansion, parity conditions, coefficient support, and logarithmic terms.",
+    "declarations": [
+      "LaurentLogExpansion",
+      "activeExponents",
+      "coeff_eq_zero_of_lt",
+      "coeff_eq_zero_of_gt",
+      "EvenExpansionToOrder",
+      "OddExpansionToOrder",
+      "EvenExpansionToOrder",
+      "OddExpansionToOrder"
+    ],
+    "referenceIds": [
+      "CaseKhaitanLinTyrrellYuan-2024",
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Ambient/PE/Renormalization/Volume.lean",
+    "title": "Volume",
+    "status": "verified-under-interface",
+    "summary": "Specializes cutoff functionals to renormalized PE volume and its anomaly.",
+    "declarations": [
+      "PEVolumeCutoffData",
+      "volumeCutoffFunctional",
+      "RenormalizedVolume",
+      "VolumeAnomaly",
+      "RenormalizedVolume_eq_finitePart",
+      "VolumeAnomaly_eq_logAnomaly"
+    ],
+    "referenceIds": [
+      "CaseKhaitanLinTyrrellYuan-2024",
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Conformal/Basic.lean",
+    "title": "Basic",
+    "status": "verified",
+    "summary": "Models a conformal structure as a metric bundle with positive rescaling, together with scales and the comparison of representatives.",
+    "declarations": [
+      "PosReal",
+      "MetricStructure",
+      "MetricField",
+      "ConformalStructure",
+      "PointwiseMetric",
+      "MetricField",
+      "PointMetricBundle",
+      "MetricBundle",
+      "proj",
+      "pointproj",
+      "dilateBundle",
+      "dilatePointMetricBundle",
+      "Scale",
+      "Scale.section",
+      "scaleFactor",
+      "trivialization",
+      "fiber_nonempty",
+      "relativeFactor"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Conformal/Density.lean",
+    "title": "Density",
+    "status": "verified",
+    "summary": "Defines conformal densities through equivariance under positive metric rescaling and relates equivariant and scale-dependent presentations.",
+    "declarations": [
+      "Weight",
+      "rescale",
+      "Density",
+      "repr",
+      "Density",
+      "scaleFactor_eq_mul_relativeFactor",
+      "toEquivariantUsing",
+      "toEquivariantUsing_independent",
+      "toEquivariant",
+      "toEquivariant_apply",
+      "toScaleDependent",
+      "equivScaleDependentEquiv"
+    ],
+    "referenceIds": [
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "GJMSoperators/Ambientconstruction.lean",
+    "title": "Ambientconstruction",
+    "status": "verified-under-interface",
+    "summary": "Packages powers of the ambient Laplacian as weighted operators and proves their weight shift under the algebraic calculus interface.",
+    "declarations": [
+      "ambientLaplacianPowerOperator",
+      "ambientLaplacianPowerOperator_apply",
+      "ambientLaplacianPowerOperator_zero_apply",
+      "ambientLaplacianPowerOperator_one_apply",
+      "ambientLaplacianPower_maps_GJMS_weight",
+      "lapPow_maps_GJMS_weight",
+      "ambientLaplacianPowerWeightedTangentialOperator",
+      "ambientLaplacianPowerWeightedTangentialOperator_inputWeight",
+      "ambientLaplacianPowerWeightedTangentialOperator_outputWeight",
+      "ambientLaplacianPowerWeightedTangentialOperator_toOperator",
+      "ambientLaplacianPowerAbstractOperator",
+      "ambientLaplacianPowerAbstractOperator_k",
+      "ambientLaplacianPowerAbstractOperator_order"
+    ],
+    "referenceIds": [
+      "GJMS-1992",
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "GJMSoperators/Basic.lean",
+    "title": "Basic",
+    "status": "verified-under-interface",
+    "summary": "Defines the critical input/output density weights, abstract GJMS operators, and operator families of order 2k.",
+    "declarations": [
+      "inputWeight",
+      "outputWeight",
+      "outputWeight_eq_inputWeight_sub_two_mul",
+      "inputWeight_zero",
+      "outputWeight_zero",
+      "inputWeight_one",
+      "outputWeight_one",
+      "inputWeight_two",
+      "outputWeight_two",
+      "calculusInputWeight",
+      "calculusOutputWeight",
+      "calculusOutputWeight_eq_calculusInputWeight_sub_two_mul",
+      "calculusInputWeight_zero",
+      "calculusOutputWeight_zero",
+      "calculusInputWeight_one",
+      "calculusOutputWeight_one",
+      "calculusInputWeight_two",
+      "calculusOutputWeight_two"
+    ],
+    "referenceIds": [
+      "GJMS-1992",
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "GJMSoperators/Tangentiality.lean",
+    "title": "Tangentiality",
+    "status": "verified-under-interface",
+    "summary": "Proves that the kth ambient Laplacian power is tangential at weight k - n/2 and packages the resulting canonical GJMS family.",
+    "declarations": [
+      "vanishesModQ_Qmul_local",
+      "sameBoundaryValue_of_difference_vanishes",
+      "lapPow_Qmul_vanishes_at_criticalWeight",
+      "lapPow_preserves_sameBoundaryValue_at_criticalWeight",
+      "lapPow_isTangentialAtCriticalWeight",
+      "canonicalAmbientGJMS",
+      "canonicalAmbientGJMS_k",
+      "canonicalAmbientGJMS_order",
+      "canonicalAmbientGJMS_toOperator",
+      "canonicalAmbientGJMS_toOperator_apply",
+      "canonicalAmbientGJMS_mapsWeight",
+      "canonicalAmbientGJMS_tangential",
+      "canonicalAmbientGJMSFamily",
+      "canonicalAmbientGJMSFamily_get",
+      "canonicalAmbientGJMSFamily_get_order",
+      "canonicalAmbientGJMS_zero_toOperator_apply",
+      "canonicalAmbientGJMS_one_toOperator_apply",
+      "canonicalAmbientGJMS_two_toOperator_apply"
+    ],
+    "referenceIds": [
+      "GJMS-1992",
+      "FG-AmbientMetric"
+    ]
+  },
+  {
+    "file": "Juhlformula/Juhlcombinatorics.lean",
+    "title": "Juhlcombinatorics",
+    "status": "scaffold",
+    "summary": "Aggregate entry point for the formal obstruction recursion and OR–Juhl bridge.",
+    "declarations": [],
+    "referenceIds": [
+      "ChernYan-2024",
+      "Juhl-2011"
+    ]
+  },
+  {
+    "file": "Juhlformula/Juhlcombinatorics/CurvedORJuhlFormula.lean",
+    "title": "CurvedORJuhlFormula",
+    "status": "scaffold",
+    "summary": "Composes FormalJuhlStatement with ORBridge to obtain the final formal curved OR–Juhl equality.",
+    "declarations": [
+      "CurvedORJuhlTypeFormula",
+      "orSide",
+      "formula",
+      "curvedORJuhlFormula_one",
+      "curvedORJuhlFormula_one_identity",
+      "curvedORJuhlFormula_two_raw",
+      "curvedORJuhlFormula_two_raw_identity"
+    ],
+    "referenceIds": [
+      "ChernYan-2024",
+      "Juhl-2011"
+    ]
+  },
+  {
+    "file": "Juhlformula/Juhlcombinatorics/FormalJets.lean",
+    "title": "FormalJets",
+    "status": "verified",
+    "summary": "Defines a purely formal expression language for metric jets, Taylor denominators, and obstruction coefficients.",
+    "declarations": [
+      "FormalExpr",
+      "qsmul",
+      "factQ",
+      "invFactQ",
+      "invFact2Q",
+      "listSum",
+      "rangeSum",
+      "highestCoeff",
+      "traceDerivativePart",
+      "deltaPart",
+      "kOverTwoMinusEll",
+      "traceZerothPart",
+      "Lrest",
+      "Lcoeff"
+    ],
+    "referenceIds": [
+      "ChernYan-2024",
+      "Juhl-2011"
+    ]
+  },
+  {
+    "file": "Juhlformula/Juhlcombinatorics/FormalStatement.lean",
+    "title": "FormalStatement",
+    "status": "verified",
+    "summary": "Defines the data of a formal Juhl right-hand side and the proposition that formalP equals that expression.",
+    "declarations": [
+      "FormalEq",
+      "refl",
+      "trans",
+      "symm",
+      "formalGJMSCompositionExpr",
+      "FormalJuhlTerm",
+      "toExpr",
+      "FormalJuhlRHS",
+      "toExpr",
+      "FormalJuhlStatement",
+      "formalJuhlStatement_one",
+      "formalJuhlStatement_two_raw"
+    ],
+    "referenceIds": [
+      "ChernYan-2024",
+      "Juhl-2011"
+    ]
+  },
+  {
+    "file": "Juhlformula/Juhlcombinatorics/LowOrderCheck.lean",
+    "title": "LowOrderCheck",
+    "status": "verified",
+    "summary": "Normalizes formal expressions and verifies the encoded raw P2 and P4 low-order identities.",
+    "declarations": [
+      "normalizeRat",
+      "normalize",
+      "expectedF1ForP4",
+      "expectedP2",
+      "expectedP2Expanded",
+      "expectedP4Raw",
+      "formalP_one_eq_expectedP2",
+      "formalP_two_eq_expectedP4Raw"
+    ],
+    "referenceIds": [
+      "ChernYan-2024",
+      "Juhl-2011"
+    ]
+  },
+  {
+    "file": "Juhlformula/Juhlcombinatorics/ORBridge.lean",
+    "title": "ORBridge",
+    "status": "scaffold",
+    "summary": "Defines an abstract termwise bridge between a formal Juhl right-hand side and an OR right-hand side.",
+    "declarations": [
+      "ORBridgeTerm",
+      "ORBridge",
+      "refl",
+      "ORFormalizationData"
+    ],
+    "referenceIds": [
+      "ChernYan-2024",
+      "Juhl-2011"
+    ]
+  },
+  {
+    "file": "Juhlformula/Juhlcombinatorics/Recursion.lean",
+    "title": "Recursion",
+    "status": "verified",
+    "summary": "Performs syntax-level recursive elimination of normal jets and defines the formal obstruction expression formalP.",
+    "declarations": [
+      "substF",
+      "solveStepCoeff",
+      "solvedJetAux",
+      "solvedJet",
+      "solvedJet_zero",
+      "solvedSubst",
+      "obstructionCoeff",
+      "obstructionCoeff_one",
+      "aEllInv",
+      "formalP",
+      "aEllInv_one",
+      "aEllInv_two",
+      "aEllInv_three"
+    ],
+    "referenceIds": [
+      "ChernYan-2024",
+      "Juhl-2011"
+    ]
+  },
+  {
+    "file": "Juhlformula/Juhloperators/Basic.lean",
+    "title": "Basic",
+    "status": "verified",
+    "summary": "Defines ordered compositions I=(I_1,...,I_r) of an integer N.",
+    "declarations": [
+      "Composition",
+      "length",
+      "nil",
+      "singleton",
+      "nil_parts",
+      "singleton_parts",
+      "singleton_length",
+      "pair",
+      "pair_parts"
+    ],
+    "referenceIds": [
+      "Juhl-2011",
+      "FeffermanGraham-Juhl-2012"
+    ]
+  },
+  {
+    "file": "Juhlformula/Juhloperators/Coefficients.lean",
+    "title": "Coefficients",
+    "status": "verified",
+    "summary": "Defines abstract composition coefficients and a placeholder closed coefficient system.",
+    "declarations": [
+      "CoefficientSystem",
+      "SingletonNormalized",
+      "pairNCoeff",
+      "partialSums",
+      "partsProdQ",
+      "factorialPartsProdQ",
+      "mCoeffQ",
+      "nCoeffQ",
+      "closedCoefficientSystem",
+      "nCoeffQ_singleton",
+      "closedCoefficientSystem_singletonNormalized"
+    ],
+    "referenceIds": [
+      "Juhl-2011",
+      "FeffermanGraham-Juhl-2012"
+    ]
+  },
+  {
+    "file": "Juhlformula/Juhloperators/Composition.lean",
+    "title": "Composition",
+    "status": "verified",
+    "summary": "Evaluates an ordered composition as P_{2I_1} composed with ... composed with P_{2I_r}.",
+    "declarations": [
+      "composeUnary",
+      "composeUnary_apply",
+      "idUnary",
+      "idUnary_apply",
+      "abstractToUnary",
+      "abstractToUnary_apply",
+      "composeUnaryList",
+      "composeUnaryList_nil",
+      "composeUnaryList_cons",
+      "AbstractGJMSFamily",
+      "operatorListOfComposition",
+      "composeGJMS",
+      "operatorList_singleton",
+      "composeGJMS_singleton"
+    ],
+    "referenceIds": [
+      "Juhl-2011",
+      "FeffermanGraham-Juhl-2012"
+    ]
+  },
+  {
+    "file": "Juhlformula/Juhloperators/GJMSComposition.lean",
+    "title": "GJMSComposition",
+    "status": "verified",
+    "summary": "Specializes ordered compositions to the canonical ambient GJMS family.",
+    "declarations": [
+      "canonicalJuhlGJMSFamily",
+      "canonicalGJMSComposition",
+      "canonicalGJMSComposition_singleton",
+      "canonicalGJMSComposition_singleton_apply",
+      "canonicalGJMSComposition_singleton_apply_lapPow"
+    ],
+    "referenceIds": [
+      "Juhl-2011",
+      "FeffermanGraham-Juhl-2012"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/Basic.lean",
+    "title": "Basic",
+    "status": "verified-under-interface",
+    "summary": "Defines multilinear ambient inputs/operators and basic operations for replacing or transforming input slots.",
+    "declarations": [
+      "MultiInput",
+      "MultiOperator",
+      "UnaryMultiOperator",
+      "BiOperator",
+      "TriOperator",
+      "unaryToMulti",
+      "multiToUnary",
+      "unaryToMulti_apply",
+      "multiToUnary_apply",
+      "replace",
+      "mapUnary",
+      "replace_same",
+      "mapUnary_apply"
+    ],
+    "referenceIds": [
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/Bidifferential.lean",
+    "title": "Bidifferential",
+    "status": "verified-under-interface",
+    "summary": "Specializes the multilinear framework to two inputs, two weights, and bidifferential tangentiality.",
+    "declarations": [
+      "BiInput",
+      "biWeights",
+      "pairInput",
+      "leftInput",
+      "rightInput",
+      "IsBiTangentialAtWeights",
+      "IsBiHomogeneous",
+      "biOutputWeight",
+      "biWeights_zero",
+      "biWeights_one",
+      "pairInput_zero",
+      "pairInput_one",
+      "leftInput_pairInput",
+      "rightInput_pairInput",
+      "totalWeight_biWeights",
+      "biOutputWeight_eq"
+    ],
+    "referenceIds": [
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/Boundary.lean",
+    "title": "Boundary",
+    "status": "verified-under-interface",
+    "summary": "Defines componentwise equality of multilinear inputs on the boundary and proves its equivalence-relation laws.",
+    "declarations": [
+      "SameBoundaryValues",
+      "SameBoundaryValueAtWeights",
+      "SameBoundaryValues_refl",
+      "SameBoundaryValues_symm",
+      "SameBoundaryValues_trans",
+      "SameBoundaryValueAtWeights.sameBoundaryValues"
+    ],
+    "referenceIds": [
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/Homogeneity.lean",
+    "title": "Homogeneity",
+    "status": "verified-under-interface",
+    "summary": "Defines slot weights, total weight, output weight, and multihomogeneity for multilinear operators.",
+    "declarations": [
+      "IsMultiHomogeneous",
+      "totalWeight",
+      "outputWeight",
+      "IsMultiHomogeneous.apply",
+      "totalWeight_fin_two",
+      "totalWeight_fin_three",
+      "outputWeight_def"
+    ],
+    "referenceIds": [
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/LaplacianWords.lean",
+    "title": "LaplacianWords",
+    "status": "verified-under-interface",
+    "summary": "Defines words built from ambient Laplacians and multiplication, together with total-power bookkeeping.",
+    "declarations": [
+      "LaplacianWord",
+      "inputProduct",
+      "toOperator",
+      "totalPower",
+      "expectedOutputWeight",
+      "inputProduct_apply",
+      "toOperator_apply",
+      "ProductHomogeneityIdentities",
+      "inputProduct_mapsWeight",
+      "mapsWeights",
+      "mk",
+      "mk_outputPower",
+      "mk_inputPower_zero",
+      "mk_inputPower_one",
+      "totalPower",
+      "expectedOutputWeight",
+      "toOperator_pairInput_apply",
+      "mk"
+    ],
+    "referenceIds": [
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/LinearCombination.lean",
+    "title": "LinearCombination",
+    "status": "verified-under-interface",
+    "summary": "Defines finite linear combinations of multilinear ambient operators and their evaluation.",
+    "declarations": [
+      "singleOperator",
+      "operatorSum",
+      "singleOperator_apply",
+      "operatorSum_apply",
+      "operatorSum_empty",
+      "operatorSum_singleton",
+      "SameBoundaryValue_finset_sum",
+      "operatorSum"
+    ],
+    "referenceIds": [
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/Operators.lean",
+    "title": "Operators",
+    "status": "verified-under-interface",
+    "summary": "Provides core multilinear operator constructors and their evaluation rules.",
+    "declarations": [
+      "multiZero",
+      "multiAdd",
+      "multiSub",
+      "multiSmul",
+      "postcomp",
+      "precompSlot",
+      "precompAll",
+      "multiZero_apply",
+      "multiAdd_apply",
+      "multiSmul_apply",
+      "postcomp_apply"
+    ],
+    "referenceIds": [
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/OR.lean",
+    "title": "OR",
+    "status": "verified-under-interface",
+    "summary": "Aggregate entry point for OR indices, recurrence, defect cancellation, coefficients, and the closed operator.",
+    "declarations": [],
+    "referenceIds": [
+      "OvsienkoRedou-2001",
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/OR/ClosedOperator.lean",
+    "title": "ClosedOperator",
+    "status": "verified-under-interface",
+    "summary": "Builds the closed OR linear combination from its coefficient system and packages its stated properties.",
+    "declarations": [
+      "regular",
+      "regular_coeffSystem_coeff",
+      "regularOperator",
+      "regular_isBiTangential_of_rational_defect_cancellation"
+    ],
+    "referenceIds": [
+      "OvsienkoRedou-2001",
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/OR/Coefficients/ClosedFormula.lean",
+    "title": "ClosedFormula",
+    "status": "verified-under-interface",
+    "summary": "Defines the proposed closed product formula for OR coefficients.",
+    "declarations": [
+      "ORClosedCoefficientFormula",
+      "toCoefficientSystem",
+      "toCoefficientSystem_coeff",
+      "SatisfiesRecurrence",
+      "ORRegularMultinomialFactor",
+      "ORRegularA",
+      "ORRegularCoeff",
+      "ORRegularClosedFormula",
+      "ORCoefficientSystem.regular",
+      "ORCoefficientSystem.regular_coeff"
+    ],
+    "referenceIds": [
+      "OvsienkoRedou-2001",
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/OR/Coefficients/ClosedSatisfiesRecurrence.lean",
+    "title": "ClosedSatisfiesRecurrence",
+    "status": "verified-under-interface",
+    "summary": "Proves that the closed coefficient formula satisfies the encoded OR recurrence relations.",
+    "declarations": [
+      "ORRegularClosedFormula_satisfiesRecurrence_of_defectCancellationQ",
+      "ORRegularClosedFormula_satisfiesLemma31LocalRecurrences"
+    ],
+    "referenceIds": [
+      "OvsienkoRedou-2001",
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/OR/Coefficients/Combinatorics.lean",
+    "title": "Combinatorics",
+    "status": "verified-under-interface",
+    "summary": "Provides factorial, Pochhammer-type, and rational combinatorial identities used by the coefficient proof.",
+    "declarations": [
+      "factorialQ",
+      "binomQ",
+      "multinomialQ3",
+      "pochhammerQ",
+      "fallingFactorialQ",
+      "factorialQ_zero",
+      "factorialQ_succ",
+      "binomQ_zero_right",
+      "binomQ_self",
+      "pochhammerQ_zero",
+      "pochhammerQ_succ",
+      "fallingFactorialQ_zero",
+      "fallingFactorialQ_succ",
+      "pochhammerQ_eq_pred_mul",
+      "fallingFactorialQ_eq_pred_mul"
+    ],
+    "referenceIds": [
+      "OvsienkoRedou-2001",
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/OR/Coefficients/Parameters.lean",
+    "title": "Parameters",
+    "status": "verified-under-interface",
+    "summary": "Defines the dimension, weight, and order parameters appearing in the OR coefficient formulas.",
+    "declarations": [
+      "ORHalfShift",
+      "ORAlpha",
+      "ORBeta",
+      "ORGamma",
+      "ORAlpha_add_b_add_c"
+    ],
+    "referenceIds": [
+      "OvsienkoRedou-2001",
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/OR/Coefficients/RatioLemmas.lean",
+    "title": "RatioLemmas",
+    "status": "verified-under-interface",
+    "summary": "Proves ratios of neighboring closed coefficients needed to discharge the recurrence equations.",
+    "declarations": [
+      "ORFirstSlotMultiplier",
+      "ORSecondSlotMultiplier",
+      "ORFirstSlotLeftFactor",
+      "ORSecondSlotLeftFactor",
+      "ORRegularA_move_a_to_b_expanded",
+      "ORRegularA_move_a_to_c_expanded",
+      "ORRegularAFirstRecurrence",
+      "ORRegularASecondRecurrence",
+      "ORFirstSlotLeftFactor_eq_two_beta_last",
+      "ORSecondSlotLeftFactor_eq_two_gamma_last",
+      "neg_ORSlotMultiplier_eq_two_alpha_last",
+      "neg_ORSecondSlotMultiplier_eq_two_alpha_last",
+      "ORRegularA_firstRecurrence",
+      "ORRegularA_secondRecurrence",
+      "ORRegularA_satisfiesLemma31Recurrences"
+    ],
+    "referenceIds": [
+      "OvsienkoRedou-2001",
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/OR/Coefficients/Recurrence.lean",
+    "title": "Recurrence",
+    "status": "verified-under-interface",
+    "summary": "States the neighboring-index recurrence equations required for OR defect cancellation.",
+    "declarations": [
+      "ORCoefficientSystem",
+      "coeffR",
+      "coeffR_apply",
+      "SatisfiesDefectCancellationQ",
+      "SatisfiesORRecurrence",
+      "satisfiesORRecurrence_iff_defectCancellationQ"
+    ],
+    "referenceIds": [
+      "OvsienkoRedou-2001",
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/OR/DefectCancellation.lean",
+    "title": "DefectCancellation",
+    "status": "verified-under-interface",
+    "summary": "Encodes coefficient conditions that cancel Q-commutator defects in the two input slots.",
+    "declarations": [
+      "ORDefectExpansion",
+      "SatisfiesDefectCancellation",
+      "SatisfiesRationalDefectCancellation",
+      "satisfiesDefectCancellation_of_rational",
+      "isBiTangential_of_defect_cancellation",
+      "isBiTangential_of_rational_defect_cancellation",
+      "toWeightedBiTangentialOperator"
+    ],
+    "referenceIds": [
+      "OvsienkoRedou-2001",
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/OR/Index.lean",
+    "title": "Index",
+    "status": "verified-under-interface",
+    "summary": "Defines triples (a,b,c) of Laplacian exponents with a+b+c=N and the elementary moves between neighboring terms.",
+    "declarations": [
+      "ORIndex",
+      "toWord",
+      "toWord_totalPower",
+      "supportRaw",
+      "support",
+      "support_toWord_totalPower",
+      "move_a_to_b",
+      "move_a_to_c",
+      "move_b_to_a",
+      "move_c_to_a",
+      "move_b_to_c",
+      "move_c_to_b",
+      "N_sub_b_pos_of_a_pos",
+      "N_sub_c_pos_of_a_pos",
+      "N_sub_b_pred_eq",
+      "N_sub_c_pred_eq",
+      "b_succ_add_c",
+      "b_add_c_succ"
+    ],
+    "referenceIds": [
+      "OvsienkoRedou-2001",
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/OR/OperatorData.lean",
+    "title": "OperatorData",
+    "status": "verified-under-interface",
+    "summary": "Packages the weighted OR operator data and the Laplacian word attached to each OR index.",
+    "declarations": [
+      "OROperatorData",
+      "inputWeights",
+      "outputWeight",
+      "toOperator",
+      "toOperator_apply",
+      "toWord_expectedOutputWeight",
+      "mapsWeights",
+      "toOvsienkoRedouData"
+    ],
+    "referenceIds": [
+      "OvsienkoRedou-2001",
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/OvsienkoRedou.lean",
+    "title": "OvsienkoRedou",
+    "status": "verified-under-interface",
+    "summary": "Provides the initial bidifferential ambient ansatz and coefficient recurrence for curved Ovsienko–Redou-type operators.",
+    "declarations": [
+      "OvsienkoRedouData",
+      "inputWeights",
+      "outputWeight",
+      "toPolyData",
+      "toOperator",
+      "toOperator_apply",
+      "poly_outputWeight_eq",
+      "mapsWeights",
+      "DefectExpansion",
+      "SatisfiesDefectCancellation",
+      "isBiTangential_of_defect_cancellation",
+      "toWeightedBiTangentialOperator",
+      "construct"
+    ],
+    "referenceIds": [
+      "OvsienkoRedou-2001",
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/PolyLaplacianCombination.lean",
+    "title": "PolyLaplacianCombination",
+    "status": "verified-under-interface",
+    "summary": "Specializes linear combinations to Laplacian words of fixed total order.",
+    "declarations": [
+      "PolyLaplacianCombinationData",
+      "outputWeight",
+      "toOperator",
+      "toOperator_apply",
+      "expectedOutputWeight_eq_outputWeight_of_mem",
+      "OperatorSumHomogeneityIdentities",
+      "mapsWeights",
+      "PolyDefectExpansion",
+      "SatisfiesDefectCancellation",
+      "isTangentialAtWeights_of_defect_cancellation",
+      "toWeightedMultiTangentialOperator"
+    ],
+    "referenceIds": [
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/Tangential.lean",
+    "title": "Tangential",
+    "status": "verified-under-interface",
+    "summary": "Defines weighted multi-tangentiality: replacing any input by a boundary-equivalent representative does not change the restricted output.",
+    "declarations": [
+      "IsTangentialAtWeights",
+      "MapsWeights",
+      "WeightedMultiTangentialOperator",
+      "WeightedBiTangentialOperator",
+      "WeightedTriTangentialOperator",
+      "add",
+      "smul",
+      "add",
+      "smul"
+    ],
+    "referenceIds": [
+      "CaseLinYuan-2022"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/Tree.lean",
+    "title": "Tree",
+    "status": "verified-under-interface",
+    "summary": "Aggregate entry point for rank-general left-comb Laplacian words and recurrence interfaces.",
+    "declarations": [],
+    "referenceIds": [
+      "CaseCieslak-2025"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/TreeChainComplex.lean",
+    "title": "TreeChainComplex",
+    "status": "scaffold",
+    "summary": "Packages first-kernel and Euler-characteristic targets for the prospective rank-general recurrence complex.",
+    "declarations": [
+      "combIndexCard",
+      "genericKernelDimensionExpected",
+      "recurrenceEulerCharacteristic",
+      "GenericDimensionFormula",
+      "firstDifferential",
+      "InFirstKernel",
+      "recurrence_iff_in_first_kernel",
+      "GenericExactnessData"
+    ],
+    "referenceIds": [
+      "CaseCieslak-2025"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/TreeDefectCancellation.lean",
+    "title": "TreeDefectCancellation",
+    "status": "scaffold",
+    "summary": "States an abstract interface that turns the path-wise recurrence into cancellation of slot defects and hence tangentiality.",
+    "declarations": [
+      "OperatorData",
+      "toOperator",
+      "toOperator_apply",
+      "RecurrenceImpliesTangentiality",
+      "recurrence_implies_tangential",
+      "TangentialOperatorData",
+      "toOperator",
+      "tangential"
+    ],
+    "referenceIds": [
+      "CaseCieslak-2025"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/TreeLaplacianWords.lean",
+    "title": "TreeLaplacianWords",
+    "status": "verified-under-interface",
+    "summary": "Defines rank-general left-comb indices and evaluates the associated nested multilinear Laplacian word.",
+    "declarations": [
+      "leftCombVertexCount",
+      "CombIndex",
+      "PolyTreeIndex",
+      "totalPower",
+      "totalPower_eq",
+      "powerAt",
+      "powerAt_of_fin",
+      "addAt",
+      "addAt_power_same",
+      "addAt_power_ne",
+      "multinomialCoeffQ",
+      "leftCombEvalFrom",
+      "toOperator",
+      "toOperator_apply"
+    ],
+    "referenceIds": [
+      "CaseCieslak-2025"
+    ]
+  },
+  {
+    "file": "PolyGJMSoperators/TreeRecurrence.lean",
+    "title": "TreeRecurrence",
+    "status": "verified-under-interface",
+    "summary": "Defines paths, descendants, subtree weights, defect coefficients, and the first recurrence differential for a left-comb tree.",
+    "declarations": [
+      "CombCoeffSpace",
+      "leafVertex",
+      "IsInternal",
+      "leafBelow",
+      "onPathToRoot",
+      "pathToRoot",
+      "isDescendant",
+      "descendants",
+      "subtreeWeight",
+      "descendantPowerSum",
+      "defectCoeff",
+      "lowerAtVertex",
+      "pathDefectCoeff",
+      "dOne",
+      "RankRecurrenceAtLevel",
+      "RankRecurrence",
+      "recurrence_iff_dOne_zero"
+    ],
+    "referenceIds": [
+      "CaseCieslak-2025"
+    ]
+  }
+]

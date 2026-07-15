@@ -1,0 +1,89 @@
+{
+  "file": "Ambient/PE/Invariants/NaturalDivergence.lean",
+  "title": "NaturalDivergence",
+  "status": "verified-under-interface",
+  "summary": "Packages natural divergences and the cone-rule interface used to convert ambient identities into PE divergence statements.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Packages natural divergences and the cone-rule interface used to convert ambient identities into PE divergence statements.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/Invariants/NaturalDivergence.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "NaturalDivergence",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Natural Divergence. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def NaturalDivergence (I : ScalarInvariant) : Prop",
+      "line": 19
+    },
+    {
+      "leanDeclaration": "NaturalDivergenceAtWeight",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Natural Divergence At Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def NaturalDivergenceAtWeight (I : ScalarInvariant) (lowerWeight : Int) : Prop",
+      "line": 23
+    },
+    {
+      "leanDeclaration": "NaturalDivergenceAtWeight.toNaturalDivergence",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Natural Divergence At Weight.to Natural Divergence. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem NaturalDivergenceAtWeight.toNaturalDivergence {I : ScalarInvariant} {lowerWeight : Int} (h : NaturalDivergenceAtWeight I lowerWeight) : NaturalDivergence I",
+      "line": 32
+    },
+    {
+      "leanDeclaration": "XAnnihilatesLastIndex",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: XAnnihilates Last Index. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def XAnnihilatesLastIndex [InvariantEvaluationModel] (I : AmbientInvariant) : Prop",
+      "line": 41
+    },
+    {
+      "leanDeclaration": "proposition310Invariant",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: proposition310 Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def proposition310Invariant (n k : Nat) (Ttilde : AmbientOneFormInvariant) : ScalarInvariant",
+      "line": 48
+    },
+    {
+      "leanDeclaration": "AmbientRankOneDivergenceRule",
+      "kind": "class",
+      "mathematicalMeaning": "Data/interface: Ambient Rank One Divergence Rule. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "class AmbientRankOneDivergenceRule [InvariantEvaluationModel] : Prop",
+      "line": 62
+    },
+    {
+      "leanDeclaration": "ambient_rank_one_divergence_is_natural_divergence",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient rank one divergence is natural divergence. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambient_rank_one_divergence_is_natural_divergence [InvariantEvaluationModel] [AmbientRankOneDivergenceRule] (n k : Nat) (Ttilde : AmbientOneFormInvariant) (hn : Even n) (hWeight : Ttilde.1.weight = -2 * (k : Int))",
+      "line": 75
+    }
+  ],
+  "prerequisites": [
+    "Ambient/PE/Invariants/LaplacianRecursion.lean"
+  ],
+  "usedBy": [
+    "Ambient/PE/Invariants.lean",
+    "Ambient/PE/Renormalization/DivergenceVanishing.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseKhaitanLinTyrrellYuan-2024",
+      "locator": "Proposition 3.7, Proposition 3.10, Lemma 4.1, and Theorems 1.1/1.4 as applicable",
+      "note": "Primary source for the renormalized-curvature-integral mechanism represented by these modules."
+    },
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4",
+      "note": "Background for the ambient/Poincaré correspondence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

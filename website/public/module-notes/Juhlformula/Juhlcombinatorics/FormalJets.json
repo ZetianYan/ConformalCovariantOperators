@@ -1,0 +1,138 @@
+{
+  "file": "Juhlformula/Juhlcombinatorics/FormalJets.lean",
+  "title": "FormalJets",
+  "status": "verified",
+  "summary": "Defines a purely formal expression language for metric jets, Taylor denominators, and obstruction coefficients.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines a purely formal expression language for metric jets, Taylor denominators, and obstruction coefficients.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Juhlformula/Juhlcombinatorics/FormalJets.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "FormalExpr",
+      "kind": "inductive",
+      "mathematicalMeaning": "Definition: Formal Expr. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "inductive FormalExpr",
+      "line": 16
+    },
+    {
+      "leanDeclaration": "qsmul",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: qsmul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def qsmul (q : ℚ) (E : FormalExpr) : FormalExpr",
+      "line": 40
+    },
+    {
+      "leanDeclaration": "factQ",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: fact Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def factQ (n : ℕ) : ℚ",
+      "line": 46
+    },
+    {
+      "leanDeclaration": "invFactQ",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: inv Fact Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def invFactQ (n : ℕ) : ℚ",
+      "line": 50
+    },
+    {
+      "leanDeclaration": "invFact2Q",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: inv Fact2 Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def invFact2Q (a b : ℕ) : ℚ",
+      "line": 54
+    },
+    {
+      "leanDeclaration": "listSum",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: list Sum. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def listSum : List FormalExpr → FormalExpr | [] => 0 | x :: xs => x + listSum xs",
+      "line": 58
+    },
+    {
+      "leanDeclaration": "rangeSum",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: range Sum. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def rangeSum (m : ℕ) (A : ℕ → FormalExpr) : FormalExpr",
+      "line": 63
+    },
+    {
+      "leanDeclaration": "highestCoeff",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: highest Coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def highestCoeff (ell m : ℕ) : ℚ",
+      "line": 67
+    },
+    {
+      "leanDeclaration": "traceDerivativePart",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: trace Derivative Part. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def traceDerivativePart : ℕ → FormalExpr | 0 => 0 | m' + 1 => rangeSum m' fun j => FormalExpr.qsmul (2 * invFact2Q j (m' - j)) ((FormalExpr.tr j) * (FormalExpr.F (m' + 1 - j)))",
+      "line": 71
+    },
+    {
+      "leanDeclaration": "deltaPart",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: delta Part. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def deltaPart (m : ℕ) : FormalExpr",
+      "line": 79
+    },
+    {
+      "leanDeclaration": "kOverTwoMinusEll",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: k Over Two Minus Ell. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def kOverTwoMinusEll (ell : ℕ) : FormalExpr",
+      "line": 85
+    },
+    {
+      "leanDeclaration": "traceZerothPart",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: trace Zeroth Part. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def traceZerothPart (ell m : ℕ) : FormalExpr",
+      "line": 90
+    },
+    {
+      "leanDeclaration": "Lrest",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Lrest. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def Lrest (ell m : ℕ) : FormalExpr",
+      "line": 97
+    },
+    {
+      "leanDeclaration": "Lcoeff",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Lcoeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def Lcoeff (ell m : ℕ) : FormalExpr",
+      "line": 103
+    }
+  ],
+  "prerequisites": [
+    "Juhlformula/Juhloperators/Coefficients.lean"
+  ],
+  "usedBy": [
+    "Juhlformula/Juhlcombinatorics/Recursion.lean",
+    "Juhlformula/Juhlcombinatorics.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "ChernYan-2024",
+      "locator": "Formal Juhl-type formula and OR bridge",
+      "note": "Primary source for the intended curved OR–Juhl identity."
+    },
+    {
+      "referenceId": "Juhl-2011",
+      "locator": "GJMS composition formulas",
+      "note": "Source for the Juhl side of the formal syntax."
+    }
+  ],
+  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+}

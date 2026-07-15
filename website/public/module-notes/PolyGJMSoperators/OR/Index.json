@@ -1,0 +1,165 @@
+{
+  "file": "PolyGJMSoperators/OR/Index.lean",
+  "title": "Index",
+  "status": "verified-under-interface",
+  "summary": "Defines triples (a,b,c) of Laplacian exponents with a+b+c=N and the elementary moves between neighboring terms.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines triples (a,b,c) of Laplacian exponents with a+b+c=N and the elementary moves between neighboring terms.",
+      "formula": "a+b+c=N"
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OR/Index.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "ORIndex",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: ORIndex. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure ORIndex (N : ℕ)",
+      "line": 29
+    },
+    {
+      "leanDeclaration": "toWord",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Word. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def toWord {N : ℕ} (I : ORIndex N) : LaplacianWord 2",
+      "line": 39
+    },
+    {
+      "leanDeclaration": "toWord_totalPower",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: to Word total Power. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem toWord_totalPower {N : ℕ} (I : ORIndex N) : I.toWord.totalPower = N",
+      "line": 43
+    },
+    {
+      "leanDeclaration": "supportRaw",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: support Raw. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def supportRaw (N : ℕ) : Finset ((ℕ × ℕ) × ℕ)",
+      "line": 48
+    },
+    {
+      "leanDeclaration": "support",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: support. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def support (N : ℕ) : Finset (ORIndex N)",
+      "line": 54
+    },
+    {
+      "leanDeclaration": "support_toWord_totalPower",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: support to Word total Power. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem support_toWord_totalPower {N : ℕ} {I : ORIndex N} (_hI : I ∈ support N) : I.toWord.totalPower = N",
+      "line": 63
+    },
+    {
+      "leanDeclaration": "move_a_to_b",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: move a to b. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def move_a_to_b {N : ℕ} (I : ORIndex N) (ha : 0 < I.a) : ORIndex N",
+      "line": 73
+    },
+    {
+      "leanDeclaration": "move_a_to_c",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: move a to c. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def move_a_to_c {N : ℕ} (I : ORIndex N) (ha : 0 < I.a) : ORIndex N",
+      "line": 83
+    },
+    {
+      "leanDeclaration": "move_b_to_a",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: move b to a. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def move_b_to_a {N : ℕ} (I : ORIndex N) (hb : 0 < I.b) : ORIndex N",
+      "line": 93
+    },
+    {
+      "leanDeclaration": "move_c_to_a",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: move c to a. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def move_c_to_a {N : ℕ} (I : ORIndex N) (hc : 0 < I.c) : ORIndex N",
+      "line": 103
+    },
+    {
+      "leanDeclaration": "move_b_to_c",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: move b to c. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def move_b_to_c {N : ℕ} (I : ORIndex N) (hb : 0 < I.b) : ORIndex N",
+      "line": 113
+    },
+    {
+      "leanDeclaration": "move_c_to_b",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: move c to b. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def move_c_to_b {N : ℕ} (I : ORIndex N) (hc : 0 < I.c) : ORIndex N",
+      "line": 123
+    },
+    {
+      "leanDeclaration": "N_sub_b_pos_of_a_pos",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: N sub b pos of a pos. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem N_sub_b_pos_of_a_pos {N : ℕ} (I : ORIndex N) (ha : 0 < I.a) : 0 < N - I.b",
+      "line": 188
+    },
+    {
+      "leanDeclaration": "N_sub_c_pos_of_a_pos",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: N sub c pos of a pos. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem N_sub_c_pos_of_a_pos {N : ℕ} (I : ORIndex N) (ha : 0 < I.a) : 0 < N - I.c",
+      "line": 193
+    },
+    {
+      "leanDeclaration": "N_sub_b_pred_eq",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: N sub b pred eq. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem N_sub_b_pred_eq {N : ℕ} (I : ORIndex N) (_ha : 0 < I.a) : N - I.b - 1 = N - (I.b + 1)",
+      "line": 198
+    },
+    {
+      "leanDeclaration": "N_sub_c_pred_eq",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: N sub c pred eq. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem N_sub_c_pred_eq {N : ℕ} (I : ORIndex N) (_ha : 0 < I.a) : N - I.c - 1 = N - (I.c + 1)",
+      "line": 203
+    },
+    {
+      "leanDeclaration": "b_succ_add_c",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: b succ add c. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem b_succ_add_c {N : ℕ} (I : ORIndex N) : I.b + 1 + I.c = I.b + I.c + 1",
+      "line": 208
+    },
+    {
+      "leanDeclaration": "b_add_c_succ",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: b add c succ. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem b_add_c_succ {N : ℕ} (I : ORIndex N) : I.b + (I.c + 1) = I.b + I.c + 1",
+      "line": 212
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/LaplacianWords.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/OR/Coefficients/Combinatorics.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "OvsienkoRedou-2001",
+      "locator": "Classification of invariant bilinear differential operators",
+      "note": "Flat-model origin of the coefficient family."
+    },
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient classification and curved construction",
+      "note": "Primary curved ambient source for the encoded OR recurrence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

@@ -1,0 +1,161 @@
+{
+  "file": "Conformal/Basic.lean",
+  "title": "Basic",
+  "status": "verified",
+  "summary": "Models a conformal structure as a metric bundle with positive rescaling, together with scales and the comparison of representatives.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Models a conformal structure as a metric bundle with positive rescaling, together with scales and the comparison of representatives.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Conformal/Basic.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "PosReal",
+      "kind": "abbrev",
+      "mathematicalMeaning": "Definition: Pos Real. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "abbrev PosReal",
+      "line": 26
+    },
+    {
+      "leanDeclaration": "MetricStructure",
+      "kind": "class",
+      "mathematicalMeaning": "Data/interface: Metric Structure. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "class MetricStructure (M : Type u)",
+      "line": 33
+    },
+    {
+      "leanDeclaration": "MetricField",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Metric Field. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def MetricField",
+      "line": 42
+    },
+    {
+      "leanDeclaration": "ConformalStructure",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Conformal Structure. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure ConformalStructure (M : Type u) extends MetricStructure M",
+      "line": 54
+    },
+    {
+      "leanDeclaration": "PointwiseMetric",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Pointwise Metric. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def PointwiseMetric (x : M)",
+      "line": 104
+    },
+    {
+      "leanDeclaration": "MetricField",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Metric Field. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def MetricField",
+      "line": 105
+    },
+    {
+      "leanDeclaration": "PointMetricBundle",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Point Metric Bundle. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def PointMetricBundle",
+      "line": 109
+    },
+    {
+      "leanDeclaration": "MetricBundle",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Metric Bundle. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def MetricBundle",
+      "line": 110
+    },
+    {
+      "leanDeclaration": "proj",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: proj. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def proj (u : MetricBundle Conf) : M",
+      "line": 113
+    },
+    {
+      "leanDeclaration": "pointproj",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: pointproj. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def pointproj (u : PointMetricBundle Conf) : M",
+      "line": 115
+    },
+    {
+      "leanDeclaration": "dilateBundle",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: dilate Bundle. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def dilateBundle (r : PosReal) : Conf.MetricBundle → Conf.MetricBundle | ⟨x, g⟩ => ⟨x, Conf.dilate r g⟩",
+      "line": 124
+    },
+    {
+      "leanDeclaration": "dilatePointMetricBundle",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: dilate Point Metric Bundle. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def dilatePointMetricBundle (a : PosReal) : Conf.PointMetricBundle → Conf.PointMetricBundle | ⟨x, g⟩ => ⟨x, Conf.dilateMetric a g⟩",
+      "line": 128
+    },
+    {
+      "leanDeclaration": "Scale",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Scale. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure Scale",
+      "line": 150
+    },
+    {
+      "leanDeclaration": "Scale.section",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Scale.section. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def Scale.section {M : Type u} {Conf : ConformalStructure M} (s : ConformalStructure.Scale Conf) : M → ConformalStructure.MetricBundle Conf",
+      "line": 158
+    },
+    {
+      "leanDeclaration": "scaleFactor",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: scale Factor. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "noncomputable def scaleFactor (s : ConformalStructure.Scale Conf) {x : M} (g : Conf.MetricFiber x) : PosReal",
+      "line": 168
+    },
+    {
+      "leanDeclaration": "trivialization",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: trivialization. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "noncomputable def trivialization (s : ConformalStructure.Scale Conf) : Conf.MetricBundle ≃ PosReal × M",
+      "line": 177
+    },
+    {
+      "leanDeclaration": "fiber_nonempty",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: fiber nonempty. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem fiber_nonempty (s : ConformalStructure.Scale Conf) (x : M) : Nonempty (Conf.MetricFiber x)",
+      "line": 203
+    },
+    {
+      "leanDeclaration": "relativeFactor",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: relative Factor. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "noncomputable def relativeFactor (s₁ s₂ : Conf.Scale) : M → PosReal",
+      "line": 207
+    }
+  ],
+  "prerequisites": [],
+  "usedBy": [
+    "Ambient/Ambientbasic.lean",
+    "Ambient/Ambientdensity.lean",
+    "Ambient/PE/Basic.lean",
+    "Conformal/Density.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapters 2–3, ambient space and normal form",
+      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+    }
+  ],
+  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+}

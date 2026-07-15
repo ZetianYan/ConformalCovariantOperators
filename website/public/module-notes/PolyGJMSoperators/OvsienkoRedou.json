@@ -1,0 +1,131 @@
+{
+  "file": "PolyGJMSoperators/OvsienkoRedou.lean",
+  "title": "OvsienkoRedou",
+  "status": "verified-under-interface",
+  "summary": "Provides the initial bidifferential ambient ansatz and coefficient recurrence for curved Ovsienko–Redou-type operators.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Provides the initial bidifferential ambient ansatz and coefficient recurrence for curved Ovsienko–Redou-type operators.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OvsienkoRedou.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "OvsienkoRedouData",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Ovsienko Redou Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure OvsienkoRedouData",
+      "line": 30
+    },
+    {
+      "leanDeclaration": "inputWeights",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: input Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def inputWeights (D : OvsienkoRedouData) (CalConf : Calculus Conf) : Fin 2 → ℝ",
+      "line": 42
+    },
+    {
+      "leanDeclaration": "outputWeight",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: output Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def outputWeight (D : OvsienkoRedouData) : ℝ",
+      "line": 48
+    },
+    {
+      "leanDeclaration": "toPolyData",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Poly Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def toPolyData (D : OvsienkoRedouData) (CalConf : Calculus Conf) : PolyLaplacianCombinationData 2",
+      "line": 53
+    },
+    {
+      "leanDeclaration": "toOperator",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def toOperator (D : OvsienkoRedouData) (CalConf : Calculus Conf) : CalConf.BiOperator",
+      "line": 64
+    },
+    {
+      "leanDeclaration": "toOperator_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: to Operator apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem toOperator_apply (D : OvsienkoRedouData) (F : CalConf.BiInput) (U : Conf.AmbientBundle) : D.toOperator CalConf F U = ∑ W ∈ D.support, D.coeff W * W.toOperator CalConf F U",
+      "line": 71
+    },
+    {
+      "leanDeclaration": "poly_outputWeight_eq",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: poly output Weight eq. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem poly_outputWeight_eq (D : OvsienkoRedouData) : (D.toPolyData CalConf).outputWeight CalConf = D.outputWeight",
+      "line": 80
+    },
+    {
+      "leanDeclaration": "mapsWeights",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: maps Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem mapsWeights (D : OvsienkoRedouData) (H : CalConf.AlgebraicIdentities) (Hprod : CalConf.ProductHomogeneityIdentities) (Hsum : PolyLaplacianCombinationData.OperatorSumHomogeneityIdentities CalConf) : CalConf.MapsWeights",
+      "line": 89
+    },
+    {
+      "leanDeclaration": "DefectExpansion",
+      "kind": "abbrev",
+      "mathematicalMeaning": "Definition: Defect Expansion. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "abbrev DefectExpansion {κ : Type _} [DecidableEq κ] (D : OvsienkoRedouData) (CalConf : Calculus Conf) (K : Finset κ) : Type _",
+      "line": 117
+    },
+    {
+      "leanDeclaration": "SatisfiesDefectCancellation",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Satisfies Defect Cancellation. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def SatisfiesDefectCancellation {κ : Type _} [DecidableEq κ] (D : OvsienkoRedouData) (CalConf : Calculus Conf) {K : Finset κ} (E : D.DefectExpansion CalConf K) : Prop",
+      "line": 127
+    },
+    {
+      "leanDeclaration": "isBiTangential_of_defect_cancellation",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: is Bi Tangential of defect cancellation. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem isBiTangential_of_defect_cancellation {κ : Type _} [DecidableEq κ] (D : OvsienkoRedouData) {K : Finset κ} (E : D.DefectExpansion CalConf K) (hcancel : D.SatisfiesDefectCancellation CalConf E) :",
+      "line": 138
+    },
+    {
+      "leanDeclaration": "toWeightedBiTangentialOperator",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Weighted Bi Tangential Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def toWeightedBiTangentialOperator (D : OvsienkoRedouData) (hmaps : CalConf.MapsWeights (D.toOperator CalConf) (D.inputWeights CalConf) D.outputWeight)",
+      "line": 160
+    },
+    {
+      "leanDeclaration": "construct",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: construct. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def construct {κ : Type _} [DecidableEq κ] (D : OvsienkoRedouData) {K : Finset κ} (E : D.DefectExpansion CalConf K) (hcancel : D.SatisfiesDefectCancellation CalConf E)",
+      "line": 191
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/PolyLaplacianCombination.lean"
+  ],
+  "usedBy": [
+    "Juhlformula/Juhlcombinatorics/ORBridge.lean",
+    "PolyGJMSoperators/OR/OperatorData.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "OvsienkoRedou-2001",
+      "locator": "Classification of invariant bilinear differential operators",
+      "note": "Flat-model origin of the coefficient family."
+    },
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient classification and curved construction",
+      "note": "Primary curved ambient source for the encoded OR recurrence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

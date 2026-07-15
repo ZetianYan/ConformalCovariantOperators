@@ -1,0 +1,124 @@
+{
+  "file": "Ambient/PE/Applications/CaseKhaitanLinTyrrellYuan.lean",
+  "title": "CaseKhaitanLinTyrrellYuan",
+  "status": "verified-under-interface",
+  "summary": "Assembles the formal finite-part identity corresponding to Theorem 1.4 from explicit evaluation, recursion, divergence, and renormalization interfaces.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Assembles the formal finite-part identity corresponding to Theorem 1.4 from explicit evaluation, recursion, divergence, and renormalization interfaces.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/Applications/CaseKhaitanLinTyrrellYuan.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "doubleFactorial",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: double Factorial. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def doubleFactorial : Nat -> Nat | 0 => 1 | 1 => 1 | n + 2 => (n + 2) * doubleFactorial n",
+      "line": 21
+    },
+    {
+      "leanDeclaration": "doubleFactorial_pos",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: double Factorial pos. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem doubleFactorial_pos : forall n : Nat, 0 < doubleFactorial n | 0 => by simp [doubleFactorial] | 1 => by simp [doubleFactorial] | n + 2 => by simp [doubleFactorial, doubleFactorial_pos n]",
+      "line": 26
+    },
+    {
+      "leanDeclaration": "doubleFactorial_ne_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: double Factorial ne zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem doubleFactorial_ne_zero (n : Nat) : doubleFactorial n ≠ 0",
+      "line": 32
+    },
+    {
+      "leanDeclaration": "criticalCaseMultiplierQ",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: critical Case Multiplier Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def criticalCaseMultiplierQ (n k : Nat) : Rat",
+      "line": 40
+    },
+    {
+      "leanDeclaration": "CaseCoeff",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Case Coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def CaseCoeff (n k : Nat) : Real",
+      "line": 52
+    },
+    {
+      "leanDeclaration": "criticalCaseMultiplierQ_pos",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: critical Case Multiplier Q pos. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem criticalCaseMultiplierQ_pos (n k : Nat) : 0 < criticalCaseMultiplierQ n k",
+      "line": 55
+    },
+    {
+      "leanDeclaration": "CaseCoeff_mul_criticalCaseMultiplier",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Case Coeff mul critical Case Multiplier. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem CaseCoeff_mul_criticalCaseMultiplier (n k : Nat) : CaseCoeff n k * ((criticalCaseMultiplierQ n k : Rat) : Real) = 1",
+      "line": 67
+    },
+    {
+      "leanDeclaration": "CaseCoeff_eq_closedForm",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Case Coeff eq closed Form. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem CaseCoeff_eq_closedForm (n k : Nat) : CaseCoeff n k = (Nat.factorial (k - 1) : Real) / ((2 : Real) ^ (n / 2 - k) * (Nat.factorial (n / 2 - 1) : Real)",
+      "line": 79
+    },
+    {
+      "leanDeclaration": "CaseEinsteinEvaluationFormula",
+      "kind": "class",
+      "mathematicalMeaning": "Data/interface: Case Einstein Evaluation Formula. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "class CaseEinsteinEvaluationFormula [InvariantEvaluationModel] : Prop",
+      "line": 114
+    },
+    {
+      "leanDeclaration": "CaseCriticalInvariant",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Case Critical Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def CaseCriticalInvariant (n k : Nat) (Itilde : AmbientScalarInvariant) : ScalarInvariant",
+      "line": 128
+    },
+    {
+      "leanDeclaration": "theorem_1_4_renormalizedIntegral",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: theorem 1 4 renormalized Integral. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem theorem_1_4_renormalizedIntegral (X : PESpace.{u, v}) [InvariantEvaluationModel] [EinsteinAmbientLaplacianFormula] [CaseEinsteinEvaluationFormula] [P : PERenormalizationPackage X] (k : Nat)",
+      "line": 139
+    },
+    {
+      "leanDeclaration": "theorem_1_4_formal",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: theorem 1 4 formal. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem theorem_1_4_formal (X : PESpace.{u, v}) [InvariantEvaluationModel] [EinsteinAmbientLaplacianFormula] [CaseEinsteinEvaluationFormula] [P : PERenormalizationPackage X] (k : Nat)",
+      "line": 250
+    }
+  ],
+  "prerequisites": [
+    "Ambient/PE/Renormalization/DivergenceVanishing.lean"
+  ],
+  "usedBy": [
+    "Ambient/PE/Applications/PfaffianApplication.lean",
+    "Ambient/PE/Applications.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseKhaitanLinTyrrellYuan-2024",
+      "locator": "Proposition 3.7, Proposition 3.10, Lemma 4.1, and Theorems 1.1/1.4 as applicable",
+      "note": "Primary source for the renormalized-curvature-integral mechanism represented by these modules."
+    },
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4",
+      "note": "Background for the ambient/Poincaré correspondence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

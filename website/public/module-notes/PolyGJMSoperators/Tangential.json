@@ -1,0 +1,98 @@
+{
+  "file": "PolyGJMSoperators/Tangential.lean",
+  "title": "Tangential",
+  "status": "verified-under-interface",
+  "summary": "Defines weighted multi-tangentiality: replacing any input by a boundary-equivalent representative does not change the restricted output.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines weighted multi-tangentiality: replacing any input by a boundary-equivalent representative does not change the restricted output.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/Tangential.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "IsTangentialAtWeights",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Is Tangential At Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def IsTangentialAtWeights {r : ℕ} (P : CalConf.MultiOperator r) (w : Fin r → ℝ) : Prop",
+      "line": 29
+    },
+    {
+      "leanDeclaration": "MapsWeights",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Maps Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def MapsWeights {r : ℕ} (P : CalConf.MultiOperator r) (w : Fin r → ℝ) (wout : ℝ) : Prop",
+      "line": 40
+    },
+    {
+      "leanDeclaration": "WeightedMultiTangentialOperator",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Weighted Multi Tangential Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure WeightedMultiTangentialOperator (r : ℕ)",
+      "line": 50
+    },
+    {
+      "leanDeclaration": "WeightedBiTangentialOperator",
+      "kind": "abbrev",
+      "mathematicalMeaning": "Definition: Weighted Bi Tangential Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "abbrev WeightedBiTangentialOperator : Type _",
+      "line": 61
+    },
+    {
+      "leanDeclaration": "WeightedTriTangentialOperator",
+      "kind": "abbrev",
+      "mathematicalMeaning": "Definition: Weighted Tri Tangential Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "abbrev WeightedTriTangentialOperator : Type _",
+      "line": 65
+    },
+    {
+      "leanDeclaration": "add",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: add. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem add {r : ℕ} {P Q : CalConf.MultiOperator r} {w : Fin r → ℝ} (hP : CalConf.IsTangentialAtWeights P w) (hQ : CalConf.IsTangentialAtWeights Q w) : CalConf.IsTangentialAtWeights (CalConf.multiAdd P Q) w",
+      "line": 72
+    },
+    {
+      "leanDeclaration": "smul",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: smul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem smul {r : ℕ} {P : CalConf.MultiOperator r} {w : Fin r → ℝ} (c : ℝ) (hP : CalConf.IsTangentialAtWeights P w) : CalConf.IsTangentialAtWeights (CalConf.multiSmul c P) w",
+      "line": 82
+    },
+    {
+      "leanDeclaration": "add",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: add. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def add {r : ℕ} (P Q : CalConf.WeightedMultiTangentialOperator r) (hinput : P.inputWeights = Q.inputWeights) (_houtput : P.outputWeight = Q.outputWeight) (hmaps : CalConf.MapsWeights",
+      "line": 104
+    },
+    {
+      "leanDeclaration": "smul",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: smul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def smul {r : ℕ} (c : ℝ) (P : CalConf.WeightedMultiTangentialOperator r) (hmaps : CalConf.MapsWeights (CalConf.multiSmul c P.toOperator)",
+      "line": 141
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/Operators.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/Bidifferential.lean",
+    "PolyGJMSoperators/LinearCombination.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient bidifferential operator setup",
+      "note": "Source for multilinear tangentiality and Laplacian-word constructions."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

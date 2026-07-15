@@ -1,0 +1,41 @@
+{
+  "file": "Juhlformula/Juhlcombinatorics.lean",
+  "title": "Juhlcombinatorics",
+  "status": "scaffold",
+  "summary": "Aggregate entry point for the formal obstruction recursion and OR–Juhl bridge.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Aggregate entry point for the formal obstruction recursion and OR–Juhl bridge.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Juhlformula/Juhlcombinatorics.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [],
+  "prerequisites": [
+    "Juhlformula/Juhlcombinatorics/FormalJets.lean",
+    "Juhlformula/Juhlcombinatorics/Recursion.lean",
+    "Juhlformula/Juhlcombinatorics/LowOrderCheck.lean",
+    "Juhlformula/Juhlcombinatorics/FormalStatement.lean",
+    "Juhlformula/Juhlcombinatorics/ORBridge.lean",
+    "Juhlformula/Juhlcombinatorics/CurvedORJuhlFormula.lean"
+  ],
+  "usedBy": [],
+  "references": [
+    {
+      "referenceId": "ChernYan-2024",
+      "locator": "Formal Juhl-type formula and OR bridge",
+      "note": "Primary source for the intended curved OR–Juhl identity."
+    },
+    {
+      "referenceId": "Juhl-2011",
+      "locator": "GJMS composition formulas",
+      "note": "Source for the Juhl side of the formal syntax."
+    }
+  ],
+  "limitations": "This file establishes syntax, aggregate imports, or an abstract bridge. It must not be read as a derivation of the corresponding geometric theorem from concrete tensor and analytic data."
+}

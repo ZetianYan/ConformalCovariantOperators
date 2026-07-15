@@ -1,0 +1,71 @@
+{
+  "file": "Juhlformula/Juhlcombinatorics/ORBridge.lean",
+  "title": "ORBridge",
+  "status": "scaffold",
+  "summary": "Defines an abstract termwise bridge between a formal Juhl right-hand side and an OR right-hand side.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines an abstract termwise bridge between a formal Juhl right-hand side and an OR right-hand side.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Juhlformula/Juhlcombinatorics/ORBridge.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "ORBridgeTerm",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: ORBridge Term. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure ORBridgeTerm",
+      "line": 24
+    },
+    {
+      "leanDeclaration": "ORBridge",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: ORBridge. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure ORBridge",
+      "line": 33
+    },
+    {
+      "leanDeclaration": "refl",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: refl. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def refl (R : FormalJuhlRHS) : ORBridge",
+      "line": 41
+    },
+    {
+      "leanDeclaration": "ORFormalizationData",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: ORFormalization Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure ORFormalizationData",
+      "line": 49
+    }
+  ],
+  "prerequisites": [
+    "Juhlformula/Juhlcombinatorics/FormalStatement.lean",
+    "PolyGJMSoperators/OR.lean",
+    "PolyGJMSoperators/PolyLaplacianCombination.lean",
+    "PolyGJMSoperators/OvsienkoRedou.lean"
+  ],
+  "usedBy": [
+    "Juhlformula/Juhlcombinatorics/CurvedORJuhlFormula.lean",
+    "Juhlformula/Juhlcombinatorics.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "ChernYan-2024",
+      "locator": "Formal Juhl-type formula and OR bridge",
+      "note": "Primary source for the intended curved OR–Juhl identity."
+    },
+    {
+      "referenceId": "Juhl-2011",
+      "locator": "GJMS composition formulas",
+      "note": "Source for the Juhl side of the formal syntax."
+    }
+  ],
+  "limitations": "This file establishes syntax, aggregate imports, or an abstract bridge. It must not be read as a derivation of the corresponding geometric theorem from concrete tensor and analytic data."
+}

@@ -1,0 +1,83 @@
+{
+  "file": "PolyGJMSoperators/Homogeneity.lean",
+  "title": "Homogeneity",
+  "status": "verified-under-interface",
+  "summary": "Defines slot weights, total weight, output weight, and multihomogeneity for multilinear operators.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines slot weights, total weight, output weight, and multihomogeneity for multilinear operators.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/Homogeneity.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "IsMultiHomogeneous",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Is Multi Homogeneous. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def IsMultiHomogeneous {r : ℕ} (w : Fin r → ℝ) (F : CalConf.MultiInput r) : Prop",
+      "line": 27
+    },
+    {
+      "leanDeclaration": "totalWeight",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: total Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def totalWeight (_CalConf : Calculus Conf) {r : ℕ} (w : Fin r → ℝ) : ℝ",
+      "line": 34
+    },
+    {
+      "leanDeclaration": "outputWeight",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: output Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def outputWeight (CalConf : Calculus Conf) {r : ℕ} (w : Fin r → ℝ) (N : ℕ) : ℝ",
+      "line": 41
+    },
+    {
+      "leanDeclaration": "IsMultiHomogeneous.apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Is Multi Homogeneous.apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem IsMultiHomogeneous.apply {r : ℕ} {w : Fin r → ℝ} {F : CalConf.MultiInput r} (hF : CalConf.IsMultiHomogeneous w F) (i : Fin r) : CalConf.IsXHomogeneous (w i) (F i)",
+      "line": 48
+    },
+    {
+      "leanDeclaration": "totalWeight_fin_two",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: total Weight fin two. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem totalWeight_fin_two (w : Fin 2 → ℝ) : CalConf.totalWeight w = w 0 + w 1",
+      "line": 57
+    },
+    {
+      "leanDeclaration": "totalWeight_fin_three",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: total Weight fin three. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem totalWeight_fin_three (w : Fin 3 → ℝ) : CalConf.totalWeight w = w 0 + w 1 + w 2",
+      "line": 63
+    },
+    {
+      "leanDeclaration": "outputWeight_def",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: output Weight def. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem outputWeight_def {r : ℕ} (w : Fin r → ℝ) (N : ℕ) : CalConf.outputWeight w N = CalConf.totalWeight w - 2 * (N : ℝ)",
+      "line": 70
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/Boundary.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/Operators.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient bidifferential operator setup",
+      "note": "Source for multilinear tangentiality and Laplacian-word constructions."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

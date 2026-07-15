@@ -1,0 +1,90 @@
+{
+  "file": "PolyGJMSoperators/TreeChainComplex.lean",
+  "title": "TreeChainComplex",
+  "status": "scaffold",
+  "summary": "Packages first-kernel and Euler-characteristic targets for the prospective rank-general recurrence complex.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Packages first-kernel and Euler-characteristic targets for the prospective rank-general recurrence complex.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/TreeChainComplex.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "combIndexCard",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: comb Index Card. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def combIndexCard (r s : ℕ) : ℕ",
+      "line": 34
+    },
+    {
+      "leanDeclaration": "genericKernelDimensionExpected",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: generic Kernel Dimension Expected. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def genericKernelDimensionExpected (r k : ℕ) : ℕ",
+      "line": 42
+    },
+    {
+      "leanDeclaration": "recurrenceEulerCharacteristic",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: recurrence Euler Characteristic. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def recurrenceEulerCharacteristic (r k : ℕ) : ℤ",
+      "line": 55
+    },
+    {
+      "leanDeclaration": "GenericDimensionFormula",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Generic Dimension Formula. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def GenericDimensionFormula (r k : ℕ) : Prop",
+      "line": 66
+    },
+    {
+      "leanDeclaration": "firstDifferential",
+      "kind": "abbrev",
+      "mathematicalMeaning": "Definition: first Differential. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "abbrev firstDifferential {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (A : CombCoeffSpace r (s + 1)) : Fin r → CombCoeffSpace r s",
+      "line": 71
+    },
+    {
+      "leanDeclaration": "InFirstKernel",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: In First Kernel. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def InFirstKernel {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (A : CombCoeffSpace r (s + 1)) : Prop",
+      "line": 79
+    },
+    {
+      "leanDeclaration": "recurrence_iff_in_first_kernel",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: recurrence iff in first kernel. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem recurrence_iff_in_first_kernel {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (A : CombCoeffSpace r (s + 1)) : RankRecurrenceAtLevel n w A ↔ InFirstKernel n w A",
+      "line": 85
+    },
+    {
+      "leanDeclaration": "GenericExactnessData",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Generic Exactness Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure GenericExactnessData (r k : ℕ) : Prop",
+      "line": 96
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/TreeDefectCancellation.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/Tree.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseCieslak-2025",
+      "locator": "Main ambient construction and tangentiality results",
+      "note": "Motivation for rank-general nested Laplacian words; the Lean tree complex goes beyond what is currently instantiated."
+    }
+  ],
+  "limitations": "This file establishes syntax, aggregate imports, or an abstract bridge. It must not be read as a derivation of the corresponding geometric theorem from concrete tensor and analytic data."
+}

@@ -1,0 +1,118 @@
+{
+  "file": "Conformal/Density.lean",
+  "title": "Density",
+  "status": "verified",
+  "summary": "Defines conformal densities through equivariance under positive metric rescaling and relates equivariant and scale-dependent presentations.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines conformal densities through equivariance under positive metric rescaling and relates equivariant and scale-dependent presentations.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Conformal/Density.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "Weight",
+      "kind": "abbrev",
+      "mathematicalMeaning": "Definition: Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "abbrev Weight (α : Type w) [Monoid α]",
+      "line": 24
+    },
+    {
+      "leanDeclaration": "rescale",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: rescale. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "noncomputable def rescale (χ : Weight α) (s₁ s₂ : Conf.Scale) (f : M → α) : M → α",
+      "line": 30
+    },
+    {
+      "leanDeclaration": "Density",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Density. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure Density (χ : Weight α)",
+      "line": 37
+    },
+    {
+      "leanDeclaration": "repr",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: repr. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def repr (d : Density (Conf",
+      "line": 53
+    },
+    {
+      "leanDeclaration": "Density",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Density. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure Density (χ : Weight α)",
+      "line": 83
+    },
+    {
+      "leanDeclaration": "scaleFactor_eq_mul_relativeFactor",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: scale Factor eq mul relative Factor. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem scaleFactor_eq_mul_relativeFactor (s₁ s₂ : Conf.Scale) {x : M} (g : Conf.MetricFiber x) : Conf.scaleFactor s₁ g = Conf.scaleFactor s₂ g * Conf.relativeFactor s₁ s₂ x",
+      "line": 125
+    },
+    {
+      "leanDeclaration": "toEquivariantUsing",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Equivariant Using. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "noncomputable def toEquivariantUsing (d : Density (Conf",
+      "line": 166
+    },
+    {
+      "leanDeclaration": "toEquivariantUsing_independent",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: to Equivariant Using independent. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem toEquivariantUsing_independent (d : Density (Conf",
+      "line": 194
+    },
+    {
+      "leanDeclaration": "toEquivariant",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Equivariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "noncomputable def toEquivariant (d : Density (Conf",
+      "line": 209
+    },
+    {
+      "leanDeclaration": "toEquivariant_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: to Equivariant apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem toEquivariant_apply (d : Density (Conf",
+      "line": 221
+    },
+    {
+      "leanDeclaration": "toScaleDependent",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Scale Dependent. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def toScaleDependent (d : Density (Conf",
+      "line": 239
+    },
+    {
+      "leanDeclaration": "equivScaleDependentEquiv",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: equiv Scale Dependent Equiv. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "noncomputable def equivScaleDependentEquiv [Nonempty Conf.Scale] : ConformalStructure.Equivariant.Density (Conf",
+      "line": 308
+    }
+  ],
+  "prerequisites": [
+    "Conformal/Basic.lean"
+  ],
+  "usedBy": [
+    "Ambient/Ambientdensity.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapters 2–3, ambient space and normal form",
+      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+    }
+  ],
+  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+}

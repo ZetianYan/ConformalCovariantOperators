@@ -1,0 +1,70 @@
+{
+  "file": "Ambient/PE/Renormalization/DivergenceVanishing.lean",
+  "title": "DivergenceVanishing",
+  "status": "verified-under-interface",
+  "summary": "States the weighted divergence-vanishing interface corresponding to the parity input used in Lemma 4.1.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "States the weighted divergence-vanishing interface corresponding to the parity input used in Lemma 4.1.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/Renormalization/DivergenceVanishing.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "PERenormalizationPackage",
+      "kind": "class",
+      "mathematicalMeaning": "Data/interface: PERenormalization Package. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "class PERenormalizationPackage (X : PESpace.{u, v}) [InvariantEvaluationModel]",
+      "line": 23
+    },
+    {
+      "leanDeclaration": "renormalizedIntegral",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: renormalized Integral. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def renormalizedIntegral (X : PESpace) [InvariantEvaluationModel] [P : PERenormalizationPackage X] (I : ScalarInvariant) : Real",
+      "line": 76
+    },
+    {
+      "leanDeclaration": "renormalizedIntegral_eq_phaseB",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: renormalized Integral eq phase B. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem renormalizedIntegral_eq_phaseB (X : PESpace) [InvariantEvaluationModel] [P : PERenormalizationPackage X] (I : ScalarInvariant) : renormalizedIntegral X I =",
+      "line": 85
+    },
+    {
+      "leanDeclaration": "renormalizedIntegral_naturalDivergence_eq_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: renormalized Integral natural Divergence eq zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem renormalizedIntegral_naturalDivergence_eq_zero (X : PESpace) [InvariantEvaluationModel] [P : PERenormalizationPackage X] (hn : Even X.bulkDim) (I : ScalarInvariant) (hDiv :",
+      "line": 96
+    }
+  ],
+  "prerequisites": [
+    "Ambient/PE/Invariants/NaturalDivergence.lean",
+    "Ambient/PE/EinsteinEquation.lean",
+    "Ambient/PE/Renormalization/CurvatureIntegral.lean"
+  ],
+  "usedBy": [
+    "Ambient/PE/Applications/CaseKhaitanLinTyrrellYuan.lean",
+    "Ambient/PE/Renormalization.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseKhaitanLinTyrrellYuan-2024",
+      "locator": "Proposition 3.7, Proposition 3.10, Lemma 4.1, and Theorems 1.1/1.4 as applicable",
+      "note": "Primary source for the renormalized-curvature-integral mechanism represented by these modules."
+    },
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4",
+      "note": "Background for the ambient/Poincaré correspondence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

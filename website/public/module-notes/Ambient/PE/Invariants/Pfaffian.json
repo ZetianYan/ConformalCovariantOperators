@@ -1,0 +1,110 @@
+{
+  "file": "Ambient/PE/Invariants/Pfaffian.lean",
+  "title": "Pfaffian",
+  "status": "verified-under-interface",
+  "summary": "Defines Pfaffian-like symbolic invariants and the P_l_n family used in the Gauss–Bonnet-type application.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines Pfaffian-like symbolic invariants and the P_l_n family used in the Gauss–Bonnet-type application.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/Invariants/Pfaffian.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "WeylPfLike",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Weyl Pf Like. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def WeylPfLike (ell : Nat) : ScalarInvariant",
+      "line": 19
+    },
+    {
+      "leanDeclaration": "AmbientRmPfLike",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Ambient Rm Pf Like. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def AmbientRmPfLike (ell : Nat) : AmbientScalarInvariant",
+      "line": 32
+    },
+    {
+      "leanDeclaration": "WeylPfLike_weight",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Weyl Pf Like weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem WeylPfLike_weight (ell : Nat) : (WeylPfLike ell).1.weight = -2 * (ell : Int)",
+      "line": 45
+    },
+    {
+      "leanDeclaration": "AmbientRmPfLike_weight",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Ambient Rm Pf Like weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem AmbientRmPfLike_weight (ell : Nat) : (AmbientRmPfLike ell).1.weight = -2 * (ell : Int)",
+      "line": 50
+    },
+    {
+      "leanDeclaration": "PfLikeStraightness",
+      "kind": "class",
+      "mathematicalMeaning": "Data/interface: Pf Like Straightness. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "class PfLikeStraightness [InvariantEvaluationModel] : Prop",
+      "line": 55
+    },
+    {
+      "leanDeclaration": "WeylPfLike_straightenable",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Weyl Pf Like straightenable. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem WeylPfLike_straightenable [InvariantEvaluationModel] [PfLikeStraightness] (ell : Nat) : ScalarStraightenable (WeylPfLike ell) (AmbientRmPfLike ell)",
+      "line": 64
+    },
+    {
+      "leanDeclaration": "P_l_n",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: P l n. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def P_l_n (ell n : Nat) : ScalarInvariant",
+      "line": 76
+    },
+    {
+      "leanDeclaration": "P_l_n_weight",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: P l n weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem P_l_n_weight (ell n : Nat) (hn : Even n) (hRange : ell <= n / 2) : (P_l_n ell n).1.weight = -(n : Int)",
+      "line": 82
+    },
+    {
+      "leanDeclaration": "P_l_n_conformal",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: P l n conformal. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem P_l_n_conformal [InvariantEvaluationModel] [EinsteinAmbientLaplacianFormula] (ell n : Nat) (hn : Even n) (hRange : ell <= n / 2) : IsScalarConformalInvariant (P_l_n ell n)",
+      "line": 101
+    },
+    {
+      "leanDeclaration": "FullPfaffianInvariant",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Full Pfaffian Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def FullPfaffianInvariant (n : Nat) : ScalarInvariant",
+      "line": 118
+    }
+  ],
+  "prerequisites": [
+    "Ambient/PE/Invariants/LaplacianRecursion.lean"
+  ],
+  "usedBy": [
+    "Ambient/PE/Applications/PfaffianApplication.lean",
+    "Ambient/PE/Invariants.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseKhaitanLinTyrrellYuan-2024",
+      "locator": "Proposition 3.7, Proposition 3.10, Lemma 4.1, and Theorems 1.1/1.4 as applicable",
+      "note": "Primary source for the renormalized-curvature-integral mechanism represented by these modules."
+    },
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4",
+      "note": "Background for the ambient/Poincaré correspondence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

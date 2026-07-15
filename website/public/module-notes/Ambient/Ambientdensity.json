@@ -1,0 +1,71 @@
+{
+  "file": "Ambient/Ambientdensity.lean",
+  "title": "Ambientdensity",
+  "status": "verified",
+  "summary": "Defines homogeneous ambient densities and their restriction to conformal densities on the null cone.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines homogeneous ambient densities and their restriction to conformal densities on the null cone.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/Ambientdensity.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "AmbientWeight",
+      "kind": "abbrev",
+      "mathematicalMeaning": "Definition: Ambient Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "abbrev AmbientWeight",
+      "line": 15
+    },
+    {
+      "leanDeclaration": "Density",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Density. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure Density (χ : Weight α)",
+      "line": 21
+    },
+    {
+      "leanDeclaration": "restrictToBoundary",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: restrict To Boundary. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def restrictToBoundary (d : Density (Conf",
+      "line": 55
+    },
+    {
+      "leanDeclaration": "restrictToScaleDependent",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: restrict To Scale Dependent. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def restrictToScaleDependent (d : Density (Conf",
+      "line": 76
+    },
+    {
+      "leanDeclaration": "Density",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Density. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure Density (χ : Weight α)",
+      "line": 95
+    }
+  ],
+  "prerequisites": [
+    "Conformal/Basic.lean",
+    "Conformal/Density.lean",
+    "Ambient/Ambientbasic.lean"
+  ],
+  "usedBy": [
+    "Ambient/Ambientoperator.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapters 2–3, ambient space and normal form",
+      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+    }
+  ],
+  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+}

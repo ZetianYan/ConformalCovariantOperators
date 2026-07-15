@@ -1,0 +1,101 @@
+{
+  "file": "Juhlformula/Juhloperators/Basic.lean",
+  "title": "Basic",
+  "status": "verified",
+  "summary": "Defines ordered compositions I=(I_1,...,I_r) of an integer N.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines ordered compositions I=(I_1,...,I_r) of an integer N.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Juhlformula/Juhloperators/Basic.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "Composition",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Composition. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure Composition (N : Nat)",
+      "line": 19
+    },
+    {
+      "leanDeclaration": "length",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: length. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def length (I : Composition N) : Nat",
+      "line": 29
+    },
+    {
+      "leanDeclaration": "nil",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: nil. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def nil : Composition 0",
+      "line": 33
+    },
+    {
+      "leanDeclaration": "singleton",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: singleton. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def singleton (N : Nat) (hN : 0 < N) : Composition N",
+      "line": 42
+    },
+    {
+      "leanDeclaration": "nil_parts",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: nil parts. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem nil_parts : (nil : Composition 0).parts = []",
+      "line": 53
+    },
+    {
+      "leanDeclaration": "singleton_parts",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: singleton parts. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem singleton_parts (N : Nat) (hN : 0 < N) : (singleton N hN).parts = [N]",
+      "line": 58
+    },
+    {
+      "leanDeclaration": "singleton_length",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: singleton length. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem singleton_length (N : Nat) (hN : 0 < N) : (singleton N hN).length = 1",
+      "line": 64
+    },
+    {
+      "leanDeclaration": "pair",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: pair. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def pair (a b : Nat) (ha : 0 < a) (hb : 0 < b) : Composition (a + b)",
+      "line": 70
+    },
+    {
+      "leanDeclaration": "pair_parts",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: pair parts. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem pair_parts (a b : Nat) (ha : 0 < a) (hb : 0 < b) : (pair a b ha hb).parts = [a, b]",
+      "line": 86
+    }
+  ],
+  "prerequisites": [],
+  "usedBy": [
+    "Juhlformula/Juhloperators/Coefficients.lean",
+    "Juhlformula/Juhloperators/Composition.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "Juhl-2011",
+      "locator": "Composition formulas for GJMS operators",
+      "note": "Source for ordered GJMS compositions and coefficients."
+    },
+    {
+      "referenceId": "FeffermanGraham-Juhl-2012",
+      "locator": "Direct ambient proof of Juhl's formulas",
+      "note": "Ambient interpretation of the composition formula."
+    }
+  ],
+  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+}

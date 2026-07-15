@@ -1,0 +1,126 @@
+{
+  "file": "Juhlformula/Juhlcombinatorics/FormalStatement.lean",
+  "title": "FormalStatement",
+  "status": "verified",
+  "summary": "Defines the data of a formal Juhl right-hand side and the proposition that formalP equals that expression.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines the data of a formal Juhl right-hand side and the proposition that formalP equals that expression.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Juhlformula/Juhlcombinatorics/FormalStatement.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "FormalEq",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Formal Eq. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def FormalEq (A B : FormalExpr) : Prop",
+      "line": 18
+    },
+    {
+      "leanDeclaration": "refl",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: refl. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem refl (A : FormalExpr) : FormalEq A A",
+      "line": 23
+    },
+    {
+      "leanDeclaration": "trans",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: trans. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem trans {A B C : FormalExpr} (hAB : FormalEq A B) (hBC : FormalEq B C) : FormalEq A C",
+      "line": 28
+    },
+    {
+      "leanDeclaration": "symm",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: symm. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem symm {A B : FormalExpr} (hAB : FormalEq A B) : FormalEq B A",
+      "line": 35
+    },
+    {
+      "leanDeclaration": "formalGJMSCompositionExpr",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: formal GJMSComposition Expr. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def formalGJMSCompositionExpr {N : ℕ} (I : Composition N) : FormalExpr",
+      "line": 49
+    },
+    {
+      "leanDeclaration": "FormalJuhlTerm",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Formal Juhl Term. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure FormalJuhlTerm",
+      "line": 57
+    },
+    {
+      "leanDeclaration": "toExpr",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Expr. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def toExpr (T : FormalJuhlTerm) : FormalExpr",
+      "line": 65
+    },
+    {
+      "leanDeclaration": "FormalJuhlRHS",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Formal Juhl RHS. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure FormalJuhlRHS",
+      "line": 71
+    },
+    {
+      "leanDeclaration": "toExpr",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Expr. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def toExpr (R : FormalJuhlRHS) : FormalExpr",
+      "line": 78
+    },
+    {
+      "leanDeclaration": "FormalJuhlStatement",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Formal Juhl Statement. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure FormalJuhlStatement (N : ℕ)",
+      "line": 84
+    },
+    {
+      "leanDeclaration": "formalJuhlStatement_one",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: formal Juhl Statement one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def formalJuhlStatement_one : FormalJuhlStatement 1",
+      "line": 89
+    },
+    {
+      "leanDeclaration": "formalJuhlStatement_two_raw",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: formal Juhl Statement two raw. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def formalJuhlStatement_two_raw : FormalJuhlStatement 2",
+      "line": 100
+    }
+  ],
+  "prerequisites": [
+    "Juhlformula/Juhlcombinatorics/LowOrderCheck.lean",
+    "Juhlformula/Juhloperators/Composition.lean",
+    "Juhlformula/Juhloperators/Coefficients.lean"
+  ],
+  "usedBy": [
+    "Juhlformula/Juhlcombinatorics/ORBridge.lean",
+    "Juhlformula/Juhlcombinatorics.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "ChernYan-2024",
+      "locator": "Formal Juhl-type formula and OR bridge",
+      "note": "Primary source for the intended curved OR–Juhl identity."
+    },
+    {
+      "referenceId": "Juhl-2011",
+      "locator": "GJMS composition formulas",
+      "note": "Source for the Juhl side of the formal syntax."
+    }
+  ],
+  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+}

@@ -1,0 +1,39 @@
+{
+  "file": "Ambient/PE.lean",
+  "title": "PE",
+  "status": "scaffold",
+  "summary": "Aggregate entry point for Poincaré–Einstein geometry, the ambient bridge, invariants, renormalization, and applications.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Aggregate entry point for Poincaré–Einstein geometry, the ambient bridge, invariants, renormalization, and applications.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [],
+  "prerequisites": [
+    "Ambient/PE/Basic.lean",
+    "Ambient/PE/DefiningFunction.lean",
+    "Ambient/PE/NormalForm.lean",
+    "Ambient/PE/MetricComponents.lean",
+    "Ambient/PE/EinsteinEquation.lean",
+    "Ambient/PE/AmbientBridge.lean",
+    "Ambient/PE/Invariants.lean",
+    "Ambient/PE/Renormalization.lean",
+    "Ambient/PE/Applications.lean"
+  ],
+  "usedBy": [],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapters 2–3, ambient space and normal form",
+      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+    }
+  ],
+  "limitations": "This file establishes syntax, aggregate imports, or an abstract bridge. It must not be read as a derivation of the corresponding geometric theorem from concrete tensor and analytic data."
+}

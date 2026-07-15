@@ -1,0 +1,68 @@
+{
+  "file": "PolyGJMSoperators/OR/ClosedOperator.lean",
+  "title": "ClosedOperator",
+  "status": "verified-under-interface",
+  "summary": "Builds the closed OR linear combination from its coefficient system and packages its stated properties.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Builds the closed OR linear combination from its coefficient system and packages its stated properties.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OR/ClosedOperator.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "regular",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: regular. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def regular (N : ℕ) (n w₁ w₂ : ℚ) : OROperatorData",
+      "line": 31
+    },
+    {
+      "leanDeclaration": "regular_coeffSystem_coeff",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: regular coeff System coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem regular_coeffSystem_coeff (N : ℕ) (n w₁ w₂ : ℚ) (I : ORIndex N) : ((regular N n w₁ w₂).coeffSystem).coeff I = ORRegularCoeff n w₁ w₂ I",
+      "line": 42
+    },
+    {
+      "leanDeclaration": "regularOperator",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: regular Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def regularOperator (N : ℕ) (n w₁ w₂ : ℚ) (CalConf : Calculus Conf) : CalConf.BiOperator",
+      "line": 51
+    },
+    {
+      "leanDeclaration": "regular_isBiTangential_of_rational_defect_cancellation",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: regular is Bi Tangential of rational defect cancellation. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem regular_isBiTangential_of_rational_defect_cancellation {κ : Type _} [DecidableEq κ] (N : ℕ) (n w₁ w₂ : ℚ) {K : Finset κ} (E : (regular N n w₁ w₂).ORDefectExpansion CalConf K)",
+      "line": 62
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/OR/DefectCancellation.lean",
+    "PolyGJMSoperators/OR/Coefficients/ClosedFormula.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/OR.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "OvsienkoRedou-2001",
+      "locator": "Classification of invariant bilinear differential operators",
+      "note": "Flat-model origin of the coefficient family."
+    },
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient classification and curved construction",
+      "note": "Primary curved ambient source for the encoded OR recurrence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

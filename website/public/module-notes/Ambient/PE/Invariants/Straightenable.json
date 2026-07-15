@@ -1,0 +1,166 @@
+{
+  "file": "Ambient/PE/Invariants/Straightenable.lean",
+  "title": "Straightenable",
+  "status": "verified-under-interface",
+  "summary": "Defines invariants that admit evaluation through a chosen ambient model and proves closure operations at the interface level.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines invariants that admit evaluation through a chosen ambient model and proves closure operations at the interface level.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/Invariants/Straightenable.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "InvariantEvaluationModel",
+      "kind": "class",
+      "mathematicalMeaning": "Data/interface: Invariant Evaluation Model. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "class InvariantEvaluationModel",
+      "line": 20
+    },
+    {
+      "leanDeclaration": "IsNaturalInvariant",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Is Natural Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def IsNaturalInvariant [InvariantEvaluationModel] (I : TensorInvariant) : Prop",
+      "line": 49
+    },
+    {
+      "leanDeclaration": "IsScalarConformalInvariant",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Is Scalar Conformal Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def IsScalarConformalInvariant [InvariantEvaluationModel] (I : ScalarInvariant) : Prop",
+      "line": 56
+    },
+    {
+      "leanDeclaration": "Straightenable",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Straightenable. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure Straightenable [InvariantEvaluationModel] (I : TensorInvariant) (Itilde : AmbientInvariant) : Prop",
+      "line": 63
+    },
+    {
+      "leanDeclaration": "ScalarStraightenable",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Scalar Straightenable. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ScalarStraightenable [InvariantEvaluationModel] (I : ScalarInvariant) (Itilde : AmbientScalarInvariant) : Prop",
+      "line": 73
+    },
+    {
+      "leanDeclaration": "straightenable_one",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: straightenable one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem straightenable_one [InvariantEvaluationModel] : ScalarStraightenable scalarOne ambientScalarOne",
+      "line": 80
+    },
+    {
+      "leanDeclaration": "straightenable_tensorProd",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: straightenable tensor Prod. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem straightenable_tensorProd [InvariantEvaluationModel] {S T : TensorInvariant} {St Tt : AmbientInvariant} (hS : Straightenable S St) (hT : Straightenable T Tt) : Straightenable",
+      "line": 87
+    },
+    {
+      "leanDeclaration": "straightenable_contract",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: straightenable contract. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem straightenable_contract [InvariantEvaluationModel] {T : TensorInvariant} {Tt : AmbientInvariant} (hT : Straightenable T Tt) (C : IndexPairing) : Straightenable",
+      "line": 103
+    },
+    {
+      "leanDeclaration": "WeylTensorInvariant",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Weyl Tensor Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def WeylTensorInvariant : TensorInvariant",
+      "line": 119
+    },
+    {
+      "leanDeclaration": "AmbientRiemannTensorInvariant",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Ambient Riemann Tensor Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def AmbientRiemannTensorInvariant : AmbientInvariant",
+      "line": 126
+    },
+    {
+      "leanDeclaration": "WeylAmbientStraightness",
+      "kind": "class",
+      "mathematicalMeaning": "Data/interface: Weyl Ambient Straightness. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "class WeylAmbientStraightness [InvariantEvaluationModel] : Prop",
+      "line": 133
+    },
+    {
+      "leanDeclaration": "Weyl_straightenable_AmbientRm",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Weyl straightenable Ambient Rm. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem Weyl_straightenable_AmbientRm [InvariantEvaluationModel] [WeylAmbientStraightness] : Straightenable WeylTensorInvariant AmbientRiemannTensorInvariant",
+      "line": 141
+    },
+    {
+      "leanDeclaration": "weylPower",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: weyl Power. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def weylPower : Nat -> TensorInvariant | 0 => scalarOne.1 | k + 1 => tensorProdInvariant (weylPower k) WeylTensorInvariant",
+      "line": 148
+    },
+    {
+      "leanDeclaration": "ambientRiemannPower",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ambient Riemann Power. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ambientRiemannPower : Nat -> AmbientInvariant | 0 => ambientScalarOne.1 | k + 1 => ambientTensorProdInvariant (ambientRiemannPower k) AmbientRiemannTensorInvariant",
+      "line": 153
+    },
+    {
+      "leanDeclaration": "weylPower_rank",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: weyl Power rank. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem weylPower_rank (k : Nat) : (weylPower k).rank = 4 * k",
+      "line": 161
+    },
+    {
+      "leanDeclaration": "weylPower_weight",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: weyl Power weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem weylPower_weight (k : Nat) : (weylPower k).weight = 2 * (k : Int)",
+      "line": 170
+    },
+    {
+      "leanDeclaration": "ambientRiemannPower_rank",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Riemann Power rank. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientRiemannPower_rank (k : Nat) : (ambientRiemannPower k).rank = 4 * k",
+      "line": 179
+    },
+    {
+      "leanDeclaration": "ambientRiemannPower_weight",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Riemann Power weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientRiemannPower_weight (k : Nat) : (ambientRiemannPower k).weight = 2 * (k : Int)",
+      "line": 193
+    }
+  ],
+  "prerequisites": [
+    "Ambient/PE/Invariants/RiemannianInvariant.lean"
+  ],
+  "usedBy": [
+    "Ambient/PE/Invariants/LaplacianRecursion.lean",
+    "Ambient/PE/Invariants.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseKhaitanLinTyrrellYuan-2024",
+      "locator": "Proposition 3.7, Proposition 3.10, Lemma 4.1, and Theorems 1.1/1.4 as applicable",
+      "note": "Primary source for the renormalized-curvature-integral mechanism represented by these modules."
+    },
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4",
+      "note": "Background for the ambient/Poincaré correspondence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

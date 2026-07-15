@@ -1,0 +1,82 @@
+{
+  "file": "PolyGJMSoperators/OR/Coefficients/Recurrence.lean",
+  "title": "Recurrence",
+  "status": "verified-under-interface",
+  "summary": "States the neighboring-index recurrence equations required for OR defect cancellation.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "States the neighboring-index recurrence equations required for OR defect cancellation.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OR/Coefficients/Recurrence.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "ORCoefficientSystem",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: ORCoefficient System. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure ORCoefficientSystem (N : ℕ)",
+      "line": 28
+    },
+    {
+      "leanDeclaration": "coeffR",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: coeff R. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def coeffR {N : ℕ} (C : ORCoefficientSystem N) (I : ORIndex N) : ℝ",
+      "line": 34
+    },
+    {
+      "leanDeclaration": "coeffR_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: coeff R apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem coeffR_apply {N : ℕ} (C : ORCoefficientSystem N) (I : ORIndex N) : C.coeffR I = (C.coeff I : ℝ)",
+      "line": 38
+    },
+    {
+      "leanDeclaration": "SatisfiesDefectCancellationQ",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Satisfies Defect Cancellation Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def SatisfiesDefectCancellationQ {N : ℕ} {κ : Type _} [DecidableEq κ] (K : Finset κ) (C : ORCoefficientSystem N) (defectCoeffQ : ORIndex N → Fin 2 → κ → ℚ) : Prop",
+      "line": 50
+    },
+    {
+      "leanDeclaration": "SatisfiesORRecurrence",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Satisfies ORRecurrence. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def SatisfiesORRecurrence {N : ℕ} {κ : Type _} [DecidableEq κ] (_w₁ _w₂ _n : ℚ) (K : Finset κ) (C : ORCoefficientSystem N)",
+      "line": 66
+    },
+    {
+      "leanDeclaration": "satisfiesORRecurrence_iff_defectCancellationQ",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: satisfies ORRecurrence iff defect Cancellation Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem satisfiesORRecurrence_iff_defectCancellationQ {N : ℕ} {κ : Type _} [DecidableEq κ] (w₁ w₂ n : ℚ) (K : Finset κ) (C : ORCoefficientSystem N)",
+      "line": 76
+    }
+  ],
+  "prerequisites": [
+    "PolyGJMSoperators/OR/Coefficients/Combinatorics.lean"
+  ],
+  "usedBy": [
+    "PolyGJMSoperators/OR/Coefficients/ClosedFormula.lean",
+    "PolyGJMSoperators/OR/OperatorData.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "OvsienkoRedou-2001",
+      "locator": "Classification of invariant bilinear differential operators",
+      "note": "Flat-model origin of the coefficient family."
+    },
+    {
+      "referenceId": "CaseLinYuan-2022",
+      "locator": "Ambient classification and curved construction",
+      "note": "Primary curved ambient source for the encoded OR recurrence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

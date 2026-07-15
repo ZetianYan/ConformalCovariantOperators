@@ -1,0 +1,77 @@
+{
+  "file": "Ambient/FG/Recursion.lean",
+  "title": "Recursion",
+  "status": "verified-under-interface",
+  "summary": "Packages finite-order Ricci recursion data and the first-jet relation with the Schouten tensor.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Packages finite-order Ricci recursion data and the first-jet relation with the Schouten tensor.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/FG/Recursion.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "FormalRicciRecursion",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Formal Ricci Recursion. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure FormalRicciRecursion (J : FormalMetricJet ι K)",
+      "line": 25
+    },
+    {
+      "leanDeclaration": "solvedAt",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: solved At. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def solvedAt (R : FormalRicciRecursion (ι",
+      "line": 39
+    },
+    {
+      "leanDeclaration": "solvedAt_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: solved At zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem solvedAt_zero (R : FormalRicciRecursion (ι",
+      "line": 46
+    },
+    {
+      "leanDeclaration": "solved_firstJet_eq_two_schouten",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: solved first Jet eq two schouten. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem solved_firstJet_eq_two_schouten (R : FormalRicciRecursion (ι",
+      "line": 54
+    },
+    {
+      "leanDeclaration": "FGRicciSolvedToOrder",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: FGRicci Solved To Order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure FGRicciSolvedToOrder (J : FormalMetricJet ι K) (order : ℕ)",
+      "line": 68
+    },
+    {
+      "leanDeclaration": "FGRicciSolvedToOrder.firstJet",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: FGRicci Solved To Order.first Jet. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem FGRicciSolvedToOrder.firstJet (S : FGRicciSolvedToOrder (ι",
+      "line": 75
+    }
+  ],
+  "prerequisites": [
+    "Ambient/FG/FormalJets.lean"
+  ],
+  "usedBy": [
+    "Ambient/FG/Obstruction.lean",
+    "Ambient/FG.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapters 2–3, ambient space and normal form",
+      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

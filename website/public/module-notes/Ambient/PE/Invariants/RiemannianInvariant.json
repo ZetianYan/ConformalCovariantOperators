@@ -1,0 +1,164 @@
+{
+  "file": "Ambient/PE/Invariants/RiemannianInvariant.lean",
+  "title": "RiemannianInvariant",
+  "status": "verified-under-interface",
+  "summary": "Defines symbolic scalar/tensor Riemannian invariants with rank, conformal weight, tensor weight, and parity bookkeeping.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Defines symbolic scalar/tensor Riemannian invariants with rank, conformal weight, tensor weight, and parity bookkeeping.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/Invariants/RiemannianInvariant.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "InvariantParity",
+      "kind": "inductive",
+      "mathematicalMeaning": "Definition: Invariant Parity. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "inductive InvariantParity",
+      "line": 20
+    },
+    {
+      "leanDeclaration": "tensorProduct",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: tensor Product. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def tensorProduct : InvariantParity -> InvariantParity -> InvariantParity | even, p => p | p, even => p | odd, odd => even | mixed, _ => mixed | _, mixed => mixed",
+      "line": 29
+    },
+    {
+      "leanDeclaration": "IndexPairing",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Index Pairing. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure IndexPairing",
+      "line": 39
+    },
+    {
+      "leanDeclaration": "pairCount",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: pair Count. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def pairCount (C : IndexPairing) : Nat",
+      "line": 47
+    },
+    {
+      "leanDeclaration": "TensorInvariantExpr",
+      "kind": "inductive",
+      "mathematicalMeaning": "Definition: Tensor Invariant Expr. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "inductive TensorInvariantExpr",
+      "line": 53
+    },
+    {
+      "leanDeclaration": "TensorInvariant",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Tensor Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure TensorInvariant",
+      "line": 72
+    },
+    {
+      "leanDeclaration": "AmbientInvariant",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Ambient Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure AmbientInvariant",
+      "line": 79
+    },
+    {
+      "leanDeclaration": "ScalarInvariant",
+      "kind": "abbrev",
+      "mathematicalMeaning": "Definition: Scalar Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "abbrev ScalarInvariant",
+      "line": 86
+    },
+    {
+      "leanDeclaration": "OneFormInvariant",
+      "kind": "abbrev",
+      "mathematicalMeaning": "Definition: One Form Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "abbrev OneFormInvariant",
+      "line": 90
+    },
+    {
+      "leanDeclaration": "AmbientScalarInvariant",
+      "kind": "abbrev",
+      "mathematicalMeaning": "Definition: Ambient Scalar Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "abbrev AmbientScalarInvariant",
+      "line": 94
+    },
+    {
+      "leanDeclaration": "AmbientOneFormInvariant",
+      "kind": "abbrev",
+      "mathematicalMeaning": "Definition: Ambient One Form Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "abbrev AmbientOneFormInvariant",
+      "line": 98
+    },
+    {
+      "leanDeclaration": "tensorWeight",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: tensor Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def tensorWeight (I : TensorInvariant) : Int",
+      "line": 102
+    },
+    {
+      "leanDeclaration": "ambientTensorWeight",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ambient Tensor Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ambientTensorWeight (I : AmbientInvariant) : Int",
+      "line": 106
+    },
+    {
+      "leanDeclaration": "scalarOne",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: scalar One. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def scalarOne : ScalarInvariant",
+      "line": 110
+    },
+    {
+      "leanDeclaration": "ambientScalarOne",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ambient Scalar One. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ambientScalarOne : AmbientScalarInvariant",
+      "line": 122
+    },
+    {
+      "leanDeclaration": "tensorProdInvariant",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: tensor Prod Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def tensorProdInvariant (S T : TensorInvariant) : TensorInvariant",
+      "line": 134
+    },
+    {
+      "leanDeclaration": "ambientTensorProdInvariant",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ambient Tensor Prod Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ambientTensorProdInvariant (S T : AmbientInvariant) : AmbientInvariant",
+      "line": 143
+    },
+    {
+      "leanDeclaration": "contractInvariant",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: contract Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def contractInvariant (T : TensorInvariant) (C : IndexPairing) : TensorInvariant",
+      "line": 157
+    }
+  ],
+  "prerequisites": [],
+  "usedBy": [
+    "Ambient/PE/Invariants/Straightenable.lean",
+    "Ambient/PE/Invariants.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseKhaitanLinTyrrellYuan-2024",
+      "locator": "Proposition 3.7, Proposition 3.10, Lemma 4.1, and Theorems 1.1/1.4 as applicable",
+      "note": "Primary source for the renormalized-curvature-integral mechanism represented by these modules."
+    },
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4",
+      "note": "Background for the ambient/Poincaré correspondence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

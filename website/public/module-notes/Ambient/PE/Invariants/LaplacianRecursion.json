@@ -1,0 +1,146 @@
+{
+  "file": "Ambient/PE/Invariants/LaplacianRecursion.lean",
+  "title": "LaplacianRecursion",
+  "status": "verified-under-interface",
+  "summary": "Formalizes the iterative ambient-Laplacian recursion corresponding to Proposition 3.7 in the PE renormalized-integral reference.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Formalizes the iterative ambient-Laplacian recursion corresponding to Proposition 3.7 in the PE renormalized-integral reference.",
+      "formula": null
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/PE/Invariants/LaplacianRecursion.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "caseLaplacianCoefficient",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: case Laplacian Coefficient. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def caseLaplacianCoefficient (n k j : Nat) : Rat",
+      "line": 27
+    },
+    {
+      "leanDeclaration": "CaseLaplacianFactor",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Case Laplacian Factor. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def CaseLaplacianFactor (n k j : Nat) (I : ScalarInvariant) : ScalarInvariant",
+      "line": 34
+    },
+    {
+      "leanDeclaration": "CaseLaplacianFactor_weight",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Case Laplacian Factor weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem CaseLaplacianFactor_weight (n k j : Nat) (I : ScalarInvariant) : (CaseLaplacianFactor n k j I).1.weight = I.1.weight - 2",
+      "line": 54
+    },
+    {
+      "leanDeclaration": "CaseLaplacianRecursion",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: Case Laplacian Recursion. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def CaseLaplacianRecursion (n k : Nat) : Nat -> ScalarInvariant -> ScalarInvariant | 0, I => I | ell + 1, I => CaseLaplacianFactor n k ell (CaseLaplacianRecursion n k ell I)",
+      "line": 61
+    },
+    {
+      "leanDeclaration": "CaseLaplacianRecursion_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Case Laplacian Recursion zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem CaseLaplacianRecursion_zero (n k : Nat) (I : ScalarInvariant) : CaseLaplacianRecursion n k 0 I = I",
+      "line": 70
+    },
+    {
+      "leanDeclaration": "CaseLaplacianRecursion_succ",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Case Laplacian Recursion succ. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem CaseLaplacianRecursion_succ (n k ell : Nat) (I : ScalarInvariant) : CaseLaplacianRecursion n k (ell + 1) I = CaseLaplacianFactor n k ell (CaseLaplacianRecursion n k ell I)",
+      "line": 77
+    },
+    {
+      "leanDeclaration": "CaseLaplacianRecursion_weight",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: Case Laplacian Recursion weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem CaseLaplacianRecursion_weight (n k ell : Nat) (I : ScalarInvariant) : (CaseLaplacianRecursion n k ell I).1.weight = I.1.weight - 2 * (ell : Int)",
+      "line": 87
+    },
+    {
+      "leanDeclaration": "ambientLaplacianIter",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ambient Laplacian Iter. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ambientLaplacianIter : Nat -> AmbientScalarInvariant -> AmbientScalarInvariant | 0, I => I | ell + 1, I => AmbientScalarInvariant.laplacian (ambientLaplacianIter ell I)",
+      "line": 102
+    },
+    {
+      "leanDeclaration": "ambientLaplacianIter_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Laplacian Iter zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientLaplacianIter_zero (I : AmbientScalarInvariant) : ambientLaplacianIter 0 I = I",
+      "line": 110
+    },
+    {
+      "leanDeclaration": "ambientLaplacianIter_succ",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Laplacian Iter succ. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientLaplacianIter_succ (ell : Nat) (I : AmbientScalarInvariant) : ambientLaplacianIter (ell + 1) I = AmbientScalarInvariant.laplacian (ambientLaplacianIter ell I)",
+      "line": 116
+    },
+    {
+      "leanDeclaration": "ambientLaplacianIter_weight",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Laplacian Iter weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientLaplacianIter_weight (ell : Nat) (I : AmbientScalarInvariant) : (ambientLaplacianIter ell I).1.weight = I.1.weight - 2 * (ell : Int)",
+      "line": 125
+    },
+    {
+      "leanDeclaration": "EinsteinAmbientLaplacianFormula",
+      "kind": "class",
+      "mathematicalMeaning": "Data/interface: Einstein Ambient Laplacian Formula. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "class EinsteinAmbientLaplacianFormula [InvariantEvaluationModel]",
+      "line": 148
+    },
+    {
+      "leanDeclaration": "straightenable_laplacian_step",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: straightenable laplacian step. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem straightenable_laplacian_step [InvariantEvaluationModel] [EinsteinAmbientLaplacianFormula] (n k j : Nat) (I : ScalarInvariant) (Itilde : AmbientScalarInvariant) (hStraight : ScalarStraightenable I Itilde)",
+      "line": 166
+    },
+    {
+      "leanDeclaration": "straightenable_laplacian_iterate",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: straightenable laplacian iterate. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem straightenable_laplacian_iterate [InvariantEvaluationModel] [EinsteinAmbientLaplacianFormula] (n k ell : Nat) (I : ScalarInvariant) (Itilde : AmbientScalarInvariant) (hStraight : ScalarStraightenable I Itilde)",
+      "line": 188
+    },
+    {
+      "leanDeclaration": "ambient_laplacian_iter_einstein_slice_conformal",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient laplacian iter einstein slice conformal. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambient_laplacian_iter_einstein_slice_conformal [InvariantEvaluationModel] [EinsteinAmbientLaplacianFormula] (n ell : Nat) (Itilde : AmbientScalarInvariant) (hCritical : Itilde.1.weight - 2 * (ell : Int) = -(n : Int)) :",
+      "line": 214
+    }
+  ],
+  "prerequisites": [
+    "Ambient/PE/Invariants/Straightenable.lean"
+  ],
+  "usedBy": [
+    "Ambient/PE/Invariants/NaturalDivergence.lean",
+    "Ambient/PE/Invariants/Pfaffian.lean",
+    "Ambient/PE/Invariants.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "CaseKhaitanLinTyrrellYuan-2024",
+      "locator": "Proposition 3.7, Proposition 3.10, Lemma 4.1, and Theorems 1.1/1.4 as applicable",
+      "note": "Primary source for the renormalized-curvature-integral mechanism represented by these modules."
+    },
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapter 4",
+      "note": "Background for the ambient/Poincaré correspondence."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

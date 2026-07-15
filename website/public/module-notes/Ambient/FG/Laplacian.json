@@ -1,0 +1,92 @@
+{
+  "file": "Ambient/FG/Laplacian.lean",
+  "title": "Laplacian",
+  "status": "verified-under-interface",
+  "summary": "Introduces the normal-form defining function Q = 2 rho t^2 and an interface for the ambient Laplacian in these coordinates.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Introduces the normal-form defining function Q = 2 rho t^2 and an interface for the ambient Laplacian in these coordinates.",
+      "formula": "Q = 2\\rho t^2"
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/FG/Laplacian.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "posRealToReal",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: pos Real To Real. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def posRealToReal (a : PosReal) : ℝ",
+      "line": 29
+    },
+    {
+      "leanDeclaration": "scaleT",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: scale T. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "noncomputable def scaleT (s : Conf.Scale) (U : Conf.AmbientBundle) : ℝ",
+      "line": 33
+    },
+    {
+      "leanDeclaration": "normalQ",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: normal Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "noncomputable def normalQ (A : NormalAmbientData Conf) : Operators.Function Conf",
+      "line": 39
+    },
+    {
+      "leanDeclaration": "normalQ_apply",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: normal Q apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem normalQ_apply (A : NormalAmbientData Conf) (U : Conf.AmbientBundle) : normalQ A U = 2 * Conf.rhoCoord U * (scaleT A.baseScale U) ^ 2",
+      "line": 45
+    },
+    {
+      "leanDeclaration": "normalQmul",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: normal Qmul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def normalQmul (A : NormalAmbientData Conf) (f : Operators.Function Conf) : Operators.Function Conf",
+      "line": 51
+    },
+    {
+      "leanDeclaration": "normalQpowMul",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: normal Qpow Mul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def normalQpowMul (A : NormalAmbientData Conf) (m : ℕ) (f : Operators.Function Conf) : Operators.Function Conf",
+      "line": 58
+    },
+    {
+      "leanDeclaration": "NormalLaplacianModel",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Normal Laplacian Model. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure NormalLaplacianModel (A : NormalAmbientData Conf)",
+      "line": 72
+    },
+    {
+      "leanDeclaration": "straightForm_Q_eq",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: straight Form Q eq. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem straightForm_Q_eq (A : NormalAmbientData Conf) : normalQ A = fun U => 2 * Conf.rhoCoord U * (scaleT A.baseScale U) ^ 2",
+      "line": 119
+    }
+  ],
+  "prerequisites": [
+    "Ambient/Ambientoperator.lean",
+    "Ambient/FG/Christoffel.lean"
+  ],
+  "usedBy": [
+    "Ambient/FG/Commutators.lean",
+    "Ambient/FG.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapters 2–3, ambient space and normal form",
+      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}

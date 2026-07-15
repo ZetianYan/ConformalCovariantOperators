@@ -1,0 +1,156 @@
+{
+  "file": "Ambient/FG/NormalForm.lean",
+  "title": "NormalForm",
+  "status": "verified-under-interface",
+  "summary": "Encodes straight ambient metrics in normal form and their block metric components in the t, base, and rho directions.",
+  "mathematicalContent": [
+    {
+      "heading": "Mathematical role",
+      "body": "Encodes straight ambient metrics in normal form and their block metric components in the t, base, and rho directions.",
+      "formula": "\\widetilde g = 2\\rho\\,dt^2 + 2t\\,dt\\,d\\rho + t^2 g_\\rho"
+    },
+    {
+      "heading": "Formal boundary",
+      "body": "This page describes exactly the declarations present in Ambient/FG/NormalForm.lean; claims not represented by a declaration are not counted as verified.",
+      "formula": null
+    }
+  ],
+  "correspondence": [
+    {
+      "leanDeclaration": "NormalAmbientData",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Normal Ambient Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure NormalAmbientData (Conf : ConformalStructure.{u, v} M)",
+      "line": 35
+    },
+    {
+      "leanDeclaration": "toStraightForm",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: to Straight Form. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def toStraightForm (A : NormalAmbientData Conf) : Conf.StraightForm",
+      "line": 41
+    },
+    {
+      "leanDeclaration": "baseScale",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: base Scale. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def baseScale (A : NormalAmbientData Conf) : Conf.Scale",
+      "line": 45
+    },
+    {
+      "leanDeclaration": "gRho",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: g Rho. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def gRho (A : NormalAmbientData Conf) : ℝ → Conf.MetricField",
+      "line": 49
+    },
+    {
+      "leanDeclaration": "compat0",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: compat0. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem compat0 (A : NormalAmbientData Conf) (x : M) : Conf.toFiber (A.gRho 0 x) = A.baseScale.metric x",
+      "line": 53
+    },
+    {
+      "leanDeclaration": "NormalMetricComponents",
+      "kind": "structure",
+      "mathematicalMeaning": "Data/interface: Normal Metric Components. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "structure NormalMetricComponents (ι : Type w)",
+      "line": 60
+    },
+    {
+      "leanDeclaration": "ambientMetricComp",
+      "kind": "def",
+      "mathematicalMeaning": "Definition: ambient Metric Comp. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "def ambientMetricComp (C : NormalMetricComponents ι) : AmbientIndex ι → AmbientIndex ι → ℝ | AmbientIndex.zero, AmbientIndex.zero => 2 * C.rho | AmbientIndex.zero, AmbientIndex.base _ => 0 | AmbientIndex.zero, AmbientIndex.inf => C.t | AmbientIndex.base _, AmbientIndex.zero => 0 | AmbientIndex.base i, AmbientIndex.base j => C.t ^ 2 * C.g i j",
+      "line": 69
+    },
+    {
+      "leanDeclaration": "ambientMetricComp_zero_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Metric Comp zero zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientMetricComp_zero_zero (C : NormalMetricComponents ι) : ambientMetricComp C AmbientIndex.zero AmbientIndex.zero = 2 * C.rho",
+      "line": 82
+    },
+    {
+      "leanDeclaration": "ambientMetricComp_zero_base",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Metric Comp zero base. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientMetricComp_zero_base (C : NormalMetricComponents ι) (i : ι) : ambientMetricComp C AmbientIndex.zero (AmbientIndex.base i) = 0",
+      "line": 86
+    },
+    {
+      "leanDeclaration": "ambientMetricComp_base_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Metric Comp base zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientMetricComp_base_zero (C : NormalMetricComponents ι) (i : ι) : ambientMetricComp C (AmbientIndex.base i) AmbientIndex.zero = 0",
+      "line": 90
+    },
+    {
+      "leanDeclaration": "ambientMetricComp_zero_inf",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Metric Comp zero inf. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientMetricComp_zero_inf (C : NormalMetricComponents ι) : ambientMetricComp C AmbientIndex.zero AmbientIndex.inf = C.t",
+      "line": 94
+    },
+    {
+      "leanDeclaration": "ambientMetricComp_inf_zero",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Metric Comp inf zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientMetricComp_inf_zero (C : NormalMetricComponents ι) : ambientMetricComp C AmbientIndex.inf AmbientIndex.zero = C.t",
+      "line": 98
+    },
+    {
+      "leanDeclaration": "ambientMetricComp_base_base",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Metric Comp base base. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientMetricComp_base_base (C : NormalMetricComponents ι) (i j : ι) : ambientMetricComp C (AmbientIndex.base i) (AmbientIndex.base j) = C.t ^ 2 * C.g i j",
+      "line": 102
+    },
+    {
+      "leanDeclaration": "ambientMetricComp_base_inf",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Metric Comp base inf. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientMetricComp_base_inf (C : NormalMetricComponents ι) (i : ι) : ambientMetricComp C (AmbientIndex.base i) AmbientIndex.inf = 0",
+      "line": 107
+    },
+    {
+      "leanDeclaration": "ambientMetricComp_inf_base",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Metric Comp inf base. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientMetricComp_inf_base (C : NormalMetricComponents ι) (i : ι) : ambientMetricComp C AmbientIndex.inf (AmbientIndex.base i) = 0",
+      "line": 111
+    },
+    {
+      "leanDeclaration": "ambientMetricComp_inf_inf",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Metric Comp inf inf. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientMetricComp_inf_inf (C : NormalMetricComponents ι) : ambientMetricComp C AmbientIndex.inf AmbientIndex.inf = 0",
+      "line": 115
+    },
+    {
+      "leanDeclaration": "ambientMetricComp_symm",
+      "kind": "theorem",
+      "mathematicalMeaning": "Formal proposition: ambient Metric Comp symm. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "leanType": "theorem ambientMetricComp_symm (C : NormalMetricComponents ι) (hg : ∀ i j : ι, C.g i j = C.g j i) (I J : AmbientIndex ι) : ambientMetricComp C I J = ambientMetricComp C J I",
+      "line": 119
+    }
+  ],
+  "prerequisites": [
+    "Ambient/Ambientbasic.lean",
+    "Ambient/FG/Index.lean"
+  ],
+  "usedBy": [
+    "Ambient/FG/InverseMetric.lean",
+    "Ambient/FG.lean",
+    "Ambient/PE/AmbientBridge.lean"
+  ],
+  "references": [
+    {
+      "referenceId": "FG-AmbientMetric",
+      "locator": "Chapters 2–3, ambient space and normal form",
+      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+    }
+  ],
+  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+}
