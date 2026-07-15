@@ -10,8 +10,8 @@
       "formula": "g_+ = r^{-2}(dr^2+h_r)"
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/PE/NormalForm.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/PE/NormalForm.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,21 +19,24 @@
     {
       "leanDeclaration": "PoincareNormalFormData",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Poincare Normal Form Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Symbolic Poincare normal-form data. Its mathematical data are: metric: PEMetric Data. u, v, w X; r: Geodesic Defining Function X metric.g Plus; h0: Metric Symbol X.boundary; h R: Real maps to Metric Symbol X.boundary; h R zero: h R 0 equals h0; dr Squared: Metric Symbol X.bulk; slice Metric: Metric Symbol X.bulk; slice Metric certificate: Prop; boundary metric certificate: Prop; g Plus normal form: metric.g Plus equals Metric Symbol.scale By Function the function sending x to r.r x to the power 2 ⁻¹ Metric Symbol.add dr Squared slice Metric.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{metric}&\\colon \\operatorname{PEMetricData}.\\operatorname{}{u, v, w} X\\\\r&\\colon \\operatorname{GeodesicDefiningFunction} X \\operatorname{metric}.\\operatorname{gPlus}\\\\\\operatorname{h0}&\\colon \\operatorname{MetricSymbol} X.\\operatorname{boundary}\\\\\\operatorname{hR}&\\colon \\mathbb{R} \\longrightarrow \\operatorname{MetricSymbol} X.\\operatorname{boundary}\\\\\\operatorname{hR\\_zero}&\\colon \\operatorname{hR} 0 = \\operatorname{h0}\\\\\\operatorname{drSquared}&\\colon \\operatorname{MetricSymbol} X.\\operatorname{bulk}\\\\\\operatorname{sliceMetric}&\\colon \\operatorname{MetricSymbol} X.\\operatorname{bulk}\\\\\\operatorname{sliceMetric\\_certificate}&\\colon \\mathrm{Prop}\\\\\\operatorname{boundary\\_metric\\_certificate}&\\colon \\mathrm{Prop}\\\\\\operatorname{gPlus\\_normal\\_form}&\\colon \\operatorname{metric}.\\operatorname{gPlus} = \\operatorname{MetricSymbol}.\\operatorname{scaleByFunction} (x \\longmapsto ((r_{\\mathrm{r}} x) ^ 2)⁻¹) (\\operatorname{MetricSymbol}.\\operatorname{add} \\operatorname{drSquared} \\operatorname{sliceMetric})\\end{aligned}",
       "leanType": "structure PoincareNormalFormData (X : PESpace.{u, v})",
       "line": 24
     },
     {
       "leanDeclaration": "hR_at_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: h R at zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "NF.h R 0 equals NF.h0.",
+      "mathematicalFormula": "\\operatorname{NF}.\\operatorname{hR} 0 = \\operatorname{NF}.\\operatorname{h0}",
       "leanType": "theorem hR_at_zero : NF.hR 0 = NF.h0",
       "line": 53
     },
     {
       "leanDeclaration": "gPlus_eq_normalForm",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: g Plus eq normal Form. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The identity gPlus = r^(-2) (dr^2 + h_r). In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\operatorname{NF}.\\operatorname{metric}.\\operatorname{gPlus} = \\operatorname{MetricSymbol}.\\operatorname{scaleByFunction} (x \\longmapsto ((r_{\\mathrm{r}} x) ^ 2)⁻¹) (\\operatorname{MetricSymbol}.\\operatorname{add} \\operatorname{NF}.\\operatorname{drSquared} \\operatorname{NF}.\\operatorname{sliceMetric})",
       "leanType": "theorem gPlus_eq_normalForm : NF.metric.gPlus = MetricSymbol.scaleByFunction (fun x => ((NF.r.r x) ^ 2)⁻¹) (MetricSymbol.add NF.drSquared NF.sliceMetric)",
       "line": 58
     }

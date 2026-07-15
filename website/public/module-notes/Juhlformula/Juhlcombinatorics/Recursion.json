@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Juhlformula/Juhlcombinatorics/Recursion.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Juhlformula/Juhlcombinatorics/Recursion.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,91 +19,104 @@
     {
       "leanDeclaration": "substF",
       "kind": "def",
-      "mathematicalMeaning": "Definition: subst F. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def substF (σ : ℕ → FormalExpr) : FormalExpr → FormalExpr | zero => zero | one => one | rat q => rat q | k => k | f => f | F m => σ m",
+      "mathematicalMeaning": "Substitute all formal normal jets using a substitution function. In explicit terms, for σ of type the natural numbers maps to formal expr, its defining expression is | zero maps to zero | one maps to one | rat q maps to rat q | k maps to k | f maps to f | F m maps to σ m | tr j maps to tr j | add A B maps to subst F σ A plus subst F σ B | neg A maps to minus subst F σ A | mul A B maps to subst F σ A times subst F σ B | op D j A maps to op D j subst F σ A.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{substF}(\\operatorname{zero})&=\\operatorname{zero}\\\\\\operatorname{substF}(\\operatorname{one})&=\\operatorname{one}\\\\\\operatorname{substF}(\\operatorname{rat} q)&=\\operatorname{rat} q\\\\\\operatorname{substF}(k)&=k\\\\\\operatorname{substF}(f)&=f\\\\\\operatorname{substF}(F m)&=σ m\\\\\\operatorname{substF}(\\operatorname{tr} j)&=\\operatorname{tr} j\\\\\\operatorname{substF}(\\operatorname{add} A B)&=\\operatorname{substF} σ A + \\operatorname{substF} σ B\\\\\\operatorname{substF}(\\operatorname{neg} A)&=- \\operatorname{substF} σ A\\\\\\operatorname{substF}(\\operatorname{mul} A B)&=\\operatorname{substF} σ A \\cdot \\operatorname{substF} σ B\\\\\\operatorname{substF}(\\operatorname{opD} j A)&=\\operatorname{opD} j (\\operatorname{substF} σ A)\\end{aligned}",
+      "leanType": "def substF (σ : ℕ → FormalExpr) : FormalExpr → FormalExpr",
       "line": 18
     },
     {
       "leanDeclaration": "solveStepCoeff",
       "kind": "def",
-      "mathematicalMeaning": "Definition: solve Step Coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The scalar used to solve L_s = 0 for F_{s+1}. In explicit terms, for ell, s in the natural numbers, its defining expression is - highest Coeff ell s ⁻¹.",
+      "mathematicalFormula": "\\operatorname{solveStepCoeff}(ell,s)=- (\\operatorname{highestCoeff} \\operatorname{ell} s)⁻¹",
       "leanType": "def solveStepCoeff (ell s : ℕ) : ℚ",
       "line": 34
     },
     {
       "leanDeclaration": "solvedJetAux",
       "kind": "def",
-      "mathematicalMeaning": "Definition: solved Jet Aux. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def solvedJetAux (ell : ℕ) : ℕ → FormalExpr | 0 => FormalExpr.f | s + 1 => let σ : ℕ → FormalExpr",
+      "mathematicalMeaning": "Recursive formal solution for normal jets. In explicit terms, for ell in the natural numbers, its defining expression is | 0 maps to Formal Expr.f | s plus 1 maps to let σ : the natural numbers maps to Formal Expr : equals the function sending m to if hm : m is at most s then solved Jet Aux ell m else Formal Expr.F m Formal Expr.qsmul solve Step Coeff ell s Formal Expr.subst F σ Lrest ell s termination by n maps to n decreasing by exact Nat.lt succ of le hm.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{solvedJetAux}(0)&=f_{\\mathrm{FormalExpr}}\\\\\\operatorname{solvedJetAux}(s + 1)&=\\operatorname{let} σ \\colon \\mathbb{N} \\longrightarrow \\operatorname{FormalExpr} = m \\longmapsto \\operatorname{if} \\operatorname{hm} \\colon m \\le s \\operatorname{then} \\operatorname{solvedJetAux} \\operatorname{ell} m \\operatorname{else} F_{\\mathrm{FormalExpr}} m \\operatorname{FormalExpr}.\\operatorname{qsmul} (\\operatorname{solveStepCoeff} \\operatorname{ell} s) (\\operatorname{FormalExpr}.\\operatorname{substF} σ (\\operatorname{Lrest} \\operatorname{ell} s)) \\operatorname{termination\\_by} n => n \\operatorname{decreasing\\_by} \\operatorname{exact} \\mathbb{N}.\\operatorname{lt\\_succ\\_of\\_le} \\operatorname{hm}\\end{aligned}",
+      "leanType": "def solvedJetAux (ell : ℕ) : ℕ → FormalExpr",
       "line": 39
     },
     {
       "leanDeclaration": "solvedJet",
       "kind": "def",
-      "mathematicalMeaning": "Definition: solved Jet. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The formal normal jet F_m solved from the obstruction recursion. In explicit terms, for ell, m in the natural numbers, its defining expression is solved Jet Aux ell m.",
+      "mathematicalFormula": "\\operatorname{solvedJet}(ell,m)=\\operatorname{solvedJetAux} \\operatorname{ell} m",
       "leanType": "def solvedJet (ell m : ℕ) : FormalExpr",
       "line": 55
     },
     {
       "leanDeclaration": "solvedJet_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: solved Jet zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For ell in the natural numbers, solved Jet ell 0 equals Formal Expr.f.",
+      "mathematicalFormula": "\\forall\\,ell\\colon \\mathbb{N},\\quad \\operatorname{solvedJet} \\operatorname{ell} 0 = f_{\\mathrm{FormalExpr}}",
       "leanType": "theorem solvedJet_zero (ell : ℕ) : solvedJet ell 0 = FormalExpr.f",
       "line": 59
     },
     {
       "leanDeclaration": "solvedSubst",
       "kind": "def",
-      "mathematicalMeaning": "Definition: solved Subst. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Substitute every normal jet by the solved formal jet. In explicit terms, for ell in the natural numbers, its defining expression is the function sending m to solved Jet ell m.",
+      "mathematicalFormula": "\\operatorname{solvedSubst}(ell)=m \\longmapsto \\operatorname{solvedJet} \\operatorname{ell} m",
       "leanType": "def solvedSubst (ell : ℕ) : ℕ → FormalExpr",
       "line": 64
     },
     {
       "leanDeclaration": "obstructionCoeff",
       "kind": "def",
-      "mathematicalMeaning": "Definition: obstruction Coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The formal obstruction coefficient G_0.",
+      "mathematicalFormula": "\\operatorname{obstructionCoeff}(ell)\\colon \\operatorname{FormalExpr}",
       "leanType": "def obstructionCoeff (ell : ℕ) : FormalExpr",
       "line": 68
     },
     {
       "leanDeclaration": "obstructionCoeff_one",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: obstruction Coeff one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "obstruction Coeff 1 equals Formal Expr.subst F solved Subst 1 Lcoeff 1 0.",
+      "mathematicalFormula": "\\operatorname{obstructionCoeff} 1 = \\operatorname{FormalExpr}.\\operatorname{substF} (\\operatorname{solvedSubst} 1) (\\operatorname{Lcoeff} 1 0)",
       "leanType": "theorem obstructionCoeff_one : obstructionCoeff 1 = FormalExpr.substF (solvedSubst 1) (Lcoeff 1 0)",
       "line": 76
     },
     {
       "leanDeclaration": "aEllInv",
       "kind": "def",
-      "mathematicalMeaning": "Definition: a Ell Inv. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The inverse normalization constant a_ell^{-1}.",
+      "mathematicalFormula": "\\operatorname{aEllInv}(ell)\\colon \\mathbb{Q}",
       "leanType": "def aEllInv (ell : ℕ) : ℚ",
       "line": 82
     },
     {
       "leanDeclaration": "formalP",
       "kind": "def",
-      "mathematicalMeaning": "Definition: formal P. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The formal obstruction operator P_{2 ell} applied to the boundary value f. In explicit terms, for ell in the natural numbers, its defining expression is Formal Expr.qsmul a Ell Inv ell obstruction Coeff ell.",
+      "mathematicalFormula": "\\operatorname{formalP}(ell)=\\operatorname{FormalExpr}.\\operatorname{qsmul} (\\operatorname{aEllInv} \\operatorname{ell}) (\\operatorname{obstructionCoeff} \\operatorname{ell})",
       "leanType": "def formalP (ell : ℕ) : FormalExpr",
       "line": 91
     },
     {
       "leanDeclaration": "aEllInv_one",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: a Ell Inv one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "a Ell Inv 1 equals -1.",
+      "mathematicalFormula": "\\operatorname{aEllInv} 1 = -1",
       "leanType": "theorem aEllInv_one : aEllInv 1 = -1",
       "line": 95
     },
     {
       "leanDeclaration": "aEllInv_two",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: a Ell Inv two. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "a Ell Inv 2 equals 4.",
+      "mathematicalFormula": "\\operatorname{aEllInv} 2 = 4",
       "leanType": "theorem aEllInv_two : aEllInv 2 = 4",
       "line": 100
     },
     {
       "leanDeclaration": "aEllInv_three",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: a Ell Inv three. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "a Ell Inv 3 equals -64.",
+      "mathematicalFormula": "\\operatorname{aEllInv} 3 = -64",
       "leanType": "theorem aEllInv_three : aEllInv 3 = -64",
       "line": 105
     }

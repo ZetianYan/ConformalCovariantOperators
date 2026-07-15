@@ -10,8 +10,8 @@
       "formula": "XQ=2Q,\\qquad [X,\\widetilde\\Delta]=-2\\widetilde\\Delta"
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/FG/Commutators.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/FG/Commutators.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,29 +19,33 @@
     {
       "leanDeclaration": "straightForm_X_Q",
       "kind": "theorem",
-      "mathematicalMeaning": "The Euler field satisfies X(Q)=2Q.",
+      "mathematicalMeaning": "For L of type Normal Laplacian Model A, L.X normal Q A equals the function sending U to 2 times normal Q A U.",
+      "mathematicalFormula": "\\forall\\,L\\colon \\operatorname{NormalLaplacianModel} A,\\quad X_{\\mathrm{L}} (\\operatorname{normalQ} A) = U \\longmapsto 2 \\cdot \\operatorname{normalQ} A U",
       "leanType": "theorem straightForm_X_Q (L : NormalLaplacianModel A) : L.X (normalQ A) = fun U => 2 * normalQ A U",
       "line": 26
     },
     {
       "leanDeclaration": "straightForm_X_laplacian_comm",
       "kind": "theorem",
-      "mathematicalMeaning": "The Euler field and ambient Laplacian satisfy [X, \\widetilde\\Delta]=-2\\widetilde\\Delta.",
+      "mathematicalMeaning": "For L of type Normal Laplacian Model A, and f of type Operators.Function Conf, L.X L.ambient Laplacian f equals the function sending U to L.ambient Laplacian L.X f U minus 2 times L.ambient Laplacian f U.",
+      "mathematicalFormula": "\\forall\\,L\\colon \\operatorname{NormalLaplacianModel} A,\\;f\\colon \\operatorname{Operators}.\\operatorname{Function} \\operatorname{Conf},\\quad X_{\\mathrm{L}} (L.\\operatorname{laplacian} f) = U \\longmapsto L.\\operatorname{laplacian} (X_{\\mathrm{L}} f) U - 2 \\cdot L.\\operatorname{laplacian} f U",
       "leanType": "theorem straightForm_X_laplacian_comm (L : NormalLaplacianModel A) (f : Operators.Function Conf) : L.X (L.laplacian f) = fun U => L.laplacian (L.X f) U - 2 * L.laplacian f U",
       "line": 31
     },
     {
       "leanDeclaration": "straightForm_lap_Q_comm",
       "kind": "theorem",
-      "mathematicalMeaning": "The ambient Laplacian of Qf is rewritten as Q\\widetilde\\Delta f plus the homogeneity correction.",
-      "leanType": "theorem straightForm_lap_Q_comm (L : NormalLaplacianModel A) (f : Operators.Function Conf) : L.laplacian (normalQmul A f) = fun U => normalQ A U * L.laplacian f U",
+      "mathematicalMeaning": "For L of type Normal Laplacian Model A, and f of type Operators.Function Conf, L.ambient Laplacian normal Qmul A f equals the function sending U to normal Q A U times L.ambient Laplacian f U plus 2 times 2 times L.X f U plus L.base Dim plus 2 times f U.",
+      "mathematicalFormula": "\\forall\\,L\\colon \\operatorname{NormalLaplacianModel} A,\\;f\\colon \\operatorname{Operators}.\\operatorname{Function} \\operatorname{Conf},\\quad L.\\operatorname{laplacian} (\\operatorname{normalQmul} A f) = U \\longmapsto \\operatorname{normalQ} A U \\cdot L.\\operatorname{laplacian} f U + 2 \\cdot (2 \\cdot X_{\\mathrm{L}} f U + (L.\\operatorname{baseDim} + 2) \\cdot f U)",
+      "leanType": "theorem straightForm_lap_Q_comm (L : NormalLaplacianModel A) (f : Operators.Function Conf) : L.laplacian (normalQmul A f) = fun U => normalQ A U * L.laplacian f U + 2 * (2 * L.X f U + (L.baseDim + 2) * f U)",
       "line": 39
     },
     {
       "leanDeclaration": "straightForm_lap_Qpow_of_XHomogeneous",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: straight Form lap Qpow of XHomogeneous. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem straightForm_lap_Qpow_of_XHomogeneous (L : NormalLaplacianModel A) (m : ℕ) {w : ℝ} {f : Operators.Function Conf} (hf : L.X f = fun U => w * f U) : L.laplacian (normalQpowMul A m f)",
+      "mathematicalMeaning": "For L of type Normal Laplacian Model A, m in the natural numbers, w in the real numbers, f of type Operators.Function Conf, and hf of type L.X f equals the function sending U to w times f U, L.ambient Laplacian normal Qpow Mul A m f equals the function sending U to normal Q A U to the power m times L.ambient Laplacian f U plus 2 times m times 2 times w plus L.base Dim plus 2 times m times normal Q A U to the power m minus 1 times f U.",
+      "mathematicalFormula": "\\forall\\,L\\colon \\operatorname{NormalLaplacianModel} A,\\;m\\colon \\mathbb{N},\\;w\\colon \\mathbb{R},\\;f\\colon \\operatorname{Operators}.\\operatorname{Function} \\operatorname{Conf},\\;hf\\colon X_{\\mathrm{L}} f = U \\longmapsto w \\cdot f U,\\quad L.\\operatorname{laplacian} (\\operatorname{normalQpowMul} A m f) = U \\longmapsto \\operatorname{normalQ} A U ^ m \\cdot L.\\operatorname{laplacian} f U + 2 \\cdot m \\cdot (2 \\cdot w + L.\\operatorname{baseDim} + 2 \\cdot m ) \\cdot \\operatorname{normalQ} A U ^ (m - 1) \\cdot f U",
+      "leanType": "theorem straightForm_lap_Qpow_of_XHomogeneous (L : NormalLaplacianModel A) (m : ℕ) {w : ℝ} {f : Operators.Function Conf} (hf : L.X f = fun U => w * f U) : L.laplacian (normalQpowMul A m f) = fun U => normalQ A U ^ m * L.laplacian f U + 2 * (m : ℝ) * (2 * w + L.baseDim + 2 * (m : ℝ)) * normalQ A U ^ (m - 1) * f U",
       "line": 49
     }
   ],

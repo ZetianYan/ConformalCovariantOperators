@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Juhlformula/Juhlcombinatorics/ORBridge.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Juhlformula/Juhlcombinatorics/ORBridge.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,28 +19,32 @@
     {
       "leanDeclaration": "ORBridgeTerm",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: ORBridge Term. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A bridge between one Juhl composition term and one OR/poly-laplacian term. This is intentionally abstract in the first version. Later versions can replace orExpr by a concrete OR operator object and keep this as the formal shadow. Its mathematical data are: juhl Coeff: ℚ; juhl Expr: Formal Expr; or Coeff: ℚ; or Expr: Formal Expr; coeff eq: juhl Coeff equals or Coeff; expr eq: Formal Eq juhl Expr or Expr.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{juhlCoeff}&\\colon \\mathbb{Q}\\\\\\operatorname{juhlExpr}&\\colon \\operatorname{FormalExpr}\\\\\\operatorname{orCoeff}&\\colon \\mathbb{Q}\\\\\\operatorname{orExpr}&\\colon \\operatorname{FormalExpr}\\\\\\operatorname{coeff\\_eq}&\\colon \\operatorname{juhlCoeff} = \\operatorname{orCoeff}\\\\\\operatorname{expr\\_eq}&\\colon \\operatorname{FormalEq} \\operatorname{juhlExpr} \\operatorname{orExpr}\\end{aligned}",
       "leanType": "structure ORBridgeTerm",
       "line": 24
     },
     {
       "leanDeclaration": "ORBridge",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: ORBridge. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A finite bridge between a formal Juhl RHS and an OR RHS. Its mathematical data are: juhl RHS: Formal Juhl RHS; or RHS: Formal Juhl RHS; bridge eq: Formal Eq juhl RHS.to Expr or RHS.to Expr.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{juhlRHS}&\\colon \\operatorname{FormalJuhlRHS}\\\\\\operatorname{orRHS}&\\colon \\operatorname{FormalJuhlRHS}\\\\\\operatorname{bridge\\_eq}&\\colon \\operatorname{FormalEq} \\operatorname{juhlRHS}.\\operatorname{toExpr} \\operatorname{orRHS}.\\operatorname{toExpr}\\end{aligned}",
       "leanType": "structure ORBridge",
       "line": 33
     },
     {
       "leanDeclaration": "refl",
       "kind": "def",
-      "mathematicalMeaning": "Definition: refl. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The identity bridge from a RHS to itself. In explicit terms, for r of type formal juhl rhs, its defining expression is juhl RHS : equals R or RHS : equals R bridge eq : equals Formal Eq.refl R.to Expr.",
+      "mathematicalFormula": "\\operatorname{refl}(R)=\\operatorname{juhlRHS} = R \\operatorname{orRHS} = R \\operatorname{bridge\\_eq} = \\operatorname{FormalEq}.\\operatorname{refl} R.\\operatorname{toExpr}",
       "leanType": "def refl (R : FormalJuhlRHS) : ORBridge",
       "line": 41
     },
     {
       "leanDeclaration": "ORFormalizationData",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: ORFormalization Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Placeholder for later conversion from actual OR data to a formal RHS. Its mathematical data are: order: the natural numbers; rhs: Formal Juhl RHS.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{order}&\\colon \\mathbb{N}\\\\\\operatorname{rhs}&\\colon \\operatorname{FormalJuhlRHS}\\end{aligned}",
       "leanType": "structure ORFormalizationData",
       "line": 49
     }

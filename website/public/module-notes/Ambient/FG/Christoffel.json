@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/FG/Christoffel.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/FG/Christoffel.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,63 +19,72 @@
     {
       "leanDeclaration": "ChristoffelComponents",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Christoffel Components. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Component data needed for normal-form Christoffel symbols. Its mathematical data are: d Rho G: ι maps to ι maps to the real numbers; base Gamma: ι maps to ι maps to ι maps to the real numbers.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{dRhoG}&\\colon ι \\longrightarrow ι \\longrightarrow \\mathbb{R}\\\\\\operatorname{baseGamma}&\\colon ι \\longrightarrow ι \\longrightarrow ι \\longrightarrow \\mathbb{R}\\end{aligned}",
       "leanType": "structure ChristoffelComponents (ι : Type w) extends NormalInverseMetricComponents ι",
       "line": 25
     },
     {
       "leanDeclaration": "baseDelta",
       "kind": "def",
-      "mathematicalMeaning": "Definition: base Delta. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Kronecker delta on base indices.",
+      "mathematicalFormula": "\\operatorname{baseDelta}(i,j)\\colon \\mathbb{R}",
       "leanType": "def baseDelta [DecidableEq ι] (i j : ι) : ℝ",
       "line": 32
     },
     {
       "leanDeclaration": "baseDelta_self",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: base Delta self. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For i of type ι, base Delta i i equals 1.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} ι,\\;i\\colon ι,\\quad \\operatorname{baseDelta} i i = 1",
       "leanType": "theorem baseDelta_self [DecidableEq ι] (i : ι) : baseDelta i i = 1",
       "line": 36
     },
     {
       "leanDeclaration": "christoffelComp",
       "kind": "def",
-      "mathematicalMeaning": "Definition: christoffel Comp. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def christoffelComp [DecidableEq ι] (C : ChristoffelComponents ι) : AmbientIndex ι → AmbientIndex ι → AmbientIndex ι → ℝ | AmbientIndex.zero, AmbientIndex.base i, AmbientIndex.base j => -(1 / 2 : ℝ) * C.t * C.dRhoG i j | AmbientIndex.base k, AmbientIndex.zero, AmbientIndex.base j => C.t⁻¹ * baseDelta j k | AmbientIndex.base k, AmbientIndex.base j, AmbientIndex.zero =>",
+      "mathematicalMeaning": "Raised-index Christoffel symbols in straight normal form. In explicit terms, for c of type christoffel components ι, its defining expression is | Ambient Index.zero, Ambient Index.base i, Ambient Index.base j maps to -1 divided by 2 times C.t times C.d Rho G i j | Ambient Index.base k, Ambient Index.zero, Ambient Index.base j maps to C.t⁻¹ times base Delta j k | Ambient Index.base k, Ambient Index.base j, Ambient Index.zero maps to C.t⁻¹ times base Delta j k | Ambient Index.inf, Ambient Index.base i, Ambient Index.base j maps to -C.g i j plus C.rho times C.d Rho G i j | Ambient Index.base k, Ambient Index.base i, Ambient Index.base j maps to C.base Gamma k i j |,, maps to 0.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{christoffelComp}(\\operatorname{AmbientIndex}.\\operatorname{zero}, \\operatorname{AmbientIndex}.\\operatorname{base} i, \\operatorname{AmbientIndex}.\\operatorname{base} j)&=-1 / 2 \\cdot t_{\\mathrm{C}} \\cdot C.\\operatorname{dRhoG} i j\\\\\\operatorname{christoffelComp}(\\operatorname{AmbientIndex}.\\operatorname{base} k, \\operatorname{AmbientIndex}.\\operatorname{zero}, \\operatorname{AmbientIndex}.\\operatorname{base} j)&=t_{\\mathrm{C}}⁻¹ \\cdot \\operatorname{baseDelta} j k\\\\\\operatorname{christoffelComp}(\\operatorname{AmbientIndex}.\\operatorname{base} k, \\operatorname{AmbientIndex}.\\operatorname{base} j, \\operatorname{AmbientIndex}.\\operatorname{zero})&=t_{\\mathrm{C}}⁻¹ \\cdot \\operatorname{baseDelta} j k\\\\\\operatorname{christoffelComp}(\\operatorname{AmbientIndex}.\\operatorname{inf}, \\operatorname{AmbientIndex}.\\operatorname{base} i, \\operatorname{AmbientIndex}.\\operatorname{base} j)&=-g_{\\mathrm{C}} i j + C.\\operatorname{rho} \\cdot C.\\operatorname{dRhoG} i j\\\\\\operatorname{christoffelComp}(\\operatorname{AmbientIndex}.\\operatorname{base} k, \\operatorname{AmbientIndex}.\\operatorname{base} i, \\operatorname{AmbientIndex}.\\operatorname{base} j)&=C.\\operatorname{baseGamma} k i j\\\\\\operatorname{christoffelComp}(_, _, _)&=0\\end{aligned}",
+      "leanType": "def christoffelComp [DecidableEq ι] (C : ChristoffelComponents ι) : AmbientIndex ι → AmbientIndex ι → AmbientIndex ι → ℝ",
       "line": 41
     },
     {
       "leanDeclaration": "christoffel_zero_base_base",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: christoffel zero base base. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type Christoffel Components ι, and i, j of type ι, christoffel Comp C Ambient Index.zero Ambient Index.base i Ambient Index.base j equals -1 divided by 2 times C.t times C.d Rho G i j.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} ι,\\;C\\colon \\operatorname{ChristoffelComponents} ι,\\;i,j\\colon ι,\\quad \\operatorname{christoffelComp} C \\operatorname{AmbientIndex}.\\operatorname{zero} (\\operatorname{AmbientIndex}.\\operatorname{base} i) (\\operatorname{AmbientIndex}.\\operatorname{base} j) = -1 / 2 \\cdot t_{\\mathrm{C}} \\cdot C.\\operatorname{dRhoG} i j",
       "leanType": "theorem christoffel_zero_base_base [DecidableEq ι] (C : ChristoffelComponents ι) (i j : ι) : christoffelComp C AmbientIndex.zero (AmbientIndex.base i) (AmbientIndex.base j) = -(1 / 2 : ℝ) * C.t * C.dRhoG i j",
       "line": 56
     },
     {
       "leanDeclaration": "christoffel_base_zero_base",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: christoffel base zero base. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type Christoffel Components ι, and k, j of type ι, christoffel Comp C Ambient Index.base k Ambient Index.zero Ambient Index.base j equals C.t⁻¹ times base Delta j k.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} ι,\\;C\\colon \\operatorname{ChristoffelComponents} ι,\\;k,j\\colon ι,\\quad \\operatorname{christoffelComp} C (\\operatorname{AmbientIndex}.\\operatorname{base} k) \\operatorname{AmbientIndex}.\\operatorname{zero} (\\operatorname{AmbientIndex}.\\operatorname{base} j) = t_{\\mathrm{C}}⁻¹ \\cdot \\operatorname{baseDelta} j k",
       "leanType": "theorem christoffel_base_zero_base [DecidableEq ι] (C : ChristoffelComponents ι) (k j : ι) : christoffelComp C (AmbientIndex.base k) AmbientIndex.zero (AmbientIndex.base j) = C.t⁻¹ * baseDelta j k",
       "line": 62
     },
     {
       "leanDeclaration": "christoffel_base_base_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: christoffel base base zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type Christoffel Components ι, and k, j of type ι, christoffel Comp C Ambient Index.base k Ambient Index.base j Ambient Index.zero equals C.t⁻¹ times base Delta j k.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} ι,\\;C\\colon \\operatorname{ChristoffelComponents} ι,\\;k,j\\colon ι,\\quad \\operatorname{christoffelComp} C (\\operatorname{AmbientIndex}.\\operatorname{base} k) (\\operatorname{AmbientIndex}.\\operatorname{base} j) \\operatorname{AmbientIndex}.\\operatorname{zero} = t_{\\mathrm{C}}⁻¹ \\cdot \\operatorname{baseDelta} j k",
       "leanType": "theorem christoffel_base_base_zero [DecidableEq ι] (C : ChristoffelComponents ι) (k j : ι) : christoffelComp C (AmbientIndex.base k) (AmbientIndex.base j) AmbientIndex.zero = C.t⁻¹ * baseDelta j k",
       "line": 68
     },
     {
       "leanDeclaration": "christoffel_inf_base_base",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: christoffel inf base base. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type Christoffel Components ι, and i, j of type ι, christoffel Comp C Ambient Index.inf Ambient Index.base i Ambient Index.base j equals -C.g i j plus C.rho times C.d Rho G i j.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} ι,\\;C\\colon \\operatorname{ChristoffelComponents} ι,\\;i,j\\colon ι,\\quad \\operatorname{christoffelComp} C \\operatorname{AmbientIndex}.\\operatorname{inf} (\\operatorname{AmbientIndex}.\\operatorname{base} i) (\\operatorname{AmbientIndex}.\\operatorname{base} j) = -g_{\\mathrm{C}} i j + C.\\operatorname{rho} \\cdot C.\\operatorname{dRhoG} i j",
       "leanType": "theorem christoffel_inf_base_base [DecidableEq ι] (C : ChristoffelComponents ι) (i j : ι) : christoffelComp C AmbientIndex.inf (AmbientIndex.base i) (AmbientIndex.base j) = -C.g i j + C.rho * C.dRhoG i j",
       "line": 74
     },
     {
       "leanDeclaration": "christoffel_base_base_base",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: christoffel base base base. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type Christoffel Components ι, and k, i, j of type ι, christoffel Comp C Ambient Index.base k Ambient Index.base i Ambient Index.base j equals C.base Gamma k i j.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} ι,\\;C\\colon \\operatorname{ChristoffelComponents} ι,\\;k,i,j\\colon ι,\\quad \\operatorname{christoffelComp} C (\\operatorname{AmbientIndex}.\\operatorname{base} k) (\\operatorname{AmbientIndex}.\\operatorname{base} i) (\\operatorname{AmbientIndex}.\\operatorname{base} j) = C.\\operatorname{baseGamma} k i j",
       "leanType": "theorem christoffel_base_base_base [DecidableEq ι] (C : ChristoffelComponents ι) (k i j : ι) : christoffelComp C (AmbientIndex.base k) (AmbientIndex.base i) (AmbientIndex.base j) = C.baseGamma k i j",
       "line": 80
     }

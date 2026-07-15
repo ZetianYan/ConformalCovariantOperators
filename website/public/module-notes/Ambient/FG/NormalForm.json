@@ -10,8 +10,8 @@
       "formula": "\\widetilde g = 2\\rho\\,dt^2 + 2t\\,dt\\,d\\rho + t^2 g_\\rho"
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/FG/NormalForm.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/FG/NormalForm.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,119 +19,136 @@
     {
       "leanDeclaration": "NormalAmbientData",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Normal Ambient Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Fefferman-Graham normal ambient data extending the existing straight data. Its mathematical data are: straight Data: Conf.Straight Metric Data.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{straightData}&\\colon \\operatorname{Conf}.\\operatorname{StraightMetricData}\\end{aligned}",
       "leanType": "structure NormalAmbientData (Conf : ConformalStructure.{u, v} M)",
       "line": 35
     },
     {
       "leanDeclaration": "toStraightForm",
       "kind": "def",
-      "mathematicalMeaning": "Definition: to Straight Form. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The existing straight-form wrapper attached to normal ambient data. In explicit terms, for a of type normal ambient data conf, its defining expression is data : equals A.straight Data.",
+      "mathematicalFormula": "\\operatorname{toStraightForm}(A)=\\operatorname{data} = A.\\operatorname{straightData}",
       "leanType": "def toStraightForm (A : NormalAmbientData Conf) : Conf.StraightForm",
       "line": 41
     },
     {
       "leanDeclaration": "baseScale",
       "kind": "def",
-      "mathematicalMeaning": "Definition: base Scale. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The chosen base scale. In explicit terms, for a of type normal ambient data conf, its defining expression is A.straight Data.base Scale.",
+      "mathematicalFormula": "\\operatorname{baseScale}(A)=A.\\operatorname{straightData}.\\operatorname{baseScale}",
       "leanType": "def baseScale (A : NormalAmbientData Conf) : Conf.Scale",
       "line": 45
     },
     {
       "leanDeclaration": "gRho",
       "kind": "def",
-      "mathematicalMeaning": "Definition: g Rho. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The one-parameter family g_rho. In explicit terms, for a of type normal ambient data conf, its defining expression is A.straight Data.g Rho.",
+      "mathematicalFormula": "\\operatorname{gRho}(A)=A.\\operatorname{straightData}.\\operatorname{gRho}",
       "leanType": "def gRho (A : NormalAmbientData Conf) : ℝ → Conf.MetricField",
       "line": 49
     },
     {
       "leanDeclaration": "compat0",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: compat0. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For A of type Normal Ambient Data Conf, and x of type M, Conf.to Fiber A.g Rho 0 x equals A.base Scale.metric x.",
+      "mathematicalFormula": "\\forall\\,A\\colon \\operatorname{NormalAmbientData} \\operatorname{Conf},\\;x\\colon M,\\quad \\operatorname{Conf}.\\operatorname{toFiber} (A.\\operatorname{gRho} 0 x) = A.\\operatorname{baseScale}.\\operatorname{metric} x",
       "leanType": "theorem compat0 (A : NormalAmbientData Conf) (x : M) : Conf.toFiber (A.gRho 0 x) = A.baseScale.metric x",
       "line": 53
     },
     {
       "leanDeclaration": "NormalMetricComponents",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Normal Metric Components. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Pointwise base metric components in a normal-form coordinate frame. Its mathematical data are: t: the real numbers; rho: the real numbers; g: ι maps to ι maps to the real numbers.",
+      "mathematicalFormula": "\\begin{aligned}t&\\colon \\mathbb{R}\\\\\\operatorname{rho}&\\colon \\mathbb{R}\\\\g&\\colon ι \\longrightarrow ι \\longrightarrow \\mathbb{R}\\end{aligned}",
       "leanType": "structure NormalMetricComponents (ι : Type w)",
       "line": 60
     },
     {
       "leanDeclaration": "ambientMetricComp",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ambient Metric Comp. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def ambientMetricComp (C : NormalMetricComponents ι) : AmbientIndex ι → AmbientIndex ι → ℝ | AmbientIndex.zero, AmbientIndex.zero => 2 * C.rho | AmbientIndex.zero, AmbientIndex.base _ => 0 | AmbientIndex.zero, AmbientIndex.inf => C.t | AmbientIndex.base _, AmbientIndex.zero => 0 | AmbientIndex.base i, AmbientIndex.base j => C.t ^ 2 * C.g i j",
+      "mathematicalMeaning": "The normal-form ambient metric components g~_IJ. In explicit terms, for c of type normal metric components ι, its defining expression is | Ambient Index.zero, Ambient Index.zero maps to 2 times C.rho | Ambient Index.zero, Ambient Index.base maps to 0 | Ambient Index.zero, Ambient Index.inf maps to C.t | Ambient Index.base, Ambient Index.zero maps to 0 | Ambient Index.base i, Ambient Index.base j maps to C.t to the power 2 times C.g i j | Ambient Index.base, Ambient Index.inf maps to 0 | Ambient Index.inf, Ambient Index.zero maps to C.t | Ambient Index.inf, Ambient Index.base maps to 0 | Ambient Index.inf, Ambient Index.inf maps to 0.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{ambientMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{zero}, \\operatorname{AmbientIndex}.\\operatorname{zero})&=2 \\cdot C.\\operatorname{rho}\\\\\\operatorname{ambientMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{zero}, \\operatorname{AmbientIndex}.\\operatorname{base} _)&=0\\\\\\operatorname{ambientMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{zero}, \\operatorname{AmbientIndex}.\\operatorname{inf})&=t_{\\mathrm{C}}\\\\\\operatorname{ambientMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{base} _, \\operatorname{AmbientIndex}.\\operatorname{zero})&=0\\\\\\operatorname{ambientMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{base} i, \\operatorname{AmbientIndex}.\\operatorname{base} j)&=t_{\\mathrm{C}} ^ 2 \\cdot g_{\\mathrm{C}} i j\\\\\\operatorname{ambientMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{base} _, \\operatorname{AmbientIndex}.\\operatorname{inf})&=0\\\\\\operatorname{ambientMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{inf}, \\operatorname{AmbientIndex}.\\operatorname{zero})&=t_{\\mathrm{C}}\\\\\\operatorname{ambientMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{inf}, \\operatorname{AmbientIndex}.\\operatorname{base} _)&=0\\\\\\operatorname{ambientMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{inf}, \\operatorname{AmbientIndex}.\\operatorname{inf})&=0\\end{aligned}",
+      "leanType": "def ambientMetricComp (C : NormalMetricComponents ι) : AmbientIndex ι → AmbientIndex ι → ℝ",
       "line": 69
     },
     {
       "leanDeclaration": "ambientMetricComp_zero_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Metric Comp zero zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type Normal Metric Components ι, ambient Metric Comp C Ambient Index.zero Ambient Index.zero equals 2 times C.rho.",
+      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\quad \\operatorname{ambientMetricComp} C \\operatorname{AmbientIndex}.\\operatorname{zero} \\operatorname{AmbientIndex}.\\operatorname{zero} = 2 \\cdot C.\\operatorname{rho}",
       "leanType": "theorem ambientMetricComp_zero_zero (C : NormalMetricComponents ι) : ambientMetricComp C AmbientIndex.zero AmbientIndex.zero = 2 * C.rho",
       "line": 82
     },
     {
       "leanDeclaration": "ambientMetricComp_zero_base",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Metric Comp zero base. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type Normal Metric Components ι, and i of type ι, ambient Metric Comp C Ambient Index.zero Ambient Index.base i equals 0.",
+      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\;i\\colon ι,\\quad \\operatorname{ambientMetricComp} C \\operatorname{AmbientIndex}.\\operatorname{zero} (\\operatorname{AmbientIndex}.\\operatorname{base} i) = 0",
       "leanType": "theorem ambientMetricComp_zero_base (C : NormalMetricComponents ι) (i : ι) : ambientMetricComp C AmbientIndex.zero (AmbientIndex.base i) = 0",
       "line": 86
     },
     {
       "leanDeclaration": "ambientMetricComp_base_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Metric Comp base zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type Normal Metric Components ι, and i of type ι, ambient Metric Comp C Ambient Index.base i Ambient Index.zero equals 0.",
+      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\;i\\colon ι,\\quad \\operatorname{ambientMetricComp} C (\\operatorname{AmbientIndex}.\\operatorname{base} i) \\operatorname{AmbientIndex}.\\operatorname{zero} = 0",
       "leanType": "theorem ambientMetricComp_base_zero (C : NormalMetricComponents ι) (i : ι) : ambientMetricComp C (AmbientIndex.base i) AmbientIndex.zero = 0",
       "line": 90
     },
     {
       "leanDeclaration": "ambientMetricComp_zero_inf",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Metric Comp zero inf. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type Normal Metric Components ι, ambient Metric Comp C Ambient Index.zero Ambient Index.inf equals C.t.",
+      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\quad \\operatorname{ambientMetricComp} C \\operatorname{AmbientIndex}.\\operatorname{zero} \\operatorname{AmbientIndex}.\\operatorname{inf} = t_{\\mathrm{C}}",
       "leanType": "theorem ambientMetricComp_zero_inf (C : NormalMetricComponents ι) : ambientMetricComp C AmbientIndex.zero AmbientIndex.inf = C.t",
       "line": 94
     },
     {
       "leanDeclaration": "ambientMetricComp_inf_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Metric Comp inf zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type Normal Metric Components ι, ambient Metric Comp C Ambient Index.inf Ambient Index.zero equals C.t.",
+      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\quad \\operatorname{ambientMetricComp} C \\operatorname{AmbientIndex}.\\operatorname{inf} \\operatorname{AmbientIndex}.\\operatorname{zero} = t_{\\mathrm{C}}",
       "leanType": "theorem ambientMetricComp_inf_zero (C : NormalMetricComponents ι) : ambientMetricComp C AmbientIndex.inf AmbientIndex.zero = C.t",
       "line": 98
     },
     {
       "leanDeclaration": "ambientMetricComp_base_base",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Metric Comp base base. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type Normal Metric Components ι, and i, j of type ι, ambient Metric Comp C Ambient Index.base i Ambient Index.base j equals C.t to the power 2 times C.g i j.",
+      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\;i,j\\colon ι,\\quad \\operatorname{ambientMetricComp} C (\\operatorname{AmbientIndex}.\\operatorname{base} i) (\\operatorname{AmbientIndex}.\\operatorname{base} j) = t_{\\mathrm{C}} ^ 2 \\cdot g_{\\mathrm{C}} i j",
       "leanType": "theorem ambientMetricComp_base_base (C : NormalMetricComponents ι) (i j : ι) : ambientMetricComp C (AmbientIndex.base i) (AmbientIndex.base j) = C.t ^ 2 * C.g i j",
       "line": 102
     },
     {
       "leanDeclaration": "ambientMetricComp_base_inf",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Metric Comp base inf. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type Normal Metric Components ι, and i of type ι, ambient Metric Comp C Ambient Index.base i Ambient Index.inf equals 0.",
+      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\;i\\colon ι,\\quad \\operatorname{ambientMetricComp} C (\\operatorname{AmbientIndex}.\\operatorname{base} i) \\operatorname{AmbientIndex}.\\operatorname{inf} = 0",
       "leanType": "theorem ambientMetricComp_base_inf (C : NormalMetricComponents ι) (i : ι) : ambientMetricComp C (AmbientIndex.base i) AmbientIndex.inf = 0",
       "line": 107
     },
     {
       "leanDeclaration": "ambientMetricComp_inf_base",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Metric Comp inf base. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type Normal Metric Components ι, and i of type ι, ambient Metric Comp C Ambient Index.inf Ambient Index.base i equals 0.",
+      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\;i\\colon ι,\\quad \\operatorname{ambientMetricComp} C \\operatorname{AmbientIndex}.\\operatorname{inf} (\\operatorname{AmbientIndex}.\\operatorname{base} i) = 0",
       "leanType": "theorem ambientMetricComp_inf_base (C : NormalMetricComponents ι) (i : ι) : ambientMetricComp C AmbientIndex.inf (AmbientIndex.base i) = 0",
       "line": 111
     },
     {
       "leanDeclaration": "ambientMetricComp_inf_inf",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Metric Comp inf inf. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type Normal Metric Components ι, ambient Metric Comp C Ambient Index.inf Ambient Index.inf equals 0.",
+      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\quad \\operatorname{ambientMetricComp} C \\operatorname{AmbientIndex}.\\operatorname{inf} \\operatorname{AmbientIndex}.\\operatorname{inf} = 0",
       "leanType": "theorem ambientMetricComp_inf_inf (C : NormalMetricComponents ι) : ambientMetricComp C AmbientIndex.inf AmbientIndex.inf = 0",
       "line": 115
     },
     {
       "leanDeclaration": "ambientMetricComp_symm",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Metric Comp symm. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Symmetry of the ambient metric follows from symmetry of the base block. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\;hg\\colon \\forall i j \\colon ι, g_{\\mathrm{C}} i j = g_{\\mathrm{C}} j i,\\;I,J\\colon \\operatorname{AmbientIndex} ι,\\quad \\operatorname{ambientMetricComp} C I J = \\operatorname{ambientMetricComp} C J I",
       "leanType": "theorem ambientMetricComp_symm (C : NormalMetricComponents ι) (hg : ∀ i j : ι, C.g i j = C.g j i) (I J : AmbientIndex ι) : ambientMetricComp C I J = ambientMetricComp C J I",
       "line": 119
     }

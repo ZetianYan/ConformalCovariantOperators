@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/PE/Renormalization/LaurentLogExpansion.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/PE/Renormalization/LaurentLogExpansion.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,56 +19,64 @@
     {
       "leanDeclaration": "LaurentLogExpansion",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Laurent Log Expansion. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A Laurent expansion with one logarithmic coefficient and finite support. Its mathematical data are: coeff: Int maps to R; log Coeff: R; lower Bound: Int; upper Bound: Int; lower le upper: lower Bound < equals upper Bound; coeff vanish lt: for every m : Int, m < lower Bound maps to coeff m equals 0; coeff vanish gt: for every m : Int, upper Bound < m maps to coeff m equals 0.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{coeff}&\\colon \\mathbb{Z} \\longrightarrow R\\\\\\operatorname{logCoeff}&\\colon R\\\\\\operatorname{lowerBound}&\\colon \\mathbb{Z}\\\\\\operatorname{upperBound}&\\colon \\mathbb{Z}\\\\\\operatorname{lower\\_le\\_upper}&\\colon \\operatorname{lowerBound} <= \\operatorname{upperBound}\\\\\\operatorname{coeff\\_vanish\\_lt}&\\colon \\forall m \\colon \\mathbb{Z}, m < \\operatorname{lowerBound} \\longrightarrow \\operatorname{coeff} m = 0\\\\\\operatorname{coeff\\_vanish\\_gt}&\\colon \\forall m \\colon \\mathbb{Z}, \\operatorname{upperBound} < m \\longrightarrow \\operatorname{coeff} m = 0\\end{aligned}",
       "leanType": "structure LaurentLogExpansion (R : Type u) [Zero R]",
       "line": 25
     },
     {
       "leanDeclaration": "activeExponents",
       "kind": "def",
-      "mathematicalMeaning": "Definition: active Exponents. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The finite interval containing every potentially nonzero Laurent term. In explicit terms, its defining expression is Finset.Icc E.lower Bound E.upper Bound.",
+      "mathematicalFormula": "\\operatorname{activeExponents}=\\operatorname{Finset}.\\operatorname{Icc} E.\\operatorname{lowerBound} E.\\operatorname{upperBound}",
       "leanType": "def activeExponents : Finset Int",
       "line": 41
     },
     {
       "leanDeclaration": "coeff_eq_zero_of_lt",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: coeff eq zero of lt. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For m in the integers, and hm of type m < E.lower Bound, E.coeff m equals 0.",
+      "mathematicalFormula": "\\forall\\,m\\colon \\mathbb{Z},\\;hm\\colon m < E.\\operatorname{lowerBound},\\quad E.\\operatorname{coeff} m = 0",
       "leanType": "theorem coeff_eq_zero_of_lt {m : Int} (hm : m < E.lowerBound) : E.coeff m = 0",
       "line": 44
     },
     {
       "leanDeclaration": "coeff_eq_zero_of_gt",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: coeff eq zero of gt. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For m in the integers, and hm of type E.upper Bound < m, E.coeff m equals 0.",
+      "mathematicalFormula": "\\forall\\,m\\colon \\mathbb{Z},\\;hm\\colon E.\\operatorname{upperBound} < m,\\quad E.\\operatorname{coeff} m = 0",
       "leanType": "theorem coeff_eq_zero_of_gt {m : Int} (hm : E.upperBound < m) : E.coeff m = 0",
       "line": 50
     },
     {
       "leanDeclaration": "EvenExpansionToOrder",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Even Expansion To Order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Parity through order N, measured by the absolute exponent. In explicit terms, for n in the natural numbers, its defining expression is for every m : Int, m.nat Abs < equals N maps to Odd m maps to E.coeff m equals 0.",
+      "mathematicalFormula": "\\operatorname{EvenExpansionToOrder}(N)=\\forall m \\colon \\mathbb{Z}, m.\\operatorname{natAbs} <= N \\longrightarrow \\operatorname{Odd} m \\longrightarrow E.\\operatorname{coeff} m = 0",
       "leanType": "def EvenExpansionToOrder (N : Nat) : Prop",
       "line": 57
     },
     {
       "leanDeclaration": "OddExpansionToOrder",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Odd Expansion To Order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Odd parity through order N, measured by the absolute exponent. In explicit terms, for n in the natural numbers, its defining expression is for every m : Int, m.nat Abs < equals N maps to Even m maps to E.coeff m equals 0.",
+      "mathematicalFormula": "\\operatorname{OddExpansionToOrder}(N)=\\forall m \\colon \\mathbb{Z}, m.\\operatorname{natAbs} <= N \\longrightarrow \\operatorname{Even} m \\longrightarrow E.\\operatorname{coeff} m = 0",
       "leanType": "def OddExpansionToOrder (N : Nat) : Prop",
       "line": 64
     },
     {
       "leanDeclaration": "EvenExpansionToOrder",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Even Expansion To Order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Top-level spelling of even parity for renormalization applications. In explicit terms, for r a type, e of type laurent log expansion r, and n in the natural numbers, its defining expression is E.Even Expansion To Order N.",
+      "mathematicalFormula": "\\operatorname{EvenExpansionToOrder}(E,N)=E.\\operatorname{EvenExpansionToOrder} N",
       "leanType": "def EvenExpansionToOrder {R : Type u} [Zero R] (E : LaurentLogExpansion R) (N : Nat) : Prop",
       "line": 73
     },
     {
       "leanDeclaration": "OddExpansionToOrder",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Odd Expansion To Order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Top-level spelling of odd parity for renormalization applications. In explicit terms, for r a type, e of type laurent log expansion r, and n in the natural numbers, its defining expression is E.Odd Expansion To Order N.",
+      "mathematicalFormula": "\\operatorname{OddExpansionToOrder}(E,N)=E.\\operatorname{OddExpansionToOrder} N",
       "leanType": "def OddExpansionToOrder {R : Type u} [Zero R] (E : LaurentLogExpansion R) (N : Nat) : Prop",
       "line": 82
     }

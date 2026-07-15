@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/PE/Renormalization/CutoffFunctional.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/PE/Renormalization/CutoffFunctional.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,56 +19,64 @@
     {
       "leanDeclaration": "CutoffFunctional",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Cutoff Functional. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A cutoff-dependent functional together with its Laurent--log expansion. Its mathematical data are: cutoff Value: Obj maps to Pos Real maps to R; expansion: Obj maps to Laurent Log Expansion R.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{cutoffValue}&\\colon \\operatorname{Obj} \\longrightarrow \\operatorname{PosReal} \\longrightarrow R\\\\\\operatorname{expansion}&\\colon \\operatorname{Obj} \\longrightarrow \\operatorname{LaurentLogExpansion} R\\end{aligned}",
       "leanType": "structure CutoffFunctional (Obj : Type u) (R : Type v) [Zero R]",
       "line": 22
     },
     {
       "leanDeclaration": "renormalizedValue",
       "kind": "def",
-      "mathematicalMeaning": "Definition: renormalized Value. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The finite-part value of a cutoff functional. In explicit terms, for cf of type cutoff functional obj r, and obj of type obj, its defining expression is finite Part CF.expansion obj.",
+      "mathematicalFormula": "\\operatorname{renormalizedValue}(CF,obj)=\\operatorname{finitePart} (\\operatorname{CF}.\\operatorname{expansion} \\operatorname{obj})",
       "leanType": "def renormalizedValue (CF : CutoffFunctional Obj R) (obj : Obj) : R",
       "line": 37
     },
     {
       "leanDeclaration": "anomalyValue",
       "kind": "def",
-      "mathematicalMeaning": "Definition: anomaly Value. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The logarithmic anomaly of a cutoff functional. In explicit terms, for cf of type cutoff functional obj r, and obj of type obj, its defining expression is log Anomaly CF.expansion obj.",
+      "mathematicalFormula": "\\operatorname{anomalyValue}(CF,obj)=\\operatorname{logAnomaly} (\\operatorname{CF}.\\operatorname{expansion} \\operatorname{obj})",
       "leanType": "def anomalyValue (CF : CutoffFunctional Obj R) (obj : Obj) : R",
       "line": 44
     },
     {
       "leanDeclaration": "renormalizedValue_eq_coeff_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: renormalized Value eq coeff zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For CF of type Cutoff Functional Obj R, and obj of type Obj, CF.renormalized Value obj equals CF.expansion obj.coeff 0.",
+      "mathematicalFormula": "\\forall\\,CF\\colon \\operatorname{CutoffFunctional} \\operatorname{Obj} R,\\;obj\\colon \\operatorname{Obj},\\quad \\operatorname{CF}.\\operatorname{renormalizedValue} \\operatorname{obj} = (\\operatorname{CF}.\\operatorname{expansion} \\operatorname{obj}).\\operatorname{coeff} 0",
       "leanType": "theorem renormalizedValue_eq_coeff_zero (CF : CutoffFunctional Obj R) (obj : Obj) : CF.renormalizedValue obj = (CF.expansion obj).coeff 0",
       "line": 51
     },
     {
       "leanDeclaration": "anomalyValue_eq_logCoeff",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: anomaly Value eq log Coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For CF of type Cutoff Functional Obj R, and obj of type Obj, CF.anomaly Value obj equals CF.expansion obj.log Coeff.",
+      "mathematicalFormula": "\\forall\\,CF\\colon \\operatorname{CutoffFunctional} \\operatorname{Obj} R,\\;obj\\colon \\operatorname{Obj},\\quad \\operatorname{CF}.\\operatorname{anomalyValue} \\operatorname{obj} = (\\operatorname{CF}.\\operatorname{expansion} \\operatorname{obj}).\\operatorname{logCoeff}",
       "leanType": "theorem anomalyValue_eq_logCoeff (CF : CutoffFunctional Obj R) (obj : Obj) : CF.anomalyValue obj = (CF.expansion obj).logCoeff",
       "line": 58
     },
     {
       "leanDeclaration": "renormalizedValue",
       "kind": "def",
-      "mathematicalMeaning": "Definition: renormalized Value. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Top-level finite-part accessor for a cutoff functional. In explicit terms, for obj a type, r a type, cf of type cutoff functional obj r, and obj of type obj, its defining expression is CF.renormalized Value obj.",
+      "mathematicalFormula": "\\operatorname{renormalizedValue}(CF,obj)=\\operatorname{CF}.\\operatorname{renormalizedValue} \\operatorname{obj}",
       "leanType": "def renormalizedValue {Obj : Type u} {R : Type v} [Zero R] (CF : CutoffFunctional Obj R) (obj : Obj) : R",
       "line": 67
     },
     {
       "leanDeclaration": "anomalyValue",
       "kind": "def",
-      "mathematicalMeaning": "Definition: anomaly Value. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Top-level logarithmic-anomaly accessor for a cutoff functional. In explicit terms, for obj a type, r a type, cf of type cutoff functional obj r, and obj of type obj, its defining expression is CF.anomaly Value obj.",
+      "mathematicalFormula": "\\operatorname{anomalyValue}(CF,obj)=\\operatorname{CF}.\\operatorname{anomalyValue} \\operatorname{obj}",
       "leanType": "def anomalyValue {Obj : Type u} {R : Type v} [Zero R] (CF : CutoffFunctional Obj R) (obj : Obj) : R",
       "line": 77
     },
     {
       "leanDeclaration": "RenormalizableGeometricObject",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Renormalizable Geometric Object. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A packaged class of geometric objects carrying one common cutoff functional. This is the extension point shared by volume, curvature integrals, and future renormalized-area constructions. Its mathematical data are: object Type: Type u; cutoff Functional: Cutoff Functional object Type R.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{objectType}&\\colon \\mathrm{Type} u\\\\\\operatorname{cutoffFunctional}&\\colon \\operatorname{CutoffFunctional} \\operatorname{objectType} R\\end{aligned}",
       "leanType": "structure RenormalizableGeometricObject (R : Type v) [Zero R]",
       "line": 92
     }

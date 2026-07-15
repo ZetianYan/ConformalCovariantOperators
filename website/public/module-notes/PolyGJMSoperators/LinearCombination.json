@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in PolyGJMSoperators/LinearCombination.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows PolyGJMSoperators/LinearCombination.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,57 +19,65 @@
     {
       "leanDeclaration": "singleOperator",
       "kind": "def",
-      "mathematicalMeaning": "Definition: single Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A single scalar multiple of a rank-r operator. In explicit terms, for r in the natural numbers, c in the real numbers, and p of type cal conf.multi operator r, its defining expression is Cal Conf.multi Smul c P.",
+      "mathematicalFormula": "\\operatorname{singleOperator}(c,P)=\\operatorname{CalConf}.\\operatorname{multiSmul} c P",
       "leanType": "def singleOperator {r : ℕ} (c : ℝ) (P : CalConf.MultiOperator r) : CalConf.MultiOperator r",
       "line": 29
     },
     {
       "leanDeclaration": "operatorSum",
       "kind": "def",
-      "mathematicalMeaning": "Definition: operator Sum. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def operatorSum {r : ℕ} {ι : Type _} [DecidableEq ι] (S : Finset ι) (c : ι → ℝ) (P : ι → CalConf.MultiOperator r) :",
+      "mathematicalMeaning": "A finite linear combination of rank-r operators. In explicit terms, for r in the natural numbers, ι a type, s a finite set, c of type ι maps to the real numbers, and p of type ι maps to cal conf.multi operator r, its defining expression is fun F U maps to ∑ i belongs to S, c i times P i F U.",
+      "mathematicalFormula": "\\operatorname{operatorSum}(S,c,P)=\\operatorname{fun} F U => \\sum i \\in S, c i \\cdot P i F U",
+      "leanType": "def operatorSum {r : ℕ} {ι : Type _} [DecidableEq ι] (S : Finset ι) (c : ι → ℝ) (P : ι → CalConf.MultiOperator r) : CalConf.MultiOperator r",
       "line": 37
     },
     {
       "leanDeclaration": "singleOperator_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: single Operator apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r in the natural numbers, c in the real numbers, P of type Cal Conf.Multi Operator r, F of type Cal Conf.Multi Input r, and U of type Conf.Ambient Bundle, Cal Conf.single Operator c P F U equals c times P F U.",
+      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;c\\colon \\mathbb{R},\\;P\\colon \\operatorname{CalConf}.\\operatorname{MultiOperator} r,\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\;U\\colon \\operatorname{Conf}.\\operatorname{AmbientBundle},\\quad \\operatorname{CalConf}.\\operatorname{singleOperator} c P F U = c \\cdot P F U",
       "leanType": "theorem singleOperator_apply {r : ℕ} (c : ℝ) (P : CalConf.MultiOperator r) (F : CalConf.MultiInput r) (U : Conf.AmbientBundle) : CalConf.singleOperator c P F U = c * P F U",
       "line": 48
     },
     {
       "leanDeclaration": "operatorSum_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: operator Sum apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem operatorSum_apply {r : ℕ} {ι : Type _} [DecidableEq ι] (S : Finset ι) (c : ι → ℝ) (P : ι → CalConf.MultiOperator r)",
+      "mathematicalMeaning": "For r in the natural numbers, ι a type, S a finite set, c of type ι maps to the real numbers, P of type ι maps to Cal Conf.Multi Operator r, F of type Cal Conf.Multi Input r, and U of type Conf.Ambient Bundle, Cal Conf.operator Sum S c P F U equals ∑ i belongs to S, c i times P i F U.",
+      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;ι\\colon \\mathrm{Type} _,\\;\\operatorname{DecidableEq} ι,\\;S\\colon \\operatorname{Finset} ι,\\;c\\colon ι \\longrightarrow \\mathbb{R},\\;P\\colon ι \\longrightarrow \\operatorname{CalConf}.\\operatorname{MultiOperator} r,\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\;U\\colon \\operatorname{Conf}.\\operatorname{AmbientBundle},\\quad \\operatorname{CalConf}.\\operatorname{operatorSum} S c P F U = \\sum i \\in S, c i \\cdot P i F U",
+      "leanType": "theorem operatorSum_apply {r : ℕ} {ι : Type _} [DecidableEq ι] (S : Finset ι) (c : ι → ℝ) (P : ι → CalConf.MultiOperator r) (F : CalConf.MultiInput r) (U : Conf.AmbientBundle) : CalConf.operatorSum S c P F U = ∑ i ∈ S, c i * P i F U",
       "line": 58
     },
     {
       "leanDeclaration": "operatorSum_empty",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: operator Sum empty. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r in the natural numbers, ι a type, c of type ι maps to the real numbers, and P of type ι maps to Cal Conf.Multi Operator r, Cal Conf.operator Sum ∅ : Finset ι c P equals Cal Conf.multi Zero r.",
+      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;ι\\colon \\mathrm{Type} _,\\;\\operatorname{DecidableEq} ι,\\;c\\colon ι \\longrightarrow \\mathbb{R},\\;P\\colon ι \\longrightarrow \\operatorname{CalConf}.\\operatorname{MultiOperator} r,\\quad \\operatorname{CalConf}.\\operatorname{operatorSum} (∅ \\colon \\operatorname{Finset} ι) c P = \\operatorname{CalConf}.\\operatorname{multiZero} r",
       "leanType": "theorem operatorSum_empty {r : ℕ} {ι : Type _} [DecidableEq ι] (c : ι → ℝ) (P : ι → CalConf.MultiOperator r) : CalConf.operatorSum (∅ : Finset ι) c P = CalConf.multiZero r",
       "line": 71
     },
     {
       "leanDeclaration": "operatorSum_singleton",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: operator Sum singleton. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem operatorSum_singleton {r : ℕ} {ι : Type _} [DecidableEq ι] (i : ι) (c : ι → ℝ) (P : ι → CalConf.MultiOperator r) :",
+      "mathematicalMeaning": "For r in the natural numbers, ι a type, i of type ι, c of type ι maps to the real numbers, and P of type ι maps to Cal Conf.Multi Operator r, Cal Conf.operator Sum i : Finset ι c P equals Cal Conf.single Operator c i P i.",
+      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;ι\\colon \\mathrm{Type} _,\\;\\operatorname{DecidableEq} ι,\\;i\\colon ι,\\;c\\colon ι \\longrightarrow \\mathbb{R},\\;P\\colon ι \\longrightarrow \\operatorname{CalConf}.\\operatorname{MultiOperator} r,\\quad \\operatorname{CalConf}.\\operatorname{operatorSum} ({i} \\colon \\operatorname{Finset} ι) c P = \\operatorname{CalConf}.\\operatorname{singleOperator} (c i) (P i)",
+      "leanType": "theorem operatorSum_singleton {r : ℕ} {ι : Type _} [DecidableEq ι] (i : ι) (c : ι → ℝ) (P : ι → CalConf.MultiOperator r) : CalConf.operatorSum ({i} : Finset ι) c P = CalConf.singleOperator (c i) (P i)",
       "line": 82
     },
     {
       "leanDeclaration": "SameBoundaryValue_finset_sum",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: Same Boundary Value finset sum. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem SameBoundaryValue_finset_sum {ι : Type _} [DecidableEq ι] (S : Finset ι) (A B : ι → Function Conf) (hAB : ∀ i ∈ S, CalConf.SameBoundaryValue (A i) (B i)) : CalConf.SameBoundaryValue",
+      "mathematicalMeaning": "Boundary equivalence is stable under finite sums. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,ι\\colon \\mathrm{Type} _,\\;\\operatorname{DecidableEq} ι,\\;S\\colon \\operatorname{Finset} ι,\\;A,B\\colon ι \\longrightarrow \\operatorname{Function} \\operatorname{Conf},\\;hAB\\colon \\forall i \\in S, \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} (A i) (B i),\\quad \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} (U \\longmapsto \\sum i \\in S, A i U) (U \\longmapsto \\sum i \\in S, B i U)",
+      "leanType": "theorem SameBoundaryValue_finset_sum {ι : Type _} [DecidableEq ι] (S : Finset ι) (A B : ι → Function Conf) (hAB : ∀ i ∈ S, CalConf.SameBoundaryValue (A i) (B i)) : CalConf.SameBoundaryValue (fun U => ∑ i ∈ S, A i U) (fun U => ∑ i ∈ S, B i U)",
       "line": 95
     },
     {
       "leanDeclaration": "operatorSum",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: operator Sum. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem operatorSum {r : ℕ} {ι : Type _} [DecidableEq ι] (S : Finset ι) (c : ι → ℝ) (P : ι → CalConf.MultiOperator r)",
+      "mathematicalMeaning": "A finite linear combination of tangential operators is tangential. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;ι\\colon \\mathrm{Type} _,\\;\\operatorname{DecidableEq} ι,\\;S\\colon \\operatorname{Finset} ι,\\;c\\colon ι \\longrightarrow \\mathbb{R},\\;P\\colon ι \\longrightarrow \\operatorname{CalConf}.\\operatorname{MultiOperator} r,\\;w\\colon \\operatorname{Fin} r \\longrightarrow \\mathbb{R},\\;hP\\colon \\forall i \\in S, \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeights} (P i) w,\\quad \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeights} (\\operatorname{CalConf}.\\operatorname{operatorSum} S c P) w",
+      "leanType": "theorem operatorSum {r : ℕ} {ι : Type _} [DecidableEq ι] (S : Finset ι) (c : ι → ℝ) (P : ι → CalConf.MultiOperator r) {w : Fin r → ℝ} (hP : ∀ i ∈ S, CalConf.IsTangentialAtWeights (P i) w) : CalConf.IsTangentialAtWeights (CalConf.operatorSum S c P) w",
       "line": 127
     }
   ],

@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/FG/InverseMetric.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/FG/InverseMetric.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,71 +19,81 @@
     {
       "leanDeclaration": "NormalInverseMetricComponents",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Normal Inverse Metric Components. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Normal metric components together with a formal inverse base block. Its mathematical data are: g Inv: ι maps to ι maps to the real numbers.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{gInv}&\\colon ι \\longrightarrow ι \\longrightarrow \\mathbb{R}\\end{aligned}",
       "leanType": "structure NormalInverseMetricComponents (ι : Type w) extends NormalMetricComponents ι",
       "line": 30
     },
     {
       "leanDeclaration": "inverseMetricComp",
       "kind": "def",
-      "mathematicalMeaning": "Definition: inverse Metric Comp. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def inverseMetricComp (C : NormalInverseMetricComponents ι) : AmbientIndex ι → AmbientIndex ι → ℝ | AmbientIndex.zero, AmbientIndex.zero => 0 | AmbientIndex.zero, AmbientIndex.base _ => 0 | AmbientIndex.zero, AmbientIndex.inf => C.t⁻¹ | AmbientIndex.base _, AmbientIndex.zero => 0 | AmbientIndex.base i, AmbientIndex.base j => (C.t ^ 2)⁻¹ * C.gInv i j",
+      "mathematicalMeaning": "The normal-form inverse ambient metric components g~^IJ. In explicit terms, for c of type normal inverse metric components ι, its defining expression is | Ambient Index.zero, Ambient Index.zero maps to 0 | Ambient Index.zero, Ambient Index.base maps to 0 | Ambient Index.zero, Ambient Index.inf maps to C.t⁻¹ | Ambient Index.base, Ambient Index.zero maps to 0 | Ambient Index.base i, Ambient Index.base j maps to C.t to the power 2 ⁻¹ times C.g Inv i j | Ambient Index.base, Ambient Index.inf maps to 0 | Ambient Index.inf, Ambient Index.zero maps to C.t⁻¹ | Ambient Index.inf, Ambient Index.base maps to 0 | Ambient Index.inf, Ambient Index.inf maps to -2 times C.rho times C.t to the power 2 ⁻¹.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{inverseMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{zero}, \\operatorname{AmbientIndex}.\\operatorname{zero})&=0\\\\\\operatorname{inverseMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{zero}, \\operatorname{AmbientIndex}.\\operatorname{base} _)&=0\\\\\\operatorname{inverseMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{zero}, \\operatorname{AmbientIndex}.\\operatorname{inf})&=t_{\\mathrm{C}}⁻¹\\\\\\operatorname{inverseMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{base} _, \\operatorname{AmbientIndex}.\\operatorname{zero})&=0\\\\\\operatorname{inverseMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{base} i, \\operatorname{AmbientIndex}.\\operatorname{base} j)&=(t_{\\mathrm{C}} ^ 2)⁻¹ \\cdot C.\\operatorname{gInv} i j\\\\\\operatorname{inverseMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{base} _, \\operatorname{AmbientIndex}.\\operatorname{inf})&=0\\\\\\operatorname{inverseMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{inf}, \\operatorname{AmbientIndex}.\\operatorname{zero})&=t_{\\mathrm{C}}⁻¹\\\\\\operatorname{inverseMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{inf}, \\operatorname{AmbientIndex}.\\operatorname{base} _)&=0\\\\\\operatorname{inverseMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{inf}, \\operatorname{AmbientIndex}.\\operatorname{inf})&=-2 \\cdot C.\\operatorname{rho} \\cdot (t_{\\mathrm{C}} ^ 2)⁻¹\\end{aligned}",
+      "leanType": "def inverseMetricComp (C : NormalInverseMetricComponents ι) : AmbientIndex ι → AmbientIndex ι → ℝ",
       "line": 35
     },
     {
       "leanDeclaration": "inverseMetricComp_zero_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: inverse Metric Comp zero zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type Normal Inverse Metric Components ι, inverse Metric Comp C Ambient Index.zero Ambient Index.zero equals 0.",
+      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalInverseMetricComponents} ι,\\quad \\operatorname{inverseMetricComp} C \\operatorname{AmbientIndex}.\\operatorname{zero} \\operatorname{AmbientIndex}.\\operatorname{zero} = 0",
       "leanType": "theorem inverseMetricComp_zero_zero (C : NormalInverseMetricComponents ι) : inverseMetricComp C AmbientIndex.zero AmbientIndex.zero = 0",
       "line": 48
     },
     {
       "leanDeclaration": "inverseMetricComp_zero_inf",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: inverse Metric Comp zero inf. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type Normal Inverse Metric Components ι, inverse Metric Comp C Ambient Index.zero Ambient Index.inf equals C.t⁻¹.",
+      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalInverseMetricComponents} ι,\\quad \\operatorname{inverseMetricComp} C \\operatorname{AmbientIndex}.\\operatorname{zero} \\operatorname{AmbientIndex}.\\operatorname{inf} = t_{\\mathrm{C}}⁻¹",
       "leanType": "theorem inverseMetricComp_zero_inf (C : NormalInverseMetricComponents ι) : inverseMetricComp C AmbientIndex.zero AmbientIndex.inf = C.t⁻¹",
       "line": 52
     },
     {
       "leanDeclaration": "inverseMetricComp_inf_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: inverse Metric Comp inf zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type Normal Inverse Metric Components ι, inverse Metric Comp C Ambient Index.inf Ambient Index.zero equals C.t⁻¹.",
+      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalInverseMetricComponents} ι,\\quad \\operatorname{inverseMetricComp} C \\operatorname{AmbientIndex}.\\operatorname{inf} \\operatorname{AmbientIndex}.\\operatorname{zero} = t_{\\mathrm{C}}⁻¹",
       "leanType": "theorem inverseMetricComp_inf_zero (C : NormalInverseMetricComponents ι) : inverseMetricComp C AmbientIndex.inf AmbientIndex.zero = C.t⁻¹",
       "line": 56
     },
     {
       "leanDeclaration": "inverseMetricComp_base_base",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: inverse Metric Comp base base. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type Normal Inverse Metric Components ι, and i, j of type ι, inverse Metric Comp C Ambient Index.base i Ambient Index.base j equals C.t to the power 2 ⁻¹ times C.g Inv i j.",
+      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalInverseMetricComponents} ι,\\;i,j\\colon ι,\\quad \\operatorname{inverseMetricComp} C (\\operatorname{AmbientIndex}.\\operatorname{base} i) (\\operatorname{AmbientIndex}.\\operatorname{base} j) = (t_{\\mathrm{C}} ^ 2)⁻¹ \\cdot C.\\operatorname{gInv} i j",
       "leanType": "theorem inverseMetricComp_base_base (C : NormalInverseMetricComponents ι) (i j : ι) : inverseMetricComp C (AmbientIndex.base i) (AmbientIndex.base j) = (C.t ^ 2)⁻¹ * C.gInv i j",
       "line": 60
     },
     {
       "leanDeclaration": "inverseMetricComp_inf_inf",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: inverse Metric Comp inf inf. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type Normal Inverse Metric Components ι, inverse Metric Comp C Ambient Index.inf Ambient Index.inf equals -2 times C.rho times C.t to the power 2 ⁻¹.",
+      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalInverseMetricComponents} ι,\\quad \\operatorname{inverseMetricComp} C \\operatorname{AmbientIndex}.\\operatorname{inf} \\operatorname{AmbientIndex}.\\operatorname{inf} = -2 \\cdot C.\\operatorname{rho} \\cdot (t_{\\mathrm{C}} ^ 2)⁻¹",
       "leanType": "theorem inverseMetricComp_inf_inf (C : NormalInverseMetricComponents ι) : inverseMetricComp C AmbientIndex.inf AmbientIndex.inf = -2 * C.rho * (C.t ^ 2)⁻¹",
       "line": 66
     },
     {
       "leanDeclaration": "BaseLeftInverse",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Base Left Inverse. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Left inverse condition for the base block. In explicit terms, for c of type normal inverse metric components ι, its defining expression is for every i j : ι, ∑ k : ι, C.g Inv i k times C.g k j equals if i equals j then 1 else 0.",
+      "mathematicalFormula": "\\operatorname{BaseLeftInverse}(C)=\\forall i j \\colon ι, (\\sum k \\colon ι, C.\\operatorname{gInv} i k \\cdot g_{\\mathrm{C}} k j) = \\operatorname{if} i = j \\operatorname{then} 1 \\operatorname{else} 0",
       "leanType": "def BaseLeftInverse [Fintype ι] [DecidableEq ι] (C : NormalInverseMetricComponents ι) : Prop",
       "line": 71
     },
     {
       "leanDeclaration": "BaseRightInverse",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Base Right Inverse. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Right inverse condition for the base block. In explicit terms, for c of type normal inverse metric components ι, its defining expression is for every i j : ι, ∑ k : ι, C.g i k times C.g Inv k j equals if i equals j then 1 else 0.",
+      "mathematicalFormula": "\\operatorname{BaseRightInverse}(C)=\\forall i j \\colon ι, (\\sum k \\colon ι, g_{\\mathrm{C}} i k \\cdot C.\\operatorname{gInv} k j) = \\operatorname{if} i = j \\operatorname{then} 1 \\operatorname{else} 0",
       "leanType": "def BaseRightInverse [Fintype ι] [DecidableEq ι] (C : NormalInverseMetricComponents ι) : Prop",
       "line": 77
     },
     {
       "leanDeclaration": "inverse_metric_base_base_left",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: inverse metric base base left. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem inverse_metric_base_base_left [Fintype ι] [DecidableEq ι] (C : NormalInverseMetricComponents ι) (ht : C.t ≠ 0) (hbase : BaseLeftInverse C) (i j : ι) : (∑ k : ι,",
+      "mathematicalMeaning": "The base-base block of g~^{IK} g~_{KJ} reduces to the ordinary inverse identity for g^{ik} g_kj. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{Fintype} ι,\\;\\operatorname{DecidableEq} ι,\\;C\\colon \\operatorname{NormalInverseMetricComponents} ι,\\;ht\\colon t_{\\mathrm{C}} \\ne 0,\\;hbase\\colon \\operatorname{BaseLeftInverse} C,\\;i,j\\colon ι,\\quad (\\sum k \\colon ι, \\operatorname{inverseMetricComp} C (\\operatorname{AmbientIndex}.\\operatorname{base} i) (\\operatorname{AmbientIndex}.\\operatorname{base} k) \\cdot \\operatorname{ambientMetricComp} C.\\operatorname{toNormalMetricComponents} (\\operatorname{AmbientIndex}.\\operatorname{base} k) (\\operatorname{AmbientIndex}.\\operatorname{base} j)) = \\operatorname{AmbientIndex}.\\operatorname{kronecker} (\\operatorname{AmbientIndex}.\\operatorname{base} i) (\\operatorname{AmbientIndex}.\\operatorname{base} j)",
+      "leanType": "theorem inverse_metric_base_base_left [Fintype ι] [DecidableEq ι] (C : NormalInverseMetricComponents ι) (ht : C.t ≠ 0) (hbase : BaseLeftInverse C) (i j : ι) : (∑ k : ι, inverseMetricComp C (AmbientIndex.base i) (AmbientIndex.base k) * ambientMetricComp C.toNormalMetricComponents (AmbientIndex.base k) (AmbientIndex.base j)) = AmbientIndex.kronecker (AmbientIndex.base i) (AmbientIndex.base j)",
       "line": 86
     }
   ],

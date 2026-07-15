@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Conformal/Basic.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Conformal/Basic.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,128 +19,186 @@
     {
       "leanDeclaration": "PosReal",
       "kind": "abbrev",
-      "mathematicalMeaning": "Definition: Pos Real. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "the pos real is defined to be Units NNReal.",
+      "mathematicalFormula": "\\operatorname{PosReal}=\\operatorname{Units} \\operatorname{NNReal}",
       "leanType": "abbrev PosReal",
       "line": 26
     },
     {
       "leanDeclaration": "MetricStructure",
       "kind": "class",
-      "mathematicalMeaning": "Data/interface: Metric Structure. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A bare structure encoding the existence of concrete metrics on M. PointMetric x is the type of actual metrics at the point x. A global metric field is then a section ∀ x, PointMetric x. Its mathematical data are: Point Metric: M maps to Type v.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{PointMetric}&\\colon M \\longrightarrow \\mathrm{Type} v\\end{aligned}",
       "leanType": "class MetricStructure (M : Type u)",
       "line": 33
     },
     {
       "leanDeclaration": "MetricField",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Metric Field. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A global metric field is simply a section of pointwise metrics. In explicit terms, its defining expression is for every x : M, Met.Point Metric x.",
+      "mathematicalFormula": "\\operatorname{MetricField}=\\forall x \\colon M, \\operatorname{Met}.\\operatorname{PointMetric} x",
       "leanType": "def MetricField",
       "line": 42
     },
     {
       "leanDeclaration": "ConformalStructure",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Conformal Structure. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "An intrinsic conformal structure on M. For each x : M, the fiber MetricFiber x should be thought of as the ray of metrics at x inside the conformal class. The action of PosReal is the dilation g ↦ r^2 g in the geometric picture; here we suppress the square and use a single positive parameter abstractly. Its mathematical data are: Metric Fiber: M maps to Type v; to Fiber: for every x : M, Point Metric x maps to Metric Fiber x; dilate: for every x : M, Pos Real maps to Metric Fiber x maps to Metric Fiber x; dilate one: for every x : M g : Metric Fiber x, dilate 1 g equals g; dilate mul: for every x : M a b : Pos Real g : Metric Fiber x, dilate a times b g equals dilate a dilate b g; dilate exists: for every x : M g h : Metric Fiber x, there exists r : Pos Real, dilate r g equals h; dilate injective: for every x : M g : Metric Fiber x r s : Pos Real, dilate r g equals dilate s g maps to r equals s; dilate Metric: for every x : M, Pos Real maps to Point Metric x maps to Point Metric x; dilate Metric one: for every x : M g : Point Metric x, dilate Metric 1 g equals g; dilate Metric mul: for every x : M a b : Pos Real g : Point Metric x, dilate Metric a times b g equals dilate Metric a dilate Metric b g; dilate Metric injective: for every x : M a : Pos Real, Function.Injective dilate Metric x : equals x a; to Fiber dilate Metric: for every x : M a : Pos Real g : Point Metric x, to Fiber dilate Metric a g equals dilate a to Fiber g.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{MetricFiber}&\\colon M \\longrightarrow \\mathrm{Type} v\\\\\\operatorname{toFiber}&\\colon \\forall {x \\colon M}, \\operatorname{PointMetric} x \\longrightarrow \\operatorname{MetricFiber} x\\\\\\operatorname{dilate}&\\colon \\forall {x \\colon M}, \\operatorname{PosReal} \\longrightarrow \\operatorname{MetricFiber} x \\longrightarrow \\operatorname{MetricFiber} x\\\\\\operatorname{dilate\\_one}&\\colon \\forall {x \\colon M} (g \\colon \\operatorname{MetricFiber} x), \\operatorname{dilate} 1 g = g\\\\\\operatorname{dilate\\_mul}&\\colon \\forall {x \\colon M} (a b \\colon \\operatorname{PosReal}) (g \\colon \\operatorname{MetricFiber} x), \\operatorname{dilate} (a \\cdot b) g = \\operatorname{dilate} a (\\operatorname{dilate} b g)\\\\\\operatorname{dilate\\_exists}&\\colon \\forall {x \\colon M} (g h \\colon \\operatorname{MetricFiber} x), \\exists r \\colon \\operatorname{PosReal}, \\operatorname{dilate} r g = h\\\\\\operatorname{dilate\\_injective}&\\colon \\forall {x \\colon M} {g \\colon \\operatorname{MetricFiber} x} {r s \\colon \\operatorname{PosReal}}, \\operatorname{dilate} r g = \\operatorname{dilate} s g \\longrightarrow r = s\\\\\\operatorname{dilateMetric}&\\colon \\forall {x \\colon M}, \\operatorname{PosReal} \\longrightarrow \\operatorname{PointMetric} x \\longrightarrow \\operatorname{PointMetric} x\\\\\\operatorname{dilateMetric\\_one}&\\colon \\forall {x \\colon M} (g \\colon \\operatorname{PointMetric} x), \\operatorname{dilateMetric} 1 g = g\\\\\\operatorname{dilateMetric\\_mul}&\\colon \\forall {x \\colon M} (a b \\colon \\operatorname{PosReal}) (g \\colon \\operatorname{PointMetric} x), \\operatorname{dilateMetric} (a \\cdot b) g = \\operatorname{dilateMetric} a (\\operatorname{dilateMetric} b g)\\\\\\operatorname{dilateMetric\\_injective}&\\colon \\forall {x \\colon M} (a \\colon \\operatorname{PosReal}), \\operatorname{Function}.\\operatorname{Injective} (\\operatorname{dilateMetric} (x = x) a)\\\\\\operatorname{toFiber\\_dilateMetric}&\\colon \\forall {x \\colon M} (a \\colon \\operatorname{PosReal}) (g \\colon \\operatorname{PointMetric} x), \\operatorname{toFiber} (\\operatorname{dilateMetric} a g) = \\operatorname{dilate} a (\\operatorname{toFiber} g)\\end{aligned}",
       "leanType": "structure ConformalStructure (M : Type u) extends MetricStructure M",
       "line": 54
     },
     {
       "leanDeclaration": "PointwiseMetric",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Pointwise Metric. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For x of type M, the pointwise metric is defined to be Conf.Point Metric x.",
+      "mathematicalFormula": "\\operatorname{PointwiseMetric}(x)=\\operatorname{Conf}.\\operatorname{PointMetric} x",
       "leanType": "def PointwiseMetric (x : M)",
       "line": 104
     },
     {
       "leanDeclaration": "MetricField",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Metric Field. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "the metric field is defined to be for every x : M, Conf.Point Metric x.",
+      "mathematicalFormula": "\\operatorname{MetricField}=\\forall x \\colon M, \\operatorname{Conf}.\\operatorname{PointMetric} x",
       "leanType": "def MetricField",
       "line": 105
     },
     {
       "leanDeclaration": "PointMetricBundle",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Point Metric Bundle. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The total space of the metric bundle associated to a conformal structure. In explicit terms, its defining expression is Σ x : M, Conf.Point Metric x.",
+      "mathematicalFormula": "\\operatorname{PointMetricBundle}=Σ x \\colon M, \\operatorname{Conf}.\\operatorname{PointMetric} x",
       "leanType": "def PointMetricBundle",
       "line": 109
     },
     {
       "leanDeclaration": "MetricBundle",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Metric Bundle. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "the metric bundle is defined to be Σ x : M, Conf.Metric Fiber x.",
+      "mathematicalFormula": "\\operatorname{MetricBundle}=Σ x \\colon M, \\operatorname{Conf}.\\operatorname{MetricFiber} x",
       "leanType": "def MetricBundle",
       "line": 110
     },
     {
       "leanDeclaration": "proj",
       "kind": "def",
-      "mathematicalMeaning": "Definition: proj. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Projection from the metric bundle to the base manifold. In explicit terms, for u of type metric bundle conf, its defining expression is u.1.",
+      "mathematicalFormula": "\\operatorname{proj}(u)=1_{\\mathrm{u}}",
       "leanType": "def proj (u : MetricBundle Conf) : M",
       "line": 113
     },
     {
       "leanDeclaration": "pointproj",
       "kind": "def",
-      "mathematicalMeaning": "Definition: pointproj. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For u of type Point Metric Bundle Conf, the pointproj is defined to be u.1.",
+      "mathematicalFormula": "\\operatorname{pointproj}(u)=1_{\\mathrm{u}}",
       "leanType": "def pointproj (u : PointMetricBundle Conf) : M",
       "line": 115
     },
     {
       "leanDeclaration": "dilateBundle",
       "kind": "def",
-      "mathematicalMeaning": "Definition: dilate Bundle. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def dilateBundle (r : PosReal) : Conf.MetricBundle → Conf.MetricBundle | ⟨x, g⟩ => ⟨x, Conf.dilate r g⟩",
+      "mathematicalMeaning": "Dilation on the total space of the metric bundle. In explicit terms, for r of type pos real, its defining expression is | ⟨x, g⟩ maps to ⟨x, Conf.dilate r g⟩.",
+      "mathematicalFormula": "\\operatorname{dilateBundle}(⟨x, g⟩)&=⟨x, \\operatorname{Conf}.\\operatorname{dilate} r g⟩",
+      "leanType": "def dilateBundle (r : PosReal) : Conf.MetricBundle → Conf.MetricBundle",
       "line": 124
     },
     {
       "leanDeclaration": "dilatePointMetricBundle",
       "kind": "def",
-      "mathematicalMeaning": "Definition: dilate Point Metric Bundle. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def dilatePointMetricBundle (a : PosReal) : Conf.PointMetricBundle → Conf.PointMetricBundle | ⟨x, g⟩ => ⟨x, Conf.dilateMetric a g⟩",
+      "mathematicalMeaning": "Dilation on the concrete metric bundle. In explicit terms, for a of type pos real, its defining expression is | ⟨x, g⟩ maps to ⟨x, Conf.dilate Metric a g⟩.",
+      "mathematicalFormula": "\\operatorname{dilatePointMetricBundle}(⟨x, g⟩)&=⟨x, \\operatorname{Conf}.\\operatorname{dilateMetric} a g⟩",
+      "leanType": "def dilatePointMetricBundle (a : PosReal) : Conf.PointMetricBundle → Conf.PointMetricBundle",
       "line": 128
     },
     {
       "leanDeclaration": "Scale",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Scale. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A scale is a choice of one point in each conformal ray, i.e. a representative metric in the conformal class. Its mathematical data are: totalmetric: Conf.Metric Field; metric: for every x : M, Conf.Metric Fiber x; compat: for every x : M, Conf.to Fiber totalmetric x equals metric x.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{totalmetric}&\\colon \\operatorname{Conf}.\\operatorname{MetricField}\\\\\\operatorname{metric}&\\colon \\forall x \\colon M, \\operatorname{Conf}.\\operatorname{MetricFiber} x\\\\\\operatorname{compat}&\\colon \\forall x \\colon M, \\operatorname{Conf}.\\operatorname{toFiber} (\\operatorname{totalmetric} x) = \\operatorname{metric} x\\end{aligned}",
       "leanType": "structure Scale",
       "line": 150
     },
     {
       "leanDeclaration": "Scale.section",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Scale.section. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The induced section of the metric bundle. In explicit terms, for m a type, conf of type conformal structure m, and s of type conformal structure.scale conf, its defining expression is the function sending x to ⟨x, s.metric x⟩.",
+      "mathematicalFormula": "\\operatorname{Scale}.\\operatorname{section}(s)=x \\longmapsto ⟨x, s.\\operatorname{metric} x⟩",
       "leanType": "def Scale.section {M : Type u} {Conf : ConformalStructure M} (s : ConformalStructure.Scale Conf) : M → ConformalStructure.MetricBundle Conf",
       "line": 158
     },
     {
       "leanDeclaration": "scaleFactor",
       "kind": "def",
-      "mathematicalMeaning": "Definition: scale Factor. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The positive dilation factor taking the chosen scale to a given point in the same fiber. In explicit terms, for s of type conformal structure.scale conf, x of type m, and g of type conf.metric fiber x, its defining expression is Classical.choose Conf.dilate exists s.metric x g.",
+      "mathematicalFormula": "\\operatorname{scaleFactor}(s,g)=\\operatorname{Classical}.\\operatorname{choose} (\\operatorname{Conf}.\\operatorname{dilate\\_exists} (s.\\operatorname{metric} x) g)",
       "leanType": "noncomputable def scaleFactor (s : ConformalStructure.Scale Conf) {x : M} (g : Conf.MetricFiber x) : PosReal",
       "line": 168
     },
     {
       "leanDeclaration": "trivialization",
       "kind": "def",
-      "mathematicalMeaning": "Definition: trivialization. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The trivialization of the metric bundle induced by a scale: each point of the bundle is uniquely (r, x) with g = r • s(x).",
+      "mathematicalFormula": "\\operatorname{trivialization}(s)\\colon \\operatorname{Conf}.\\operatorname{MetricBundle} ≃ \\operatorname{PosReal} × M",
       "leanType": "noncomputable def trivialization (s : ConformalStructure.Scale Conf) : Conf.MetricBundle ≃ PosReal × M",
       "line": 177
     },
     {
       "leanDeclaration": "fiber_nonempty",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: fiber nonempty. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The fiber over a point is nonempty once a scale is chosen. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,s\\colon \\operatorname{ConformalStructure}.\\operatorname{Scale} \\operatorname{Conf},\\;x\\colon M,\\quad \\operatorname{Nonempty} (\\operatorname{Conf}.\\operatorname{MetricFiber} x)",
       "leanType": "theorem fiber_nonempty (s : ConformalStructure.Scale Conf) (x : M) : Nonempty (Conf.MetricFiber x)",
       "line": 203
     },
     {
       "leanDeclaration": "relativeFactor",
       "kind": "def",
-      "mathematicalMeaning": "Definition: relative Factor. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Any two scales differ by a unique positive function on M. In explicit terms, for s₁, s₂ of type conf.scale, its defining expression is the function sending x to Conf.scale Factor s₁ s₂.metric x.",
+      "mathematicalFormula": "\\operatorname{relativeFactor}(s₁,s₂)=x \\longmapsto \\operatorname{Conf}.\\operatorname{scaleFactor} s₁ (s₂.\\operatorname{metric} x)",
       "leanType": "noncomputable def relativeFactor (s₁ s₂ : Conf.Scale) : M → PosReal",
       "line": 207
+    },
+    {
+      "leanDeclaration": "scale_eq_dilate_relativeFactor",
+      "kind": "theorem",
+      "mathematicalMeaning": "Reconstructing one scale from another and the relative positive function. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,s₁,s₂\\colon \\operatorname{Conf}.\\operatorname{Scale},\\quad s₂.\\operatorname{metric} = x \\longmapsto \\operatorname{Conf}.\\operatorname{dilate} (\\operatorname{Conf}.\\operatorname{relativeFactor} s₁ s₂ x) (s₁.\\operatorname{metric} x)",
+      "leanType": "theorem scale_eq_dilate_relativeFactor (s₁ s₂ : Conf.Scale) : s₂.metric = fun x => Conf.dilate (Conf.relativeFactor s₁ s₂ x) (s₁.metric x)",
+      "line": 215
+    },
+    {
+      "leanDeclaration": "pointToFiberBundle",
+      "kind": "def",
+      "mathematicalMeaning": "Projection from concrete metric bundle to ray bundle. In explicit terms, its defining expression is | ⟨x, g⟩ maps to ⟨x, Conf.to Fiber g⟩.",
+      "mathematicalFormula": "\\operatorname{pointToFiberBundle}(⟨x, g⟩)&=⟨x, \\operatorname{Conf}.\\operatorname{toFiber} g⟩",
+      "leanType": "def pointToFiberBundle : Conf.PointMetricBundle → Conf.MetricBundle",
+      "line": 221
+    },
+    {
+      "leanDeclaration": "dilateMetricField",
+      "kind": "def",
+      "mathematicalMeaning": "Concrete dilation of a metric field by a positive function. In explicit terms, for σ of type m maps to pos real, and g of type conf.metric field, its defining expression is the function sending x to Conf.dilate Metric σ x g x.",
+      "mathematicalFormula": "\\operatorname{dilateMetricField}(σ,g)=x \\longmapsto \\operatorname{Conf}.\\operatorname{dilateMetric} (σ x) (g x)",
+      "leanType": "def dilateMetricField (σ : M → PosReal) (g : Conf.MetricField) : Conf.MetricField",
+      "line": 234
+    },
+    {
+      "leanDeclaration": "dilateMetricFieldConst",
+      "kind": "def",
+      "mathematicalMeaning": "Constant dilation of a metric field. In explicit terms, for a of type pos real, and g of type conf.metric field, its defining expression is the function sending x to Conf.dilate Metric a g x.",
+      "mathematicalFormula": "\\operatorname{dilateMetricFieldConst}(a,g)=x \\longmapsto \\operatorname{Conf}.\\operatorname{dilateMetric} a (g x)",
+      "leanType": "def dilateMetricFieldConst (a : PosReal) (g : Conf.MetricField) : Conf.MetricField",
+      "line": 238
+    },
+    {
+      "leanDeclaration": "Scale.dilateTotalMetric",
+      "kind": "def",
+      "mathematicalMeaning": "If you want a scale obtained from constant dilation of a concrete representative. In explicit terms, for s of type conf.scale, and a of type pos real, its defining expression is totalmetric : equals Conf.dilate Metric Field Const a s.totalmetric metric : equals the function sending x to Conf.dilate a s.metric x compat : equals by intro x calc Conf.to Fiber Conf.dilate Metric Field Const a s.totalmetric x equals Conf.dilate a Conf.to Fiber s.totalmetric x : equals by simp Conformal Structure.dilate Metric Field Const, Conf.to Fiber dilate Metric equals Conf.dilate a s.metric x : equals by rw s.compat x.",
+      "mathematicalFormula": "\\operatorname{Scale}.\\operatorname{dilateTotalMetric}(s,a)=\\operatorname{totalmetric} = \\operatorname{Conf}.\\operatorname{dilateMetricFieldConst} a s.\\operatorname{totalmetric} \\operatorname{metric} = x \\longmapsto \\operatorname{Conf}.\\operatorname{dilate} a (s.\\operatorname{metric} x) \\operatorname{compat} = \\operatorname{by} \\operatorname{intro} x \\operatorname{calc} \\operatorname{Conf}.\\operatorname{toFiber} (\\operatorname{Conf}.\\operatorname{dilateMetricFieldConst} a s.\\operatorname{totalmetric} x) = \\operatorname{Conf}.\\operatorname{dilate} a (\\operatorname{Conf}.\\operatorname{toFiber} (s.\\operatorname{totalmetric} x)) = \\operatorname{by} \\operatorname{simp} [\\operatorname{ConformalStructure}.\\operatorname{dilateMetricFieldConst}, \\operatorname{Conf}.\\operatorname{toFiber\\_dilateMetric}] _ = \\operatorname{Conf}.\\operatorname{dilate} a (s.\\operatorname{metric} x) = \\operatorname{by} \\operatorname{rw} [s.\\operatorname{compat} x]",
+      "leanType": "def Scale.dilateTotalMetric (s : Conf.Scale) (a : PosReal) : Conf.Scale",
+      "line": 255
     }
   ],
   "prerequisites": [],

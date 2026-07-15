@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in PolyGJMSoperators/TreeDefectCancellation.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows PolyGJMSoperators/TreeDefectCancellation.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,56 +19,64 @@
     {
       "leanDeclaration": "OperatorData",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Operator Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A finite linear combination of left-comb tree words of total degree k. Its mathematical data are: support: Finset Comb Index r k; coeff: Comb Coeff Space r k.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{support}&\\colon \\operatorname{Finset} (\\operatorname{CombIndex} r k)\\\\\\operatorname{coeff}&\\colon \\operatorname{CombCoeffSpace} r k\\end{aligned}",
       "leanType": "structure OperatorData (r k : ℕ)",
       "line": 38
     },
     {
       "leanDeclaration": "toOperator",
       "kind": "def",
-      "mathematicalMeaning": "Definition: to Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The rank-r ambient operator associated to a finite tree-word sum. In explicit terms, for r, k in the natural numbers, d of type operator data r k, and calconf of type calculus conf, its defining expression is Cal Conf.operator Sum D.support D.coeff the function sending I to I.to Operator Cal Conf.",
+      "mathematicalFormula": "\\operatorname{toOperator}(D,CalConf)=\\operatorname{CalConf}.\\operatorname{operatorSum} D.\\operatorname{support} D.\\operatorname{coeff} (I \\longmapsto I.\\operatorname{toOperator} \\operatorname{CalConf})",
       "leanType": "def toOperator {r k : ℕ} (D : OperatorData r k) (CalConf : Calculus Conf) : CalConf.MultiOperator r",
       "line": 45
     },
     {
       "leanDeclaration": "toOperator_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: to Operator apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r, k in the natural numbers, D of type Operator Data r k, F of type Cal Conf.Multi Input r, and U of type Conf.Ambient Bundle, D.to Operator Cal Conf F U equals ∑ I belongs to D.support, D.coeff I times I.to Operator Cal Conf F U.",
+      "mathematicalFormula": "\\forall\\,r,k\\colon \\mathbb{N},\\;D\\colon \\operatorname{OperatorData} r k,\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\;U\\colon \\operatorname{Conf}.\\operatorname{AmbientBundle},\\quad D.\\operatorname{toOperator} \\operatorname{CalConf} F U = \\sum I \\in D.\\operatorname{support}, D.\\operatorname{coeff} I \\cdot I.\\operatorname{toOperator} \\operatorname{CalConf} F U",
       "leanType": "theorem toOperator_apply {r k : ℕ} (D : OperatorData r k) (F : CalConf.MultiInput r) (U : Conf.AmbientBundle) : D.toOperator CalConf F U = ∑ I ∈ D.support, D.coeff I * I.toOperator CalConf F U",
       "line": 53
     },
     {
       "leanDeclaration": "RecurrenceImpliesTangentiality",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Recurrence Implies Tangentiality. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The still-to-be-proved commutator/tangentiality principle for left-comb tree words. Mathematically this is the statement that the path-wise recurrence cancels all slot-wise Q-commutator defects, hence the ambient operator descends to the boundary at the specified input weights. Its mathematical data are: tangential of recurrence: for every D : Operator Data r k, Rank Recurrence the dimension n of the ambient calculus w D.coeff maps to Cal Conf.Is Tangential At Weights D.to Operator Cal Conf w.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{tangential\\_of\\_recurrence}&\\colon \\forall D \\colon \\operatorname{OperatorData} r k, \\operatorname{RankRecurrence} n_{\\mathrm{CalConf}} w D.\\operatorname{coeff} \\longrightarrow \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeights} (D.\\operatorname{toOperator} \\operatorname{CalConf}) w\\end{aligned}",
       "leanType": "structure RecurrenceImpliesTangentiality (CalConf : Calculus Conf) (r k : ℕ) (w : Fin r → ℝ) : Prop",
       "line": 71
     },
     {
       "leanDeclaration": "recurrence_implies_tangential",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: recurrence implies tangential. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Apply a supplied defect-cancellation principle to obtain tangentiality. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,r,k\\colon \\mathbb{N},\\;w\\colon \\operatorname{Fin} r \\longrightarrow \\mathbb{R},\\;H\\colon \\operatorname{RecurrenceImpliesTangentiality} \\operatorname{CalConf} r k w,\\;D\\colon \\operatorname{OperatorData} r k,\\;hrec\\colon \\operatorname{RankRecurrence} n_{\\mathrm{CalConf}} w D.\\operatorname{coeff},\\quad \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeights} (D.\\operatorname{toOperator} \\operatorname{CalConf}) w",
       "leanType": "theorem recurrence_implies_tangential {r k : ℕ} {w : Fin r → ℝ} (H : RecurrenceImpliesTangentiality CalConf r k w) (D : OperatorData r k) (hrec : RankRecurrence CalConf.n w D.coeff) : CalConf.IsTangentialAtWeights (D.toOperator CalConf) w",
       "line": 81
     },
     {
       "leanDeclaration": "TangentialOperatorData",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Tangential Operator Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Data certifying that a finite tree-word operator is tangential by recurrence. Its mathematical data are: operator Data: Operator Data r k; recurrence: Rank Recurrence the dimension n of the ambient calculus w operator Data.coeff; principle: Recurrence Implies Tangentiality Cal Conf r k w.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{operatorData}&\\colon \\operatorname{OperatorData} r k\\\\\\operatorname{recurrence}&\\colon \\operatorname{RankRecurrence} n_{\\mathrm{CalConf}} w \\operatorname{operatorData}.\\operatorname{coeff}\\\\\\operatorname{principle}&\\colon \\operatorname{RecurrenceImpliesTangentiality} \\operatorname{CalConf} r k w\\end{aligned}",
       "leanType": "structure TangentialOperatorData (r k : ℕ) (w : Fin r → ℝ)",
       "line": 92
     },
     {
       "leanDeclaration": "toOperator",
       "kind": "def",
-      "mathematicalMeaning": "Definition: to Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The ambient operator carried by a recurrence-certified data set. In explicit terms, for r, k in the natural numbers, w of type fin r maps to the real numbers, and d of type tangential operator data cal conf r k w, its defining expression is D.operator Data.to Operator Cal Conf.",
+      "mathematicalFormula": "\\operatorname{toOperator}(D)=D.\\operatorname{operatorData}.\\operatorname{toOperator} \\operatorname{CalConf}",
       "leanType": "def toOperator {r k : ℕ} {w : Fin r → ℝ} (D : TangentialOperatorData CalConf r k w) : CalConf.MultiOperator r",
       "line": 102
     },
     {
       "leanDeclaration": "tangential",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: tangential. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The certified tangentiality theorem. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,r,k\\colon \\mathbb{N},\\;w\\colon \\operatorname{Fin} r \\longrightarrow \\mathbb{R},\\;D\\colon \\operatorname{TangentialOperatorData} \\operatorname{CalConf} r k w,\\quad \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeights} D.\\operatorname{toOperator} w",
       "leanType": "theorem tangential {r k : ℕ} {w : Fin r → ℝ} (D : TangentialOperatorData CalConf r k w) : CalConf.IsTangentialAtWeights D.toOperator w",
       "line": 108
     }

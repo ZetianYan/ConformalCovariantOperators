@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/Ambientbasic.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/Ambientbasic.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,128 +19,154 @@
     {
       "leanDeclaration": "AmbientBundle",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Ambient Bundle. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The ambient extension of the ray bundle by one real ρ-coordinate. In explicit terms, its defining expression is Conf.Metric Bundle × the real numbers.",
+      "mathematicalFormula": "\\operatorname{AmbientBundle}=\\operatorname{Conf}.\\operatorname{MetricBundle} × \\mathbb{R}",
       "leanType": "def AmbientBundle",
       "line": 28
     },
     {
       "leanDeclaration": "AmbientPointMetricBundle",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Ambient Point Metric Bundle. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A concrete ambient bundle using actual pointwise metrics instead of rays. In explicit terms, its defining expression is Conf.Point Metric Bundle × the real numbers.",
+      "mathematicalFormula": "\\operatorname{AmbientPointMetricBundle}=\\operatorname{Conf}.\\operatorname{PointMetricBundle} × \\mathbb{R}",
       "leanType": "def AmbientPointMetricBundle",
       "line": 31
     },
     {
       "leanDeclaration": "ambientProj",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ambient Proj. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def ambientProj : Conf.AmbientBundle → M | (u, _) => u.1",
+      "mathematicalMeaning": "Projection from the ambient bundle to the base manifold. In explicit terms, its defining expression is | u, maps to u.1.",
+      "mathematicalFormula": "\\operatorname{ambientProj}((u, _))&=1_{\\mathrm{u}}",
+      "leanType": "def ambientProj : Conf.AmbientBundle → M",
       "line": 34
     },
     {
       "leanDeclaration": "ambientPointProj",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ambient Point Proj. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def ambientPointProj : Conf.AmbientPointMetricBundle → M | (u, _) => u.1",
+      "mathematicalMeaning": "Projection from the concrete ambient bundle to the base manifold. In explicit terms, its defining expression is | u, maps to u.1.",
+      "mathematicalFormula": "\\operatorname{ambientPointProj}((u, _))&=1_{\\mathrm{u}}",
+      "leanType": "def ambientPointProj : Conf.AmbientPointMetricBundle → M",
       "line": 38
     },
     {
       "leanDeclaration": "rhoCoord",
       "kind": "def",
-      "mathematicalMeaning": "Definition: rho Coord. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def rhoCoord : Conf.AmbientBundle → ℝ | (_, ρ) => ρ",
+      "mathematicalMeaning": "The ρ-coordinate on the ambient bundle. In explicit terms, its defining expression is |, ρ maps to ρ.",
+      "mathematicalFormula": "\\operatorname{rhoCoord}((_, ρ))&=ρ",
+      "leanType": "def rhoCoord : Conf.AmbientBundle → ℝ",
       "line": 42
     },
     {
       "leanDeclaration": "rhoPointCoord",
       "kind": "def",
-      "mathematicalMeaning": "Definition: rho Point Coord. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def rhoPointCoord : Conf.AmbientPointMetricBundle → ℝ | (_, ρ) => ρ",
+      "mathematicalMeaning": "The ρ-coordinate on the concrete ambient bundle. In explicit terms, its defining expression is |, ρ maps to ρ.",
+      "mathematicalFormula": "\\operatorname{rhoPointCoord}((_, ρ))&=ρ",
+      "leanType": "def rhoPointCoord : Conf.AmbientPointMetricBundle → ℝ",
       "line": 46
     },
     {
       "leanDeclaration": "iota",
       "kind": "def",
-      "mathematicalMeaning": "Definition: iota. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Inclusion of the ray bundle as the hypersurface {ρ = 0}. In explicit terms, its defining expression is the function sending u to u, 0.",
+      "mathematicalFormula": "\\operatorname{iota}=u \\longmapsto (u, 0)",
       "leanType": "def iota : Conf.MetricBundle → Conf.AmbientBundle",
       "line": 50
     },
     {
       "leanDeclaration": "iotaPoint",
       "kind": "def",
-      "mathematicalMeaning": "Definition: iota Point. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Inclusion of the concrete metric bundle as the hypersurface {ρ = 0}. In explicit terms, its defining expression is the function sending u to u, 0.",
+      "mathematicalFormula": "\\operatorname{iotaPoint}=u \\longmapsto (u, 0)",
       "leanType": "def iotaPoint : Conf.PointMetricBundle → Conf.AmbientPointMetricBundle",
       "line": 54
     },
     {
       "leanDeclaration": "ambientDilate",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ambient Dilate. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def ambientDilate (a : PosReal) : Conf.AmbientBundle → Conf.AmbientBundle | (u, ρ) => (Conf.dilateBundle a u, ρ)",
+      "mathematicalMeaning": "Ambient dilation on the ray bundle side: act on the ray factor, keep ρ fixed. In explicit terms, for a of type pos real, its defining expression is | u, ρ maps to Conf.dilate Bundle a u, ρ.",
+      "mathematicalFormula": "\\operatorname{ambientDilate}((u, ρ))&=(\\operatorname{Conf}.\\operatorname{dilateBundle} a u, ρ)",
+      "leanType": "def ambientDilate (a : PosReal) : Conf.AmbientBundle → Conf.AmbientBundle",
       "line": 58
     },
     {
       "leanDeclaration": "ambientPointDilate",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ambient Point Dilate. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def ambientPointDilate (a : PosReal) : Conf.AmbientPointMetricBundle → Conf.AmbientPointMetricBundle | (u, ρ) => (Conf.dilatePointMetricBundle a u, ρ)",
+      "mathematicalMeaning": "Ambient dilation on the concrete metric side: act on the metric factor, keep ρ fixed. In explicit terms, for a of type pos real, its defining expression is | u, ρ maps to Conf.dilate Point Metric Bundle a u, ρ.",
+      "mathematicalFormula": "\\operatorname{ambientPointDilate}((u, ρ))&=(\\operatorname{Conf}.\\operatorname{dilatePointMetricBundle} a u, ρ)",
+      "leanType": "def ambientPointDilate (a : PosReal) : Conf.AmbientPointMetricBundle → Conf.AmbientPointMetricBundle",
       "line": 62
     },
     {
       "leanDeclaration": "ambientPointToFiber",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ambient Point To Fiber. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def ambientPointToFiber : Conf.AmbientPointMetricBundle → Conf.AmbientBundle | (u, ρ) => (Conf.pointToFiberBundle u, ρ)",
+      "mathematicalMeaning": "Projection from concrete ambient metrics to ambient rays. In explicit terms, its defining expression is | u, ρ maps to Conf.point To Fiber Bundle u, ρ.",
+      "mathematicalFormula": "\\operatorname{ambientPointToFiber}((u, ρ))&=(\\operatorname{Conf}.\\operatorname{pointToFiberBundle} u, ρ)",
+      "leanType": "def ambientPointToFiber : Conf.AmbientPointMetricBundle → Conf.AmbientBundle",
       "line": 67
     },
     {
       "leanDeclaration": "ambientTrivialization",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ambient Trivialization. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Given a scale s, the existing trivialization of the ray bundle extends to the ambient bundle by adjoining the ρ-coordinate. We use the target ((PosReal × M) × ℝ) to avoid ambiguity in product associativity. In explicit terms, for s of type conf.scale, its defining expression is to Fun : equals the function sending U to Conf.trivialization s U.1.1, Conf.trivialization s U.1.2, U.2 inv Fun : equals the function sending V to Conf.trivialization s.symm V.1, V.2 left inv : equals by intro U cases U simp right inv : equals by intro V cases V simp.",
+      "mathematicalFormula": "\\operatorname{ambientTrivialization}(s)=\\operatorname{toFun} = U \\longmapsto (((\\operatorname{Conf}.\\operatorname{trivialization} s 1_{\\mathrm{U}}).1, (\\operatorname{Conf}.\\operatorname{trivialization} s 1_{\\mathrm{U}}).2), 2_{\\mathrm{U}}) \\operatorname{invFun} = V \\longmapsto ((\\operatorname{Conf}.\\operatorname{trivialization} s).\\operatorname{symm} 1_{\\mathrm{V}}, 2_{\\mathrm{V}}) \\operatorname{left\\_inv} = \\operatorname{by} \\operatorname{intro} U \\operatorname{cases} U \\operatorname{simp} \\operatorname{right\\_inv} = \\operatorname{by} \\operatorname{intro} V \\operatorname{cases} V \\operatorname{simp}",
       "leanType": "noncomputable def ambientTrivialization (s : Conf.Scale) : Conf.AmbientBundle ≃ ((PosReal × M) × ℝ)",
       "line": 130
     },
     {
       "leanDeclaration": "StraightMetricData",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Straight Metric Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A 1-parameter family of actual metrics on M, anchored at a chosen base scale. Important: gRho ρ is a family of concrete metric fields, not a family of scales. Only at ρ = 0 do we require compatibility with the initial conformal structure. Its mathematical data are: base Scale: Conf.Scale; g Rho: the real numbers maps to Conf.Metric Field; compat0: for every x : M, Conf.to Fiber g Rho 0 x equals base Scale.metric x.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{baseScale}&\\colon \\operatorname{Conf}.\\operatorname{Scale}\\\\\\operatorname{gRho}&\\colon \\mathbb{R} \\longrightarrow \\operatorname{Conf}.\\operatorname{MetricField}\\\\\\operatorname{compat0}&\\colon \\forall x \\colon M, \\operatorname{Conf}.\\operatorname{toFiber} (\\operatorname{gRho} 0 x) = \\operatorname{baseScale}.\\operatorname{metric} x\\end{aligned}",
       "leanType": "structure StraightMetricData",
       "line": 161
     },
     {
       "leanDeclaration": "g0",
       "kind": "def",
-      "mathematicalMeaning": "Definition: g0. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The concrete metric field at ρ = 0. In explicit terms, for a of type conf.straight metric data, its defining expression is A.g Rho 0.",
+      "mathematicalFormula": "\\operatorname{g0}(A)=A.\\operatorname{gRho} 0",
       "leanType": "def g0 (A : Conf.StraightMetricData) : Conf.MetricField",
       "line": 176
     },
     {
       "leanDeclaration": "baseRaySection",
       "kind": "def",
-      "mathematicalMeaning": "Definition: base Ray Section. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The ray section underlying the base scale. In explicit terms, for a of type conf.straight metric data, its defining expression is A.base Scale.metric.",
+      "mathematicalFormula": "\\operatorname{baseRaySection}(A)=A.\\operatorname{baseScale}.\\operatorname{metric}",
       "leanType": "def baseRaySection (A : Conf.StraightMetricData) : ∀ x : M, Conf.MetricFiber x",
       "line": 186
     },
     {
       "leanDeclaration": "StraightForm",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Straight Form. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A formal straight-form ambient metric. At the current abstraction level, this is just a wrapper around the data needed to write the expression 2ρ dt² + 2t dt dρ + t² gρ after choosing a scale trivialization. Its mathematical data are: data: Conf.Straight Metric Data.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{data}&\\colon \\operatorname{Conf}.\\operatorname{StraightMetricData}\\end{aligned}",
       "leanType": "structure StraightForm",
       "line": 203
     },
     {
       "leanDeclaration": "baseScale",
       "kind": "def",
-      "mathematicalMeaning": "Definition: base Scale. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The underlying base scale. In explicit terms, for g of type conf.straight form, its defining expression is G.data.base Scale.",
+      "mathematicalFormula": "\\operatorname{baseScale}(G)=G.\\operatorname{data}.\\operatorname{baseScale}",
       "leanType": "def baseScale (G : Conf.StraightForm) : Conf.Scale",
       "line": 211
     },
     {
       "leanDeclaration": "gRho",
       "kind": "def",
-      "mathematicalMeaning": "Definition: g Rho. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The underlying 1-parameter family of concrete metrics. In explicit terms, for g of type conf.straight form, its defining expression is G.data.g Rho.",
+      "mathematicalFormula": "\\operatorname{gRho}(G)=G.\\operatorname{data}.\\operatorname{gRho}",
       "leanType": "def gRho (G : Conf.StraightForm) : ℝ → Conf.MetricField",
       "line": 214
+    },
+    {
+      "leanDeclaration": "mkStraightForm",
+      "kind": "def",
+      "mathematicalMeaning": "Build a straight form directly from its data. In explicit terms, for a of type conf.straight metric data, its defining expression is ⟨A⟩.",
+      "mathematicalFormula": "\\operatorname{mkStraightForm}(A)=⟨A⟩",
+      "leanType": "def mkStraightForm (A : Conf.StraightMetricData) : Conf.StraightForm",
+      "line": 226
     }
   ],
   "prerequisites": [

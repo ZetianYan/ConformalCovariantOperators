@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/PE/Renormalization/CurvatureIntegral.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/PE/Renormalization/CurvatureIntegral.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,42 +19,48 @@
     {
       "leanDeclaration": "CurvatureIntegralCutoffData",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Curvature Integral Cutoff Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Cutoff-integral data for a chosen invariant on a PE normal form. Its mathematical data are: normal Form: Poincare Normal Form Data. u, v, w X; cutoff Integral: Pos Real maps to Real; cutoff Expansion: Laurent Log Expansion Real.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{normalForm}&\\colon \\operatorname{PoincareNormalFormData}.\\operatorname{}{u, v, w} X\\\\\\operatorname{cutoffIntegral}&\\colon \\operatorname{PosReal} \\longrightarrow \\mathbb{R}\\\\\\operatorname{cutoffExpansion}&\\colon \\operatorname{LaurentLogExpansion} \\mathbb{R}\\end{aligned}",
       "leanType": "structure CurvatureIntegralCutoffData (X : PESpace.{u, v}) {Invariant : Type z} (I : Invariant)",
       "line": 22
     },
     {
       "leanDeclaration": "curvatureIntegralCutoffFunctional",
       "kind": "def",
-      "mathematicalMeaning": "Definition: curvature Integral Cutoff Functional. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Curvature integration as a generic cutoff functional. In explicit terms, for x of type pespace. u, v, invariant a type, and i of type invariant, its defining expression is cutoff Value : equals the function sending D to D.cutoff Integral expansion : equals the function sending D to D.cutoff Expansion.",
+      "mathematicalFormula": "\\operatorname{curvatureIntegralCutoffFunctional}(X,I)=\\operatorname{cutoffValue} = D \\longmapsto D.\\operatorname{cutoffIntegral} \\operatorname{expansion} = D \\longmapsto D.\\operatorname{cutoffExpansion}",
       "leanType": "def curvatureIntegralCutoffFunctional (X : PESpace.{u, v}) {Invariant : Type z} (I : Invariant) : CutoffFunctional (CurvatureIntegralCutoffData.{u, v, w, z} X I) Real",
       "line": 31
     },
     {
       "leanDeclaration": "RenormalizedCurvatureIntegral",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Renormalized Curvature Integral. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The renormalized integral of a chosen curvature invariant. In explicit terms, for x of type pespace, invariant a type, i of type invariant, and d of type curvature integral cutoff data x i, its defining expression is curvature Integral Cutoff Functional X I.renormalized Value D.",
+      "mathematicalFormula": "\\operatorname{RenormalizedCurvatureIntegral}(D)=(\\operatorname{curvatureIntegralCutoffFunctional} X I).\\operatorname{renormalizedValue} D",
       "leanType": "def RenormalizedCurvatureIntegral {X : PESpace} {Invariant : Type z} {I : Invariant} (D : CurvatureIntegralCutoffData X I) : Real",
       "line": 42
     },
     {
       "leanDeclaration": "CurvatureIntegralAnomaly",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Curvature Integral Anomaly. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The logarithmic anomaly of a curvature integral. In explicit terms, for x of type pespace, invariant a type, i of type invariant, and d of type curvature integral cutoff data x i, its defining expression is curvature Integral Cutoff Functional X I.anomaly Value D.",
+      "mathematicalFormula": "\\operatorname{CurvatureIntegralAnomaly}(D)=(\\operatorname{curvatureIntegralCutoffFunctional} X I).\\operatorname{anomalyValue} D",
       "leanType": "def CurvatureIntegralAnomaly {X : PESpace} {Invariant : Type z} {I : Invariant} (D : CurvatureIntegralCutoffData X I) : Real",
       "line": 51
     },
     {
       "leanDeclaration": "RenormalizedCurvatureIntegral_eq_finitePart",
       "kind": "theorem",
-      "mathematicalMeaning": "Selects or identifies the constant term in a Laurent/log cutoff expansion.",
+      "mathematicalMeaning": "For X of type PESpace, Invariant a type, I of type Invariant, and D of type Curvature Integral Cutoff Data X I, Renormalized Curvature Integral D equals finite Part D.cutoff Expansion.",
+      "mathematicalFormula": "\\forall\\,X\\colon \\operatorname{PESpace},\\;Invariant\\colon \\mathrm{Type} z,\\;I\\colon \\operatorname{Invariant},\\;D\\colon \\operatorname{CurvatureIntegralCutoffData} X I,\\quad \\operatorname{RenormalizedCurvatureIntegral} D = \\operatorname{finitePart} D.\\operatorname{cutoffExpansion}",
       "leanType": "theorem RenormalizedCurvatureIntegral_eq_finitePart {X : PESpace} {Invariant : Type z} {I : Invariant} (D : CurvatureIntegralCutoffData X I) : RenormalizedCurvatureIntegral D = finitePart D.cutoffExpansion",
       "line": 60
     },
     {
       "leanDeclaration": "CurvatureIntegralAnomaly_eq_logAnomaly",
       "kind": "theorem",
-      "mathematicalMeaning": "Selects or identifies the logarithmic coefficient in a cutoff expansion.",
+      "mathematicalMeaning": "For X of type PESpace, Invariant a type, I of type Invariant, and D of type Curvature Integral Cutoff Data X I, Curvature Integral Anomaly D equals log Anomaly D.cutoff Expansion.",
+      "mathematicalFormula": "\\forall\\,X\\colon \\operatorname{PESpace},\\;Invariant\\colon \\mathrm{Type} z,\\;I\\colon \\operatorname{Invariant},\\;D\\colon \\operatorname{CurvatureIntegralCutoffData} X I,\\quad \\operatorname{CurvatureIntegralAnomaly} D = \\operatorname{logAnomaly} D.\\operatorname{cutoffExpansion}",
       "leanType": "theorem CurvatureIntegralAnomaly_eq_logAnomaly {X : PESpace} {Invariant : Type z} {I : Invariant} (D : CurvatureIntegralCutoffData X I) : CurvatureIntegralAnomaly D = logAnomaly D.cutoffExpansion",
       "line": 69
     }

@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/PE/Invariants/Straightenable.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/PE/Invariants/Straightenable.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,128 +19,194 @@
     {
       "leanDeclaration": "InvariantEvaluationModel",
       "kind": "class",
-      "mathematicalMeaning": "Data/interface: Invariant Evaluation Model. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Evaluation laws needed by the symbolic invariant calculus. Its mathematical data are: Associated: Tensor Invariant maps to Ambient Invariant maps to Prop; Is Natural: Tensor Invariant maps to Prop; Is Scalar Conformal: Scalar Invariant maps to Prop; Equal Modulo Divergence: Scalar Invariant maps to Scalar Invariant maps to Prop; XAnnihilates Last Index: Ambient Invariant maps to Prop; associated one: Associated scalar One.1 ambient Scalar One.1; associated tensor Prod: for every S T : Tensor Invariant St Tt : Ambient Invariant, Associated S St maps to Associated T Tt maps to Associated tensor Prod Invariant S T ambient Tensor Prod Invariant St Tt; associated contract: for every T : Tensor Invariant Tt : Ambient Invariant, Associated T Tt maps to for every C : Index Pairing, Associated contract Invariant T C ambient Contract Invariant Tt C.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{Associated}&\\colon \\operatorname{TensorInvariant} \\longrightarrow \\operatorname{AmbientInvariant} \\longrightarrow \\mathrm{Prop}\\\\\\operatorname{IsNatural}&\\colon \\operatorname{TensorInvariant} \\longrightarrow \\mathrm{Prop}\\\\\\operatorname{IsScalarConformal}&\\colon \\operatorname{ScalarInvariant} \\longrightarrow \\mathrm{Prop}\\\\\\operatorname{EqualModuloDivergence}&\\colon \\operatorname{ScalarInvariant} \\longrightarrow \\operatorname{ScalarInvariant} \\longrightarrow \\mathrm{Prop}\\\\\\operatorname{XAnnihilatesLastIndex}&\\colon \\operatorname{AmbientInvariant} \\longrightarrow \\mathrm{Prop}\\\\\\operatorname{associated\\_one}&\\colon \\operatorname{Associated} 1_{\\mathrm{scalarOne}} 1_{\\mathrm{ambientScalarOne}}\\\\\\operatorname{associated\\_tensorProd}&\\colon \\forall {S T \\colon \\operatorname{TensorInvariant}} {\\operatorname{St} \\operatorname{Tt} \\colon \\operatorname{AmbientInvariant}}, \\operatorname{Associated} S \\operatorname{St} \\longrightarrow \\operatorname{Associated} T \\operatorname{Tt} \\longrightarrow \\operatorname{Associated} (\\operatorname{tensorProdInvariant} S T) (\\operatorname{ambientTensorProdInvariant} \\operatorname{St} \\operatorname{Tt})\\\\\\operatorname{associated\\_contract}&\\colon \\forall {T \\colon \\operatorname{TensorInvariant}} {\\operatorname{Tt} \\colon \\operatorname{AmbientInvariant}}, \\operatorname{Associated} T \\operatorname{Tt} \\longrightarrow \\forall C \\colon \\operatorname{IndexPairing}, \\operatorname{Associated} (\\operatorname{contractInvariant} T C) (\\operatorname{ambientContractInvariant} \\operatorname{Tt} C)\\end{aligned}",
       "leanType": "class InvariantEvaluationModel",
       "line": 20
     },
     {
       "leanDeclaration": "IsNaturalInvariant",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Is Natural Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Semantic naturality in the selected evaluation model. In explicit terms, for i of type tensor invariant, its defining expression is Invariant Evaluation Model.Is Natural I.",
+      "mathematicalFormula": "\\operatorname{IsNaturalInvariant}(I)=\\operatorname{InvariantEvaluationModel}.\\operatorname{IsNatural} I",
       "leanType": "def IsNaturalInvariant [InvariantEvaluationModel] (I : TensorInvariant) : Prop",
       "line": 49
     },
     {
       "leanDeclaration": "IsScalarConformalInvariant",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Is Scalar Conformal Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Scalar conformal covariance in the selected evaluation model. In explicit terms, for i of type scalar invariant, its defining expression is Invariant Evaluation Model.Is Scalar Conformal I.",
+      "mathematicalFormula": "\\operatorname{IsScalarConformalInvariant}(I)=\\operatorname{InvariantEvaluationModel}.\\operatorname{IsScalarConformal} I",
       "leanType": "def IsScalarConformalInvariant [InvariantEvaluationModel] (I : ScalarInvariant) : Prop",
       "line": 56
     },
     {
       "leanDeclaration": "Straightenable",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Straightenable. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A base invariant associated to a straight ambient invariant. Its mathematical data are: rank eq: I.rank equals Itilde.rank; weight eq: I.weight equals Itilde.weight; eval on einstein ambient: Invariant Evaluation Model.Associated I Itilde.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{rank\\_eq}&\\colon I.\\operatorname{rank} = \\operatorname{Itilde}.\\operatorname{rank}\\\\\\operatorname{weight\\_eq}&\\colon I.\\operatorname{weight} = \\operatorname{Itilde}.\\operatorname{weight}\\\\\\operatorname{eval\\_on\\_einstein\\_ambient}&\\colon \\operatorname{InvariantEvaluationModel}.\\operatorname{Associated} I \\operatorname{Itilde}\\end{aligned}",
       "leanType": "structure Straightenable [InvariantEvaluationModel] (I : TensorInvariant) (Itilde : AmbientInvariant) : Prop",
       "line": 63
     },
     {
       "leanDeclaration": "ScalarStraightenable",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Scalar Straightenable. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Scalar specialization of straightenable invariants. In explicit terms, for i of type scalar invariant, and itilde of type ambient scalar invariant, its defining expression is Straightenable I.1 Itilde.1.",
+      "mathematicalFormula": "\\operatorname{ScalarStraightenable}(I,Itilde)=\\operatorname{Straightenable} 1_{\\mathrm{I}} 1_{\\mathrm{Itilde}}",
       "leanType": "def ScalarStraightenable [InvariantEvaluationModel] (I : ScalarInvariant) (Itilde : AmbientScalarInvariant) : Prop",
       "line": 73
     },
     {
       "leanDeclaration": "straightenable_one",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: straightenable one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Scalar Straightenable scalar One ambient Scalar One.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{InvariantEvaluationModel},\\quad \\operatorname{ScalarStraightenable} \\operatorname{scalarOne} \\operatorname{ambientScalarOne}",
       "leanType": "theorem straightenable_one [InvariantEvaluationModel] : ScalarStraightenable scalarOne ambientScalarOne",
       "line": 80
     },
     {
       "leanDeclaration": "straightenable_tensorProd",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: straightenable tensor Prod. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem straightenable_tensorProd [InvariantEvaluationModel] {S T : TensorInvariant} {St Tt : AmbientInvariant} (hS : Straightenable S St) (hT : Straightenable T Tt) : Straightenable",
+      "mathematicalMeaning": "Tensor products preserve straightenable association. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{InvariantEvaluationModel},\\;S,T\\colon \\operatorname{TensorInvariant},\\;St,Tt\\colon \\operatorname{AmbientInvariant},\\;hS\\colon \\operatorname{Straightenable} S \\operatorname{St},\\;hT\\colon \\operatorname{Straightenable} T \\operatorname{Tt},\\quad \\operatorname{Straightenable} (\\operatorname{tensorProdInvariant} S T) (\\operatorname{ambientTensorProdInvariant} \\operatorname{St} \\operatorname{Tt})",
+      "leanType": "theorem straightenable_tensorProd [InvariantEvaluationModel] {S T : TensorInvariant} {St Tt : AmbientInvariant} (hS : Straightenable S St) (hT : Straightenable T Tt) : Straightenable (tensorProdInvariant S T) (ambientTensorProdInvariant St Tt)",
       "line": 87
     },
     {
       "leanDeclaration": "straightenable_contract",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: straightenable contract. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem straightenable_contract [InvariantEvaluationModel] {T : TensorInvariant} {Tt : AmbientInvariant} (hT : Straightenable T Tt) (C : IndexPairing) : Straightenable",
+      "mathematicalMeaning": "Partial contractions preserve straightenable association. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{InvariantEvaluationModel},\\;T\\colon \\operatorname{TensorInvariant},\\;Tt\\colon \\operatorname{AmbientInvariant},\\;hT\\colon \\operatorname{Straightenable} T \\operatorname{Tt},\\;C\\colon \\operatorname{IndexPairing},\\quad \\operatorname{Straightenable} (\\operatorname{contractInvariant} T C) (\\operatorname{ambientContractInvariant} \\operatorname{Tt} C)",
+      "leanType": "theorem straightenable_contract [InvariantEvaluationModel] {T : TensorInvariant} {Tt : AmbientInvariant} (hT : Straightenable T Tt) (C : IndexPairing) : Straightenable (contractInvariant T C) (ambientContractInvariant Tt C)",
       "line": 103
     },
     {
       "leanDeclaration": "WeylTensorInvariant",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Weyl Tensor Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The Weyl tensor as a rank-four invariant of weight two. In explicit terms, its defining expression is expr : equals Tensor Invariant Expr.riem rank : equals 4 weight : equals 2 parity : equals Invariant Parity.even.",
+      "mathematicalFormula": "\\operatorname{WeylTensorInvariant}=\\operatorname{expr} = \\operatorname{TensorInvariantExpr}.\\operatorname{riem} \\operatorname{rank} = 4 \\operatorname{weight} = 2 \\operatorname{parity} = \\operatorname{InvariantParity}.\\operatorname{even}",
       "leanType": "def WeylTensorInvariant : TensorInvariant",
       "line": 119
     },
     {
       "leanDeclaration": "AmbientRiemannTensorInvariant",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Ambient Riemann Tensor Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The ambient Riemann tensor as a rank-four invariant of weight two. In explicit terms, its defining expression is expr : equals Tensor Invariant Expr.riem rank : equals 4 weight : equals 2 parity : equals Invariant Parity.even.",
+      "mathematicalFormula": "\\operatorname{AmbientRiemannTensorInvariant}=\\operatorname{expr} = \\operatorname{TensorInvariantExpr}.\\operatorname{riem} \\operatorname{rank} = 4 \\operatorname{weight} = 2 \\operatorname{parity} = \\operatorname{InvariantParity}.\\operatorname{even}",
       "leanType": "def AmbientRiemannTensorInvariant : AmbientInvariant",
       "line": 126
     },
     {
       "leanDeclaration": "WeylAmbientStraightness",
       "kind": "class",
-      "mathematicalMeaning": "Data/interface: Weyl Ambient Straightness. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The semantic input corresponding to Lemma 3.4. Its mathematical data are: associated: Invariant Evaluation Model.Associated Weyl Tensor Invariant Ambient Riemann Tensor Invariant.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{associated}&\\colon \\operatorname{InvariantEvaluationModel}.\\operatorname{Associated} \\operatorname{WeylTensorInvariant} \\operatorname{AmbientRiemannTensorInvariant}\\end{aligned}",
       "leanType": "class WeylAmbientStraightness [InvariantEvaluationModel] : Prop",
       "line": 133
     },
     {
       "leanDeclaration": "Weyl_straightenable_AmbientRm",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: Weyl straightenable Ambient Rm. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Lemma 3.4: Weyl is associated to ambient Riemann curvature. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{InvariantEvaluationModel},\\;\\operatorname{WeylAmbientStraightness},\\quad \\operatorname{Straightenable} \\operatorname{WeylTensorInvariant} \\operatorname{AmbientRiemannTensorInvariant}",
       "leanType": "theorem Weyl_straightenable_AmbientRm [InvariantEvaluationModel] [WeylAmbientStraightness] : Straightenable WeylTensorInvariant AmbientRiemannTensorInvariant",
       "line": 141
     },
     {
       "leanDeclaration": "weylPower",
       "kind": "def",
-      "mathematicalMeaning": "Definition: weyl Power. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def weylPower : Nat -> TensorInvariant | 0 => scalarOne.1 | k + 1 => tensorProdInvariant (weylPower k) WeylTensorInvariant",
+      "mathematicalMeaning": "Tensor power of the Weyl invariant. In explicit terms, its defining expression is | 0 maps to scalar One.1 | k plus 1 maps to tensor Prod Invariant weyl Power k Weyl Tensor Invariant.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{weylPower}(0)&=1_{\\mathrm{scalarOne}}\\\\\\operatorname{weylPower}(k + 1)&=\\operatorname{tensorProdInvariant} (\\operatorname{weylPower} k) \\operatorname{WeylTensorInvariant}\\end{aligned}",
+      "leanType": "def weylPower : Nat -> TensorInvariant",
       "line": 148
     },
     {
       "leanDeclaration": "ambientRiemannPower",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ambient Riemann Power. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def ambientRiemannPower : Nat -> AmbientInvariant | 0 => ambientScalarOne.1 | k + 1 => ambientTensorProdInvariant (ambientRiemannPower k) AmbientRiemannTensorInvariant",
+      "mathematicalMeaning": "Tensor power of ambient Riemann curvature. In explicit terms, its defining expression is | 0 maps to ambient Scalar One.1 | k plus 1 maps to ambient Tensor Prod Invariant ambient Riemann Power k Ambient Riemann Tensor Invariant.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{ambientRiemannPower}(0)&=1_{\\mathrm{ambientScalarOne}}\\\\\\operatorname{ambientRiemannPower}(k + 1)&=\\operatorname{ambientTensorProdInvariant} (\\operatorname{ambientRiemannPower} k) \\operatorname{AmbientRiemannTensorInvariant}\\end{aligned}",
+      "leanType": "def ambientRiemannPower : Nat -> AmbientInvariant",
       "line": 153
     },
     {
       "leanDeclaration": "weylPower_rank",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: weyl Power rank. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For k in the natural numbers, weyl Power k.rank equals 4 times k.",
+      "mathematicalFormula": "\\forall\\,k\\colon \\mathbb{N},\\quad (\\operatorname{weylPower} k).\\operatorname{rank} = 4 \\cdot k",
       "leanType": "theorem weylPower_rank (k : Nat) : (weylPower k).rank = 4 * k",
       "line": 161
     },
     {
       "leanDeclaration": "weylPower_weight",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: weyl Power weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For k in the natural numbers, weyl Power k.weight equals 2 times k : Int.",
+      "mathematicalFormula": "\\forall\\,k\\colon \\mathbb{N},\\quad (\\operatorname{weylPower} k).\\operatorname{weight} = 2 \\cdot (k \\colon \\mathbb{Z})",
       "leanType": "theorem weylPower_weight (k : Nat) : (weylPower k).weight = 2 * (k : Int)",
       "line": 170
     },
     {
       "leanDeclaration": "ambientRiemannPower_rank",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Riemann Power rank. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For k in the natural numbers, ambient Riemann Power k.rank equals 4 times k.",
+      "mathematicalFormula": "\\forall\\,k\\colon \\mathbb{N},\\quad (\\operatorname{ambientRiemannPower} k).\\operatorname{rank} = 4 \\cdot k",
       "leanType": "theorem ambientRiemannPower_rank (k : Nat) : (ambientRiemannPower k).rank = 4 * k",
       "line": 179
     },
     {
       "leanDeclaration": "ambientRiemannPower_weight",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Riemann Power weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For k in the natural numbers, ambient Riemann Power k.weight equals 2 times k : Int.",
+      "mathematicalFormula": "\\forall\\,k\\colon \\mathbb{N},\\quad (\\operatorname{ambientRiemannPower} k).\\operatorname{weight} = 2 \\cdot (k \\colon \\mathbb{Z})",
       "leanType": "theorem ambientRiemannPower_weight (k : Nat) : (ambientRiemannPower k).weight = 2 * (k : Int)",
       "line": 193
+    },
+    {
+      "leanDeclaration": "weylPower_straightenable",
+      "kind": "theorem",
+      "mathematicalMeaning": "For k in the natural numbers, Straightenable weyl Power k ambient Riemann Power k.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{InvariantEvaluationModel},\\;\\operatorname{WeylAmbientStraightness},\\;k\\colon \\mathbb{N},\\quad \\operatorname{Straightenable} (\\operatorname{weylPower} k) (\\operatorname{ambientRiemannPower} k)",
+      "leanType": "theorem weylPower_straightenable [InvariantEvaluationModel] [WeylAmbientStraightness] (k : Nat) : Straightenable (weylPower k) (ambientRiemannPower k)",
+      "line": 206
+    },
+    {
+      "leanDeclaration": "CompleteContraction",
+      "kind": "structure",
+      "mathematicalMeaning": "A complete contraction of a rank-r tensor. Its mathematical data are: pairing: Index Pairing; complete: 2 times pairing.pair Count equals r.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{pairing}&\\colon \\operatorname{IndexPairing}\\\\\\operatorname{complete}&\\colon 2 \\cdot \\operatorname{pairing}.\\operatorname{pairCount} = r\\end{aligned}",
+      "leanType": "structure CompleteContraction (r : Nat)",
+      "line": 218
+    },
+    {
+      "leanDeclaration": "WeylCompleteContraction",
+      "kind": "def",
+      "mathematicalMeaning": "A complete contraction of W to a scalar invariant.",
+      "mathematicalFormula": "\\operatorname{WeylCompleteContraction}(k,C)\\colon \\operatorname{ScalarInvariant}",
+      "leanType": "def WeylCompleteContraction (k : Nat) (C : CompleteContraction (4 * k)) : ScalarInvariant",
+      "line": 223
+    },
+    {
+      "leanDeclaration": "AmbientRmCompleteContraction",
+      "kind": "def",
+      "mathematicalMeaning": "The corresponding complete contraction of ambient Riemann curvature.",
+      "mathematicalFormula": "\\operatorname{AmbientRmCompleteContraction}(k,C)\\colon \\operatorname{AmbientScalarInvariant}",
+      "leanType": "def AmbientRmCompleteContraction (k : Nat) (C : CompleteContraction (4 * k)) : AmbientScalarInvariant",
+      "line": 234
+    },
+    {
+      "leanDeclaration": "WeylCompleteContraction_weight",
+      "kind": "theorem",
+      "mathematicalMeaning": "For k in the natural numbers, and C of type Complete Contraction 4 times k, Weyl Complete Contraction k C.1.weight equals -2 times k : Int.",
+      "mathematicalFormula": "\\forall\\,k\\colon \\mathbb{N},\\;C\\colon \\operatorname{CompleteContraction} (4 \\cdot k),\\quad (\\operatorname{WeylCompleteContraction} k C).1.\\operatorname{weight} = -2 \\cdot (k \\colon \\mathbb{Z})",
+      "leanType": "theorem WeylCompleteContraction_weight (k : Nat) (C : CompleteContraction (4 * k)) : (WeylCompleteContraction k C).1.weight = -2 * (k : Int)",
+      "line": 245
+    },
+    {
+      "leanDeclaration": "WeylPolynomial_straightenable",
+      "kind": "theorem",
+      "mathematicalMeaning": "Corollary 3.6: complete Weyl contractions are straightenable. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{InvariantEvaluationModel},\\;\\operatorname{WeylAmbientStraightness},\\;k\\colon \\mathbb{N},\\;C\\colon \\operatorname{CompleteContraction} (4 \\cdot k),\\quad \\operatorname{ScalarStraightenable} (\\operatorname{WeylCompleteContraction} k C) (\\operatorname{AmbientRmCompleteContraction} k C)",
+      "leanType": "theorem WeylPolynomial_straightenable [InvariantEvaluationModel] [WeylAmbientStraightness] (k : Nat) (C : CompleteContraction (4 * k)) : ScalarStraightenable (WeylCompleteContraction k C) (AmbientRmCompleteContraction k C)",
+      "line": 258
     }
   ],
   "prerequisites": [

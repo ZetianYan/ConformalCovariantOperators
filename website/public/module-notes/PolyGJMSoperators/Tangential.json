@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in PolyGJMSoperators/Tangential.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows PolyGJMSoperators/Tangential.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,64 +19,73 @@
     {
       "leanDeclaration": "IsTangentialAtWeights",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Is Tangential At Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Rank-r tangentiality at a multiweight. Each input slot carries its own weight and its own weighted boundary equivalence relation. In explicit terms, for r in the natural numbers, p of type cal conf.multi operator r, and w of type fin r maps to the real numbers, its defining expression is for every F G : Cal Conf.Multi Input r, Cal Conf.Is Multi Homogeneous w F maps to Cal Conf.Is Multi Homogeneous w G maps to Cal Conf.Same Boundary Value At Weights w F G maps to Cal Conf.Same Boundary Value P F P G.",
+      "mathematicalFormula": "\\operatorname{IsTangentialAtWeights}(P,w)=\\forall {F G \\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r}, \\operatorname{CalConf}.\\operatorname{IsMultiHomogeneous} w F \\longrightarrow \\operatorname{CalConf}.\\operatorname{IsMultiHomogeneous} w G \\longrightarrow \\operatorname{CalConf}.\\operatorname{SameBoundaryValueAtWeights} w F G \\longrightarrow \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} (P F) (P G)",
       "leanType": "def IsTangentialAtWeights {r : ℕ} (P : CalConf.MultiOperator r) (w : Fin r → ℝ) : Prop",
       "line": 29
     },
     {
       "leanDeclaration": "MapsWeights",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Maps Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A rank-r operator maps a multiweight to an output weight. In explicit terms, for r in the natural numbers, p of type cal conf.multi operator r, w of type fin r maps to the real numbers, and wout in the real numbers, its defining expression is for every F : Cal Conf.Multi Input r, Cal Conf.Is Multi Homogeneous w F maps to Cal Conf.Is XHomogeneous wout P F.",
+      "mathematicalFormula": "\\operatorname{MapsWeights}(P,w,wout)=\\forall {F \\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r}, \\operatorname{CalConf}.\\operatorname{IsMultiHomogeneous} w F \\longrightarrow \\operatorname{CalConf}.\\operatorname{IsXHomogeneous} \\operatorname{wout} (P F)",
       "leanType": "def MapsWeights {r : ℕ} (P : CalConf.MultiOperator r) (w : Fin r → ℝ) (wout : ℝ) : Prop",
       "line": 40
     },
     {
       "leanDeclaration": "WeightedMultiTangentialOperator",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Weighted Multi Tangential Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A weighted rank-r tangential ambient operator. Its mathematical data are: input Weights: Fin r maps to the real numbers; output Weight: the real numbers; to Operator: Cal Conf.Multi Operator r; maps Weights: Cal Conf.Maps Weights to Operator input Weights output weight; tangential: Cal Conf.Is Tangential At Weights to Operator input Weights.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{inputWeights}&\\colon \\operatorname{Fin} r \\longrightarrow \\mathbb{R}\\\\w_{\\mathrm{out}}&\\colon \\mathbb{R}\\\\\\operatorname{toOperator}&\\colon \\operatorname{CalConf}.\\operatorname{MultiOperator} r\\\\\\operatorname{mapsWeights}&\\colon \\operatorname{CalConf}.\\operatorname{MapsWeights} \\operatorname{toOperator} \\operatorname{inputWeights} w_{\\mathrm{out}}\\\\\\operatorname{tangential}&\\colon \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeights} \\operatorname{toOperator} \\operatorname{inputWeights}\\end{aligned}",
       "leanType": "structure WeightedMultiTangentialOperator (r : ℕ)",
       "line": 50
     },
     {
       "leanDeclaration": "WeightedBiTangentialOperator",
       "kind": "abbrev",
-      "mathematicalMeaning": "Definition: Weighted Bi Tangential Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Weighted bidifferential ambient operators. In explicit terms, its defining expression is Cal Conf.Weighted Multi Tangential Operator 2.",
+      "mathematicalFormula": "\\operatorname{WeightedBiTangentialOperator}=\\operatorname{CalConf}.\\operatorname{WeightedMultiTangentialOperator} 2",
       "leanType": "abbrev WeightedBiTangentialOperator : Type _",
       "line": 61
     },
     {
       "leanDeclaration": "WeightedTriTangentialOperator",
       "kind": "abbrev",
-      "mathematicalMeaning": "Definition: Weighted Tri Tangential Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Weighted tridifferential ambient operators. In explicit terms, its defining expression is Cal Conf.Weighted Multi Tangential Operator 3.",
+      "mathematicalFormula": "\\operatorname{WeightedTriTangentialOperator}=\\operatorname{CalConf}.\\operatorname{WeightedMultiTangentialOperator} 3",
       "leanType": "abbrev WeightedTriTangentialOperator : Type _",
       "line": 65
     },
     {
       "leanDeclaration": "add",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: add. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r in the natural numbers, P, Q of type Cal Conf.Multi Operator r, w of type Fin r maps to the real numbers, hP of type Cal Conf.Is Tangential At Weights P w, and hQ of type Cal Conf.Is Tangential At Weights Q w, Cal Conf.Is Tangential At Weights Cal Conf.multi Add P Q w.",
+      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;P,Q\\colon \\operatorname{CalConf}.\\operatorname{MultiOperator} r,\\;w\\colon \\operatorname{Fin} r \\longrightarrow \\mathbb{R},\\;hP\\colon \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeights} P w,\\;hQ\\colon \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeights} Q w,\\quad \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeights} (\\operatorname{CalConf}.\\operatorname{multiAdd} P Q) w",
       "leanType": "theorem add {r : ℕ} {P Q : CalConf.MultiOperator r} {w : Fin r → ℝ} (hP : CalConf.IsTangentialAtWeights P w) (hQ : CalConf.IsTangentialAtWeights Q w) : CalConf.IsTangentialAtWeights (CalConf.multiAdd P Q) w",
       "line": 72
     },
     {
       "leanDeclaration": "smul",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: smul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r in the natural numbers, P of type Cal Conf.Multi Operator r, w of type Fin r maps to the real numbers, c in the real numbers, and hP of type Cal Conf.Is Tangential At Weights P w, Cal Conf.Is Tangential At Weights Cal Conf.multi Smul c P w.",
+      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;P\\colon \\operatorname{CalConf}.\\operatorname{MultiOperator} r,\\;w\\colon \\operatorname{Fin} r \\longrightarrow \\mathbb{R},\\;c\\colon \\mathbb{R},\\;hP\\colon \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeights} P w,\\quad \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeights} (\\operatorname{CalConf}.\\operatorname{multiSmul} c P) w",
       "leanType": "theorem smul {r : ℕ} {P : CalConf.MultiOperator r} {w : Fin r → ℝ} (c : ℝ) (hP : CalConf.IsTangentialAtWeights P w) : CalConf.IsTangentialAtWeights (CalConf.multiSmul c P) w",
       "line": 82
     },
     {
       "leanDeclaration": "add",
       "kind": "def",
-      "mathematicalMeaning": "Definition: add. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def add {r : ℕ} (P Q : CalConf.WeightedMultiTangentialOperator r) (hinput : P.inputWeights = Q.inputWeights) (_houtput : P.outputWeight = Q.outputWeight) (hmaps : CalConf.MapsWeights",
+      "mathematicalMeaning": "Add weighted tangential operators with the same input and output weights. The output homogeneity proof is supplied explicitly; proving it from X linearity belongs to a later algebraic layer.",
+      "mathematicalFormula": "\\operatorname{add}(P,Q,hinput,hmaps)\\colon \\operatorname{CalConf}.\\operatorname{WeightedMultiTangentialOperator} r",
+      "leanType": "def add {r : ℕ} (P Q : CalConf.WeightedMultiTangentialOperator r) (hinput : P.inputWeights = Q.inputWeights) (_houtput : P.outputWeight = Q.outputWeight) (hmaps : CalConf.MapsWeights (CalConf.multiAdd P.toOperator Q.toOperator) P.inputWeights P.outputWeight) : CalConf.WeightedMultiTangentialOperator r",
       "line": 104
     },
     {
       "leanDeclaration": "smul",
       "kind": "def",
-      "mathematicalMeaning": "Definition: smul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def smul {r : ℕ} (c : ℝ) (P : CalConf.WeightedMultiTangentialOperator r) (hmaps : CalConf.MapsWeights (CalConf.multiSmul c P.toOperator)",
+      "mathematicalMeaning": "Scalar multiples of weighted tangential operators. The output homogeneity proof is supplied explicitly; proving it from X linearity belongs to a later algebraic layer. In explicit terms, for r in the natural numbers, c in the real numbers, p of type cal conf.weighted multi tangential operator r, and hmaps of type cal conf.maps weights cal conf.multi smul c p.to operator p.input weights p.output weight, its defining expression is input Weights : equals P.input Weights output weight : equals P.output weight to Operator : equals Cal Conf.multi Smul c P.to Operator maps Weights : equals hmaps tangential : equals Is Tangential At Weights.smul c P.tangential.",
+      "mathematicalFormula": "\\operatorname{smul}(c,P,hmaps)=\\operatorname{inputWeights} = P.\\operatorname{inputWeights} w_{\\mathrm{out}} = P.\\operatorname{outputWeight} \\operatorname{toOperator} = \\operatorname{CalConf}.\\operatorname{multiSmul} c P.\\operatorname{toOperator} \\operatorname{mapsWeights} = \\operatorname{hmaps} \\operatorname{tangential} = \\operatorname{IsTangentialAtWeights}.\\operatorname{smul} c P.\\operatorname{tangential}",
+      "leanType": "def smul {r : ℕ} (c : ℝ) (P : CalConf.WeightedMultiTangentialOperator r) (hmaps : CalConf.MapsWeights (CalConf.multiSmul c P.toOperator) P.inputWeights P.outputWeight) : CalConf.WeightedMultiTangentialOperator r",
       "line": 141
     }
   ],

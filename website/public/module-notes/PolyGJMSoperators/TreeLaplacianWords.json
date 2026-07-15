@@ -10,8 +10,8 @@
       "formula": "\\widetilde\\Delta^{a_0}(\\widetilde\\Delta^{a_1}((\\widetilde\\Delta^{a_2}u_0)(\\widetilde\\Delta^{a_3}u_1))\\cdots)"
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in PolyGJMSoperators/TreeLaplacianWords.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows PolyGJMSoperators/TreeLaplacianWords.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,98 +19,112 @@
     {
       "leanDeclaration": "leftCombVertexCount",
       "kind": "def",
-      "mathematicalMeaning": "Definition: left Comb Vertex Count. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Number of vertices in a full binary tree with r ordered leaves. In explicit terms, for r in the natural numbers, its defining expression is 2 times r minus 1.",
+      "mathematicalFormula": "\\operatorname{leftCombVertexCount}(r)=2 \\cdot r - 1",
       "leanType": "def leftCombVertexCount (r : ℕ) : ℕ",
       "line": 35
     },
     {
       "leanDeclaration": "CombIndex",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Comb Index. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A left-comb tree Laplacian index of total degree k. Its mathematical data are: power: Fin left Comb Vertex Count r maps to the natural numbers; sum eq: Finset.univ.sum fun v : Fin left Comb Vertex Count r maps to power v equals k.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{power}&\\colon \\operatorname{Fin} (\\operatorname{leftCombVertexCount} r) \\longrightarrow \\mathbb{N}\\\\\\operatorname{sum\\_eq}&\\colon \\operatorname{Finset}.\\operatorname{univ}.\\operatorname{sum} (\\operatorname{fun} v \\colon \\operatorname{Fin} (\\operatorname{leftCombVertexCount} r) => \\operatorname{power} v) = k\\end{aligned}",
       "leanType": "structure CombIndex (r k : ℕ)",
       "line": 39
     },
     {
       "leanDeclaration": "PolyTreeIndex",
       "kind": "abbrev",
-      "mathematicalMeaning": "Definition: Poly Tree Index. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Rank-general tree index alias. Later this can be widened from left-combs to arbitrary rooted binary trees without changing downstream recurrence code too much. In explicit terms, its defining expression is Comb Index.",
+      "mathematicalFormula": "\\operatorname{PolyTreeIndex}=\\operatorname{CombIndex}",
       "leanType": "abbrev PolyTreeIndex",
       "line": 49
     },
     {
       "leanDeclaration": "totalPower",
       "kind": "def",
-      "mathematicalMeaning": "Definition: total Power. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Total Laplacian degree of a comb index. In explicit terms, for r, k in the natural numbers, and i of type comb index r k, its defining expression is Finset.univ.sum fun v : Fin left Comb Vertex Count r maps to I.power v.",
+      "mathematicalFormula": "\\operatorname{totalPower}(I)=\\operatorname{Finset}.\\operatorname{univ}.\\operatorname{sum} (\\operatorname{fun} v \\colon \\operatorname{Fin} (\\operatorname{leftCombVertexCount} r) => I.\\operatorname{power} v)",
       "leanType": "def totalPower {r k : ℕ} (I : CombIndex r k) : ℕ",
       "line": 56
     },
     {
       "leanDeclaration": "totalPower_eq",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: total Power eq. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r, k in the natural numbers, and I of type Comb Index r k, I.total Power equals k.",
+      "mathematicalFormula": "\\forall\\,r,k\\colon \\mathbb{N},\\;I\\colon \\operatorname{CombIndex} r k,\\quad I.\\operatorname{totalPower} = k",
       "leanType": "theorem totalPower_eq {r k : ℕ} (I : CombIndex r k) : I.totalPower = k",
       "line": 60
     },
     {
       "leanDeclaration": "powerAt",
       "kind": "def",
-      "mathematicalMeaning": "Definition: power At. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Read a vertex power using a natural-number code, returning 0 outside the vertex range. This is convenient for recursive word evaluation.",
+      "mathematicalFormula": "\\operatorname{powerAt}(I,i)\\colon \\mathbb{N}",
       "leanType": "def powerAt {r k : ℕ} (I : CombIndex r k) (i : ℕ) : ℕ",
       "line": 67
     },
     {
       "leanDeclaration": "powerAt_of_fin",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: power At of fin. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r, k in the natural numbers, I of type Comb Index r k, and v of type Fin left Comb Vertex Count r, I.power At v.val equals I.power v.",
+      "mathematicalFormula": "\\forall\\,r,k\\colon \\mathbb{N},\\;I\\colon \\operatorname{CombIndex} r k,\\;v\\colon \\operatorname{Fin} (\\operatorname{leftCombVertexCount} r),\\quad I.\\operatorname{powerAt} v.\\operatorname{val} = I.\\operatorname{power} v",
       "leanType": "theorem powerAt_of_fin {r k : ℕ} (I : CombIndex r k) (v : Fin (leftCombVertexCount r)) : I.powerAt v.val = I.power v",
       "line": 74
     },
     {
       "leanDeclaration": "addAt",
       "kind": "def",
-      "mathematicalMeaning": "Definition: add At. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Add one unit of Laplacian power at a chosen vertex. In explicit terms, for r, s in the natural numbers, i of type comb index r s, and v of type fin left comb vertex count r, its defining expression is power : equals Function.update I.power v I.power v plus 1 sum eq : equals by classical rw Finset.sum update of mem s : equals Finset.univ i : equals v Finset.mem univ v I.power I.power v plus 1 have hsum : I.power v plus ∑ x belongs to Finset.univ \\ v, I.power x equals s : equals by rw ← Finset.sum eq add sum diff singleton s : equals Finset.univ i : equals v Finset.mem univ v I.power exact I.sum eq omega.",
+      "mathematicalFormula": "\\operatorname{addAt}(I,v)=\\operatorname{power} = \\operatorname{Function}.\\operatorname{update} I.\\operatorname{power} v (I.\\operatorname{power} v + 1) \\operatorname{sum\\_eq} = \\operatorname{by} \\operatorname{classical} \\operatorname{rw} [\\operatorname{Finset}.\\operatorname{sum\\_update\\_of\\_mem} (s = \\operatorname{Finset}.\\operatorname{univ}) (i = v) (\\operatorname{Finset}.\\operatorname{mem\\_univ} v) I.\\operatorname{power} (I.\\operatorname{power} v + 1)] \\operatorname{have} \\operatorname{hsum} \\colon I.\\operatorname{power} v + \\sum x \\in \\operatorname{Finset}.\\operatorname{univ} \\ {v}, I.\\operatorname{power} x = s = \\operatorname{by} \\operatorname{rw} [← \\operatorname{Finset}.\\operatorname{sum\\_eq\\_add\\_sum\\_diff\\_singleton} (s = \\operatorname{Finset}.\\operatorname{univ}) (i = v) (\\operatorname{Finset}.\\operatorname{mem\\_univ} v) I.\\operatorname{power}] \\operatorname{exact} I.\\operatorname{sum\\_eq} \\operatorname{omega}",
       "leanType": "def addAt {r s : ℕ} (I : CombIndex r s) (v : Fin (leftCombVertexCount r)) : CombIndex r (s + 1)",
       "line": 80
     },
     {
       "leanDeclaration": "addAt_power_same",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: add At power same. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r, s in the natural numbers, I of type Comb Index r s, and v of type Fin left Comb Vertex Count r, I.add At v.power v equals I.power v plus 1.",
+      "mathematicalFormula": "\\forall\\,r,s\\colon \\mathbb{N},\\;I\\colon \\operatorname{CombIndex} r s,\\;v\\colon \\operatorname{Fin} (\\operatorname{leftCombVertexCount} r),\\quad (I.\\operatorname{addAt} v).\\operatorname{power} v = I.\\operatorname{power} v + 1",
       "leanType": "theorem addAt_power_same {r s : ℕ} (I : CombIndex r s) (v : Fin (leftCombVertexCount r)) : (I.addAt v).power v = I.power v + 1",
       "line": 104
     },
     {
       "leanDeclaration": "addAt_power_ne",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: add At power ne. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r, s in the natural numbers, I of type Comb Index r s, v, x of type Fin left Comb Vertex Count r, and hxv of type x is not equal to v, I.add At v.power x equals I.power x.",
+      "mathematicalFormula": "\\forall\\,r,s\\colon \\mathbb{N},\\;I\\colon \\operatorname{CombIndex} r s,\\;v,x\\colon \\operatorname{Fin} (\\operatorname{leftCombVertexCount} r),\\;hxv\\colon x \\ne v,\\quad (I.\\operatorname{addAt} v).\\operatorname{power} x = I.\\operatorname{power} x",
       "leanType": "theorem addAt_power_ne {r s : ℕ} (I : CombIndex r s) {v x : Fin (leftCombVertexCount r)} (hxv : x ≠ v) : (I.addAt v).power x = I.power x",
       "line": 112
     },
     {
       "leanDeclaration": "multinomialCoeffQ",
       "kind": "def",
-      "mathematicalMeaning": "Definition: multinomial Coeff Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Multinomial coefficient attached to a tree index. In explicit terms, for r, k in the natural numbers, and i of type comb index r k, its defining expression is Nat.factorial k : ℚ divided by Finset.univ.prod fun v : Fin left Comb Vertex Count r maps to Nat.factorial I.power v : ℚ.",
+      "mathematicalFormula": "\\operatorname{multinomialCoeffQ}(I)=(\\mathbb{N}.\\operatorname{factorial} k \\colon \\mathbb{Q}) / (\\operatorname{Finset}.\\operatorname{univ}.\\operatorname{prod} \\operatorname{fun} v \\colon \\operatorname{Fin} (\\operatorname{leftCombVertexCount} r) => (\\mathbb{N}.\\operatorname{factorial} (I.\\operatorname{power} v) \\colon \\mathbb{Q}))",
       "leanType": "def multinomialCoeffQ {r k : ℕ} (I : CombIndex r k) : ℚ",
       "line": 121
     },
     {
       "leanDeclaration": "leftCombEvalFrom",
       "kind": "def",
-      "mathematicalMeaning": "Definition: left Comb Eval From. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def leftCombEvalFrom (CalConf : Calculus Conf) : (r : ℕ) → (ℕ → ℕ) → CalConf.MultiInput r → Function Conf | 0, _p, _F => zero Conf | 1, p, F => CalConf.lapPow (p 0) (F 0) | r + 2, p, F => let leftInput : CalConf.MultiInput (r + 1)",
+      "mathematicalMeaning": "Evaluate a left-comb word using a raw natural-number power function. The recursive convention is: r = 1: Delta^(p 0) u_0; r + 1: apply Delta^(p 0) to the product of the left r-comb using shifted powers p(i+1) and the final leaf Delta^(p(2r)) u_r. In explicit terms, for calconf of type calculus conf, its defining expression is | 0, p, F maps to zero Conf | 1, p, F maps to Cal Conf.power of the ambient Laplacian p 0 F 0 | r plus 2, p, F maps to let left Input : Cal Conf.Multi Input r plus 1 : equals the function sending i to F ⟨i.val, by have hi : equals i.is Lt omega⟩ let left Word : Function Conf : equals left Comb Eval From Cal Conf r plus 1 the function sending i to p i plus 1 left Input let last Leaf : Function Conf : equals Cal Conf.power of the ambient Laplacian p 2 times r plus 2 minus 2 F ⟨r plus 1, by omega⟩ Cal Conf.power of the ambient Laplacian p 0 the function sending U to left Word U times last Leaf U.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{leftCombEvalFrom}(0, _p, _F)&=\\operatorname{zero} \\operatorname{Conf}\\\\\\operatorname{leftCombEvalFrom}(1, p, F)&=\\operatorname{CalConf}.\\operatorname{lapPow} (p 0) (F 0)\\\\\\operatorname{leftCombEvalFrom}(r + 2, p, F)&=\\operatorname{let} \\operatorname{leftInput} \\colon \\operatorname{CalConf}.\\operatorname{MultiInput} (r + 1) = i \\longmapsto F ⟨i.\\operatorname{val}, \\operatorname{by} \\operatorname{have} \\operatorname{hi} = i.\\operatorname{isLt} \\operatorname{omega}⟩ \\operatorname{let} \\operatorname{leftWord} \\colon \\operatorname{Function} \\operatorname{Conf} = \\operatorname{leftCombEvalFrom} \\operatorname{CalConf} (r + 1) (i \\longmapsto p (i + 1)) \\operatorname{leftInput} \\operatorname{let} \\operatorname{lastLeaf} \\colon \\operatorname{Function} \\operatorname{Conf} = \\operatorname{CalConf}.\\operatorname{lapPow} (p (2 \\cdot (r + 2) - 2)) (F ⟨r + 1, \\operatorname{by} \\operatorname{omega}⟩) \\operatorname{CalConf}.\\operatorname{lapPow} (p 0) (U \\longmapsto \\operatorname{leftWord} U \\cdot \\operatorname{lastLeaf} U)\\end{aligned}",
+      "leanType": "def leftCombEvalFrom (CalConf : Calculus Conf) : (r : ℕ) → (ℕ → ℕ) → CalConf.MultiInput r → Function Conf",
       "line": 136
     },
     {
       "leanDeclaration": "toOperator",
       "kind": "def",
-      "mathematicalMeaning": "Definition: to Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The rank-r multi-operator represented by a left-comb tree index. In explicit terms, for r, k in the natural numbers, i of type comb index r k, and calconf of type calculus conf, its defining expression is left Comb Eval From Cal Conf r I.power At.",
+      "mathematicalFormula": "\\operatorname{toOperator}(I,CalConf)=\\operatorname{leftCombEvalFrom} \\operatorname{CalConf} r I.\\operatorname{powerAt}",
       "leanType": "def toOperator {r k : ℕ} (I : CombIndex r k) (CalConf : Calculus Conf) : CalConf.MultiOperator r",
       "line": 156
     },
     {
       "leanDeclaration": "toOperator_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: to Operator apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r, k in the natural numbers, I of type Comb Index r k, and F of type Cal Conf.Multi Input r, I.to Operator Cal Conf F equals left Comb Eval From Cal Conf r I.power At F.",
+      "mathematicalFormula": "\\forall\\,r,k\\colon \\mathbb{N},\\;I\\colon \\operatorname{CombIndex} r k,\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\quad I.\\operatorname{toOperator} \\operatorname{CalConf} F = \\operatorname{leftCombEvalFrom} \\operatorname{CalConf} r I.\\operatorname{powerAt} F",
       "leanType": "theorem toOperator_apply {r k : ℕ} (I : CombIndex r k) (F : CalConf.MultiInput r) : I.toOperator CalConf F = leftCombEvalFrom CalConf r I.powerAt F",
       "line": 163
     }

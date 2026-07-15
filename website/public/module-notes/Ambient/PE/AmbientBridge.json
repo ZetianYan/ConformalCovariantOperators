@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/PE/AmbientBridge.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/PE/AmbientBridge.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,49 +19,56 @@
     {
       "leanDeclaration": "ambientRhoOfRadial",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ambient Rho Of Radial. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The ambient normal coordinate corresponding to a PE radius. In explicit terms, for r in the real numbers, its defining expression is - r to the power 2 divided by 2.",
+      "mathematicalFormula": "\\operatorname{ambientRhoOfRadial}(r)=-(r ^ 2) / 2",
       "leanType": "def ambientRhoOfRadial (r : Real) : Real",
       "line": 31
     },
     {
       "leanDeclaration": "coneScale",
       "kind": "def",
-      "mathematicalMeaning": "Definition: cone Scale. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The cone scale coordinate s = r t. In explicit terms, for r, t in the real numbers, its defining expression is r times t.",
+      "mathematicalFormula": "\\operatorname{coneScale}(r,t)=r \\cdot t",
       "leanType": "def coneScale (r t : Real) : Real",
       "line": 35
     },
     {
       "leanDeclaration": "ambientRhoOfRadial_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Rho Of Radial zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "ambient Rho Of Radial 0 equals 0.",
+      "mathematicalFormula": "\\operatorname{ambientRhoOfRadial} 0 = 0",
       "leanType": "theorem ambientRhoOfRadial_zero : ambientRhoOfRadial 0 = 0",
       "line": 39
     },
     {
       "leanDeclaration": "coneScale_eq_mul",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: cone Scale eq mul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r, t in the real numbers, cone Scale r t equals r times t.",
+      "mathematicalFormula": "\\forall\\,r,t\\colon \\mathbb{R},\\quad \\operatorname{coneScale} r t = r \\cdot t",
       "leanType": "theorem coneScale_eq_mul (r t : Real) : coneScale r t = r * t",
       "line": 44
     },
     {
       "leanDeclaration": "AmbientPEBridge",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Ambient PEBridge. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Data identifying an FG normal form with a PE normal form. Its mathematical data are: boundary Equiv: X.boundary ≃ M; boundary Metric Adapter: Conf.Metric Field maps to Metric Symbol X.boundary; h R eq: for every r : Real, NF.h R r equals boundary Metric Adapter A.g Rho ambient Rho Of Radial r; ambient T: Function Symbol X.bulk; ambient Rho: Function Symbol X.bulk; s: Function Symbol X.bulk; rho coordinate eq: for every z : X.bulk, ambient Rho z equals ambient Rho Of Radial NF.r.r z; s coordinate eq: for every z : X.bulk, s z equals cone Scale NF.r.r z ambient T z; ds Squared: Metric Symbol X.bulk; ambient Metric In Cone Coordinates: Metric Symbol X.bulk; cone decomposition: ambient Metric In Cone Coordinates equals Metric Symbol.add Metric Symbol.scale By Scalar -1 ds Squared Metric Symbol.scale By Function the function sending z to s z to the power 2 NF.metric.g Plus.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{boundaryEquiv}&\\colon X.\\operatorname{boundary} ≃ M\\\\\\operatorname{boundaryMetricAdapter}&\\colon \\operatorname{Conf}.\\operatorname{MetricField} \\longrightarrow \\operatorname{MetricSymbol} X.\\operatorname{boundary}\\\\\\operatorname{hR\\_eq}&\\colon \\forall r \\colon \\mathbb{R}, \\operatorname{NF}.\\operatorname{hR} r = \\operatorname{boundaryMetricAdapter} (A.\\operatorname{gRho} (\\operatorname{ambientRhoOfRadial} r))\\\\\\operatorname{ambientT}&\\colon \\operatorname{FunctionSymbol} X.\\operatorname{bulk}\\\\\\operatorname{ambientRho}&\\colon \\operatorname{FunctionSymbol} X.\\operatorname{bulk}\\\\s&\\colon \\operatorname{FunctionSymbol} X.\\operatorname{bulk}\\\\\\operatorname{rho\\_coordinate\\_eq}&\\colon \\forall z \\colon X.\\operatorname{bulk}, \\operatorname{ambientRho} z = \\operatorname{ambientRhoOfRadial} (r_{\\mathrm{r}} z)\\\\\\operatorname{s\\_coordinate\\_eq}&\\colon \\forall z \\colon X.\\operatorname{bulk}, s z = \\operatorname{coneScale} (r_{\\mathrm{r}} z) (\\operatorname{ambientT} z)\\\\\\operatorname{dsSquared}&\\colon \\operatorname{MetricSymbol} X.\\operatorname{bulk}\\\\\\operatorname{ambientMetricInConeCoordinates}&\\colon \\operatorname{MetricSymbol} X.\\operatorname{bulk}\\\\\\operatorname{cone\\_decomposition}&\\colon \\operatorname{ambientMetricInConeCoordinates} = \\operatorname{MetricSymbol}.\\operatorname{add} (\\operatorname{MetricSymbol}.\\operatorname{scaleByScalar} (-1) \\operatorname{dsSquared}) (\\operatorname{MetricSymbol}.\\operatorname{scaleByFunction} (z \\longmapsto (s z) ^ 2) \\operatorname{NF}.\\operatorname{metric}.\\operatorname{gPlus})\\end{aligned}",
       "leanType": "structure AmbientPEBridge {M : Type u} {Conf : ConformalStructure.{u, v} M} (A : FG.NormalAmbientData Conf) {X : PESpace.{w, x}} (NF : PoincareNormalFormData.{w, x, y} X)",
       "line": 49
     },
     {
       "leanDeclaration": "boundary_family_from_ambient",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: boundary family from ambient. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The slice relation h_r = g_(-r^2/2). In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,B\\colon \\operatorname{AmbientPEBridge} A \\operatorname{NF},\\;r\\colon \\mathbb{R},\\quad \\operatorname{NF}.\\operatorname{hR} r = B.\\operatorname{boundaryMetricAdapter} (A.\\operatorname{gRho} (\\operatorname{ambientRhoOfRadial} r))",
       "leanType": "theorem boundary_family_from_ambient (B : AmbientPEBridge A NF) (r : Real) : NF.hR r = B.boundaryMetricAdapter (A.gRho (ambientRhoOfRadial r))",
       "line": 100
     },
     {
       "leanDeclaration": "ambient_metric_cone_decomposition",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient metric cone decomposition. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The ambient metric cone decomposition -ds^2 + s^2 gPlus. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,B\\colon \\operatorname{AmbientPEBridge} A \\operatorname{NF},\\quad B.\\operatorname{ambientMetricInConeCoordinates} = \\operatorname{MetricSymbol}.\\operatorname{add} (\\operatorname{MetricSymbol}.\\operatorname{scaleByScalar} (-1) B.\\operatorname{dsSquared}) (\\operatorname{MetricSymbol}.\\operatorname{scaleByFunction} (z \\longmapsto (s_{\\mathrm{B}} z) ^ 2) \\operatorname{NF}.\\operatorname{metric}.\\operatorname{gPlus})",
       "leanType": "theorem ambient_metric_cone_decomposition (B : AmbientPEBridge A NF) : B.ambientMetricInConeCoordinates = MetricSymbol.add (MetricSymbol.scaleByScalar (-1) B.dsSquared) (MetricSymbol.scaleByFunction (fun z => (B.s z) ^ 2) NF.metric.gPlus)",
       "line": 109
     }

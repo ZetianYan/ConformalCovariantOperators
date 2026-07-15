@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in PolyGJMSoperators/Boundary.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows PolyGJMSoperators/Boundary.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,42 +19,48 @@
     {
       "leanDeclaration": "SameBoundaryValues",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Same Boundary Values. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Pointwise boundary equivalence for rank-r input tuples. In explicit terms, for r in the natural numbers, and f, g of type cal conf.multi input r, its defining expression is for every i : Fin r, Cal Conf.Same Boundary Value F i G i.",
+      "mathematicalFormula": "\\operatorname{SameBoundaryValues}(F,G)=\\forall i \\colon \\operatorname{Fin} r, \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} (F i) (G i)",
       "leanType": "def SameBoundaryValues {r : ℕ} (F G : CalConf.MultiInput r) : Prop",
       "line": 27
     },
     {
       "leanDeclaration": "SameBoundaryValueAtWeights",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Same Boundary Value At Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Weighted pointwise boundary equivalence for rank-r input tuples. In explicit terms, for r in the natural numbers, w of type fin r maps to the real numbers, and f, g of type cal conf.multi input r, its defining expression is for every i : Fin r, Cal Conf.Same Boundary Value At Weight w i F i G i.",
+      "mathematicalFormula": "\\operatorname{SameBoundaryValueAtWeights}(w,F,G)=\\forall i \\colon \\operatorname{Fin} r, \\operatorname{CalConf}.\\operatorname{SameBoundaryValueAtWeight} (w i) (F i) (G i)",
       "leanType": "def SameBoundaryValueAtWeights {r : ℕ} (w : Fin r → ℝ) (F G : CalConf.MultiInput r) : Prop",
       "line": 33
     },
     {
       "leanDeclaration": "SameBoundaryValues_refl",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: Same Boundary Values refl. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r in the natural numbers, and F of type Cal Conf.Multi Input r, Cal Conf.Same Boundary Values F F.",
+      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\quad \\operatorname{CalConf}.\\operatorname{SameBoundaryValues} F F",
       "leanType": "theorem SameBoundaryValues_refl {r : ℕ} (F : CalConf.MultiInput r) : CalConf.SameBoundaryValues F F",
       "line": 39
     },
     {
       "leanDeclaration": "SameBoundaryValues_symm",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: Same Boundary Values symm. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r in the natural numbers, F, G of type Cal Conf.Multi Input r, and hFG of type Cal Conf.Same Boundary Values F G, Cal Conf.Same Boundary Values G F.",
+      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;F,G\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\;hFG\\colon \\operatorname{CalConf}.\\operatorname{SameBoundaryValues} F G,\\quad \\operatorname{CalConf}.\\operatorname{SameBoundaryValues} G F",
       "leanType": "theorem SameBoundaryValues_symm {r : ℕ} {F G : CalConf.MultiInput r} (hFG : CalConf.SameBoundaryValues F G) : CalConf.SameBoundaryValues G F",
       "line": 46
     },
     {
       "leanDeclaration": "SameBoundaryValues_trans",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: Same Boundary Values trans. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r in the natural numbers, F, G, K of type Cal Conf.Multi Input r, hFG of type Cal Conf.Same Boundary Values F G, and hGK of type Cal Conf.Same Boundary Values G K, Cal Conf.Same Boundary Values F K.",
+      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;F,G,K\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\;hFG\\colon \\operatorname{CalConf}.\\operatorname{SameBoundaryValues} F G,\\;hGK\\colon \\operatorname{CalConf}.\\operatorname{SameBoundaryValues} G K,\\quad \\operatorname{CalConf}.\\operatorname{SameBoundaryValues} F K",
       "leanType": "theorem SameBoundaryValues_trans {r : ℕ} {F G K : CalConf.MultiInput r} (hFG : CalConf.SameBoundaryValues F G) (hGK : CalConf.SameBoundaryValues G K) : CalConf.SameBoundaryValues F K",
       "line": 54
     },
     {
       "leanDeclaration": "SameBoundaryValueAtWeights.sameBoundaryValues",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: Same Boundary Value At Weights.same Boundary Values. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r in the natural numbers, w of type Fin r maps to the real numbers, F, G of type Cal Conf.Multi Input r, and hFG of type Cal Conf.Same Boundary Value At Weights w F G, Cal Conf.Same Boundary Values F G.",
+      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;w\\colon \\operatorname{Fin} r \\longrightarrow \\mathbb{R},\\;F,G\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\;hFG\\colon \\operatorname{CalConf}.\\operatorname{SameBoundaryValueAtWeights} w F G,\\quad \\operatorname{CalConf}.\\operatorname{SameBoundaryValues} F G",
       "leanType": "theorem SameBoundaryValueAtWeights.sameBoundaryValues {r : ℕ} {w : Fin r → ℝ} {F G : CalConf.MultiInput r} (hFG : CalConf.SameBoundaryValueAtWeights w F G) : CalConf.SameBoundaryValues F G",
       "line": 63
     }

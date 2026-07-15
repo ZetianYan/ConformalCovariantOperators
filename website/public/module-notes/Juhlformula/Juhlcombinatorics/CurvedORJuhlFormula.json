@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Juhlformula/Juhlcombinatorics/CurvedORJuhlFormula.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Juhlformula/Juhlcombinatorics/CurvedORJuhlFormula.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,49 +19,56 @@
     {
       "leanDeclaration": "CurvedORJuhlTypeFormula",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Curved ORJuhl Type Formula. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Formal curved OR Juhl-type formula at order N. This states that the obstruction-side operator formalP N agrees with an OR-side RHS, through a formal Juhl RHS and a bridge. Its mathematical data are: juhl Statement: Formal Juhl Statement N; bridge: ORBridge; bridge matches: bridge.juhl RHS equals juhl Statement.rhs.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{juhlStatement}&\\colon \\operatorname{FormalJuhlStatement} N\\\\\\operatorname{bridge}&\\colon \\operatorname{ORBridge}\\\\\\operatorname{bridge\\_matches}&\\colon \\operatorname{bridge}.\\operatorname{juhlRHS} = \\operatorname{juhlStatement}.\\operatorname{rhs}\\end{aligned}",
       "leanType": "structure CurvedORJuhlTypeFormula (N : ℕ)",
       "line": 21
     },
     {
       "leanDeclaration": "orSide",
       "kind": "def",
-      "mathematicalMeaning": "Definition: or Side. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The OR side of a formal curved OR Juhl-type formula. In explicit terms, for n in the natural numbers, and f of type curved orjuhl type formula n, its defining expression is F.bridge.or RHS.to Expr.",
+      "mathematicalFormula": "\\operatorname{orSide}(F)=F.\\operatorname{bridge}.\\operatorname{orRHS}.\\operatorname{toExpr}",
       "leanType": "def orSide {N : ℕ} (F : CurvedORJuhlTypeFormula N) : FormalExpr",
       "line": 30
     },
     {
       "leanDeclaration": "formula",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: formula. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The formal curved OR Juhl-type identity. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;F\\colon \\operatorname{CurvedORJuhlTypeFormula} N,\\quad \\operatorname{FormalEq} (\\operatorname{formalP} N) F.\\operatorname{orSide}",
       "leanType": "theorem formula {N : ℕ} (F : CurvedORJuhlTypeFormula N) : FormalEq (formalP N) F.orSide",
       "line": 36
     },
     {
       "leanDeclaration": "curvedORJuhlFormula_one",
       "kind": "def",
-      "mathematicalMeaning": "Definition: curved ORJuhl Formula one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The order-one curved OR Juhl formula, with the identity bridge. In explicit terms, its defining expression is juhl Statement : equals formal Juhl Statement one bridge : equals ORBridge.refl formal Juhl Statement one.rhs bridge matches : equals rfl.",
+      "mathematicalFormula": "\\operatorname{curvedORJuhlFormula\\_one}=\\operatorname{juhlStatement} = \\operatorname{formalJuhlStatement\\_one} \\operatorname{bridge} = \\operatorname{ORBridge}.\\operatorname{refl} \\operatorname{formalJuhlStatement\\_one}.\\operatorname{rhs} \\operatorname{bridge\\_matches} = \\operatorname{rfl}",
       "leanType": "def curvedORJuhlFormula_one : CurvedORJuhlTypeFormula 1",
       "line": 48
     },
     {
       "leanDeclaration": "curvedORJuhlFormula_one_identity",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: curved ORJuhl Formula one identity. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Formal Eq formal P 1 curved ORJuhl Formula one.or Side.",
+      "mathematicalFormula": "\\operatorname{FormalEq} (\\operatorname{formalP} 1) \\operatorname{curvedORJuhlFormula\\_one}.\\operatorname{orSide}",
       "leanType": "theorem curvedORJuhlFormula_one_identity : FormalEq (formalP 1) curvedORJuhlFormula_one.orSide",
       "line": 53
     },
     {
       "leanDeclaration": "curvedORJuhlFormula_two_raw",
       "kind": "def",
-      "mathematicalMeaning": "Definition: curved ORJuhl Formula two raw. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The order-two curved OR Juhl formula, with the raw P_4 identity bridge. In explicit terms, its defining expression is juhl Statement : equals formal Juhl Statement two raw bridge : equals ORBridge.refl formal Juhl Statement two raw.rhs bridge matches : equals rfl.",
+      "mathematicalFormula": "\\operatorname{curvedORJuhlFormula\\_two\\_raw}=\\operatorname{juhlStatement} = \\operatorname{formalJuhlStatement\\_two\\_raw} \\operatorname{bridge} = \\operatorname{ORBridge}.\\operatorname{refl} \\operatorname{formalJuhlStatement\\_two\\_raw}.\\operatorname{rhs} \\operatorname{bridge\\_matches} = \\operatorname{rfl}",
       "leanType": "def curvedORJuhlFormula_two_raw : CurvedORJuhlTypeFormula 2",
       "line": 58
     },
     {
       "leanDeclaration": "curvedORJuhlFormula_two_raw_identity",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: curved ORJuhl Formula two raw identity. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Formal Eq formal P 2 curved ORJuhl Formula two raw.or Side.",
+      "mathematicalFormula": "\\operatorname{FormalEq} (\\operatorname{formalP} 2) \\operatorname{curvedORJuhlFormula\\_two\\_raw}.\\operatorname{orSide}",
       "leanType": "theorem curvedORJuhlFormula_two_raw_identity : FormalEq (formalP 2) curvedORJuhlFormula_two_raw.orSide",
       "line": 63
     }

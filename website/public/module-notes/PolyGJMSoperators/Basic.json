@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in PolyGJMSoperators/Basic.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows PolyGJMSoperators/Basic.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,91 +19,104 @@
     {
       "leanDeclaration": "MultiInput",
       "kind": "abbrev",
-      "mathematicalMeaning": "Definition: Multi Input. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A rank-r tuple of ambient functions. In explicit terms, for calconf of type calculus conf, and r in the natural numbers, its defining expression is Fin r maps to Function Conf.",
+      "mathematicalFormula": "\\operatorname{MultiInput}(r)=\\operatorname{Fin} r \\longrightarrow \\operatorname{Function} \\operatorname{Conf}",
       "leanType": "abbrev MultiInput (_CalConf : Calculus Conf) (r : ℕ) : Type _",
       "line": 27
     },
     {
       "leanDeclaration": "MultiOperator",
       "kind": "abbrev",
-      "mathematicalMeaning": "Definition: Multi Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A rank-r ambient operator. In explicit terms, for calconf of type calculus conf, and r in the natural numbers, its defining expression is Cal Conf.Multi Input r maps to Function Conf.",
+      "mathematicalFormula": "\\operatorname{MultiOperator}(CalConf,r)=\\operatorname{CalConf}.\\operatorname{MultiInput} r \\longrightarrow \\operatorname{Function} \\operatorname{Conf}",
       "leanType": "abbrev MultiOperator (CalConf : Calculus Conf) (r : ℕ) : Type _",
       "line": 31
     },
     {
       "leanDeclaration": "UnaryMultiOperator",
       "kind": "abbrev",
-      "mathematicalMeaning": "Definition: Unary Multi Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Rank-one multi-operators. In explicit terms, its defining expression is Cal Conf.Multi Operator 1.",
+      "mathematicalFormula": "\\operatorname{UnaryMultiOperator}=\\operatorname{CalConf}.\\operatorname{MultiOperator} 1",
       "leanType": "abbrev UnaryMultiOperator : Type _",
       "line": 35
     },
     {
       "leanDeclaration": "BiOperator",
       "kind": "abbrev",
-      "mathematicalMeaning": "Definition: Bi Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Rank-two multi-operators, i.e. bidifferential ambient operators. In explicit terms, its defining expression is Cal Conf.Multi Operator 2.",
+      "mathematicalFormula": "\\operatorname{BiOperator}=\\operatorname{CalConf}.\\operatorname{MultiOperator} 2",
       "leanType": "abbrev BiOperator : Type _",
       "line": 39
     },
     {
       "leanDeclaration": "TriOperator",
       "kind": "abbrev",
-      "mathematicalMeaning": "Definition: Tri Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Rank-three multi-operators, i.e. tridifferential ambient operators. In explicit terms, its defining expression is Cal Conf.Multi Operator 3.",
+      "mathematicalFormula": "\\operatorname{TriOperator}=\\operatorname{CalConf}.\\operatorname{MultiOperator} 3",
       "leanType": "abbrev TriOperator : Type _",
       "line": 43
     },
     {
       "leanDeclaration": "unaryToMulti",
       "kind": "def",
-      "mathematicalMeaning": "Definition: unary To Multi. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Regard an ordinary unary ambient operator as a rank-one multi-operator. In explicit terms, for p of type function conf maps to function conf, its defining expression is the function sending F to P F 0.",
+      "mathematicalFormula": "\\operatorname{unaryToMulti}(P)=F \\longmapsto P (F 0)",
       "leanType": "def unaryToMulti (P : Function Conf → Function Conf) : CalConf.MultiOperator 1",
       "line": 47
     },
     {
       "leanDeclaration": "multiToUnary",
       "kind": "def",
-      "mathematicalMeaning": "Definition: multi To Unary. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Regard a rank-one multi-operator as an ordinary unary ambient operator. In explicit terms, for p of type cal conf.multi operator 1, its defining expression is the function sending f to P fun maps to f.",
+      "mathematicalFormula": "\\operatorname{multiToUnary}(P)=f \\longmapsto P (\\operatorname{fun} _ => f)",
       "leanType": "def multiToUnary (P : CalConf.MultiOperator 1) : Function Conf → Function Conf",
       "line": 53
     },
     {
       "leanDeclaration": "unaryToMulti_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: unary To Multi apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For P of type Function Conf maps to Function Conf, and F of type Cal Conf.Multi Input 1, Cal Conf.unary To Multi P F equals P F 0.",
+      "mathematicalFormula": "\\forall\\,P\\colon \\operatorname{Function} \\operatorname{Conf} \\longrightarrow \\operatorname{Function} \\operatorname{Conf},\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} 1,\\quad \\operatorname{CalConf}.\\operatorname{unaryToMulti} P F = P (F 0)",
       "leanType": "theorem unaryToMulti_apply (P : Function Conf → Function Conf) (F : CalConf.MultiInput 1) : CalConf.unaryToMulti P F = P (F 0)",
       "line": 59
     },
     {
       "leanDeclaration": "multiToUnary_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: multi To Unary apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For P of type Cal Conf.Multi Operator 1, and f of type Function Conf, Cal Conf.multi To Unary P f equals P fun maps to f.",
+      "mathematicalFormula": "\\forall\\,P\\colon \\operatorname{CalConf}.\\operatorname{MultiOperator} 1,\\;f\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{CalConf}.\\operatorname{multiToUnary} P f = P (\\operatorname{fun} _ => f)",
       "leanType": "theorem multiToUnary_apply (P : CalConf.MultiOperator 1) (f : Function Conf) : CalConf.multiToUnary P f = P (fun _ => f)",
       "line": 66
     },
     {
       "leanDeclaration": "replace",
       "kind": "def",
-      "mathematicalMeaning": "Definition: replace. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Replace one input slot. In explicit terms, for r in the natural numbers, f of type cal conf.multi input r, i of type fin r, and f of type function conf, its defining expression is Function.update F i f.",
+      "mathematicalFormula": "\\operatorname{replace}(F,i,f)=\\operatorname{Function}.\\operatorname{update} F i f",
       "leanType": "def replace {r : ℕ} (F : CalConf.MultiInput r) (i : Fin r) (f : Function Conf) : CalConf.MultiInput r",
       "line": 77
     },
     {
       "leanDeclaration": "mapUnary",
       "kind": "def",
-      "mathematicalMeaning": "Definition: map Unary. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Apply the same unary operator to every input slot. In explicit terms, for r in the natural numbers, p of type function conf maps to function conf, and f of type cal conf.multi input r, its defining expression is the function sending i to P F i.",
+      "mathematicalFormula": "\\operatorname{mapUnary}(P,F)=i \\longmapsto P (F i)",
       "leanType": "def mapUnary {r : ℕ} (P : Function Conf → Function Conf) (F : CalConf.MultiInput r) : CalConf.MultiInput r",
       "line": 86
     },
     {
       "leanDeclaration": "replace_same",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: replace same. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r in the natural numbers, F of type Cal Conf.Multi Input r, i of type Fin r, and f of type Function Conf, replace F i f i equals f.",
+      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\;i\\colon \\operatorname{Fin} r,\\;f\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{replace} F i f i = f",
       "leanType": "theorem replace_same {r : ℕ} (F : CalConf.MultiInput r) (i : Fin r) (f : Function Conf) : replace F i f i = f",
       "line": 94
     },
     {
       "leanDeclaration": "mapUnary_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: map Unary apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r in the natural numbers, P of type Function Conf maps to Function Conf, F of type Cal Conf.Multi Input r, and i of type Fin r, map Unary P F i equals P F i.",
+      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;P\\colon \\operatorname{Function} \\operatorname{Conf} \\longrightarrow \\operatorname{Function} \\operatorname{Conf},\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\;i\\colon \\operatorname{Fin} r,\\quad \\operatorname{mapUnary} P F i = P (F i)",
       "leanType": "theorem mapUnary_apply {r : ℕ} (P : Function Conf → Function Conf) (F : CalConf.MultiInput r) (i : Fin r) : mapUnary P F i = P (F i)",
       "line": 104
     }

@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/PE/Renormalization/DivergenceVanishing.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/PE/Renormalization/DivergenceVanishing.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,29 +19,33 @@
     {
       "leanDeclaration": "PERenormalizationPackage",
       "kind": "class",
-      "mathematicalMeaning": "Data/interface: PERenormalization Package. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Analytic and functorial data for renormalized invariant integrals on a PE space. Its mathematical data are: normal Form: Poincare Normal Form Data. u, v, w X; poincare Einstein: Is Poincare Einstein normal Form; cutoff Data: for every I : Scalar Invariant, Curvature Integral Cutoff Data X I; cutoff Data normal Form: for every I : Scalar Invariant, cutoff Data I.normal Form equals normal Form; RInt: Scalar Invariant maps to Real; RInt eq phase B: for every I : Scalar Invariant, RInt I equals Renormalized Curvature Integral cutoff Data I; convergent Integral: Scalar Invariant maps to Real; linear qsmul: for every c : Rat I : Scalar Invariant, RInt Scalar Invariant.qsmul c I equals c times RInt I; divergence zero: Even X.bulk Dim maps to for every F : One Form Invariant, 2 minus X.bulk Dim : Int < equals F.1.weight maps to RInt div Invariant F equals 0; modulo Divergence eq: for every I J : Scalar Invariant, Invariant Evaluation Model.Equal Modulo Divergence I J maps to RInt I equals RInt J; associated integral eq: for every I : Scalar Invariant Itilde : Ambient Scalar Invariant, Scalar Straightenable I Itilde maps to RInt I equals RInt restrict To Einstein Slice Itilde; critical weight converges: for every I : Scalar Invariant, I.1.weight equals - X.bulk Dim : Int maps to Is Scalar Conformal Invariant I maps to RInt I equals convergent Integral I.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{normalForm}&\\colon \\operatorname{PoincareNormalFormData}.\\operatorname{}{u, v, w} X\\\\\\operatorname{poincareEinstein}&\\colon \\operatorname{IsPoincareEinstein} \\operatorname{normalForm}\\\\\\operatorname{cutoffData}&\\colon \\forall I \\colon \\operatorname{ScalarInvariant}, \\operatorname{CurvatureIntegralCutoffData} X I\\\\\\operatorname{cutoffData\\_normalForm}&\\colon \\forall I \\colon \\operatorname{ScalarInvariant}, (\\operatorname{cutoffData} I).\\operatorname{normalForm} = \\operatorname{normalForm}\\\\\\operatorname{RInt}&\\colon \\operatorname{ScalarInvariant} \\longrightarrow \\mathbb{R}\\\\\\operatorname{RInt\\_eq\\_phaseB}&\\colon \\forall I \\colon \\operatorname{ScalarInvariant}, \\operatorname{RInt} I = \\operatorname{RenormalizedCurvatureIntegral} (\\operatorname{cutoffData} I)\\\\\\operatorname{convergentIntegral}&\\colon \\operatorname{ScalarInvariant} \\longrightarrow \\mathbb{R}\\\\\\operatorname{linear\\_qsmul}&\\colon \\forall (c \\colon \\mathbb{Q}) (I \\colon \\operatorname{ScalarInvariant}), \\operatorname{RInt} (\\operatorname{ScalarInvariant}.\\operatorname{qsmul} c I) = c \\cdot \\operatorname{RInt} I\\\\\\operatorname{divergence\\_zero}&\\colon \\operatorname{Even} X.\\operatorname{bulkDim} \\longrightarrow \\forall F \\colon \\operatorname{OneFormInvariant}, 2 - (X.\\operatorname{bulkDim} \\colon \\mathbb{Z}) <= F.\\operatorname{1}.\\operatorname{weight} \\longrightarrow \\operatorname{RInt} (\\operatorname{divInvariant} F) = 0\\\\\\operatorname{moduloDivergence\\_eq}&\\colon \\forall I J \\colon \\operatorname{ScalarInvariant}, \\operatorname{InvariantEvaluationModel}.\\operatorname{EqualModuloDivergence} I J \\longrightarrow \\operatorname{RInt} I = \\operatorname{RInt} J\\\\\\operatorname{associated\\_integral\\_eq}&\\colon \\forall (I \\colon \\operatorname{ScalarInvariant}) (\\operatorname{Itilde} \\colon \\operatorname{AmbientScalarInvariant}), \\operatorname{ScalarStraightenable} I \\operatorname{Itilde} \\longrightarrow \\operatorname{RInt} I = \\operatorname{RInt} (\\operatorname{restrictToEinsteinSlice} \\operatorname{Itilde})\\\\\\operatorname{critical\\_weight\\_converges}&\\colon \\forall I \\colon \\operatorname{ScalarInvariant}, I.\\operatorname{1}.\\operatorname{weight} = -(X.\\operatorname{bulkDim} \\colon \\mathbb{Z}) \\longrightarrow \\operatorname{IsScalarConformalInvariant} I \\longrightarrow \\operatorname{RInt} I = \\operatorname{convergentIntegral} I\\end{aligned}",
       "leanType": "class PERenormalizationPackage (X : PESpace.{u, v}) [InvariantEvaluationModel]",
       "line": 23
     },
     {
       "leanDeclaration": "renormalizedIntegral",
       "kind": "def",
-      "mathematicalMeaning": "Definition: renormalized Integral. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The renormalized integral supplied by the package. In explicit terms, for x of type pespace, and i of type scalar invariant, its defining expression is P.RInt I.",
+      "mathematicalFormula": "\\operatorname{renormalizedIntegral}(X,I)=P.\\operatorname{RInt} I",
       "leanType": "def renormalizedIntegral (X : PESpace) [InvariantEvaluationModel] [P : PERenormalizationPackage X] (I : ScalarInvariant) : Real",
       "line": 76
     },
     {
       "leanDeclaration": "renormalizedIntegral_eq_phaseB",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: renormalized Integral eq phase B. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem renormalizedIntegral_eq_phaseB (X : PESpace) [InvariantEvaluationModel] [P : PERenormalizationPackage X] (I : ScalarInvariant) : renormalizedIntegral X I =",
+      "mathematicalMeaning": "The package agrees with the finite part defined in Phase B. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,X\\colon \\operatorname{PESpace},\\;\\operatorname{InvariantEvaluationModel},\\;P\\colon \\operatorname{PERenormalizationPackage} X,\\;I\\colon \\operatorname{ScalarInvariant},\\quad \\operatorname{renormalizedIntegral} X I = \\operatorname{RenormalizedCurvatureIntegral} (P.\\operatorname{cutoffData} I)",
+      "leanType": "theorem renormalizedIntegral_eq_phaseB (X : PESpace) [InvariantEvaluationModel] [P : PERenormalizationPackage X] (I : ScalarInvariant) : renormalizedIntegral X I = RenormalizedCurvatureIntegral (P.cutoffData I)",
       "line": 85
     },
     {
       "leanDeclaration": "renormalizedIntegral_naturalDivergence_eq_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: renormalized Integral natural Divergence eq zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem renormalizedIntegral_naturalDivergence_eq_zero (X : PESpace) [InvariantEvaluationModel] [P : PERenormalizationPackage X] (hn : Even X.bulkDim) (I : ScalarInvariant) (hDiv :",
+      "mathematicalMeaning": "Lemma 4.1 for a natural divergence carrying the required weight witness. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,X\\colon \\operatorname{PESpace},\\;\\operatorname{InvariantEvaluationModel},\\;P\\colon \\operatorname{PERenormalizationPackage} X,\\;hn\\colon \\operatorname{Even} X.\\operatorname{bulkDim},\\;I\\colon \\operatorname{ScalarInvariant},\\;hDiv\\colon \\operatorname{NaturalDivergenceAtWeight} I (2 - (X.\\operatorname{bulkDim} \\colon \\mathbb{Z})),\\quad \\operatorname{renormalizedIntegral} X I = 0",
+      "leanType": "theorem renormalizedIntegral_naturalDivergence_eq_zero (X : PESpace) [InvariantEvaluationModel] [P : PERenormalizationPackage X] (hn : Even X.bulkDim) (I : ScalarInvariant) (hDiv : NaturalDivergenceAtWeight I (2 - (X.bulkDim : Int))) : renormalizedIntegral X I = 0",
       "line": 96
     }
   ],

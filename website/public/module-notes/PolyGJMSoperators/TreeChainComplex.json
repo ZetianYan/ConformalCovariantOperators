@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in PolyGJMSoperators/TreeChainComplex.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows PolyGJMSoperators/TreeChainComplex.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,56 +19,64 @@
     {
       "leanDeclaration": "combIndexCard",
       "kind": "def",
-      "mathematicalMeaning": "Definition: comb Index Card. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Number of degree-s tree indices for a left-comb rank-r word, as a stars-and-bars expression. In explicit terms, for r, s in the natural numbers, its defining expression is Nat.choose s plus 2 times r minus 2 2 times r minus 2.",
+      "mathematicalFormula": "\\operatorname{combIndexCard}(r,s)=\\mathbb{N}.\\operatorname{choose} (s + (2 \\cdot r - 2)) (2 \\cdot r - 2)",
       "leanType": "def combIndexCard (r s : ℕ) : ℕ",
       "line": 34
     },
     {
       "leanDeclaration": "genericKernelDimensionExpected",
       "kind": "def",
-      "mathematicalMeaning": "Definition: generic Kernel Dimension Expected. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The expected generic dimension of ker d_1. For r >= 2, this is the closed form choose (k + r - 2) (r - 2). In explicit terms, for r, k in the natural numbers, its defining expression is Nat.choose k plus r minus 2 r minus 2.",
+      "mathematicalFormula": "\\operatorname{genericKernelDimensionExpected}(r,k)=\\mathbb{N}.\\operatorname{choose} (k + r - 2) (r - 2)",
       "leanType": "def genericKernelDimensionExpected (r k : ℕ) : ℕ",
       "line": 42
     },
     {
       "leanDeclaration": "recurrenceEulerCharacteristic",
       "kind": "def",
-      "mathematicalMeaning": "Definition: recurrence Euler Characteristic. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Euler characteristic of the expected rank-general recurrence complex. This is sum_q (-1)^q choose r q |I_{k-q}^T|. The subtraction in k - q is Lean's truncated natural subtraction; this is harmless for the first scaffold and can later be replaced by a dependent range over q <= min r k. In explicit terms, for r, k in the natural numbers, its defining expression is Finset.range r plus 1.sum the function sending q to -1 : the integers to the power q times Nat.choose r q : the integers times comb Index Card r k minus q : the integers.",
+      "mathematicalFormula": "\\operatorname{recurrenceEulerCharacteristic}(r,k)=(\\operatorname{Finset}.\\operatorname{range} (r + 1)).\\operatorname{sum} q \\longmapsto ((-1 \\colon \\mathbb{Z}) ^ q) \\cdot (\\mathbb{N}.\\operatorname{choose} r q \\colon \\mathbb{Z}) \\cdot (\\operatorname{combIndexCard} r (k - q) \\colon \\mathbb{Z})",
       "leanType": "def recurrenceEulerCharacteristic (r k : ℕ) : ℤ",
       "line": 55
     },
     {
       "leanDeclaration": "GenericDimensionFormula",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Generic Dimension Formula. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Statement that the Euler characteristic gives the expected generic dimension. This is the combinatorial target of the eventual generic exactness proof. In explicit terms, for r, k in the natural numbers, its defining expression is recurrence Euler Characteristic r k equals generic Kernel Dimension Expected r k : the integers.",
+      "mathematicalFormula": "\\operatorname{GenericDimensionFormula}(r,k)=\\operatorname{recurrenceEulerCharacteristic} r k = (\\operatorname{genericKernelDimensionExpected} r k \\colon \\mathbb{Z})",
       "leanType": "def GenericDimensionFormula (r k : ℕ) : Prop",
       "line": 66
     },
     {
       "leanDeclaration": "firstDifferential",
       "kind": "abbrev",
-      "mathematicalMeaning": "Definition: first Differential. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The first differential of the recurrence complex. In explicit terms, for r, s in the natural numbers, n in the real numbers, w of type fin r maps to the real numbers, and a of type comb coeff space r s plus 1, its defining expression is d One n w A.",
+      "mathematicalFormula": "\\operatorname{firstDifferential}(n,w,A)=\\operatorname{dOne} n w A",
       "leanType": "abbrev firstDifferential {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (A : CombCoeffSpace r (s + 1)) : Fin r → CombCoeffSpace r s",
       "line": 71
     },
     {
       "leanDeclaration": "InFirstKernel",
       "kind": "def",
-      "mathematicalMeaning": "Definition: In First Kernel. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Membership in the kernel of the first differential. In explicit terms, for r, s in the natural numbers, n in the real numbers, w of type fin r maps to the real numbers, and a of type comb coeff space r s plus 1, its defining expression is first Differential n w A equals fun j maps to fun β maps to 0.",
+      "mathematicalFormula": "\\operatorname{InFirstKernel}(n,w,A)=\\operatorname{firstDifferential} n w A = \\operatorname{fun} _j => (\\operatorname{fun} _β => 0)",
       "leanType": "def InFirstKernel {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (A : CombCoeffSpace r (s + 1)) : Prop",
       "line": 79
     },
     {
       "leanDeclaration": "recurrence_iff_in_first_kernel",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: recurrence iff in first kernel. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r, s in the natural numbers, n in the real numbers, w of type Fin r maps to the real numbers, and A of type Comb Coeff Space r s plus 1, Rank Recurrence At Level n w A if and only if In First Kernel n w A.",
+      "mathematicalFormula": "\\forall\\,r,s\\colon \\mathbb{N},\\;n\\colon \\mathbb{R},\\;w\\colon \\operatorname{Fin} r \\longrightarrow \\mathbb{R},\\;A\\colon \\operatorname{CombCoeffSpace} r (s + 1),\\quad \\operatorname{RankRecurrenceAtLevel} n w A \\Longleftrightarrow \\operatorname{InFirstKernel} n w A",
       "leanType": "theorem recurrence_iff_in_first_kernel {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (A : CombCoeffSpace r (s + 1)) : RankRecurrenceAtLevel n w A ↔ InFirstKernel n w A",
       "line": 85
     },
     {
       "leanDeclaration": "GenericExactnessData",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Generic Exactness Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Package for a future proof of generic exactness. Its mathematical data are: euler formula: Generic Dimension Formula r k.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{euler\\_formula}&\\colon \\operatorname{GenericDimensionFormula} r k\\end{aligned}",
       "leanType": "structure GenericExactnessData (r k : ℕ) : Prop",
       "line": 96
     }

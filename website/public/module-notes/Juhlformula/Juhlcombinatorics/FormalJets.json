@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Juhlformula/Juhlcombinatorics/FormalJets.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Juhlformula/Juhlcombinatorics/FormalJets.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,98 +19,112 @@
     {
       "leanDeclaration": "FormalExpr",
       "kind": "inductive",
-      "mathematicalMeaning": "Definition: Formal Expr. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Formal expressions used in the Juhl obstruction recursion. Its constructors are: zero with arguments : Formal Expr; one with arguments : Formal Expr; rat with arguments : ℚ maps to Formal Expr; k with arguments : Formal Expr; f with arguments : Formal Expr; F with arguments : the natural numbers maps to Formal Expr; tr with arguments : the natural numbers maps to Formal Expr; add with arguments : Formal Expr maps to Formal Expr maps to Formal Expr; neg with arguments : Formal Expr maps to Formal Expr; mul with arguments : Formal Expr maps to Formal Expr maps to Formal Expr; op D with arguments : the natural numbers maps to Formal Expr maps to Formal Expr.",
+      "mathematicalFormula": "\\operatorname{FormalExpr}::=\\operatorname{zero}(\\colon \\operatorname{FormalExpr})\\mid\\operatorname{one}(\\colon \\operatorname{FormalExpr})\\mid\\operatorname{rat}(\\colon \\mathbb{Q} \\longrightarrow \\operatorname{FormalExpr})\\midk(\\colon \\operatorname{FormalExpr})\\midf(\\colon \\operatorname{FormalExpr})\\midF(\\colon \\mathbb{N} \\longrightarrow \\operatorname{FormalExpr})\\mid\\operatorname{tr}(\\colon \\mathbb{N} \\longrightarrow \\operatorname{FormalExpr})\\mid\\operatorname{add}(\\colon \\operatorname{FormalExpr} \\longrightarrow \\operatorname{FormalExpr} \\longrightarrow \\operatorname{FormalExpr})\\mid\\operatorname{neg}(\\colon \\operatorname{FormalExpr} \\longrightarrow \\operatorname{FormalExpr})\\mid\\operatorname{mul}(\\colon \\operatorname{FormalExpr} \\longrightarrow \\operatorname{FormalExpr} \\longrightarrow \\operatorname{FormalExpr})\\mid\\operatorname{opD}(\\colon \\mathbb{N} \\longrightarrow \\operatorname{FormalExpr} \\longrightarrow \\operatorname{FormalExpr})",
       "leanType": "inductive FormalExpr",
       "line": 16
     },
     {
       "leanDeclaration": "qsmul",
       "kind": "def",
-      "mathematicalMeaning": "Definition: qsmul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Rational scalar multiplication as syntax. In explicit terms, for q of type ℚ, and e of type formal expr, its defining expression is Formal Expr.mul Formal Expr.rat q E.",
+      "mathematicalFormula": "\\operatorname{qsmul}(q,E)=\\operatorname{FormalExpr}.\\operatorname{mul} (\\operatorname{FormalExpr}.\\operatorname{rat} q) E",
       "leanType": "def qsmul (q : ℚ) (E : FormalExpr) : FormalExpr",
       "line": 40
     },
     {
       "leanDeclaration": "factQ",
       "kind": "def",
-      "mathematicalMeaning": "Definition: fact Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Rational factorial. In explicit terms, for n in the natural numbers, its defining expression is Nat.factorial n : ℚ.",
+      "mathematicalFormula": "\\operatorname{factQ}(n)=(\\mathbb{N}.\\operatorname{factorial} n \\colon \\mathbb{Q})",
       "leanType": "def factQ (n : ℕ) : ℚ",
       "line": 46
     },
     {
       "leanDeclaration": "invFactQ",
       "kind": "def",
-      "mathematicalMeaning": "Definition: inv Fact Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "1 / n! as a rational number. In explicit terms, for n in the natural numbers, its defining expression is fact Q n ⁻¹.",
+      "mathematicalFormula": "\\operatorname{invFactQ}(n)=(\\operatorname{factQ} n)⁻¹",
       "leanType": "def invFactQ (n : ℕ) : ℚ",
       "line": 50
     },
     {
       "leanDeclaration": "invFact2Q",
       "kind": "def",
-      "mathematicalMeaning": "Definition: inv Fact2 Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The Taylor denominator 1 / (a! b!). In explicit terms, for a, b in the natural numbers, its defining expression is fact Q a times fact Q b ⁻¹.",
+      "mathematicalFormula": "\\operatorname{invFact2Q}(a,b)=(\\operatorname{factQ} a \\cdot \\operatorname{factQ} b)⁻¹",
       "leanType": "def invFact2Q (a b : ℕ) : ℚ",
       "line": 54
     },
     {
       "leanDeclaration": "listSum",
       "kind": "def",
-      "mathematicalMeaning": "Definition: list Sum. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def listSum : List FormalExpr → FormalExpr | [] => 0 | x :: xs => x + listSum xs",
+      "mathematicalMeaning": "Sum a list of formal expressions at the syntax level. In explicit terms, its defining expression is | maps to 0 | x :: xs maps to x plus list Sum xs.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{listSum}([])&=0\\\\\\operatorname{listSum}(x \\colon \\colon \\operatorname{xs})&=x + \\operatorname{listSum} \\operatorname{xs}\\end{aligned}",
+      "leanType": "def listSum : List FormalExpr → FormalExpr",
       "line": 58
     },
     {
       "leanDeclaration": "rangeSum",
       "kind": "def",
-      "mathematicalMeaning": "Definition: range Sum. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Sum over 0,..., m at the syntax level. In explicit terms, for m in the natural numbers, and a of type the natural numbers maps to formal expr, its defining expression is list Sum List.range m plus 1.map A.",
+      "mathematicalFormula": "\\operatorname{rangeSum}(m,A)=\\operatorname{listSum} ((\\operatorname{List}.\\operatorname{range} (m + 1)).\\operatorname{map} A)",
       "leanType": "def rangeSum (m : ℕ) (A : ℕ → FormalExpr) : FormalExpr",
       "line": 63
     },
     {
       "leanDeclaration": "highestCoeff",
       "kind": "def",
-      "mathematicalMeaning": "Definition: highest Coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Coefficient of the highest jet F_{m+1} in L_m. In explicit terms, for ell, m in the natural numbers, its defining expression is 4 times m plus 1 : ℚ minus ell : ℚ times inv Fact Q m.",
+      "mathematicalFormula": "\\operatorname{highestCoeff}(ell,m)=4 \\cdot ((m + 1 \\colon \\mathbb{Q}) - (\\operatorname{ell} \\colon \\mathbb{Q})) \\cdot \\operatorname{invFactQ} m",
       "leanType": "def highestCoeff (ell m : ℕ) : ℚ",
       "line": 67
     },
     {
       "leanDeclaration": "traceDerivativePart",
       "kind": "def",
-      "mathematicalMeaning": "Definition: trace Derivative Part. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def traceDerivativePart : ℕ → FormalExpr | 0 => 0 | m' + 1 => rangeSum m' fun j => FormalExpr.qsmul (2 * invFact2Q j (m' - j)) ((FormalExpr.tr j) * (FormalExpr.F (m' + 1 - j)))",
+      "mathematicalMeaning": "The trace-times-radial-derivative part of L_m. In explicit terms, its defining expression is | 0 maps to 0 | m' plus 1 maps to range Sum m' the function sending j to Formal Expr.qsmul 2 times inv Fact2 Q j m' minus j Formal Expr.tr j times Formal Expr.F m' plus 1 minus j.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{traceDerivativePart}(0)&=0\\\\\\operatorname{traceDerivativePart}(\\operatorname{m'} + 1)&=\\operatorname{rangeSum} \\operatorname{m'} j \\longmapsto \\operatorname{FormalExpr}.\\operatorname{qsmul} (2 \\cdot \\operatorname{invFact2Q} j (\\operatorname{m'} - j)) ((\\operatorname{FormalExpr}.\\operatorname{tr} j) \\cdot (F_{\\mathrm{FormalExpr}} (\\operatorname{m'} + 1 - j)))\\end{aligned}",
+      "leanType": "def traceDerivativePart : ℕ → FormalExpr",
       "line": 71
     },
     {
       "leanDeclaration": "deltaPart",
       "kind": "def",
-      "mathematicalMeaning": "Definition: delta Part. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The formal Laplacian-variation part of L_m. In explicit terms, for m in the natural numbers, its defining expression is range Sum m the function sending j to Formal Expr.qsmul inv Fact2 Q j m minus j Formal Expr.op D j Formal Expr.F m minus j.",
+      "mathematicalFormula": "\\operatorname{deltaPart}(m)=\\operatorname{rangeSum} m j \\longmapsto \\operatorname{FormalExpr}.\\operatorname{qsmul} (\\operatorname{invFact2Q} j (m - j)) (\\operatorname{FormalExpr}.\\operatorname{opD} j (F_{\\mathrm{FormalExpr}} (m - j)))",
       "leanType": "def deltaPart (m : ℕ) : FormalExpr",
       "line": 79
     },
     {
       "leanDeclaration": "kOverTwoMinusEll",
       "kind": "def",
-      "mathematicalMeaning": "Definition: k Over Two Minus Ell. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The formal scalar factor k / 2 - ell. In explicit terms, for ell in the natural numbers, its defining expression is Formal Expr.qsmul 1 divided by 2 : ℚ Formal Expr.k plus Formal Expr.qsmul - ell : ℚ Formal Expr.one.",
+      "mathematicalFormula": "\\operatorname{kOverTwoMinusEll}(ell)=\\operatorname{FormalExpr}.\\operatorname{qsmul} ((1 / 2 \\colon \\mathbb{Q})) k_{\\mathrm{FormalExpr}} + \\operatorname{FormalExpr}.\\operatorname{qsmul} (-(\\operatorname{ell} \\colon \\mathbb{Q})) \\operatorname{FormalExpr}.\\operatorname{one}",
       "leanType": "def kOverTwoMinusEll (ell : ℕ) : FormalExpr",
       "line": 85
     },
     {
       "leanDeclaration": "traceZerothPart",
       "kind": "def",
-      "mathematicalMeaning": "Definition: trace Zeroth Part. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The zeroth-order trace part of L_m. In explicit terms, for ell, m in the natural numbers, its defining expression is k Over Two Minus Ell ell times range Sum m the function sending j to Formal Expr.qsmul inv Fact2 Q j m minus j Formal Expr.tr j times Formal Expr.F m minus j.",
+      "mathematicalFormula": "\\operatorname{traceZerothPart}(ell,m)=(\\operatorname{kOverTwoMinusEll} \\operatorname{ell}) \\cdot (\\operatorname{rangeSum} m j \\longmapsto \\operatorname{FormalExpr}.\\operatorname{qsmul} (\\operatorname{invFact2Q} j (m - j)) ((\\operatorname{FormalExpr}.\\operatorname{tr} j) \\cdot (F_{\\mathrm{FormalExpr}} (m - j))))",
       "leanType": "def traceZerothPart (ell m : ℕ) : FormalExpr",
       "line": 90
     },
     {
       "leanDeclaration": "Lrest",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Lrest. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The part of L_m not containing the distinguished highest jet F_{m+1}. In explicit terms, for ell, m in the natural numbers, its defining expression is trace Derivative Part m plus delta Part m plus trace Zeroth Part ell m.",
+      "mathematicalFormula": "\\operatorname{Lrest}(ell,m)=\\operatorname{traceDerivativePart} m + \\operatorname{deltaPart} m + \\operatorname{traceZerothPart} \\operatorname{ell} m",
       "leanType": "def Lrest (ell m : ℕ) : FormalExpr",
       "line": 97
     },
     {
       "leanDeclaration": "Lcoeff",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Lcoeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The full coefficient equation L_m. In explicit terms, for ell, m in the natural numbers, its defining expression is Formal Expr.qsmul highest Coeff ell m Formal Expr.F m plus 1 plus Lrest ell m.",
+      "mathematicalFormula": "\\operatorname{Lcoeff}(ell,m)=\\operatorname{FormalExpr}.\\operatorname{qsmul} (\\operatorname{highestCoeff} \\operatorname{ell} m) (F_{\\mathrm{FormalExpr}} (m + 1)) + \\operatorname{Lrest} \\operatorname{ell} m",
       "leanType": "def Lcoeff (ell m : ℕ) : FormalExpr",
       "line": 103
     }

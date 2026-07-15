@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Conformal/Density.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Conformal/Density.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,85 +19,97 @@
     {
       "leanDeclaration": "Weight",
       "kind": "abbrev",
-      "mathematicalMeaning": "Definition: Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For α a type, the weight is defined to be Pos Real maps to times α.",
+      "mathematicalFormula": "\\operatorname{Weight}(α)=\\operatorname{PosReal} \\longrightarrow\\cdot α",
       "leanType": "abbrev Weight (α : Type w) [Monoid α]",
       "line": 24
     },
     {
       "leanDeclaration": "rescale",
       "kind": "def",
-      "mathematicalMeaning": "Definition: rescale. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Rescaling a representative from s₁ to s₂. In explicit terms, for χ of type weight α, s₁, s₂ of type conf.scale, and f of type m maps to α, its defining expression is the function sending x to χ Conf.relative Factor s₁ s₂ x times f x.",
+      "mathematicalFormula": "\\operatorname{rescale}(χ,s₁,s₂,f)=x \\longmapsto χ (\\operatorname{Conf}.\\operatorname{relativeFactor} s₁ s₂ x) \\cdot f x",
       "leanType": "noncomputable def rescale (χ : Weight α) (s₁ s₂ : Conf.Scale) (f : M → α) : M → α",
       "line": 30
     },
     {
       "leanDeclaration": "Density",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Density. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A density described by its representative in every scale. Its mathematical data are: val: Conf.Scale maps to M maps to α; compat: for every s₁ s₂ : Conf.Scale, val s₂ equals rescale Conf χ s₁ s₂ val s₁; instance: Coe Fun Density Conf : equals Conf χ fun maps to Conf.Scale maps to M maps to α where coe d : equals d.val @ simp theorem compat apply d : Density Conf : equals Conf χ s₁ s₂ : Conf.Scale x : M : d s₂ x equals χ Conf.relative Factor s₁ s₂ x times d s₁ x : equals by simpa rescale using congr Fun d.compat s₁ s₂ x.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{val}&\\colon \\operatorname{Conf}.\\operatorname{Scale} \\longrightarrow M \\longrightarrow α\\\\\\operatorname{compat}&\\colon \\forall s₁ s₂ \\colon \\operatorname{Conf}.\\operatorname{Scale}, \\operatorname{val} s₂ = \\operatorname{rescale} \\operatorname{Conf} χ s₁ s₂ (\\operatorname{val} s₁)\\\\\\operatorname{instance}&\\colon \\operatorname{CoeFun} (\\operatorname{Density} (\\operatorname{Conf} = \\operatorname{Conf}) χ) (\\operatorname{fun} _ => \\operatorname{Conf}.\\operatorname{Scale} \\longrightarrow M \\longrightarrow α) \\operatorname{where} \\operatorname{coe} d = d.\\operatorname{val} @[\\operatorname{simp}] \\operatorname{theorem} \\operatorname{compat\\_apply} (d \\colon \\operatorname{Density} (\\operatorname{Conf} = \\operatorname{Conf}) χ) (s₁ s₂ \\colon \\operatorname{Conf}.\\operatorname{Scale}) (x \\colon M) \\colon d s₂ x = χ (\\operatorname{Conf}.\\operatorname{relativeFactor} s₁ s₂ x) \\cdot d s₁ x = \\operatorname{by} \\operatorname{simpa} [\\operatorname{rescale}] \\operatorname{using} \\operatorname{congrFun} (d.\\operatorname{compat} s₁ s₂) x\\end{aligned}",
       "leanType": "structure Density (χ : Weight α)",
       "line": 37
     },
     {
       "leanDeclaration": "repr",
       "kind": "def",
-      "mathematicalMeaning": "Definition: repr. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def repr (d : Density (Conf",
+      "mathematicalMeaning": "The representative in a chosen scale. In explicit terms, for d of type density conf : equals conf χ, and s of type conf.scale, its defining expression is d s.",
+      "mathematicalFormula": "\\operatorname{repr}(d,s)=d s",
+      "leanType": "def repr (d : Density (Conf := Conf) χ) (s : Conf.Scale) : M → α",
       "line": 53
     },
     {
       "leanDeclaration": "Density",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Density. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "An equivariant function on the metric bundle. Its mathematical data are: to Fun: Conf.Metric Bundle maps to α; equivariant: for every r : Pos Real u : Conf.Metric Bundle, to Fun Conf.dilate Bundle r u equals χ r times to Fun u; instance: Coe Fun Density Conf : equals Conf χ fun maps to Conf.Metric Bundle maps to α where coe d : equals d.to Fun @ simp theorem equivariant apply d : Density Conf : equals Conf χ r : Pos Real u : Conf.Metric Bundle : d Conf.dilate Bundle r u equals χ r times d u : equals d.equivariant r u @ ext theorem ext d₁ d₂ : Equivariant.Density Conf : equals Conf χ h : for every u : Conf.Metric Bundle, d₁.to Fun u equals d₂.to Fun u : d₁ equals d₂ : equals by cases d₁ with | mk f₁ h₁ maps to cases d₂ with | mk f₂ h₂ maps to have hf : f₁ equals f₂ : equals funext h cases hf have hh : h₁ equals h₂ : equals by apply Subsingleton.elim cases hh rfl.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{toFun}&\\colon \\operatorname{Conf}.\\operatorname{MetricBundle} \\longrightarrow α\\\\\\operatorname{equivariant}&\\colon \\forall (r \\colon \\operatorname{PosReal}) (u \\colon \\operatorname{Conf}.\\operatorname{MetricBundle}), \\operatorname{toFun} (\\operatorname{Conf}.\\operatorname{dilateBundle} r u) = χ r \\cdot \\operatorname{toFun} u\\\\\\operatorname{instance}&\\colon \\operatorname{CoeFun} (\\operatorname{Density} (\\operatorname{Conf} = \\operatorname{Conf}) χ) (\\operatorname{fun} _ => \\operatorname{Conf}.\\operatorname{MetricBundle} \\longrightarrow α) \\operatorname{where} \\operatorname{coe} d = d.\\operatorname{toFun} @[\\operatorname{simp}] \\operatorname{theorem} \\operatorname{equivariant\\_apply} (d \\colon \\operatorname{Density} (\\operatorname{Conf} = \\operatorname{Conf}) χ) (r \\colon \\operatorname{PosReal}) (u \\colon \\operatorname{Conf}.\\operatorname{MetricBundle}) \\colon d (\\operatorname{Conf}.\\operatorname{dilateBundle} r u) = χ r \\cdot d u = d.\\operatorname{equivariant} r u @[\\operatorname{ext}] \\operatorname{theorem} \\operatorname{ext} {d₁ d₂ \\colon \\operatorname{Equivariant}.\\operatorname{Density} (\\operatorname{Conf} = \\operatorname{Conf}) χ} (h \\colon \\forall u \\colon \\operatorname{Conf}.\\operatorname{MetricBundle}, d₁.\\operatorname{toFun} u = d₂.\\operatorname{toFun} u) \\colon d₁ = d₂ = \\operatorname{by} \\operatorname{cases} d₁ \\operatorname{with} | \\operatorname{mk} f₁ h₁ => \\operatorname{cases} d₂ \\operatorname{with} | \\operatorname{mk} f₂ h₂ => \\operatorname{have} \\operatorname{hf} \\colon f₁ = f₂ = \\operatorname{funext} h \\operatorname{cases} \\operatorname{hf} \\operatorname{have} \\operatorname{hh} \\colon h₁ = h₂ = \\operatorname{by} \\operatorname{apply} \\operatorname{Subsingleton}.\\operatorname{elim} \\operatorname{cases} \\operatorname{hh} \\operatorname{rfl}\\end{aligned}",
       "leanType": "structure Density (χ : Weight α)",
       "line": 83
     },
     {
       "leanDeclaration": "scaleFactor_eq_mul_relativeFactor",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: scale Factor eq mul relative Factor. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Changing the reference scale changes the scale factor by the relative factor. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,s₁,s₂\\colon \\operatorname{Conf}.\\operatorname{Scale},\\;x\\colon M,\\;g\\colon \\operatorname{Conf}.\\operatorname{MetricFiber} x,\\quad \\operatorname{Conf}.\\operatorname{scaleFactor} s₁ g = \\operatorname{Conf}.\\operatorname{scaleFactor} s₂ g \\cdot \\operatorname{Conf}.\\operatorname{relativeFactor} s₁ s₂ x",
       "leanType": "theorem scaleFactor_eq_mul_relativeFactor (s₁ s₂ : Conf.Scale) {x : M} (g : Conf.MetricFiber x) : Conf.scaleFactor s₁ g = Conf.scaleFactor s₂ g * Conf.relativeFactor s₁ s₂ x",
       "line": 125
     },
     {
       "leanDeclaration": "toEquivariantUsing",
       "kind": "def",
-      "mathematicalMeaning": "Definition: to Equivariant Using. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "noncomputable def toEquivariantUsing (d : Density (Conf",
+      "mathematicalMeaning": "Convert a scale-dependent density to an equivariant function, using a chosen reference scale.",
+      "mathematicalFormula": "\\operatorname{toEquivariantUsing}(d,s₀)\\colon \\operatorname{Equivariant}.\\operatorname{Density} (\\operatorname{Conf} = \\operatorname{Conf}) χ",
+      "leanType": "noncomputable def toEquivariantUsing (d : Density (Conf := Conf) χ) (s₀ : Conf.Scale) : Equivariant.Density (Conf := Conf) χ",
       "line": 166
     },
     {
       "leanDeclaration": "toEquivariantUsing_independent",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: to Equivariant Using independent. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem toEquivariantUsing_independent (d : Density (Conf",
+      "mathematicalMeaning": "The construction is independent of the chosen reference scale. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,d\\colon \\operatorname{Density} (\\operatorname{Conf} = \\operatorname{Conf}) χ,\\;s₀,s₁\\colon \\operatorname{Conf}.\\operatorname{Scale},\\quad \\operatorname{toEquivariantUsing} (\\operatorname{Conf} = \\operatorname{Conf}) d s₀ = \\operatorname{toEquivariantUsing} (\\operatorname{Conf} = \\operatorname{Conf}) d s₁",
+      "leanType": "theorem toEquivariantUsing_independent (d : Density (Conf := Conf) χ) (s₀ s₁ : Conf.Scale) : toEquivariantUsing (Conf := Conf) d s₀ = toEquivariantUsing (Conf := Conf) d s₁",
       "line": 194
     },
     {
       "leanDeclaration": "toEquivariant",
       "kind": "def",
-      "mathematicalMeaning": "Definition: to Equivariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "noncomputable def toEquivariant (d : Density (Conf",
+      "mathematicalMeaning": "Intrinsic conversion from scale-dependent to equivariant form. This uses a chosen global scale. In explicit terms, for d of type density conf : equals conf χ, its defining expression is to Equivariant Using Conf : equals Conf d Classical.choice ‹Nonempty Conf.Scale›.",
+      "mathematicalFormula": "\\operatorname{toEquivariant}(d)=\\operatorname{toEquivariantUsing} (\\operatorname{Conf} = \\operatorname{Conf}) d (\\operatorname{Classical}.\\operatorname{choice} ‹\\operatorname{Nonempty} \\operatorname{Conf}.\\operatorname{Scale}›)",
+      "leanType": "noncomputable def toEquivariant (d : Density (Conf := Conf) χ) [Nonempty Conf.Scale] : Equivariant.Density (Conf := Conf) χ",
       "line": 209
     },
     {
       "leanDeclaration": "toEquivariant_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: to Equivariant apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem toEquivariant_apply (d : Density (Conf",
+      "mathematicalMeaning": "For d of type Density Conf : equals Conf χ, s₀ of type Conf.Scale, x of type M, and g of type Conf.Metric Fiber x, to Equivariant Conf : equals Conf d ⟨x, g⟩ equals χ Conf.scale Factor s₀ g times d s₀ x.",
+      "mathematicalFormula": "\\forall\\,d\\colon \\operatorname{Density} (\\operatorname{Conf} = \\operatorname{Conf}) χ,\\;\\operatorname{Nonempty} \\operatorname{Conf}.\\operatorname{Scale},\\;s₀\\colon \\operatorname{Conf}.\\operatorname{Scale},\\;x\\colon M,\\;g\\colon \\operatorname{Conf}.\\operatorname{MetricFiber} x,\\quad \\operatorname{toEquivariant} (\\operatorname{Conf} = \\operatorname{Conf}) d ⟨x, g⟩ = χ (\\operatorname{Conf}.\\operatorname{scaleFactor} s₀ g) \\cdot d s₀ x",
+      "leanType": "theorem toEquivariant_apply (d : Density (Conf := Conf) χ) [Nonempty Conf.Scale] (s₀ : Conf.Scale) (x : M) (g : Conf.MetricFiber x) : toEquivariant (Conf := Conf) d ⟨x, g⟩ = χ (Conf.scaleFactor s₀ g) * d s₀ x",
       "line": 221
     },
     {
       "leanDeclaration": "toScaleDependent",
       "kind": "def",
-      "mathematicalMeaning": "Definition: to Scale Dependent. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def toScaleDependent (d : Density (Conf",
+      "mathematicalMeaning": "Restrict an equivariant density to the section defined by a scale. In explicit terms, for d of type density conf : equals conf χ, its defining expression is val s x : equals d ⟨x, s.metric x⟩ compat : equals by intro s₁ s₂ funext x change d ⟨x, s₂.metric x⟩ equals χ Conf.relative Factor s₁ s₂ x times d ⟨x, s₁.metric x⟩ rw ← Conf.relative Factor spec s₁ s₂ x simpa using d.equivariant Conf.relative Factor s₁ s₂ x ⟨x, s₁.metric x⟩.",
+      "mathematicalFormula": "\\operatorname{toScaleDependent}(d)=\\operatorname{val} s x = d ⟨x, s.\\operatorname{metric} x⟩ \\operatorname{compat} = \\operatorname{by} \\operatorname{intro} s₁ s₂ \\operatorname{funext} x \\operatorname{change} d ⟨x, s₂.\\operatorname{metric} x⟩ = χ (\\operatorname{Conf}.\\operatorname{relativeFactor} s₁ s₂ x) \\cdot d ⟨x, s₁.\\operatorname{metric} x⟩ \\operatorname{rw} [← \\operatorname{Conf}.\\operatorname{relativeFactor\\_spec} s₁ s₂ x] \\operatorname{simpa} \\operatorname{using} d.\\operatorname{equivariant} (\\operatorname{Conf}.\\operatorname{relativeFactor} s₁ s₂ x) ⟨x, s₁.\\operatorname{metric} x⟩",
+      "leanType": "def toScaleDependent (d : Density (Conf := Conf) χ) : ConformalStructure.Density (Conf := Conf) χ",
       "line": 239
     },
     {
       "leanDeclaration": "equivScaleDependentEquiv",
       "kind": "def",
-      "mathematicalMeaning": "Definition: equiv Scale Dependent Equiv. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "noncomputable def equivScaleDependentEquiv [Nonempty Conf.Scale] : ConformalStructure.Equivariant.Density (Conf",
+      "mathematicalMeaning": "Equivalence between the two descriptions of densities, once a global scale exists. In explicit terms, its defining expression is to Fun : equals the function sending d to Conformal Structure.Equivariant.Density.to Scale Dependent Conf : equals Conf χ : equals χ d inv Fun : equals the function sending d to Conformal Structure.Density.to Equivariant Conf : equals Conf χ : equals χ d left inv : equals by intro d simpa using Conformal Structure.Equivariant.Density.to Equivariant to Scale Dependent Conf : equals Conf χ : equals χ d right inv : equals by intro d ext s x simpa using Conformal Structure.Density.to Scale Dependent to Equivariant Conf : equals Conf χ : equals χ d s x.",
+      "mathematicalFormula": "\\operatorname{equivScaleDependentEquiv}=\\operatorname{toFun} = d \\longmapsto \\operatorname{ConformalStructure}.\\operatorname{Equivariant}.\\operatorname{Density}.\\operatorname{toScaleDependent} (\\operatorname{Conf} = \\operatorname{Conf}) (χ = χ) d \\operatorname{invFun} = d \\longmapsto \\operatorname{ConformalStructure}.\\operatorname{Density}.\\operatorname{toEquivariant} (\\operatorname{Conf} = \\operatorname{Conf}) (χ = χ) d \\operatorname{left\\_inv} = \\operatorname{by} \\operatorname{intro} d \\operatorname{simpa} \\operatorname{using} (\\operatorname{ConformalStructure}.\\operatorname{Equivariant}.\\operatorname{Density}.\\operatorname{toEquivariant\\_toScaleDependent} (\\operatorname{Conf} = \\operatorname{Conf}) (χ = χ) d) \\operatorname{right\\_inv} = \\operatorname{by} \\operatorname{intro} d \\operatorname{ext} s x \\operatorname{simpa} \\operatorname{using} (\\operatorname{ConformalStructure}.\\operatorname{Density}.\\operatorname{toScaleDependent\\_toEquivariant} (\\operatorname{Conf} = \\operatorname{Conf}) (χ = χ) d s x)",
+      "leanType": "noncomputable def equivScaleDependentEquiv [Nonempty Conf.Scale] : ConformalStructure.Equivariant.Density (Conf := Conf) χ ≃ ConformalStructure.Density (Conf := Conf) χ",
       "line": 308
     }
   ],

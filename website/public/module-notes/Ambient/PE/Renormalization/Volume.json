@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/PE/Renormalization/Volume.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/PE/Renormalization/Volume.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,42 +19,48 @@
     {
       "leanDeclaration": "PEVolumeCutoffData",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: PEVolume Cutoff Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Cutoff-volume data for one PE normal form. Its mathematical data are: normal Form: Poincare Normal Form Data. u, v, w X; cutoff Volume: Pos Real maps to Real; volume Expansion: Laurent Log Expansion Real.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{normalForm}&\\colon \\operatorname{PoincareNormalFormData}.\\operatorname{}{u, v, w} X\\\\\\operatorname{cutoffVolume}&\\colon \\operatorname{PosReal} \\longrightarrow \\mathbb{R}\\\\\\operatorname{volumeExpansion}&\\colon \\operatorname{LaurentLogExpansion} \\mathbb{R}\\end{aligned}",
       "leanType": "structure PEVolumeCutoffData (X : PESpace.{u, v})",
       "line": 22
     },
     {
       "leanDeclaration": "volumeCutoffFunctional",
       "kind": "def",
-      "mathematicalMeaning": "Definition: volume Cutoff Functional. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Volume as an instance of the generic cutoff-functional interface. In explicit terms, for x of type pespace. u, v, its defining expression is cutoff Value : equals the function sending D to D.cutoff Volume expansion : equals the function sending D to D.volume Expansion.",
+      "mathematicalFormula": "\\operatorname{volumeCutoffFunctional}(X)=\\operatorname{cutoffValue} = D \\longmapsto D.\\operatorname{cutoffVolume} \\operatorname{expansion} = D \\longmapsto D.\\operatorname{volumeExpansion}",
       "leanType": "def volumeCutoffFunctional (X : PESpace.{u, v}) : CutoffFunctional (PEVolumeCutoffData.{u, v, w} X) Real",
       "line": 28
     },
     {
       "leanDeclaration": "RenormalizedVolume",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Renormalized Volume. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The renormalized volume, defined as the constant Laurent coefficient. In explicit terms, for x of type pespace, and d of type pevolume cutoff data x, its defining expression is volume Cutoff Functional X.renormalized Value D.",
+      "mathematicalFormula": "\\operatorname{RenormalizedVolume}(D)=(\\operatorname{volumeCutoffFunctional} X).\\operatorname{renormalizedValue} D",
       "leanType": "def RenormalizedVolume {X : PESpace} (D : PEVolumeCutoffData X) : Real",
       "line": 35
     },
     {
       "leanDeclaration": "VolumeAnomaly",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Volume Anomaly. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The logarithmic volume anomaly. In explicit terms, for x of type pespace, and d of type pevolume cutoff data x, its defining expression is volume Cutoff Functional X.anomaly Value D.",
+      "mathematicalFormula": "\\operatorname{VolumeAnomaly}(D)=(\\operatorname{volumeCutoffFunctional} X).\\operatorname{anomalyValue} D",
       "leanType": "def VolumeAnomaly {X : PESpace} (D : PEVolumeCutoffData X) : Real",
       "line": 42
     },
     {
       "leanDeclaration": "RenormalizedVolume_eq_finitePart",
       "kind": "theorem",
-      "mathematicalMeaning": "Selects or identifies the constant term in a Laurent/log cutoff expansion.",
+      "mathematicalMeaning": "For X of type PESpace, and D of type PEVolume Cutoff Data X, Renormalized Volume D equals finite Part D.volume Expansion.",
+      "mathematicalFormula": "\\forall\\,X\\colon \\operatorname{PESpace},\\;D\\colon \\operatorname{PEVolumeCutoffData} X,\\quad \\operatorname{RenormalizedVolume} D = \\operatorname{finitePart} D.\\operatorname{volumeExpansion}",
       "leanType": "theorem RenormalizedVolume_eq_finitePart {X : PESpace} (D : PEVolumeCutoffData X) : RenormalizedVolume D = finitePart D.volumeExpansion",
       "line": 49
     },
     {
       "leanDeclaration": "VolumeAnomaly_eq_logAnomaly",
       "kind": "theorem",
-      "mathematicalMeaning": "Selects or identifies the logarithmic coefficient in a cutoff expansion.",
+      "mathematicalMeaning": "For X of type PESpace, and D of type PEVolume Cutoff Data X, Volume Anomaly D equals log Anomaly D.volume Expansion.",
+      "mathematicalFormula": "\\forall\\,X\\colon \\operatorname{PESpace},\\;D\\colon \\operatorname{PEVolumeCutoffData} X,\\quad \\operatorname{VolumeAnomaly} D = \\operatorname{logAnomaly} D.\\operatorname{volumeExpansion}",
       "leanType": "theorem VolumeAnomaly_eq_logAnomaly {X : PESpace} (D : PEVolumeCutoffData X) : VolumeAnomaly D = logAnomaly D.volumeExpansion",
       "line": 56
     }

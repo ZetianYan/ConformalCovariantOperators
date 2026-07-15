@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/PE/EinsteinEquation.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/PE/EinsteinEquation.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,42 +19,48 @@
     {
       "leanDeclaration": "can",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: can. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "construct these certificates from ambient Ricci-flatness. - divided by.",
+      "mathematicalFormula": "\\operatorname{construct} \\operatorname{these} \\operatorname{certificates} \\operatorname{from} \\operatorname{ambient} \\operatorname{Ricci}-\\operatorname{flatness}.\\operatorname{} -/",
       "leanType": "theorem can construct these certificates from ambient Ricci-flatness. -/",
       "line": 18
     },
     {
       "leanDeclaration": "PEFormalExpansion",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: PEFormal Expansion. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Formal boundary metric coefficients in the expansion of h_r. Its mathematical data are: coeff: Nat maps to Metric Symbol X.boundary; even to order: for every m : Nat, m < X.boundary Dim maps to Odd m maps to coeff m equals 0; tracefree obstruction: Prop.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{coeff}&\\colon \\mathbb{N} \\longrightarrow \\operatorname{MetricSymbol} X.\\operatorname{boundary}\\\\\\operatorname{even\\_to\\_order}&\\colon \\forall m \\colon \\mathbb{N}, m < X.\\operatorname{boundaryDim} \\longrightarrow \\operatorname{Odd} m \\longrightarrow \\operatorname{coeff} m = 0\\\\\\operatorname{tracefree\\_obstruction}&\\colon \\mathrm{Prop}\\end{aligned}",
       "leanType": "structure PEFormalExpansion (X : PESpace.{u, v})",
       "line": 22
     },
     {
       "leanDeclaration": "HasEvenExpansionToOrder",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Has Even Expansion To Order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The parity predicate used by PE normal-form recursion. In explicit terms, for n in the natural numbers, its defining expression is for every m : Nat, m < N maps to Odd m maps to E.coeff m equals 0.",
+      "mathematicalFormula": "\\operatorname{HasEvenExpansionToOrder}(N)=\\forall m \\colon \\mathbb{N}, m < N \\longrightarrow \\operatorname{Odd} m \\longrightarrow E.\\operatorname{coeff} m = 0",
       "leanType": "def HasEvenExpansionToOrder (N : Nat) : Prop",
       "line": 37
     },
     {
       "leanDeclaration": "hasEvenExpansionToBoundaryOrder",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: has Even Expansion To Boundary Order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "E.Has Even Expansion To Order X.boundary Dim.",
+      "mathematicalFormula": "E.\\operatorname{HasEvenExpansionToOrder} X.\\operatorname{boundaryDim}",
       "leanType": "theorem hasEvenExpansionToBoundaryOrder : E.HasEvenExpansionToOrder X.boundaryDim",
       "line": 40
     },
     {
       "leanDeclaration": "IsPoincareEinstein",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Is Poincare Einstein. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Certificate that a Poincare normal form solves the Einstein equation. This is data-valued because it carries the formal expansion produced by the Einstein recursion, not merely a proposition about an externally fixed series. Its mathematical data are: einstein equation: NF.metric.ricci equals einstein RHS X NF.metric.g Plus; formal Expansion: PEFormal Expansion X; coeff zero: formal Expansion.coeff 0 equals NF.h0; expansion certificate: Prop.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{einstein\\_equation}&\\colon \\operatorname{NF}.\\operatorname{metric}.\\operatorname{ricci} = \\operatorname{einsteinRHS} X \\operatorname{NF}.\\operatorname{metric}.\\operatorname{gPlus}\\\\\\operatorname{formalExpansion}&\\colon \\operatorname{PEFormalExpansion} X\\\\\\operatorname{coeff\\_zero}&\\colon \\operatorname{formalExpansion}.\\operatorname{coeff} 0 = \\operatorname{NF}.\\operatorname{h0}\\\\\\operatorname{expansion\\_certificate}&\\colon \\mathrm{Prop}\\end{aligned}",
       "leanType": "structure IsPoincareEinstein {X : PESpace.{u, v}} (NF : PoincareNormalFormData.{u, v, w} X)",
       "line": 52
     },
     {
       "leanDeclaration": "PE_expansion_even_to_order",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: PE expansion even to order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For X of type PESpace, NF of type Poincare Normal Form Data X, and hPE of type Is Poincare Einstein NF, h PE.formal Expansion.Has Even Expansion To Order X.boundary Dim.",
+      "mathematicalFormula": "\\forall\\,X\\colon \\operatorname{PESpace},\\;NF\\colon \\operatorname{PoincareNormalFormData} X,\\;hPE\\colon \\operatorname{IsPoincareEinstein} \\operatorname{NF},\\quad \\operatorname{hPE}.\\operatorname{formalExpansion}.\\operatorname{HasEvenExpansionToOrder} X.\\operatorname{boundaryDim}",
       "leanType": "theorem PE_expansion_even_to_order {X : PESpace} {NF : PoincareNormalFormData X} (hPE : IsPoincareEinstein NF) : hPE.formalExpansion.HasEvenExpansionToOrder X.boundaryDim",
       "line": 62
     }

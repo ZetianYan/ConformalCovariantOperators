@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/PE/Invariants/LaplacianRecursion.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/PE/Invariants/LaplacianRecursion.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,106 +19,121 @@
     {
       "leanDeclaration": "caseLaplacianCoefficient",
       "kind": "def",
-      "mathematicalMeaning": "Definition: case Laplacian Coefficient. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Coefficient 4 (k+j) (n-2k-2j-1) / n in the j-th Case Laplacian factor. The signed numerator is formed in Int before coercion to Rat. In explicit terms, for n, k, j in the natural numbers, its defining expression is 4 : Rat times k plus j times n : Int minus 2 times k : Int minus 2 times j : Int minus 1 : Int : Rat divided by n : Rat.",
+      "mathematicalFormula": "\\operatorname{caseLaplacianCoefficient}(n,k,j)=(4 \\colon \\mathbb{Q}) \\cdot k + j \\cdot (((n \\colon \\mathbb{Z}) - 2 \\cdot (k \\colon \\mathbb{Z}) - 2 \\cdot (j \\colon \\mathbb{Z}) - 1 \\colon \\mathbb{Z}) \\colon \\mathbb{Q}) / (n \\colon \\mathbb{Q})",
       "leanType": "def caseLaplacianCoefficient (n k j : Nat) : Rat",
       "line": 27
     },
     {
       "leanDeclaration": "CaseLaplacianFactor",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Case Laplacian Factor. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "One factor in Equation (3.1). In explicit terms, for n, k, j in the natural numbers, and i of type scalar invariant, its defining expression is ⟨ expr : equals Tensor Invariant Expr.add Tensor Invariant Expr.ambient Laplacian I.1.expr Tensor Invariant Expr.scalar Mul -case Laplacian Coefficient n k j Tensor Invariant Expr.j Mul I.1.expr rank : equals 0 weight : equals I.1.weight minus 2 parity : equals I.1.parity, rfl ⟩.",
+      "mathematicalFormula": "\\operatorname{CaseLaplacianFactor}(n,k,j,I)=⟨ { \\operatorname{expr} = \\operatorname{TensorInvariantExpr}.\\operatorname{add} (\\operatorname{TensorInvariantExpr}.\\operatorname{laplacian} I.\\operatorname{1}.\\operatorname{expr}) (\\operatorname{TensorInvariantExpr}.\\operatorname{scalarMul} (-\\operatorname{caseLaplacianCoefficient} n k j) (\\operatorname{TensorInvariantExpr}.\\operatorname{jMul} I.\\operatorname{1}.\\operatorname{expr})) \\operatorname{rank} = 0 \\operatorname{weight} = I.\\operatorname{1}.\\operatorname{weight} - 2 \\operatorname{parity} = I.\\operatorname{1}.\\operatorname{parity} }, \\operatorname{rfl} ⟩",
       "leanType": "def CaseLaplacianFactor (n k j : Nat) (I : ScalarInvariant) : ScalarInvariant",
       "line": 34
     },
     {
       "leanDeclaration": "CaseLaplacianFactor_weight",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: Case Laplacian Factor weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For n, k, j in the natural numbers, and I of type Scalar Invariant, Case Laplacian Factor n k j I.1.weight equals I.1.weight minus 2.",
+      "mathematicalFormula": "\\forall\\,n,k,j\\colon \\mathbb{N},\\;I\\colon \\operatorname{ScalarInvariant},\\quad (\\operatorname{CaseLaplacianFactor} n k j I).1.\\operatorname{weight} = I.\\operatorname{1}.\\operatorname{weight} - 2",
       "leanType": "theorem CaseLaplacianFactor_weight (n k j : Nat) (I : ScalarInvariant) : (CaseLaplacianFactor n k j I).1.weight = I.1.weight - 2",
       "line": 54
     },
     {
       "leanDeclaration": "CaseLaplacianRecursion",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Case Laplacian Recursion. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def CaseLaplacianRecursion (n k : Nat) : Nat -> ScalarInvariant -> ScalarInvariant | 0, I => I | ell + 1, I => CaseLaplacianFactor n k ell (CaseLaplacianRecursion n k ell I)",
+      "mathematicalMeaning": "Iteration of Equation (3.1), ordered by increasing j. In explicit terms, for n, k in the natural numbers, its defining expression is | 0, I maps to I | ell plus 1, I maps to Case Laplacian Factor n k ell Case Laplacian Recursion n k ell I.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{CaseLaplacianRecursion}(0, I)&=I\\\\\\operatorname{CaseLaplacianRecursion}(\\operatorname{ell} + 1, I)&=\\operatorname{CaseLaplacianFactor} n k \\operatorname{ell} (\\operatorname{CaseLaplacianRecursion} n k \\operatorname{ell} I)\\end{aligned}",
+      "leanType": "def CaseLaplacianRecursion (n k : Nat) : Nat -> ScalarInvariant -> ScalarInvariant",
       "line": 61
     },
     {
       "leanDeclaration": "CaseLaplacianRecursion_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: Case Laplacian Recursion zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For n, k in the natural numbers, and I of type Scalar Invariant, Case Laplacian Recursion n k 0 I equals I.",
+      "mathematicalFormula": "\\forall\\,n,k\\colon \\mathbb{N},\\;I\\colon \\operatorname{ScalarInvariant},\\quad \\operatorname{CaseLaplacianRecursion} n k 0 I = I",
       "leanType": "theorem CaseLaplacianRecursion_zero (n k : Nat) (I : ScalarInvariant) : CaseLaplacianRecursion n k 0 I = I",
       "line": 70
     },
     {
       "leanDeclaration": "CaseLaplacianRecursion_succ",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: Case Laplacian Recursion succ. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For n, k, ell in the natural numbers, and I of type Scalar Invariant, Case Laplacian Recursion n k ell plus 1 I equals Case Laplacian Factor n k ell Case Laplacian Recursion n k ell I.",
+      "mathematicalFormula": "\\forall\\,n,k,ell\\colon \\mathbb{N},\\;I\\colon \\operatorname{ScalarInvariant},\\quad \\operatorname{CaseLaplacianRecursion} n k (\\operatorname{ell} + 1) I = \\operatorname{CaseLaplacianFactor} n k \\operatorname{ell} (\\operatorname{CaseLaplacianRecursion} n k \\operatorname{ell} I)",
       "leanType": "theorem CaseLaplacianRecursion_succ (n k ell : Nat) (I : ScalarInvariant) : CaseLaplacianRecursion n k (ell + 1) I = CaseLaplacianFactor n k ell (CaseLaplacianRecursion n k ell I)",
       "line": 77
     },
     {
       "leanDeclaration": "CaseLaplacianRecursion_weight",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: Case Laplacian Recursion weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Every recursion step lowers weight by two. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,n,k,ell\\colon \\mathbb{N},\\;I\\colon \\operatorname{ScalarInvariant},\\quad (\\operatorname{CaseLaplacianRecursion} n k \\operatorname{ell} I).1.\\operatorname{weight} = I.\\operatorname{1}.\\operatorname{weight} - 2 \\cdot (\\operatorname{ell} \\colon \\mathbb{Z})",
       "leanType": "theorem CaseLaplacianRecursion_weight (n k ell : Nat) (I : ScalarInvariant) : (CaseLaplacianRecursion n k ell I).1.weight = I.1.weight - 2 * (ell : Int)",
       "line": 87
     },
     {
       "leanDeclaration": "ambientLaplacianIter",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ambient Laplacian Iter. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def ambientLaplacianIter : Nat -> AmbientScalarInvariant -> AmbientScalarInvariant | 0, I => I | ell + 1, I => AmbientScalarInvariant.laplacian (ambientLaplacianIter ell I)",
+      "mathematicalMeaning": "Iterated ambient Laplacian. In explicit terms, its defining expression is | 0, I maps to I | ell plus 1, I maps to Ambient Scalar Invariant.ambient Laplacian ambient Laplacian Iter ell I.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{ambientLaplacianIter}(0, I)&=I\\\\\\operatorname{ambientLaplacianIter}(\\operatorname{ell} + 1, I)&=\\operatorname{AmbientScalarInvariant}.\\operatorname{laplacian} (\\operatorname{ambientLaplacianIter} \\operatorname{ell} I)\\end{aligned}",
+      "leanType": "def ambientLaplacianIter : Nat -> AmbientScalarInvariant -> AmbientScalarInvariant",
       "line": 102
     },
     {
       "leanDeclaration": "ambientLaplacianIter_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Laplacian Iter zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For I of type Ambient Scalar Invariant, ambient Laplacian Iter 0 I equals I.",
+      "mathematicalFormula": "\\forall\\,I\\colon \\operatorname{AmbientScalarInvariant},\\quad \\operatorname{ambientLaplacianIter} 0 I = I",
       "leanType": "theorem ambientLaplacianIter_zero (I : AmbientScalarInvariant) : ambientLaplacianIter 0 I = I",
       "line": 110
     },
     {
       "leanDeclaration": "ambientLaplacianIter_succ",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Laplacian Iter succ. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For ell in the natural numbers, and I of type Ambient Scalar Invariant, ambient Laplacian Iter ell plus 1 I equals Ambient Scalar Invariant.ambient Laplacian ambient Laplacian Iter ell I.",
+      "mathematicalFormula": "\\forall\\,ell\\colon \\mathbb{N},\\;I\\colon \\operatorname{AmbientScalarInvariant},\\quad \\operatorname{ambientLaplacianIter} (\\operatorname{ell} + 1) I = \\operatorname{AmbientScalarInvariant}.\\operatorname{laplacian} (\\operatorname{ambientLaplacianIter} \\operatorname{ell} I)",
       "leanType": "theorem ambientLaplacianIter_succ (ell : Nat) (I : AmbientScalarInvariant) : ambientLaplacianIter (ell + 1) I = AmbientScalarInvariant.laplacian (ambientLaplacianIter ell I)",
       "line": 116
     },
     {
       "leanDeclaration": "ambientLaplacianIter_weight",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Laplacian Iter weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For ell in the natural numbers, and I of type Ambient Scalar Invariant, ambient Laplacian Iter ell I.1.weight equals I.1.weight minus 2 times ell : Int.",
+      "mathematicalFormula": "\\forall\\,ell\\colon \\mathbb{N},\\;I\\colon \\operatorname{AmbientScalarInvariant},\\quad (\\operatorname{ambientLaplacianIter} \\operatorname{ell} I).1.\\operatorname{weight} = I.\\operatorname{1}.\\operatorname{weight} - 2 \\cdot (\\operatorname{ell} \\colon \\mathbb{Z})",
       "leanType": "theorem ambientLaplacianIter_weight (ell : Nat) (I : AmbientScalarInvariant) : (ambientLaplacianIter ell I).1.weight = I.1.weight - 2 * (ell : Int)",
       "line": 125
     },
     {
       "leanDeclaration": "EinsteinAmbientLaplacianFormula",
       "kind": "class",
-      "mathematicalMeaning": "Data/interface: Einstein Ambient Laplacian Formula. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Semantic form of the weighted-pullback ambient Laplacian identity used in Proposition 3.7. Its mathematical data are: associated step: for every n k j I : Scalar Invariant Itilde : Ambient Scalar Invariant, Scalar Straightenable I Itilde maps to I.1.weight equals -2 times k plus j : Int maps to Invariant Evaluation Model.Associated Case Laplacian Factor n k j I.1 Ambient Scalar Invariant.ambient Laplacian Itilde.1; critical slice conformal: for every n Itilde : Ambient Scalar Invariant, Itilde.1.weight equals - n : Int maps to Is Scalar Conformal Invariant restrict To Einstein Slice Itilde.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{associated\\_step}&\\colon \\forall n k j (I \\colon \\operatorname{ScalarInvariant}) (\\operatorname{Itilde} \\colon \\operatorname{AmbientScalarInvariant}), \\operatorname{ScalarStraightenable} I \\operatorname{Itilde} \\longrightarrow I.\\operatorname{1}.\\operatorname{weight} = -2 \\cdot (k + j \\colon \\mathbb{Z}) \\longrightarrow \\operatorname{InvariantEvaluationModel}.\\operatorname{Associated} (\\operatorname{CaseLaplacianFactor} n k j I).1 (\\operatorname{AmbientScalarInvariant}.\\operatorname{laplacian} \\operatorname{Itilde}).1\\\\\\operatorname{critical\\_slice\\_conformal}&\\colon \\forall n (\\operatorname{Itilde} \\colon \\operatorname{AmbientScalarInvariant}), \\operatorname{Itilde}.\\operatorname{1}.\\operatorname{weight} = -(n \\colon \\mathbb{Z}) \\longrightarrow \\operatorname{IsScalarConformalInvariant} (\\operatorname{restrictToEinsteinSlice} \\operatorname{Itilde})\\end{aligned}",
       "leanType": "class EinsteinAmbientLaplacianFormula [InvariantEvaluationModel]",
       "line": 148
     },
     {
       "leanDeclaration": "straightenable_laplacian_step",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: straightenable laplacian step. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem straightenable_laplacian_step [InvariantEvaluationModel] [EinsteinAmbientLaplacianFormula] (n k j : Nat) (I : ScalarInvariant) (Itilde : AmbientScalarInvariant) (hStraight : ScalarStraightenable I Itilde)",
+      "mathematicalMeaning": "One application of the ambient Laplacian preserves association. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{InvariantEvaluationModel},\\;\\operatorname{EinsteinAmbientLaplacianFormula},\\;n,k,j\\colon \\mathbb{N},\\;I\\colon \\operatorname{ScalarInvariant},\\;Itilde\\colon \\operatorname{AmbientScalarInvariant},\\;hStraight\\colon \\operatorname{ScalarStraightenable} I \\operatorname{Itilde},\\;hWeight\\colon I.\\operatorname{1}.\\operatorname{weight} = -2 \\cdot (k + j \\colon \\mathbb{Z}),\\quad \\operatorname{ScalarStraightenable} (\\operatorname{CaseLaplacianFactor} n k j I) (\\operatorname{AmbientScalarInvariant}.\\operatorname{laplacian} \\operatorname{Itilde})",
+      "leanType": "theorem straightenable_laplacian_step [InvariantEvaluationModel] [EinsteinAmbientLaplacianFormula] (n k j : Nat) (I : ScalarInvariant) (Itilde : AmbientScalarInvariant) (hStraight : ScalarStraightenable I Itilde) (hWeight : I.1.weight = -2 * ((k + j : Nat) : Int)) : ScalarStraightenable (CaseLaplacianFactor n k j I) (AmbientScalarInvariant.laplacian Itilde)",
       "line": 166
     },
     {
       "leanDeclaration": "straightenable_laplacian_iterate",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: straightenable laplacian iterate. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem straightenable_laplacian_iterate [InvariantEvaluationModel] [EinsteinAmbientLaplacianFormula] (n k ell : Nat) (I : ScalarInvariant) (Itilde : AmbientScalarInvariant) (hStraight : ScalarStraightenable I Itilde)",
+      "mathematicalMeaning": "Proposition 3.7: the recursive base invariant is associated to the iterated ambient Laplacian. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{InvariantEvaluationModel},\\;\\operatorname{EinsteinAmbientLaplacianFormula},\\;n,k,ell\\colon \\mathbb{N},\\;I\\colon \\operatorname{ScalarInvariant},\\;Itilde\\colon \\operatorname{AmbientScalarInvariant},\\;hStraight\\colon \\operatorname{ScalarStraightenable} I \\operatorname{Itilde},\\;hWeight\\colon I.\\operatorname{1}.\\operatorname{weight} = -2 \\cdot (k \\colon \\mathbb{Z}),\\quad \\operatorname{ScalarStraightenable} (\\operatorname{CaseLaplacianRecursion} n k \\operatorname{ell} I) (\\operatorname{ambientLaplacianIter} \\operatorname{ell} \\operatorname{Itilde})",
+      "leanType": "theorem straightenable_laplacian_iterate [InvariantEvaluationModel] [EinsteinAmbientLaplacianFormula] (n k ell : Nat) (I : ScalarInvariant) (Itilde : AmbientScalarInvariant) (hStraight : ScalarStraightenable I Itilde) (hWeight : I.1.weight = -2 * (k : Int)) : ScalarStraightenable (CaseLaplacianRecursion n k ell I) (ambientLaplacianIter ell Itilde)",
       "line": 188
     },
     {
       "leanDeclaration": "ambient_laplacian_iter_einstein_slice_conformal",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient laplacian iter einstein slice conformal. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem ambient_laplacian_iter_einstein_slice_conformal [InvariantEvaluationModel] [EinsteinAmbientLaplacianFormula] (n ell : Nat) (Itilde : AmbientScalarInvariant) (hCritical : Itilde.1.weight - 2 * (ell : Int) = -(n : Int)) :",
+      "mathematicalMeaning": "At critical weight, restriction of the ambient iterate to the Einstein slice is a scalar conformal invariant. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{InvariantEvaluationModel},\\;\\operatorname{EinsteinAmbientLaplacianFormula},\\;n,ell\\colon \\mathbb{N},\\;Itilde\\colon \\operatorname{AmbientScalarInvariant},\\;hCritical\\colon \\operatorname{Itilde}.\\operatorname{1}.\\operatorname{weight} - 2 \\cdot (\\operatorname{ell} \\colon \\mathbb{Z}) = -(n \\colon \\mathbb{Z}),\\quad \\operatorname{IsScalarConformalInvariant} (\\operatorname{restrictToEinsteinSlice} (\\operatorname{ambientLaplacianIter} \\operatorname{ell} \\operatorname{Itilde}))",
+      "leanType": "theorem ambient_laplacian_iter_einstein_slice_conformal [InvariantEvaluationModel] [EinsteinAmbientLaplacianFormula] (n ell : Nat) (Itilde : AmbientScalarInvariant) (hCritical : Itilde.1.weight - 2 * (ell : Int) = -(n : Int)) : IsScalarConformalInvariant (restrictToEinsteinSlice (ambientLaplacianIter ell Itilde))",
       "line": 214
     }
   ],

@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OR/Coefficients/Parameters.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows PolyGJMSoperators/OR/Coefficients/Parameters.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,35 +19,40 @@
     {
       "leanDeclaration": "ORHalfShift",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ORHalf Shift. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The half-dimension shift (n - 2N) / 2. In explicit terms, for n in the natural numbers, and n of type ℚ, its defining expression is n minus 2 times N : ℚ divided by 2.",
+      "mathematicalFormula": "\\operatorname{ORHalfShift}(N,n)=(n - 2 \\cdot (N \\colon \\mathbb{Q})) / 2",
       "leanType": "def ORHalfShift (N : ℕ) (n : ℚ) : ℚ",
       "line": 27
     },
     {
       "leanDeclaration": "ORAlpha",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ORAlpha. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Parameter for the numerator Gamma ratio depending on s + t. In explicit terms, for n in the natural numbers, and n, w₁, w₂ of type ℚ, its defining expression is -w₁ minus w₂ minus ORHalf Shift N n.",
+      "mathematicalFormula": "\\operatorname{ORAlpha}(N,n,w₁,w₂)=-w₁ - w₂ - \\operatorname{ORHalfShift} N n",
       "leanType": "def ORAlpha (N : ℕ) (n w₁ w₂ : ℚ) : ℚ",
       "line": 31
     },
     {
       "leanDeclaration": "ORBeta",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ORBeta. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Parameter for the first-input Gamma ratio. In explicit terms, for n in the natural numbers, and n, w₁ of type ℚ, its defining expression is w₁ plus ORHalf Shift N n.",
+      "mathematicalFormula": "\\operatorname{ORBeta}(N,n,w₁)=w₁ + \\operatorname{ORHalfShift} N n",
       "leanType": "def ORBeta (N : ℕ) (n w₁ : ℚ) : ℚ",
       "line": 35
     },
     {
       "leanDeclaration": "ORGamma",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ORGamma. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Parameter for the second-input Gamma ratio. In explicit terms, for n in the natural numbers, and n, w₂ of type ℚ, its defining expression is w₂ plus ORHalf Shift N n.",
+      "mathematicalFormula": "\\operatorname{ORGamma}(N,n,w₂)=w₂ + \\operatorname{ORHalfShift} N n",
       "leanType": "def ORGamma (N : ℕ) (n w₂ : ℚ) : ℚ",
       "line": 39
     },
     {
       "leanDeclaration": "ORAlpha_add_b_add_c",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ORAlpha add b add c. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For N in the natural numbers, n, w₁, w₂ of type ℚ, and I of type ORIndex N, ORAlpha N n w₁ w₂ plus I.b plus I.c equals - 2 times w₁ plus 2 times w₂ plus n minus 2 times N : ℚ minus 2 times I.b minus 2 times I.c divided by 2.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;n,w₁,w₂\\colon \\mathbb{Q},\\;I\\colon \\operatorname{ORIndex} N,\\quad \\operatorname{ORAlpha} N n w₁ w₂ + b_{\\mathrm{I}} + c_{\\mathrm{I}} = -(2 \\cdot w₁ + 2 \\cdot w₂ + n - 2 \\cdot (N \\colon \\mathbb{Q}) - 2 \\cdot b_{\\mathrm{I}} - 2 \\cdot c_{\\mathrm{I}}) / 2",
       "leanType": "theorem ORAlpha_add_b_add_c {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : ORAlpha N n w₁ w₂ + (I.b + I.c : ℕ) = -(2 * w₁ + 2 * w₂ + n - 2 * (N : ℚ) - 2 * I.b - 2 * I.c) / 2",
       "line": 42
     }

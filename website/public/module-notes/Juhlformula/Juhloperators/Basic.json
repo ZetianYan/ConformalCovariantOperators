@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Juhlformula/Juhloperators/Basic.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Juhlformula/Juhloperators/Basic.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,63 +19,72 @@
     {
       "leanDeclaration": "Composition",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Composition. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "An ordered composition of N. Mathematically this is a finite ordered tuple I = (I_1,..., I_r) with positive entries and total sum N. Its mathematical data are: parts: List Nat; positive: for every n, n belongs to parts maps to 0 < n; sum eq: parts.sum equals N.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{parts}&\\colon \\operatorname{List} \\mathbb{N}\\\\\\operatorname{positive}&\\colon \\forall n, n \\in \\operatorname{parts} \\longrightarrow 0 < n\\\\\\operatorname{sum\\_eq}&\\colon \\operatorname{parts}.\\operatorname{sum} = N\\end{aligned}",
       "leanType": "structure Composition (N : Nat)",
       "line": 19
     },
     {
       "leanDeclaration": "length",
       "kind": "def",
-      "mathematicalMeaning": "Definition: length. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The length of a composition. In explicit terms, for i of type composition n, its defining expression is I.parts.length.",
+      "mathematicalFormula": "\\operatorname{length}(I)=I.\\operatorname{parts}.\\operatorname{length}",
       "leanType": "def length (I : Composition N) : Nat",
       "line": 29
     },
     {
       "leanDeclaration": "nil",
       "kind": "def",
-      "mathematicalMeaning": "Definition: nil. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The empty composition of 0. In explicit terms, its defining expression is parts : equals positive : equals by intro n hn cases hn sum eq : equals by simp.",
+      "mathematicalFormula": "\\operatorname{nil}=\\operatorname{parts} = [] \\operatorname{positive} = \\operatorname{by} \\operatorname{intro} n \\operatorname{hn} \\operatorname{cases} \\operatorname{hn} \\operatorname{sum\\_eq} = \\operatorname{by} \\operatorname{simp}",
       "leanType": "def nil : Composition 0",
       "line": 33
     },
     {
       "leanDeclaration": "singleton",
       "kind": "def",
-      "mathematicalMeaning": "Definition: singleton. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The singleton composition (N), for N > 0. In explicit terms, for n in the natural numbers, and hn of type 0 < n, its defining expression is parts : equals N positive : equals by intro n hn simp at hn subst n exact h N sum eq : equals by simp.",
+      "mathematicalFormula": "\\operatorname{singleton}(N,hN)=\\operatorname{parts} = [N] \\operatorname{positive} = \\operatorname{by} \\operatorname{intro} n \\operatorname{hn} \\operatorname{simp} \\operatorname{at} \\operatorname{hn} \\operatorname{subst} n \\operatorname{exact} \\operatorname{hN} \\operatorname{sum\\_eq} = \\operatorname{by} \\operatorname{simp}",
       "leanType": "def singleton (N : Nat) (hN : 0 < N) : Composition N",
       "line": 42
     },
     {
       "leanDeclaration": "nil_parts",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: nil parts. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "nil : Composition 0.parts equals.",
+      "mathematicalFormula": "(\\operatorname{nil} \\colon \\operatorname{Composition} 0).\\operatorname{parts} = []",
       "leanType": "theorem nil_parts : (nil : Composition 0).parts = []",
       "line": 53
     },
     {
       "leanDeclaration": "singleton_parts",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: singleton parts. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For N in the natural numbers, and hN of type 0 < N, singleton N h N.parts equals N.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;hN\\colon 0 < N,\\quad (\\operatorname{singleton} N \\operatorname{hN}).\\operatorname{parts} = [N]",
       "leanType": "theorem singleton_parts (N : Nat) (hN : 0 < N) : (singleton N hN).parts = [N]",
       "line": 58
     },
     {
       "leanDeclaration": "singleton_length",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: singleton length. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For N in the natural numbers, and hN of type 0 < N, singleton N h N.length equals 1.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;hN\\colon 0 < N,\\quad (\\operatorname{singleton} N \\operatorname{hN}).\\operatorname{length} = 1",
       "leanType": "theorem singleton_length (N : Nat) (hN : 0 < N) : (singleton N hN).length = 1",
       "line": 64
     },
     {
       "leanDeclaration": "pair",
       "kind": "def",
-      "mathematicalMeaning": "Definition: pair. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The first nontrivial two-part composition (a,b). In explicit terms, for a, b in the natural numbers, ha of type 0 < a, and hb of type 0 < b, its defining expression is parts : equals a, b positive : equals by intro n hn simp at hn rcases hn with rfl | rfl · exact ha · exact hb sum eq : equals by simp.",
+      "mathematicalFormula": "\\operatorname{pair}(a,b,ha,hb)=\\operatorname{parts} = [a, b] \\operatorname{positive} = \\operatorname{by} \\operatorname{intro} n \\operatorname{hn} \\operatorname{simp} \\operatorname{at} \\operatorname{hn} \\operatorname{rcases} \\operatorname{hn} \\operatorname{with} \\operatorname{rfl} | \\operatorname{rfl} \\cdot \\operatorname{exact} \\operatorname{ha} \\cdot \\operatorname{exact} \\operatorname{hb} \\operatorname{sum\\_eq} = \\operatorname{by} \\operatorname{simp}",
       "leanType": "def pair (a b : Nat) (ha : 0 < a) (hb : 0 < b) : Composition (a + b)",
       "line": 70
     },
     {
       "leanDeclaration": "pair_parts",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: pair parts. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For a, b in the natural numbers, ha of type 0 < a, and hb of type 0 < b, pair a b ha hb.parts equals a, b.",
+      "mathematicalFormula": "\\forall\\,a,b\\colon \\mathbb{N},\\;ha\\colon 0 < a,\\;hb\\colon 0 < b,\\quad (\\operatorname{pair} a b \\operatorname{ha} \\operatorname{hb}).\\operatorname{parts} = [a, b]",
       "leanType": "theorem pair_parts (a b : Nat) (ha : 0 < a) (hb : 0 < b) : (pair a b ha hb).parts = [a, b]",
       "line": 86
     }

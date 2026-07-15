@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 type MapNode = { name: string; file?: string; children?: MapNode[] };
 type Status = "verified" | "verified-under-interface" | "scaffold" | "planned" | "needs-review";
-type Correspondence = { leanDeclaration: string; kind: string; mathematicalMeaning: string; leanType: string; line: number };
+type Correspondence = { leanDeclaration: string; kind: string; mathematicalMeaning: string; mathematicalFormula: string; leanType: string; line: number };
 type ModuleNote = {
   file: string; title: string; status: Status; summary: string;
   mathematicalContent: { heading: string; body: string; formula: string | null }[];
@@ -73,7 +73,7 @@ function findNodeByFile(node: MapNode, file: string): MapNode | null {
 }
 
 function Formula({ value }: { value: string }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     const render = () => { if (ref.current && window.katex) window.katex.render(value, ref.current, { throwOnError: false, displayMode: true }); };
     if (window.katex) { render(); return; }
@@ -85,7 +85,7 @@ function Formula({ value }: { value: string }) {
     script.addEventListener("load", render, { once: true });
     return () => script?.removeEventListener("load", render);
   }, [value]);
-  return <div className="mathFormula" ref={ref}>{value}</div>;
+  return <span className="mathFormula" ref={ref}>{value}</span>;
 }
 
 function TreeNode({ node, depth, onOpen }: { node: MapNode; depth: number; onOpen: (node: MapNode) => void }) {
@@ -187,7 +187,11 @@ export default function Home() {
           {note ? <>
             <div className="mathIntro"><p className="panelLabel">MATHEMATICAL PURPOSE</p><h4>{note.summary}</h4></div>
             {note.mathematicalContent.map((section) => <section className="mathSection" key={section.heading}><h5>{section.heading}</h5><p>{section.body}</p>{section.formula && <Formula value={section.formula}/>}</section>)}
-            <section className="mathSection"><h5>Lean ↔ Mathematics</h5><div className="correspondenceTable">{note.correspondence.length ? note.correspondence.map((item) => <button key={`${item.leanDeclaration}-${item.line}`} onClick={() => jumpToLine(item.line)}><code>{item.leanDeclaration}</code><span>{item.mathematicalMeaning}</span><small>{item.kind} · line {item.line} →</small></button>) : <p>No top-level declarations were detected in this aggregate module.</p>}</div></section>
+            <section className="mathSection correspondenceSection"><h5>Lean ↔ Mathematics</h5><p className="translationGuide">Every item below translates one top-level Lean declaration. Definitions are written as defining equations, theorems as mathematical propositions, and structures or classes as their complete field data. Select an item to compare it with the exact source line.</p><div className="correspondenceTable">{note.correspondence.length ? note.correspondence.map((item) => <button className="correspondenceRow" key={`${item.leanDeclaration}-${item.line}`} onClick={() => jumpToLine(item.line)}>
+              <span className="declarationCell"><code>{item.leanDeclaration}</code><small>{item.kind} · line {item.line}</small></span>
+              <span className="translationCell"><b>Mathematical translation</b><span className="translationText">{item.mathematicalMeaning}</span><Formula value={item.mathematicalFormula}/><span className="leanSignature"><b>Lean signature</b><code>{item.leanType}</code></span></span>
+              <small className="jumpAction">Compare with Lean source →</small>
+            </button>) : <p>No top-level declarations were detected in this aggregate module.</p>}</div></section>
             <section className="dependencyGrid"><div><h5>Prerequisites</h5>{note.prerequisites.length ? note.prerequisites.map((file) => <button key={file} onClick={() => openFile(file)}>{file} ↗</button>) : <p>Foundational module</p>}</div><div><h5>Used by</h5>{note.usedBy.length ? note.usedBy.map((file) => <button key={file} onClick={() => openFile(file)}>{file} ↗</button>) : <p>No mapped direct importers</p>}</div></section>
             <section className="limitation"><h5>Status and limitation</h5><p>{note.limitations}</p></section>
           </> : <p>Mathematical note unavailable.</p>}

@@ -10,8 +10,8 @@
       "formula": "\\operatorname{Ric}(g_+)=-n g_+"
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/PE/Basic.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/PE/Basic.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,63 +19,72 @@
     {
       "leanDeclaration": "PESpace",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: PESpace. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Topological and dimensional data for a conformally compact bulk. Its mathematical data are: bulk: Type u; boundary: Type v; bulk Dim: Nat; boundary Dim: Nat; dim relation: bulk Dim equals boundary Dim plus 1; boundary Inclusion: boundary maps to bulk; interior: Set bulk; boundary not interior: for every x : boundary, boundary Inclusion x ∉ interior.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{bulk}&\\colon \\mathrm{Type} u\\\\\\operatorname{boundary}&\\colon \\mathrm{Type} v\\\\\\operatorname{bulkDim}&\\colon \\mathbb{N}\\\\\\operatorname{boundaryDim}&\\colon \\mathbb{N}\\\\\\operatorname{dim\\_relation}&\\colon \\operatorname{bulkDim} = \\operatorname{boundaryDim} + 1\\\\\\operatorname{boundaryInclusion}&\\colon \\operatorname{boundary} \\longrightarrow \\operatorname{bulk}\\\\\\operatorname{interior}&\\colon \\operatorname{Set} \\operatorname{bulk}\\\\\\operatorname{boundary\\_not\\_interior}&\\colon \\forall x \\colon \\operatorname{boundary}, \\operatorname{boundaryInclusion} x ∉ \\operatorname{interior}\\end{aligned}",
       "leanType": "structure PESpace",
       "line": 26
     },
     {
       "leanDeclaration": "bulkDim_eq_boundaryDim_add_one",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: bulk Dim eq boundary Dim add one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For X of type PESpace, X.bulk Dim equals X.boundary Dim plus 1.",
+      "mathematicalFormula": "\\forall\\,X\\colon \\operatorname{PESpace},\\quad X.\\operatorname{bulkDim} = X.\\operatorname{boundaryDim} + 1",
       "leanType": "theorem bulkDim_eq_boundaryDim_add_one (X : PESpace) : X.bulkDim = X.boundaryDim + 1",
       "line": 48
     },
     {
       "leanDeclaration": "FunctionSymbol",
       "kind": "abbrev",
-      "mathematicalMeaning": "Definition: Function Symbol. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A scalar function on a formal geometric carrier. In explicit terms, for x a type, its defining expression is X maps to Real.",
+      "mathematicalFormula": "\\operatorname{FunctionSymbol}(X)=X \\longrightarrow \\mathbb{R}",
       "leanType": "abbrev FunctionSymbol (X : Type u)",
       "line": 55
     },
     {
       "leanDeclaration": "MetricSymbol",
       "kind": "inductive",
-      "mathematicalMeaning": "Definition: Metric Symbol. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Formal metric expressions. Only the operations needed by conformal compactification, PE normal form, and the cone decomposition are included at this stage. Its constructors are: zero with arguments : Metric Symbol X; atom with arguments : Nat maps to Metric Symbol X; add with arguments : Metric Symbol X maps to Metric Symbol X maps to Metric Symbol X; scalar SMul with arguments : Real maps to Metric Symbol X maps to Metric Symbol X; function SMul with arguments : Function Symbol X maps to Metric Symbol X maps to Metric Symbol X.",
+      "mathematicalFormula": "\\operatorname{MetricSymbol}::=\\operatorname{zero}(\\colon \\operatorname{MetricSymbol} X)\\mid\\operatorname{atom}(\\colon \\mathbb{N} \\longrightarrow \\operatorname{MetricSymbol} X)\\mid\\operatorname{add}(\\colon \\operatorname{MetricSymbol} X \\longrightarrow \\operatorname{MetricSymbol} X \\longrightarrow \\operatorname{MetricSymbol} X)\\mid\\operatorname{scalarSMul}(\\colon \\mathbb{R} \\longrightarrow \\operatorname{MetricSymbol} X \\longrightarrow \\operatorname{MetricSymbol} X)\\mid\\operatorname{functionSMul}(\\colon \\operatorname{FunctionSymbol} X \\longrightarrow \\operatorname{MetricSymbol} X \\longrightarrow \\operatorname{MetricSymbol} X)",
       "leanType": "inductive MetricSymbol (X : Type u)",
       "line": 63
     },
     {
       "leanDeclaration": "scaleByFunction",
       "kind": "def",
-      "mathematicalMeaning": "Definition: scale By Function. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Multiplication of a metric expression by a scalar function. In explicit terms, for a of type function symbol x, and g of type metric symbol x, its defining expression is Metric Symbol.function SMul a g.",
+      "mathematicalFormula": "\\operatorname{scaleByFunction}(a,g)=\\operatorname{MetricSymbol}.\\operatorname{functionSMul} a g",
       "leanType": "def scaleByFunction (a : FunctionSymbol X) (g : MetricSymbol X) : MetricSymbol X",
       "line": 76
     },
     {
       "leanDeclaration": "scaleByScalar",
       "kind": "def",
-      "mathematicalMeaning": "Definition: scale By Scalar. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Multiplication of a metric expression by a real scalar. In explicit terms, for a in the real numbers, and g of type metric symbol x, its defining expression is Metric Symbol.scalar SMul a g.",
+      "mathematicalFormula": "\\operatorname{scaleByScalar}(a,g)=\\operatorname{MetricSymbol}.\\operatorname{scalarSMul} a g",
       "leanType": "def scaleByScalar (a : Real) (g : MetricSymbol X) : MetricSymbol X",
       "line": 83
     },
     {
       "leanDeclaration": "ConformalInfinity",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Conformal Infinity. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The conformal structure induced at infinity. Its mathematical data are: boundary Conf: Conformal Structure. v, w X.boundary.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{boundaryConf}&\\colon \\operatorname{ConformalStructure}.\\operatorname{}{v, w} X.\\operatorname{boundary}\\end{aligned}",
       "leanType": "structure ConformalInfinity (X : PESpace.{u, v})",
       "line": 92
     },
     {
       "leanDeclaration": "PEMetricData",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: PEMetric Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Abstract bulk metric data. The Ricci tensor is supplied as a symbolic metric-type tensor. The Einstein equation is imposed in EinsteinEquation.lean. Its mathematical data are: conformal Infinity: Conformal Infinity. u, v, w X; g Plus: Metric Symbol X.bulk; ricci: Metric Symbol X.bulk.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{conformalInfinity}&\\colon \\operatorname{ConformalInfinity}.\\operatorname{}{u, v, w} X\\\\\\operatorname{gPlus}&\\colon \\operatorname{MetricSymbol} X.\\operatorname{bulk}\\\\\\operatorname{ricci}&\\colon \\operatorname{MetricSymbol} X.\\operatorname{bulk}\\end{aligned}",
       "leanType": "structure PEMetricData (X : PESpace.{u, v})",
       "line": 101
     },
     {
       "leanDeclaration": "einsteinRHS",
       "kind": "def",
-      "mathematicalMeaning": "Definition: einstein RHS. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The symbolic right-hand side -n gPlus of the PE Einstein equation. In explicit terms, for x of type pespace, and gplus of type metric symbol x.bulk, its defining expression is Metric Symbol.scale By Scalar -X.boundary Dim g Plus.",
+      "mathematicalFormula": "\\operatorname{einsteinRHS}(X,gPlus)=\\operatorname{MetricSymbol}.\\operatorname{scaleByScalar} (-X.\\operatorname{boundaryDim} ) \\operatorname{gPlus}",
       "leanType": "def einsteinRHS (X : PESpace) (gPlus : MetricSymbol X.bulk) : MetricSymbol X.bulk",
       "line": 107
     }

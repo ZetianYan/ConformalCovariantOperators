@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OR/ClosedOperator.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows PolyGJMSoperators/OR/ClosedOperator.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,29 +19,33 @@
     {
       "leanDeclaration": "regular",
       "kind": "def",
-      "mathematicalMeaning": "Definition: regular. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "OR operator data using the regular closed coefficients. In explicit terms, for n in the natural numbers, and n, w₁, w₂ of type ℚ, its defining expression is N : equals N w₁ : equals w₁ w₂ : equals w₂ n : equals n coeff System : equals ORCoefficient System.regular N n w₁ w₂.",
+      "mathematicalFormula": "\\operatorname{regular}(N,n,w₁,w₂)=N = N w₁ = w₁ w₂ = w₂ n = n \\operatorname{coeffSystem} = \\operatorname{ORCoefficientSystem}.\\operatorname{regular} N n w₁ w₂",
       "leanType": "def regular (N : ℕ) (n w₁ w₂ : ℚ) : OROperatorData",
       "line": 31
     },
     {
       "leanDeclaration": "regular_coeffSystem_coeff",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: regular coeff System coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For N in the natural numbers, n, w₁, w₂ of type ℚ, and I of type ORIndex N, regular N n w₁ w₂.coeff System.coeff I equals ORRegular Coeff n w₁ w₂ I.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;n,w₁,w₂\\colon \\mathbb{Q},\\;I\\colon \\operatorname{ORIndex} N,\\quad ((\\operatorname{regular} N n w₁ w₂).\\operatorname{coeffSystem}).\\operatorname{coeff} I = \\operatorname{ORRegularCoeff} n w₁ w₂ I",
       "leanType": "theorem regular_coeffSystem_coeff (N : ℕ) (n w₁ w₂ : ℚ) (I : ORIndex N) : ((regular N n w₁ w₂).coeffSystem).coeff I = ORRegularCoeff n w₁ w₂ I",
       "line": 42
     },
     {
       "leanDeclaration": "regularOperator",
       "kind": "def",
-      "mathematicalMeaning": "Definition: regular Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The regular closed OR operator. In explicit terms, for n in the natural numbers, n, w₁, w₂ of type ℚ, and calconf of type calculus conf, its defining expression is regular N n w₁ w₂.to Operator Cal Conf.",
+      "mathematicalFormula": "\\operatorname{regularOperator}(N,n,w₁,w₂,CalConf)=(\\operatorname{regular} N n w₁ w₂).\\operatorname{toOperator} \\operatorname{CalConf}",
       "leanType": "def regularOperator (N : ℕ) (n w₁ w₂ : ℚ) (CalConf : Calculus Conf) : CalConf.BiOperator",
       "line": 51
     },
     {
       "leanDeclaration": "regular_isBiTangential_of_rational_defect_cancellation",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: regular is Bi Tangential of rational defect cancellation. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem regular_isBiTangential_of_rational_defect_cancellation {κ : Type _} [DecidableEq κ] (N : ℕ) (n w₁ w₂ : ℚ) {K : Finset κ} (E : (regular N n w₁ w₂).ORDefectExpansion CalConf K)",
+      "mathematicalMeaning": "Once the regular closed coefficients satisfy the chosen rational defect cancellation equations, the regular closed OR operator is tangential. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,κ\\colon \\mathrm{Type} _,\\;\\operatorname{DecidableEq} κ,\\;N\\colon \\mathbb{N},\\;n,w₁,w₂\\colon \\mathbb{Q},\\;K\\colon \\operatorname{Finset} κ,\\;E\\colon (\\operatorname{regular} N n w₁ w₂).\\operatorname{ORDefectExpansion} \\operatorname{CalConf} K,\\;defectCoeffQ\\colon \\operatorname{ORIndex} N \\longrightarrow \\operatorname{Fin} 2 \\longrightarrow κ \\longrightarrow \\mathbb{Q},\\;hE\\colon \\forall (I \\colon \\operatorname{ORIndex} N) (\\operatorname{slot} \\colon \\operatorname{Fin} 2) (k \\colon κ), E.\\operatorname{defectCoeffR} I \\operatorname{slot} k = \\operatorname{defectCoeffQ} I \\operatorname{slot} k,\\;hQ\\colon (\\operatorname{regular} N n w₁ w₂).\\operatorname{SatisfiesRationalDefectCancellation} K \\operatorname{defectCoeffQ},\\quad \\operatorname{CalConf}.\\operatorname{IsBiTangentialAtWeights} ((\\operatorname{regular} N n w₁ w₂).\\operatorname{toOperator} \\operatorname{CalConf}) w₁ w₂",
+      "leanType": "theorem regular_isBiTangential_of_rational_defect_cancellation {κ : Type _} [DecidableEq κ] (N : ℕ) (n w₁ w₂ : ℚ) {K : Finset κ} (E : (regular N n w₁ w₂).ORDefectExpansion CalConf K) (defectCoeffQ : ORIndex N → Fin 2 → κ → ℚ) (hE : ∀ (I : ORIndex N) (slot : Fin 2) (k : κ), E.defectCoeffR I slot k = (defectCoeffQ I slot k : ℝ)) (hQ : (regular N n w₁ w₂).SatisfiesRationalDefectCancellation K defectCoeffQ) : CalConf.IsBiTangentialAtWeights ((regular N n w₁ w₂).toOperator CalConf) (w₁ : ℝ) (w₂ : ℝ)",
       "line": 62
     }
   ],

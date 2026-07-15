@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in GJMSoperators/Ambientconstruction.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows GJMSoperators/Ambientconstruction.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,92 +19,105 @@
     {
       "leanDeclaration": "ambientLaplacianPowerOperator",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ambient Laplacian Power Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def ambientLaplacianPowerOperator (k : ℕ) : Operator (Conf",
+      "mathematicalMeaning": "The ambient Laplacian power operator Δ̃^k. At this formal level, this is just the operator f ↦ lapPow k f. In explicit terms, for k in the natural numbers, its defining expression is the function sending f to Cal Conf.power of the ambient Laplacian k f.",
+      "mathematicalFormula": "\\operatorname{ambientLaplacianPowerOperator}(k)=f \\longmapsto \\operatorname{CalConf}.\\operatorname{lapPow} k f",
+      "leanType": "def ambientLaplacianPowerOperator (k : ℕ) : Operator (Conf := Conf)",
       "line": 50
     },
     {
       "leanDeclaration": "ambientLaplacianPowerOperator_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Laplacian Power Operator apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For k in the natural numbers, and f of type Function Conf, ambient Laplacian Power Operator Cal Conf k f equals Cal Conf.power of the ambient Laplacian k f.",
+      "mathematicalFormula": "\\forall\\,k\\colon \\mathbb{N},\\;f\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{ambientLaplacianPowerOperator} \\operatorname{CalConf} k f = \\operatorname{CalConf}.\\operatorname{lapPow} k f",
       "leanType": "theorem ambientLaplacianPowerOperator_apply (k : ℕ) (f : Function Conf) : ambientLaplacianPowerOperator CalConf k f = CalConf.lapPow k f",
       "line": 55
     },
     {
       "leanDeclaration": "ambientLaplacianPowerOperator_zero_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Laplacian Power Operator zero apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For f of type Function Conf, ambient Laplacian Power Operator Cal Conf 0 f equals f.",
+      "mathematicalFormula": "\\forall\\,f\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{ambientLaplacianPowerOperator} \\operatorname{CalConf} 0 f = f",
       "leanType": "theorem ambientLaplacianPowerOperator_zero_apply (f : Function Conf) : ambientLaplacianPowerOperator CalConf 0 f = f",
       "line": 62
     },
     {
       "leanDeclaration": "ambientLaplacianPowerOperator_one_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Laplacian Power Operator one apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For f of type Function Conf, ambient Laplacian Power Operator Cal Conf 1 f equals Cal Conf.lap f.",
+      "mathematicalFormula": "\\forall\\,f\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{ambientLaplacianPowerOperator} \\operatorname{CalConf} 1 f = \\operatorname{CalConf}.\\operatorname{lap} f",
       "leanType": "theorem ambientLaplacianPowerOperator_one_apply (f : Function Conf) : ambientLaplacianPowerOperator CalConf 1 f = CalConf.lap f",
       "line": 69
     },
     {
       "leanDeclaration": "ambientLaplacianPower_maps_GJMS_weight",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Laplacian Power maps GJMS weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The operator Δ̃^k maps the GJMS input weight to the GJMS output weight. This is the weight bookkeeping theorem. It uses the already established homogeneity theorem for lapPow. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\quad \\operatorname{CalConf}.\\operatorname{MapsHomogeneousWeight} (\\operatorname{ambientLaplacianPowerOperator} \\operatorname{CalConf} k) (w_{\\mathrm{in}} \\operatorname{CalConf} k) (w_{\\mathrm{out}} \\operatorname{CalConf} k)",
       "leanType": "theorem ambientLaplacianPower_maps_GJMS_weight (H : CalConf.AlgebraicIdentities) (k : ℕ) : CalConf.MapsHomogeneousWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k) (calculusOutputWeight CalConf k)",
       "line": 84
     },
     {
       "leanDeclaration": "lapPow_maps_GJMS_weight",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: lap Pow maps GJMS weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem lapPow_maps_GJMS_weight (H : CalConf.AlgebraicIdentities) (k : ℕ) {f : Function Conf} (hf : CalConf.IsXHomogeneous (calculusInputWeight CalConf k) f) : CalConf.IsXHomogeneous (calculusOutputWeight CalConf k)",
+      "mathematicalMeaning": "A slightly more explicit version of the previous theorem. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\;f\\colon \\operatorname{Function} \\operatorname{Conf},\\;hf\\colon \\operatorname{CalConf}.\\operatorname{IsXHomogeneous} (w_{\\mathrm{in}} \\operatorname{CalConf} k) f,\\quad \\operatorname{CalConf}.\\operatorname{IsXHomogeneous} (w_{\\mathrm{out}} \\operatorname{CalConf} k) (\\operatorname{CalConf}.\\operatorname{lapPow} k f)",
+      "leanType": "theorem lapPow_maps_GJMS_weight (H : CalConf.AlgebraicIdentities) (k : ℕ) {f : Function Conf} (hf : CalConf.IsXHomogeneous (calculusInputWeight CalConf k) f) : CalConf.IsXHomogeneous (calculusOutputWeight CalConf k) (CalConf.lapPow k f)",
       "line": 103
     },
     {
       "leanDeclaration": "ambientLaplacianPowerWeightedTangentialOperator",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ambient Laplacian Power Weighted Tangential Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def ambientLaplacianPowerWeightedTangentialOperator (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) :",
+      "mathematicalMeaning": "If Δ̃^k is tangential at the GJMS input weight, then it defines a weighted tangential operator E[k - n / 2] → E[-k - n / 2]. In explicit terms, for h of type cal conf.algebraic identities, k in the natural numbers, and htangential of type cal conf.is tangential at weight ambient laplacian power operator cal conf k calculus input weight cal conf k, its defining expression is input weight : equals calculus Input Weight Cal Conf k output weight : equals calculus Output Weight Cal Conf k to Operator : equals ambient Laplacian Power Operator Cal Conf k maps Weight : equals ambient Laplacian Power maps GJMS weight Cal Conf H k tangential : equals htangential.",
+      "mathematicalFormula": "\\operatorname{ambientLaplacianPowerWeightedTangentialOperator}(H,k,htangential)=w_{\\mathrm{in}} = w_{\\mathrm{in}} \\operatorname{CalConf} k w_{\\mathrm{out}} = w_{\\mathrm{out}} \\operatorname{CalConf} k \\operatorname{toOperator} = \\operatorname{ambientLaplacianPowerOperator} \\operatorname{CalConf} k \\operatorname{mapsWeight} = \\operatorname{ambientLaplacianPower\\_maps\\_GJMS\\_weight} \\operatorname{CalConf} H k \\operatorname{tangential} = \\operatorname{htangential}",
+      "leanType": "def ambientLaplacianPowerWeightedTangentialOperator (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) : CalConf.WeightedTangentialOperator",
       "line": 122
     },
     {
       "leanDeclaration": "ambientLaplacianPowerWeightedTangentialOperator_inputWeight",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Laplacian Power Weighted Tangential Operator input Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem ambientLaplacianPowerWeightedTangentialOperator_inputWeight (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) :",
+      "mathematicalMeaning": "For H of type Cal Conf.Algebraic Identities, k in the natural numbers, and htangential of type Cal Conf.Is Tangential At Weight ambient Laplacian Power Operator Cal Conf k calculus Input Weight Cal Conf k, ambient Laplacian Power Weighted Tangential Operator Cal Conf H k htangential.input weight equals calculus Input Weight Cal Conf k.",
+      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\;htangential\\colon \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeight} (\\operatorname{ambientLaplacianPowerOperator} \\operatorname{CalConf} k) (w_{\\mathrm{in}} \\operatorname{CalConf} k),\\quad (\\operatorname{ambientLaplacianPowerWeightedTangentialOperator} \\operatorname{CalConf} H k \\operatorname{htangential}).w_{\\mathrm{in}} = w_{\\mathrm{in}} \\operatorname{CalConf} k",
+      "leanType": "theorem ambientLaplacianPowerWeightedTangentialOperator_inputWeight (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) : (ambientLaplacianPowerWeightedTangentialOperator CalConf H k htangential).inputWeight = calculusInputWeight CalConf k",
       "line": 137
     },
     {
       "leanDeclaration": "ambientLaplacianPowerWeightedTangentialOperator_outputWeight",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Laplacian Power Weighted Tangential Operator output Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem ambientLaplacianPowerWeightedTangentialOperator_outputWeight (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) :",
+      "mathematicalMeaning": "For H of type Cal Conf.Algebraic Identities, k in the natural numbers, and htangential of type Cal Conf.Is Tangential At Weight ambient Laplacian Power Operator Cal Conf k calculus Input Weight Cal Conf k, ambient Laplacian Power Weighted Tangential Operator Cal Conf H k htangential.output weight equals calculus Output Weight Cal Conf k.",
+      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\;htangential\\colon \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeight} (\\operatorname{ambientLaplacianPowerOperator} \\operatorname{CalConf} k) (w_{\\mathrm{in}} \\operatorname{CalConf} k),\\quad (\\operatorname{ambientLaplacianPowerWeightedTangentialOperator} \\operatorname{CalConf} H k \\operatorname{htangential}).w_{\\mathrm{out}} = w_{\\mathrm{out}} \\operatorname{CalConf} k",
+      "leanType": "theorem ambientLaplacianPowerWeightedTangentialOperator_outputWeight (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) : (ambientLaplacianPowerWeightedTangentialOperator CalConf H k htangential).outputWeight = calculusOutputWeight CalConf k",
       "line": 150
     },
     {
       "leanDeclaration": "ambientLaplacianPowerWeightedTangentialOperator_toOperator",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Laplacian Power Weighted Tangential Operator to Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem ambientLaplacianPowerWeightedTangentialOperator_toOperator (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) :",
+      "mathematicalMeaning": "For H of type Cal Conf.Algebraic Identities, k in the natural numbers, and htangential of type Cal Conf.Is Tangential At Weight ambient Laplacian Power Operator Cal Conf k calculus Input Weight Cal Conf k, ambient Laplacian Power Weighted Tangential Operator Cal Conf H k htangential.to Operator equals ambient Laplacian Power Operator Cal Conf k.",
+      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\;htangential\\colon \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeight} (\\operatorname{ambientLaplacianPowerOperator} \\operatorname{CalConf} k) (w_{\\mathrm{in}} \\operatorname{CalConf} k),\\quad (\\operatorname{ambientLaplacianPowerWeightedTangentialOperator} \\operatorname{CalConf} H k \\operatorname{htangential}).\\operatorname{toOperator} = \\operatorname{ambientLaplacianPowerOperator} \\operatorname{CalConf} k",
+      "leanType": "theorem ambientLaplacianPowerWeightedTangentialOperator_toOperator (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) : (ambientLaplacianPowerWeightedTangentialOperator CalConf H k htangential).toOperator = ambientLaplacianPowerOperator CalConf k",
       "line": 163
     },
     {
       "leanDeclaration": "ambientLaplacianPowerAbstractOperator",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ambient Laplacian Power Abstract Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def ambientLaplacianPowerAbstractOperator (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) :",
+      "mathematicalMeaning": "Assuming the ambient Laplacian power is tangential at the GJMS input weight, package it as an abstract GJMS operator. In explicit terms, for h of type cal conf.algebraic identities, k in the natural numbers, and htangential of type cal conf.is tangential at weight ambient laplacian power operator cal conf k calculus input weight cal conf k, its defining expression is k : equals k to Weighted Tangential Operator : equals ambient Laplacian Power Weighted Tangential Operator Cal Conf H k htangential input Weight eq : equals rfl output Weight eq : equals rfl.",
+      "mathematicalFormula": "\\operatorname{ambientLaplacianPowerAbstractOperator}(H,k,htangential)=k = k \\operatorname{toWeightedTangentialOperator} = \\operatorname{ambientLaplacianPowerWeightedTangentialOperator} \\operatorname{CalConf} H k \\operatorname{htangential} \\operatorname{inputWeight\\_eq} = \\operatorname{rfl} \\operatorname{outputWeight\\_eq} = \\operatorname{rfl}",
+      "leanType": "def ambientLaplacianPowerAbstractOperator (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) : AbstractOperator CalConf",
       "line": 182
     },
     {
       "leanDeclaration": "ambientLaplacianPowerAbstractOperator_k",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Laplacian Power Abstract Operator k. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem ambientLaplacianPowerAbstractOperator_k (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) :",
+      "mathematicalMeaning": "For H of type Cal Conf.Algebraic Identities, k in the natural numbers, and htangential of type Cal Conf.Is Tangential At Weight ambient Laplacian Power Operator Cal Conf k calculus Input Weight Cal Conf k, ambient Laplacian Power Abstract Operator Cal Conf H k htangential.k equals k.",
+      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\;htangential\\colon \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeight} (\\operatorname{ambientLaplacianPowerOperator} \\operatorname{CalConf} k) (w_{\\mathrm{in}} \\operatorname{CalConf} k),\\quad (\\operatorname{ambientLaplacianPowerAbstractOperator} \\operatorname{CalConf} H k \\operatorname{htangential}).k = k",
+      "leanType": "theorem ambientLaplacianPowerAbstractOperator_k (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) : (ambientLaplacianPowerAbstractOperator CalConf H k htangential).k = k",
       "line": 197
     },
     {
       "leanDeclaration": "ambientLaplacianPowerAbstractOperator_order",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient Laplacian Power Abstract Operator order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem ambientLaplacianPowerAbstractOperator_order (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) :",
+      "mathematicalMeaning": "For H of type Cal Conf.Algebraic Identities, k in the natural numbers, and htangential of type Cal Conf.Is Tangential At Weight ambient Laplacian Power Operator Cal Conf k calculus Input Weight Cal Conf k, ambient Laplacian Power Abstract Operator Cal Conf H k htangential.order equals 2 times k.",
+      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\;htangential\\colon \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeight} (\\operatorname{ambientLaplacianPowerOperator} \\operatorname{CalConf} k) (w_{\\mathrm{in}} \\operatorname{CalConf} k),\\quad (\\operatorname{ambientLaplacianPowerAbstractOperator} \\operatorname{CalConf} H k \\operatorname{htangential}).\\operatorname{order} = 2 \\cdot k",
+      "leanType": "theorem ambientLaplacianPowerAbstractOperator_order (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)) : (ambientLaplacianPowerAbstractOperator CalConf H k htangential).order = 2 * k",
       "line": 208
     }
   ],

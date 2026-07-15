@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OR/Coefficients/Combinatorics.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows PolyGJMSoperators/OR/Coefficients/Combinatorics.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,105 +19,120 @@
     {
       "leanDeclaration": "factorialQ",
       "kind": "def",
-      "mathematicalMeaning": "Definition: factorial Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Factorial as a rational number. In explicit terms, for m in the natural numbers, its defining expression is Nat.factorial m : ℚ.",
+      "mathematicalFormula": "\\operatorname{factorialQ}(m)=(\\mathbb{N}.\\operatorname{factorial} m \\colon \\mathbb{Q})",
       "leanType": "def factorialQ (m : ℕ) : ℚ",
       "line": 27
     },
     {
       "leanDeclaration": "binomQ",
       "kind": "def",
-      "mathematicalMeaning": "Definition: binom Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Binomial coefficient as a rational number. In explicit terms, for m, j in the natural numbers, its defining expression is Nat.choose m j : ℚ.",
+      "mathematicalFormula": "\\operatorname{binomQ}(m,j)=(\\mathbb{N}.\\operatorname{choose} m j \\colon \\mathbb{Q})",
       "leanType": "def binomQ (m j : ℕ) : ℚ",
       "line": 31
     },
     {
       "leanDeclaration": "multinomialQ3",
       "kind": "def",
-      "mathematicalMeaning": "Definition: multinomial Q3. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The trinomial/multinomial coefficient N! / (a! b! c!). In explicit terms, for n, a, b, c in the natural numbers, its defining expression is factorial Q N divided by factorial Q a times factorial Q b times factorial Q c.",
+      "mathematicalFormula": "\\operatorname{multinomialQ3}(N,a,b,c)=\\operatorname{factorialQ} N / (\\operatorname{factorialQ} a \\cdot \\operatorname{factorialQ} b \\cdot \\operatorname{factorialQ} c)",
       "leanType": "def multinomialQ3 (N a b c : ℕ) : ℚ",
       "line": 35
     },
     {
       "leanDeclaration": "pochhammerQ",
       "kind": "def",
-      "mathematicalMeaning": "Definition: pochhammer Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Rising factorial / Pochhammer symbol (x)_m. In explicit terms, for x of type ℚ, and m in the natural numbers, its defining expression is Finset.range m.prod the function sending j to x plus j : ℚ.",
+      "mathematicalFormula": "\\operatorname{pochhammerQ}(x,m)=(\\operatorname{Finset}.\\operatorname{range} m).\\operatorname{prod} j \\longmapsto x + (j \\colon \\mathbb{Q})",
       "leanType": "def pochhammerQ (x : ℚ) (m : ℕ) : ℚ",
       "line": 39
     },
     {
       "leanDeclaration": "fallingFactorialQ",
       "kind": "def",
-      "mathematicalMeaning": "Definition: falling Factorial Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Falling factorial x(x-1)...(x-m+1). In explicit terms, for x of type ℚ, and m in the natural numbers, its defining expression is Finset.range m.prod the function sending j to x minus j : ℚ.",
+      "mathematicalFormula": "\\operatorname{fallingFactorialQ}(x,m)=(\\operatorname{Finset}.\\operatorname{range} m).\\operatorname{prod} j \\longmapsto x - (j \\colon \\mathbb{Q})",
       "leanType": "def fallingFactorialQ (x : ℚ) (m : ℕ) : ℚ",
       "line": 43
     },
     {
       "leanDeclaration": "factorialQ_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: factorial Q zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "factorial Q 0 equals 1.",
+      "mathematicalFormula": "\\operatorname{factorialQ} 0 = 1",
       "leanType": "theorem factorialQ_zero : factorialQ 0 = 1",
       "line": 47
     },
     {
       "leanDeclaration": "factorialQ_succ",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: factorial Q succ. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For m in the natural numbers, factorial Q m plus 1 equals m plus 1 : ℚ times factorial Q m.",
+      "mathematicalFormula": "\\forall\\,m\\colon \\mathbb{N},\\quad \\operatorname{factorialQ} (m + 1) = (m + 1 \\colon \\mathbb{Q}) \\cdot \\operatorname{factorialQ} m",
       "leanType": "theorem factorialQ_succ (m : ℕ) : factorialQ (m + 1) = ((m + 1 : ℕ) : ℚ) * factorialQ m",
       "line": 51
     },
     {
       "leanDeclaration": "binomQ_zero_right",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: binom Q zero right. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For m in the natural numbers, binom Q m 0 equals 1.",
+      "mathematicalFormula": "\\forall\\,m\\colon \\mathbb{N},\\quad \\operatorname{binomQ} m 0 = 1",
       "leanType": "theorem binomQ_zero_right (m : ℕ) : binomQ m 0 = 1",
       "line": 56
     },
     {
       "leanDeclaration": "binomQ_self",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: binom Q self. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For m in the natural numbers, binom Q m m equals 1.",
+      "mathematicalFormula": "\\forall\\,m\\colon \\mathbb{N},\\quad \\operatorname{binomQ} m m = 1",
       "leanType": "theorem binomQ_self (m : ℕ) : binomQ m m = 1",
       "line": 61
     },
     {
       "leanDeclaration": "pochhammerQ_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: pochhammer Q zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For x of type ℚ, pochhammer Q x 0 equals 1.",
+      "mathematicalFormula": "\\forall\\,x\\colon \\mathbb{Q},\\quad \\operatorname{pochhammerQ} x 0 = 1",
       "leanType": "theorem pochhammerQ_zero (x : ℚ) : pochhammerQ x 0 = 1",
       "line": 66
     },
     {
       "leanDeclaration": "pochhammerQ_succ",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: pochhammer Q succ. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For x of type ℚ, and m in the natural numbers, pochhammer Q x m plus 1 equals pochhammer Q x m times x plus m : ℚ.",
+      "mathematicalFormula": "\\forall\\,x\\colon \\mathbb{Q},\\;m\\colon \\mathbb{N},\\quad \\operatorname{pochhammerQ} x (m + 1) = \\operatorname{pochhammerQ} x m \\cdot (x + (m \\colon \\mathbb{Q}))",
       "leanType": "theorem pochhammerQ_succ (x : ℚ) (m : ℕ) : pochhammerQ x (m + 1) = pochhammerQ x m * (x + (m : ℚ))",
       "line": 70
     },
     {
       "leanDeclaration": "fallingFactorialQ_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: falling Factorial Q zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For x of type ℚ, falling Factorial Q x 0 equals 1.",
+      "mathematicalFormula": "\\forall\\,x\\colon \\mathbb{Q},\\quad \\operatorname{fallingFactorialQ} x 0 = 1",
       "leanType": "theorem fallingFactorialQ_zero (x : ℚ) : fallingFactorialQ x 0 = 1",
       "line": 76
     },
     {
       "leanDeclaration": "fallingFactorialQ_succ",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: falling Factorial Q succ. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For x of type ℚ, and m in the natural numbers, falling Factorial Q x m plus 1 equals falling Factorial Q x m times x minus m : ℚ.",
+      "mathematicalFormula": "\\forall\\,x\\colon \\mathbb{Q},\\;m\\colon \\mathbb{N},\\quad \\operatorname{fallingFactorialQ} x (m + 1) = \\operatorname{fallingFactorialQ} x m \\cdot (x - (m \\colon \\mathbb{Q}))",
       "leanType": "theorem fallingFactorialQ_succ (x : ℚ) (m : ℕ) : fallingFactorialQ x (m + 1) = fallingFactorialQ x m * (x - (m : ℚ))",
       "line": 80
     },
     {
       "leanDeclaration": "pochhammerQ_eq_pred_mul",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: pochhammer Q eq pred mul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For x of type ℚ, m in the natural numbers, and hm of type 0 < m, pochhammer Q x m equals pochhammer Q x m minus 1 times x plus m minus 1 : ℚ.",
+      "mathematicalFormula": "\\forall\\,x\\colon \\mathbb{Q},\\;m\\colon \\mathbb{N},\\;hm\\colon 0 < m,\\quad \\operatorname{pochhammerQ} x m = \\operatorname{pochhammerQ} x (m - 1) \\cdot (x + (m - 1 \\colon \\mathbb{Q}))",
       "leanType": "theorem pochhammerQ_eq_pred_mul (x : ℚ) {m : ℕ} (hm : 0 < m) : pochhammerQ x m = pochhammerQ x (m - 1) * (x + ((m - 1 : ℕ) : ℚ))",
       "line": 85
     },
     {
       "leanDeclaration": "fallingFactorialQ_eq_pred_mul",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: falling Factorial Q eq pred mul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For x of type ℚ, m in the natural numbers, and hm of type 0 < m, falling Factorial Q x m equals falling Factorial Q x m minus 1 times x minus m minus 1 : ℚ.",
+      "mathematicalFormula": "\\forall\\,x\\colon \\mathbb{Q},\\;m\\colon \\mathbb{N},\\;hm\\colon 0 < m,\\quad \\operatorname{fallingFactorialQ} x m = \\operatorname{fallingFactorialQ} x (m - 1) \\cdot (x - (m - 1 \\colon \\mathbb{Q}))",
       "leanType": "theorem fallingFactorialQ_eq_pred_mul (x : ℚ) {m : ℕ} (hm : 0 < m) : fallingFactorialQ x m = fallingFactorialQ x (m - 1) * (x - ((m - 1 : ℕ) : ℚ))",
       "line": 94
     }

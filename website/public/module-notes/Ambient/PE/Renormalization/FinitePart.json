@@ -10,8 +10,8 @@
       "formula": "\\operatorname{FP}_{\\varepsilon\\to0}F(\\varepsilon)=[\\varepsilon^0]F(\\varepsilon)"
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/PE/Renormalization/FinitePart.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/PE/Renormalization/FinitePart.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,35 +19,40 @@
     {
       "leanDeclaration": "finitePart",
       "kind": "def",
-      "mathematicalMeaning": "Selects or identifies the constant term in a Laurent/log cutoff expansion.",
+      "mathematicalMeaning": "The constant Laurent coefficient. In explicit terms, for r a type, and e of type laurent log expansion r, its defining expression is E.coeff 0.",
+      "mathematicalFormula": "\\operatorname{finitePart}(E)=E.\\operatorname{coeff} 0",
       "leanType": "def finitePart {R : Type u} [Zero R] (E : LaurentLogExpansion R) : R",
       "line": 18
     },
     {
       "leanDeclaration": "logAnomaly",
       "kind": "def",
-      "mathematicalMeaning": "Selects or identifies the logarithmic coefficient in a cutoff expansion.",
+      "mathematicalMeaning": "The coefficient of log(epsilon). In explicit terms, for r a type, and e of type laurent log expansion r, its defining expression is E.log Coeff.",
+      "mathematicalFormula": "\\operatorname{logAnomaly}(E)=E.\\operatorname{logCoeff}",
       "leanType": "def logAnomaly {R : Type u} [Zero R] (E : LaurentLogExpansion R) : R",
       "line": 26
     },
     {
       "leanDeclaration": "HasNoLogTerm",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Has No Log Term. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The assertion that an expansion contains no logarithmic anomaly. In explicit terms, for r a type, and e of type laurent log expansion r, its defining expression is E.log Coeff equals 0.",
+      "mathematicalFormula": "\\operatorname{HasNoLogTerm}(E)=E.\\operatorname{logCoeff} = 0",
       "leanType": "def HasNoLogTerm {R : Type u} [Zero R] (E : LaurentLogExpansion R) : Prop",
       "line": 34
     },
     {
       "leanDeclaration": "finitePart_eq_coeff_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Selects or identifies the constant term in a Laurent/log cutoff expansion.",
+      "mathematicalMeaning": "For R a type, and E of type Laurent Log Expansion R, finite Part E equals E.coeff 0.",
+      "mathematicalFormula": "\\forall\\,R\\colon \\mathrm{Type} u,\\;\\operatorname{Zero} R,\\;E\\colon \\operatorname{LaurentLogExpansion} R,\\quad \\operatorname{finitePart} E = E.\\operatorname{coeff} 0",
       "leanType": "theorem finitePart_eq_coeff_zero {R : Type u} [Zero R] (E : LaurentLogExpansion R) : finitePart E = E.coeff 0",
       "line": 42
     },
     {
       "leanDeclaration": "logAnomaly_eq_logCoeff",
       "kind": "theorem",
-      "mathematicalMeaning": "Selects or identifies the logarithmic coefficient in a cutoff expansion.",
+      "mathematicalMeaning": "For R a type, and E of type Laurent Log Expansion R, log Anomaly E equals E.log Coeff.",
+      "mathematicalFormula": "\\forall\\,R\\colon \\mathrm{Type} u,\\;\\operatorname{Zero} R,\\;E\\colon \\operatorname{LaurentLogExpansion} R,\\quad \\operatorname{logAnomaly} E = E.\\operatorname{logCoeff}",
       "leanType": "theorem logAnomaly_eq_logCoeff {R : Type u} [Zero R] (E : LaurentLogExpansion R) : logAnomaly E = E.logCoeff",
       "line": 50
     }

@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/FG/Recursion.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/FG/Recursion.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,43 +19,49 @@
     {
       "leanDeclaration": "FormalRicciRecursion",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Formal Ricci Recursion. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A solved finite FG Ricci recursion for a formal metric jet. Its mathematical data are: solved Coeff: m : Fin K plus 1 maps to Sym2 Component ι; solved Coeff eq: for every m : Fin K plus 1 i j : ι, solved Coeff m i j equals J.coeff m i j.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{solvedCoeff}&\\colon (m \\colon \\operatorname{Fin} (K + 1)) \\longrightarrow \\operatorname{Sym2Component} ι\\\\\\operatorname{solvedCoeff\\_eq}&\\colon \\forall (m \\colon \\operatorname{Fin} (K + 1)) (i j \\colon ι), \\operatorname{solvedCoeff} m i j = J.\\operatorname{coeff} m i j\\end{aligned}",
       "leanType": "structure FormalRicciRecursion (J : FormalMetricJet ι K)",
       "line": 25
     },
     {
       "leanDeclaration": "solvedAt",
       "kind": "def",
-      "mathematicalMeaning": "Definition: solved At. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def solvedAt (R : FormalRicciRecursion (ι",
+      "mathematicalMeaning": "Access the solved coefficient at order m <= K. In explicit terms, for r of type formal ricci recursion ι : equals ι j, m in the natural numbers, and hm of type m is at most k, its defining expression is R.solved Coeff ⟨m, Nat.lt succ of le hm⟩.",
+      "mathematicalFormula": "\\operatorname{solvedAt}(R,m,hm)=R.\\operatorname{solvedCoeff} ⟨m, \\mathbb{N}.\\operatorname{lt\\_succ\\_of\\_le} \\operatorname{hm}⟩",
+      "leanType": "def solvedAt (R : FormalRicciRecursion (ι := ι) J) (m : ℕ) (hm : m ≤ K) : Sym2Component ι",
       "line": 39
     },
     {
       "leanDeclaration": "solvedAt_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: solved At zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem solvedAt_zero (R : FormalRicciRecursion (ι",
+      "mathematicalMeaning": "For R of type Formal Ricci Recursion ι : equals ι J, R.solved At 0 Nat.zero le K equals J.base Metric.",
+      "mathematicalFormula": "\\forall\\,R\\colon \\operatorname{FormalRicciRecursion} (ι = ι) J,\\quad R.\\operatorname{solvedAt} 0 (\\mathbb{N}.\\operatorname{zero\\_le} K) = J.\\operatorname{baseMetric}",
+      "leanType": "theorem solvedAt_zero (R : FormalRicciRecursion (ι := ι) J) : R.solvedAt 0 (Nat.zero_le K) = J.baseMetric",
       "line": 46
     },
     {
       "leanDeclaration": "solved_firstJet_eq_two_schouten",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: solved first Jet eq two schouten. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem solved_firstJet_eq_two_schouten (R : FormalRicciRecursion (ι",
+      "mathematicalMeaning": "The solved first coefficient is 2 * Schouten under the first Ricci condition. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,R\\colon \\operatorname{FormalRicciRecursion} (ι = ι) J,\\;H\\colon \\operatorname{SatisfiesFGRicciToOrder} J 1,\\;i,j\\colon ι,\\quad R.\\operatorname{solvedAt} 1 H.\\operatorname{order\\_le} i j = 2 \\cdot J.\\operatorname{schouten} i j",
+      "leanType": "theorem solved_firstJet_eq_two_schouten (R : FormalRicciRecursion (ι := ι) J) (H : SatisfiesFGRicciToOrder J 1) (i j : ι) : R.solvedAt 1 H.order_le i j = 2 * J.schouten i j",
       "line": 54
     },
     {
       "leanDeclaration": "FGRicciSolvedToOrder",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: FGRicci Solved To Order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Data asserting that the FG Ricci equations have been solved recursively to a finite order. Its mathematical data are: conditions: Satisfies FGRicci To Order J order; recursion: Formal Ricci Recursion J.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{conditions}&\\colon \\operatorname{SatisfiesFGRicciToOrder} J \\operatorname{order}\\\\\\operatorname{recursion}&\\colon \\operatorname{FormalRicciRecursion} J\\end{aligned}",
       "leanType": "structure FGRicciSolvedToOrder (J : FormalMetricJet ι K) (order : ℕ)",
       "line": 68
     },
     {
       "leanDeclaration": "FGRicciSolvedToOrder.firstJet",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: FGRicci Solved To Order.first Jet. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem FGRicciSolvedToOrder.firstJet (S : FGRicciSolvedToOrder (ι",
+      "mathematicalMeaning": "The first solved coefficient of a finite FG solution is 2 * Schouten. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,S\\colon \\operatorname{FGRicciSolvedToOrder} (ι = ι) J 1,\\;i,j\\colon ι,\\quad S.\\operatorname{recursion}.\\operatorname{solvedAt} 1 S.\\operatorname{conditions}.\\operatorname{order\\_le} i j = 2 \\cdot J.\\operatorname{schouten} i j",
+      "leanType": "theorem FGRicciSolvedToOrder.firstJet (S : FGRicciSolvedToOrder (ι := ι) J 1) (i j : ι) : S.recursion.solvedAt 1 S.conditions.order_le i j = 2 * J.schouten i j",
       "line": 75
     }
   ],

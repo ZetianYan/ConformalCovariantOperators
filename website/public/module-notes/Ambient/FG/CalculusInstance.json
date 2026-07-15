@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/FG/CalculusInstance.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/FG/CalculusInstance.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,35 +19,40 @@
     {
       "leanDeclaration": "toCalculus",
       "kind": "def",
-      "mathematicalMeaning": "Definition: to Calculus. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The ambient calculus induced by a certified normal-form Laplacian model. In explicit terms, for a of type normal ambient data conf, and l of type normal laplacian model a, its defining expression is straight : equals A.to Straight Form base Dim : equals L.base Dim Q : equals normal Q A X : equals L.X ambient Laplacian : equals L.ambient Laplacian.",
+      "mathematicalFormula": "\\operatorname{toCalculus}(A,L)=\\operatorname{straight} = A.\\operatorname{toStraightForm} \\operatorname{baseDim} = L.\\operatorname{baseDim} Q = \\operatorname{normalQ} A X = X_{\\mathrm{L}} \\widetilde{\\Delta} = L.\\operatorname{laplacian}",
       "leanType": "def toCalculus (A : NormalAmbientData Conf) (L : NormalLaplacianModel A) : Operators.Calculus Conf",
       "line": 28
     },
     {
       "leanDeclaration": "toCalculus_Q",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: to Calculus Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For A of type Normal Ambient Data Conf, and L of type Normal Laplacian Model A, A.to Calculus L.Q equals normal Q A.",
+      "mathematicalFormula": "\\forall\\,A\\colon \\operatorname{NormalAmbientData} \\operatorname{Conf},\\;L\\colon \\operatorname{NormalLaplacianModel} A,\\quad (A.\\operatorname{toCalculus} L).Q = \\operatorname{normalQ} A",
       "leanType": "theorem toCalculus_Q (A : NormalAmbientData Conf) (L : NormalLaplacianModel A) : (A.toCalculus L).Q = normalQ A",
       "line": 39
     },
     {
       "leanDeclaration": "toCalculus_lap",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: to Calculus lap. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For A of type Normal Ambient Data Conf, L of type Normal Laplacian Model A, and f of type Operators.Function Conf, A.to Calculus L.lap f equals L.ambient Laplacian f.",
+      "mathematicalFormula": "\\forall\\,A\\colon \\operatorname{NormalAmbientData} \\operatorname{Conf},\\;L\\colon \\operatorname{NormalLaplacianModel} A,\\;f\\colon \\operatorname{Operators}.\\operatorname{Function} \\operatorname{Conf},\\quad (A.\\operatorname{toCalculus} L).\\operatorname{lap} f = L.\\operatorname{laplacian} f",
       "leanType": "theorem toCalculus_lap (A : NormalAmbientData Conf) (L : NormalLaplacianModel A) (f : Operators.Function Conf) : (A.toCalculus L).lap f = L.laplacian f",
       "line": 45
     },
     {
       "leanDeclaration": "FG_algebraicIdentities",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: FG algebraic Identities. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The certified normal-form Laplacian identities instantiate the algebraic identity package required by the existing tangentiality proofs. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,A\\colon \\operatorname{NormalAmbientData} \\operatorname{Conf},\\;L\\colon \\operatorname{NormalLaplacianModel} A,\\quad (A.\\operatorname{toCalculus} L).\\operatorname{AlgebraicIdentities}",
       "leanType": "theorem FG_algebraicIdentities (A : NormalAmbientData Conf) (L : NormalLaplacianModel A) : (A.toCalculus L).AlgebraicIdentities",
       "line": 57
     },
     {
       "leanDeclaration": "straightForm_instantiates_AlgebraicIdentities",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: straight Form instantiates Algebraic Identities. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Alias matching the first-stage target name. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,A\\colon \\operatorname{NormalAmbientData} \\operatorname{Conf},\\;L\\colon \\operatorname{NormalLaplacianModel} A,\\quad (A.\\operatorname{toCalculus} L).\\operatorname{AlgebraicIdentities}",
       "leanType": "theorem straightForm_instantiates_AlgebraicIdentities (A : NormalAmbientData Conf) (L : NormalLaplacianModel A) : (A.toCalculus L).AlgebraicIdentities",
       "line": 84
     }

@@ -12,6 +12,8 @@ const notes = walk(notesRoot).filter((f) => f.endsWith(".json") && !f.endsWith("
 const references = JSON.parse(fs.readFileSync(path.join(root, "public", "references.json"), "utf8"));
 const referenceIds = new Set(references.map((x) => x.id));
 const errors = [];
+let translationCount = 0;
+const placeholderPattern = /exact mathematical type|formal proposition:|data\/interface:|preserved from the lean signature/i;
 
 for (const file of sources.filter((x) => !notes.includes(x))) errors.push(`Missing note: ${file}`);
 for (const file of notes.filter((x) => !sources.includes(x))) errors.push(`Orphan note: ${file}`);
@@ -27,9 +29,16 @@ for (const file of sources) {
   if (note.file !== file) errors.push(`${file}: file field mismatch`);
   if (!allowedStatuses.has(note.status)) errors.push(`${file}: invalid status ${note.status}`);
   for (const ref of note.references ?? []) if (!referenceIds.has(ref.referenceId)) errors.push(`${file}: unknown reference ${ref.referenceId}`);
+  const sourceDeclarationCount = [...source.matchAll(/^\s*(?:noncomputable\s+)?(?:structure|class|def|abbrev|inductive|theorem|lemma|axiom)\s+([^\s(:{]+)/gm)].length;
+  if ((note.correspondence ?? []).length !== sourceDeclarationCount) errors.push(`${file}: translated ${(note.correspondence ?? []).length} of ${sourceDeclarationCount} top-level declarations`);
   for (const item of note.correspondence ?? []) {
+    translationCount++;
     if (!Number.isInteger(item.line) || item.line < 1 || item.line > lineCount) errors.push(`${file}: invalid line for ${item.leanDeclaration}`);
     if (!source.includes(item.leanDeclaration)) errors.push(`${file}: declaration not found: ${item.leanDeclaration}`);
+    if (!item.mathematicalMeaning?.trim()) errors.push(`${file}: missing mathematical translation for ${item.leanDeclaration}`);
+    if (!item.mathematicalFormula?.trim()) errors.push(`${file}: missing mathematical formula for ${item.leanDeclaration}`);
+    if (!item.leanType?.trim()) errors.push(`${file}: missing Lean signature for ${item.leanDeclaration}`);
+    if (placeholderPattern.test(item.mathematicalMeaning ?? "")) errors.push(`${file}: placeholder explanation remains for ${item.leanDeclaration}`);
   }
 }
 const index = JSON.parse(fs.readFileSync(path.join(notesRoot, "module-index.json"), "utf8"));
@@ -38,4 +47,4 @@ if (errors.length) {
   console.error(errors.join("\n"));
   process.exit(1);
 }
-console.log(`Validated ${sources.length} module notes and ${references.length} references.`);
+console.log(`Validated ${sources.length} module notes, ${translationCount} declaration translations, and ${references.length} references.`);

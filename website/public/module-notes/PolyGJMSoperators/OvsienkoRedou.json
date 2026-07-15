@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OvsienkoRedou.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows PolyGJMSoperators/OvsienkoRedou.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,92 +19,105 @@
     {
       "leanDeclaration": "OvsienkoRedouData",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Ovsienko Redou Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Data for a rank-two Ovsienko--Redou-style Laplacian-word combination. Its mathematical data are: N: the natural numbers w₁ : the real numbers w₂ : the real numbers; support: Finset Laplacian Word 2; coeff: Laplacian Word 2 maps to the real numbers; support total Power: for every W belongs to support, W.total Power equals N.",
+      "mathematicalFormula": "\\begin{aligned}N&\\colon \\mathbb{N} w₁ \\colon \\mathbb{R} w₂ \\colon \\mathbb{R}\\\\\\operatorname{support}&\\colon \\operatorname{Finset} (\\operatorname{LaplacianWord} 2)\\\\\\operatorname{coeff}&\\colon \\operatorname{LaplacianWord} 2 \\longrightarrow \\mathbb{R}\\\\\\operatorname{support\\_totalPower}&\\colon \\forall W \\in \\operatorname{support}, W.\\operatorname{totalPower} = N\\end{aligned}",
       "leanType": "structure OvsienkoRedouData",
       "line": 30
     },
     {
       "leanDeclaration": "inputWeights",
       "kind": "def",
-      "mathematicalMeaning": "Definition: input Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Input weights as a rank-two multiweight. In explicit terms, for d of type ovsienko redou data, and calconf of type calculus conf, its defining expression is Cal Conf.bi Weights D.w₁ D.w₂.",
+      "mathematicalFormula": "\\operatorname{inputWeights}(D,CalConf)=\\operatorname{CalConf}.\\operatorname{biWeights} w_{\\mathrm{D}}₁ w_{\\mathrm{D}}₂",
       "leanType": "def inputWeights (D : OvsienkoRedouData) (CalConf : Calculus Conf) : Fin 2 → ℝ",
       "line": 42
     },
     {
       "leanDeclaration": "outputWeight",
       "kind": "def",
-      "mathematicalMeaning": "Definition: output Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The expected output weight. In explicit terms, for d of type ovsienko redou data, its defining expression is D.w₁ plus D.w₂ minus 2 times D.N.",
+      "mathematicalFormula": "w_{\\mathrm{out}}(D)=w_{\\mathrm{D}}₁ + w_{\\mathrm{D}}₂ - 2 \\cdot N_{\\mathrm{D}}",
       "leanType": "def outputWeight (D : OvsienkoRedouData) : ℝ",
       "line": 48
     },
     {
       "leanDeclaration": "toPolyData",
       "kind": "def",
-      "mathematicalMeaning": "Definition: to Poly Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Forget the named bidifferential weights and view the data as rank-r data. In explicit terms, for d of type ovsienko redou data, and calconf of type calculus conf, its defining expression is N : equals D.N input Weights : equals D.input Weights Cal Conf support : equals D.support coeff : equals D.coeff support total Power : equals D.support total Power.",
+      "mathematicalFormula": "\\operatorname{toPolyData}(D,CalConf)=N = N_{\\mathrm{D}} \\operatorname{inputWeights} = D.\\operatorname{inputWeights} \\operatorname{CalConf} \\operatorname{support} = D.\\operatorname{support} \\operatorname{coeff} = D.\\operatorname{coeff} \\operatorname{support\\_totalPower} = D.\\operatorname{support\\_totalPower}",
       "leanType": "def toPolyData (D : OvsienkoRedouData) (CalConf : Calculus Conf) : PolyLaplacianCombinationData 2",
       "line": 53
     },
     {
       "leanDeclaration": "toOperator",
       "kind": "def",
-      "mathematicalMeaning": "Definition: to Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The bidifferential operator represented by the data. In explicit terms, for d of type ovsienko redou data, and calconf of type calculus conf, its defining expression is D.to Poly Data Cal Conf.to Operator Cal Conf.",
+      "mathematicalFormula": "\\operatorname{toOperator}(D,CalConf)=(D.\\operatorname{toPolyData} \\operatorname{CalConf}).\\operatorname{toOperator} \\operatorname{CalConf}",
       "leanType": "def toOperator (D : OvsienkoRedouData) (CalConf : Calculus Conf) : CalConf.BiOperator",
       "line": 64
     },
     {
       "leanDeclaration": "toOperator_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: to Operator apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For D of type Ovsienko Redou Data, F of type Cal Conf.Bi Input, and U of type Conf.Ambient Bundle, D.to Operator Cal Conf F U equals ∑ W belongs to D.support, D.coeff W times W.to Operator Cal Conf F U.",
+      "mathematicalFormula": "\\forall\\,D\\colon \\operatorname{OvsienkoRedouData},\\;F\\colon \\operatorname{CalConf}.\\operatorname{BiInput},\\;U\\colon \\operatorname{Conf}.\\operatorname{AmbientBundle},\\quad D.\\operatorname{toOperator} \\operatorname{CalConf} F U = \\sum W \\in D.\\operatorname{support}, D.\\operatorname{coeff} W \\cdot W.\\operatorname{toOperator} \\operatorname{CalConf} F U",
       "leanType": "theorem toOperator_apply (D : OvsienkoRedouData) (F : CalConf.BiInput) (U : Conf.AmbientBundle) : D.toOperator CalConf F U = ∑ W ∈ D.support, D.coeff W * W.toOperator CalConf F U",
       "line": 71
     },
     {
       "leanDeclaration": "poly_outputWeight_eq",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: poly output Weight eq. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For D of type Ovsienko Redou Data, D.to Poly Data Cal Conf.output weight Cal Conf equals D.output weight.",
+      "mathematicalFormula": "\\forall\\,D\\colon \\operatorname{OvsienkoRedouData},\\quad (D.\\operatorname{toPolyData} \\operatorname{CalConf}).w_{\\mathrm{out}} \\operatorname{CalConf} = D.\\operatorname{outputWeight}",
       "leanType": "theorem poly_outputWeight_eq (D : OvsienkoRedouData) : (D.toPolyData CalConf).outputWeight CalConf = D.outputWeight",
       "line": 80
     },
     {
       "leanDeclaration": "mapsWeights",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: maps Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem mapsWeights (D : OvsienkoRedouData) (H : CalConf.AlgebraicIdentities) (Hprod : CalConf.ProductHomogeneityIdentities) (Hsum : PolyLaplacianCombinationData.OperatorSumHomogeneityIdentities CalConf) : CalConf.MapsWeights",
+      "mathematicalMeaning": "Weight mapping under the abstract product and sum homogeneity assumptions. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,D\\colon \\operatorname{OvsienkoRedouData},\\;H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;Hprod\\colon \\operatorname{CalConf}.\\operatorname{ProductHomogeneityIdentities},\\;Hsum\\colon \\operatorname{PolyLaplacianCombinationData}.\\operatorname{OperatorSumHomogeneityIdentities} \\operatorname{CalConf},\\quad \\operatorname{CalConf}.\\operatorname{MapsWeights} (D.\\operatorname{toOperator} \\operatorname{CalConf}) (D.\\operatorname{inputWeights} \\operatorname{CalConf}) D.\\operatorname{outputWeight}",
+      "leanType": "theorem mapsWeights (D : OvsienkoRedouData) (H : CalConf.AlgebraicIdentities) (Hprod : CalConf.ProductHomogeneityIdentities) (Hsum : PolyLaplacianCombinationData.OperatorSumHomogeneityIdentities CalConf) : CalConf.MapsWeights (D.toOperator CalConf) (D.inputWeights CalConf) D.outputWeight",
       "line": 89
     },
     {
       "leanDeclaration": "DefectExpansion",
       "kind": "abbrev",
-      "mathematicalMeaning": "Definition: Defect Expansion. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Defect expansion for Ovsienko--Redou data. In explicit terms, for κ a type, d of type ovsienko redou data, calconf of type calculus conf, and k a finite set, its defining expression is Poly Laplacian Combination Data.Poly Defect Expansion D.to Poly Data Cal Conf Cal Conf K.",
+      "mathematicalFormula": "\\operatorname{DefectExpansion}(D,CalConf,K)=\\operatorname{PolyLaplacianCombinationData}.\\operatorname{PolyDefectExpansion} (D.\\operatorname{toPolyData} \\operatorname{CalConf}) \\operatorname{CalConf} K",
       "leanType": "abbrev DefectExpansion {κ : Type _} [DecidableEq κ] (D : OvsienkoRedouData) (CalConf : Calculus Conf) (K : Finset κ) : Type _",
       "line": 117
     },
     {
       "leanDeclaration": "SatisfiesDefectCancellation",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Satisfies Defect Cancellation. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Defect cancellation for Ovsienko--Redou data. In explicit terms, for κ a type, d of type ovsienko redou data, calconf of type calculus conf, k a finite set, and e of type d.defect expansion cal conf k, its defining expression is Poly Laplacian Combination Data.Satisfies Defect Cancellation D.to Poly Data Cal Conf Cal Conf E.",
+      "mathematicalFormula": "\\operatorname{SatisfiesDefectCancellation}(D,CalConf,E)=\\operatorname{PolyLaplacianCombinationData}.\\operatorname{SatisfiesDefectCancellation} (D.\\operatorname{toPolyData} \\operatorname{CalConf}) \\operatorname{CalConf} E",
       "leanType": "def SatisfiesDefectCancellation {κ : Type _} [DecidableEq κ] (D : OvsienkoRedouData) (CalConf : Calculus Conf) {K : Finset κ} (E : D.DefectExpansion CalConf K) : Prop",
       "line": 127
     },
     {
       "leanDeclaration": "isBiTangential_of_defect_cancellation",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: is Bi Tangential of defect cancellation. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem isBiTangential_of_defect_cancellation {κ : Type _} [DecidableEq κ] (D : OvsienkoRedouData) {K : Finset κ} (E : D.DefectExpansion CalConf K) (hcancel : D.SatisfiesDefectCancellation CalConf E) :",
+      "mathematicalMeaning": "Defect cancellation implies bidifferential tangentiality. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,κ\\colon \\mathrm{Type} _,\\;\\operatorname{DecidableEq} κ,\\;D\\colon \\operatorname{OvsienkoRedouData},\\;K\\colon \\operatorname{Finset} κ,\\;E\\colon D.\\operatorname{DefectExpansion} \\operatorname{CalConf} K,\\;hcancel\\colon D.\\operatorname{SatisfiesDefectCancellation} \\operatorname{CalConf} E,\\quad \\operatorname{CalConf}.\\operatorname{IsBiTangentialAtWeights} (D.\\operatorname{toOperator} \\operatorname{CalConf}) w_{\\mathrm{D}}₁ w_{\\mathrm{D}}₂",
+      "leanType": "theorem isBiTangential_of_defect_cancellation {κ : Type _} [DecidableEq κ] (D : OvsienkoRedouData) {K : Finset κ} (E : D.DefectExpansion CalConf K) (hcancel : D.SatisfiesDefectCancellation CalConf E) : CalConf.IsBiTangentialAtWeights (D.toOperator CalConf) D.w₁ D.w₂",
       "line": 138
     },
     {
       "leanDeclaration": "toWeightedBiTangentialOperator",
       "kind": "def",
-      "mathematicalMeaning": "Definition: to Weighted Bi Tangential Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def toWeightedBiTangentialOperator (D : OvsienkoRedouData) (hmaps : CalConf.MapsWeights (D.toOperator CalConf) (D.inputWeights CalConf) D.outputWeight)",
+      "mathematicalMeaning": "Package an Ovsienko--Redou-style operator as a weighted bidifferential operator. In explicit terms, for d of type ovsienko redou data, hmaps of type cal conf.maps weights d.to operator cal conf d.input weights cal conf d.output weight, and htangential of type cal conf.is bi tangential at weights d.to operator cal conf d.w₁ d.w₂, its defining expression is input Weights : equals D.input Weights Cal Conf output weight : equals D.output weight to Operator : equals D.to Operator Cal Conf maps Weights : equals hmaps tangential : equals by intro F G h F h G h FG have ht : Cal Conf.Is Tangential At Weights D.to Operator Cal Conf Cal Conf.bi Weights D.w₁ D.w₂ : equals by exact htangential simpa input Weights using ht h F h G h FG.",
+      "mathematicalFormula": "\\operatorname{toWeightedBiTangentialOperator}(D,hmaps,htangential)=\\operatorname{inputWeights} = D.\\operatorname{inputWeights} \\operatorname{CalConf} w_{\\mathrm{out}} = D.\\operatorname{outputWeight} \\operatorname{toOperator} = D.\\operatorname{toOperator} \\operatorname{CalConf} \\operatorname{mapsWeights} = \\operatorname{hmaps} \\operatorname{tangential} = \\operatorname{by} \\operatorname{intro} F G \\operatorname{hF} \\operatorname{hG} \\operatorname{hFG} \\operatorname{have} \\operatorname{ht} \\colon \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeights} (D.\\operatorname{toOperator} \\operatorname{CalConf}) (\\operatorname{CalConf}.\\operatorname{biWeights} w_{\\mathrm{D}}₁ w_{\\mathrm{D}}₂) = \\operatorname{by} \\operatorname{exact} \\operatorname{htangential} \\operatorname{simpa} [\\operatorname{inputWeights}] \\operatorname{using} \\operatorname{ht} \\operatorname{hF} \\operatorname{hG} \\operatorname{hFG}",
+      "leanType": "def toWeightedBiTangentialOperator (D : OvsienkoRedouData) (hmaps : CalConf.MapsWeights (D.toOperator CalConf) (D.inputWeights CalConf) D.outputWeight) (htangential : CalConf.IsBiTangentialAtWeights (D.toOperator CalConf) D.w₁ D.w₂) : CalConf.WeightedBiTangentialOperator",
       "line": 160
     },
     {
       "leanDeclaration": "construct",
       "kind": "def",
-      "mathematicalMeaning": "Definition: construct. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def construct {κ : Type _} [DecidableEq κ] (D : OvsienkoRedouData) {K : Finset κ} (E : D.DefectExpansion CalConf K) (hcancel : D.SatisfiesDefectCancellation CalConf E)",
+      "mathematicalMeaning": "Full abstract construction from maps-weight data and defect cancellation. The remaining paper-specific work is to instantiate DefectExpansion and prove SatisfiesDefectCancellation from the Ovsienko--Redou coefficient recurrence. In explicit terms, for κ a type, d of type ovsienko redou data, k a finite set, e of type d.defect expansion cal conf k, hcancel of type d.satisfies defect cancellation cal conf e, and hmaps of type cal conf.maps weights d.to operator cal conf d.input weights cal conf d.output weight, its defining expression is D.to Weighted Bi Tangential Operator Cal Conf : equals Cal Conf hmaps D.is Bi Tangential of defect cancellation Cal Conf : equals Cal Conf E hcancel.",
+      "mathematicalFormula": "\\operatorname{construct}(D,E,hcancel,hmaps)=D.\\operatorname{toWeightedBiTangentialOperator} (\\operatorname{CalConf} = \\operatorname{CalConf}) \\operatorname{hmaps} (D.\\operatorname{isBiTangential\\_of\\_defect\\_cancellation} (\\operatorname{CalConf} = \\operatorname{CalConf}) E \\operatorname{hcancel})",
+      "leanType": "def construct {κ : Type _} [DecidableEq κ] (D : OvsienkoRedouData) {K : Finset κ} (E : D.DefectExpansion CalConf K) (hcancel : D.SatisfiesDefectCancellation CalConf E) (hmaps : CalConf.MapsWeights (D.toOperator CalConf) (D.inputWeights CalConf) D.outputWeight) : CalConf.WeightedBiTangentialOperator",
       "line": 191
     }
   ],

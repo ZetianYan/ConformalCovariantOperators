@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/PE/Invariants/NaturalDivergence.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/PE/Invariants/NaturalDivergence.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,50 +19,57 @@
     {
       "leanDeclaration": "NaturalDivergence",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Natural Divergence. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A scalar invariant represented as the divergence of a rank-one invariant. In explicit terms, for i of type scalar invariant, its defining expression is exists F : One Form Invariant, I equals div Invariant F.",
+      "mathematicalFormula": "\\operatorname{NaturalDivergence}(I)=\\operatorname{exists} F \\colon \\operatorname{OneFormInvariant}, I = \\operatorname{divInvariant} F",
       "leanType": "def NaturalDivergence (I : ScalarInvariant) : Prop",
       "line": 19
     },
     {
       "leanDeclaration": "NaturalDivergenceAtWeight",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Natural Divergence At Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A natural divergence whose one-form has a prescribed lower weight bound. In explicit terms, for i of type scalar invariant, and lowerweight in the integers, its defining expression is exists F : One Form Invariant, I equals div Invariant F and lower Weight < equals F.1.weight.",
+      "mathematicalFormula": "\\operatorname{NaturalDivergenceAtWeight}(I,lowerWeight)=\\operatorname{exists} F \\colon \\operatorname{OneFormInvariant}, I = \\operatorname{divInvariant} F \\land \\operatorname{lowerWeight} <= F.\\operatorname{1}.\\operatorname{weight}",
       "leanType": "def NaturalDivergenceAtWeight (I : ScalarInvariant) (lowerWeight : Int) : Prop",
       "line": 23
     },
     {
       "leanDeclaration": "NaturalDivergenceAtWeight.toNaturalDivergence",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: Natural Divergence At Weight.to Natural Divergence. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For I of type Scalar Invariant, lowerWeight in the integers, and h of type Natural Divergence At Weight I lower Weight, Natural Divergence I.",
+      "mathematicalFormula": "\\forall\\,I\\colon \\operatorname{ScalarInvariant},\\;lowerWeight\\colon \\mathbb{Z},\\;h\\colon \\operatorname{NaturalDivergenceAtWeight} I \\operatorname{lowerWeight},\\quad \\operatorname{NaturalDivergence} I",
       "leanType": "theorem NaturalDivergenceAtWeight.toNaturalDivergence {I : ScalarInvariant} {lowerWeight : Int} (h : NaturalDivergenceAtWeight I lowerWeight) : NaturalDivergence I",
       "line": 32
     },
     {
       "leanDeclaration": "XAnnihilatesLastIndex",
       "kind": "def",
-      "mathematicalMeaning": "Definition: XAnnihilates Last Index. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Dilation-field annihilation of the last ambient tensor index. In explicit terms, for i of type ambient invariant, its defining expression is Invariant Evaluation Model.XAnnihilates Last Index I.",
+      "mathematicalFormula": "\\operatorname{XAnnihilatesLastIndex}(I)=\\operatorname{InvariantEvaluationModel}.\\operatorname{XAnnihilatesLastIndex} I",
       "leanType": "def XAnnihilatesLastIndex [InvariantEvaluationModel] (I : AmbientInvariant) : Prop",
       "line": 41
     },
     {
       "leanDeclaration": "proposition310Invariant",
       "kind": "def",
-      "mathematicalMeaning": "Definition: proposition310 Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The scalar ambient expression occurring in Proposition 3.10. In explicit terms, for n, k in the natural numbers, and ttilde of type ambient one form invariant, its defining expression is restrict To Einstein Slice ambient Laplacian Iter n divided by 2 minus k minus 1 ambient Div Invariant Ttilde.",
+      "mathematicalFormula": "\\operatorname{proposition310Invariant}(n,k,Ttilde)=\\operatorname{restrictToEinsteinSlice} (\\operatorname{ambientLaplacianIter} (n / 2 - k - 1) (\\operatorname{ambientDivInvariant} \\operatorname{Ttilde}))",
       "leanType": "def proposition310Invariant (n k : Nat) (Ttilde : AmbientOneFormInvariant) : ScalarInvariant",
       "line": 48
     },
     {
       "leanDeclaration": "AmbientRankOneDivergenceRule",
       "kind": "class",
-      "mathematicalMeaning": "Data/interface: Ambient Rank One Divergence Rule. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Semantic interface for the cone-decomposition argument in Proposition 3.10. Its eventual instance will use AmbientPEBridge.ambient_metric_cone_decomposition. Its mathematical data are: proposition310: for every n k Ttilde : Ambient One Form Invariant, Even n maps to Ttilde.1.weight equals -2 times k : Int maps to 2 minus n : Int < equals Ttilde.1.weight maps to XAnnihilates Last Index Ttilde.1 maps to Natural Divergence proposition310 Invariant n k Ttilde.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{proposition310}&\\colon \\forall n k (\\operatorname{Ttilde} \\colon \\operatorname{AmbientOneFormInvariant}), \\operatorname{Even} n \\longrightarrow \\operatorname{Ttilde}.\\operatorname{1}.\\operatorname{weight} = -2 \\cdot (k \\colon \\mathbb{Z}) \\longrightarrow 2 - (n \\colon \\mathbb{Z}) <= \\operatorname{Ttilde}.\\operatorname{1}.\\operatorname{weight} \\longrightarrow \\operatorname{XAnnihilatesLastIndex} 1_{\\mathrm{Ttilde}} \\longrightarrow \\operatorname{NaturalDivergence} (\\operatorname{proposition310Invariant} n k \\operatorname{Ttilde})\\end{aligned}",
       "leanType": "class AmbientRankOneDivergenceRule [InvariantEvaluationModel] : Prop",
       "line": 62
     },
     {
       "leanDeclaration": "ambient_rank_one_divergence_is_natural_divergence",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ambient rank one divergence is natural divergence. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem ambient_rank_one_divergence_is_natural_divergence [InvariantEvaluationModel] [AmbientRankOneDivergenceRule] (n k : Nat) (Ttilde : AmbientOneFormInvariant) (hn : Even n) (hWeight : Ttilde.1.weight = -2 * (k : Int))",
+      "mathematicalMeaning": "Proposition 3.10 as exposed by the semantic cone-decomposition rule. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{InvariantEvaluationModel},\\;\\operatorname{AmbientRankOneDivergenceRule},\\;n,k\\colon \\mathbb{N},\\;Ttilde\\colon \\operatorname{AmbientOneFormInvariant},\\;hn\\colon \\operatorname{Even} n,\\;hWeight\\colon \\operatorname{Ttilde}.\\operatorname{1}.\\operatorname{weight} = -2 \\cdot (k \\colon \\mathbb{Z}),\\;hBound\\colon 2 - (n \\colon \\mathbb{Z}) <= \\operatorname{Ttilde}.\\operatorname{1}.\\operatorname{weight},\\;hX\\colon \\operatorname{XAnnihilatesLastIndex} 1_{\\mathrm{Ttilde}},\\quad \\operatorname{NaturalDivergence} (\\operatorname{proposition310Invariant} n k \\operatorname{Ttilde})",
+      "leanType": "theorem ambient_rank_one_divergence_is_natural_divergence [InvariantEvaluationModel] [AmbientRankOneDivergenceRule] (n k : Nat) (Ttilde : AmbientOneFormInvariant) (hn : Even n) (hWeight : Ttilde.1.weight = -2 * (k : Int)) (hBound : 2 - (n : Int) <= Ttilde.1.weight) (hX : XAnnihilatesLastIndex Ttilde.1) : NaturalDivergence (proposition310Invariant n k Ttilde)",
       "line": 75
     }
   ],

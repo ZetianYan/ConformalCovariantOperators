@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OR/DefectCancellation.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows PolyGJMSoperators/OR/DefectCancellation.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,50 +19,57 @@
     {
       "leanDeclaration": "ORDefectExpansion",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: ORDefect Expansion. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "OR-indexed defect expansion for a fixed operator datum. Its mathematical data are: obstruction: Fin 2 maps to κ maps to Cal Conf.Bi Operator; defect Coeff R: ORIndex D.N maps to Fin 2 maps to κ maps to the real numbers; combination defect: for every F G : Cal Conf.Bi Input, Cal Conf.Is Multi Homogeneous D.input Weights Cal Conf F maps to Cal Conf.Is Multi Homogeneous D.input Weights Cal Conf G maps to Cal Conf.Same Boundary Value At Weights D.input Weights Cal Conf F G maps to Cal Conf.Same Boundary Value the function sending U to D.to Operator Cal Conf F U minus D.to Operator Cal Conf G U the function sending U to ∑ slot : Fin 2, ∑ k belongs to K, ∑ I belongs to ORIndex.support D.N, D.coeff System.coeff I times defect Coeff R I slot k times obstruction slot k F U.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{obstruction}&\\colon \\operatorname{Fin} 2 \\longrightarrow κ \\longrightarrow \\operatorname{CalConf}.\\operatorname{BiOperator}\\\\\\operatorname{defectCoeffR}&\\colon \\operatorname{ORIndex} N_{\\mathrm{D}} \\longrightarrow \\operatorname{Fin} 2 \\longrightarrow κ \\longrightarrow \\mathbb{R}\\\\\\operatorname{combination\\_defect}&\\colon \\forall {F G \\colon \\operatorname{CalConf}.\\operatorname{BiInput}}, \\operatorname{CalConf}.\\operatorname{IsMultiHomogeneous} (D.\\operatorname{inputWeights} \\operatorname{CalConf}) F \\longrightarrow \\operatorname{CalConf}.\\operatorname{IsMultiHomogeneous} (D.\\operatorname{inputWeights} \\operatorname{CalConf}) G \\longrightarrow \\operatorname{CalConf}.\\operatorname{SameBoundaryValueAtWeights} (D.\\operatorname{inputWeights} \\operatorname{CalConf}) F G \\longrightarrow \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} (U \\longmapsto D.\\operatorname{toOperator} \\operatorname{CalConf} F U - D.\\operatorname{toOperator} \\operatorname{CalConf} G U) (U \\longmapsto \\sum \\operatorname{slot} \\colon \\operatorname{Fin} 2, \\sum k \\in K, (\\sum I \\in \\operatorname{ORIndex}.\\operatorname{support} N_{\\mathrm{D}}, D.\\operatorname{coeffSystem}.\\operatorname{coeff} I \\cdot \\operatorname{defectCoeffR} I \\operatorname{slot} k) \\cdot \\operatorname{obstruction} \\operatorname{slot} k F U)\\end{aligned}",
       "leanType": "structure ORDefectExpansion {κ : Type _} [DecidableEq κ] (D : OROperatorData) (CalConf : Calculus Conf) (K : Finset κ)",
       "line": 31
     },
     {
       "leanDeclaration": "SatisfiesDefectCancellation",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Satisfies Defect Cancellation. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Real-valued OR defect cancellation. In explicit terms, for κ a type, d of type oroperator data, calconf of type calculus conf, k a finite set, and e of type d.ordefect expansion cal conf k, its defining expression is for every slot : Fin 2 k : κ, k belongs to K maps to ∑ I belongs to ORIndex.support D.N, D.coeff System.coeff I times E.defect Coeff R I slot k equals 0.",
+      "mathematicalFormula": "\\operatorname{SatisfiesDefectCancellation}(D,CalConf,E)=\\forall (\\operatorname{slot} \\colon \\operatorname{Fin} 2) (k \\colon κ), k \\in K \\longrightarrow \\sum I \\in \\operatorname{ORIndex}.\\operatorname{support} N_{\\mathrm{D}}, D.\\operatorname{coeffSystem}.\\operatorname{coeff} I \\cdot E.\\operatorname{defectCoeffR} I \\operatorname{slot} k = 0",
       "leanType": "def SatisfiesDefectCancellation {κ : Type _} [DecidableEq κ] (D : OROperatorData) (CalConf : Calculus Conf) {K : Finset κ} (E : D.ORDefectExpansion CalConf K) : Prop",
       "line": 54
     },
     {
       "leanDeclaration": "SatisfiesRationalDefectCancellation",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Satisfies Rational Defect Cancellation. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Rational-valued OR defect cancellation, before casting to ℝ. In explicit terms, for κ a type, d of type oroperator data, k a finite set, and defectcoeffq of type orindex d.n maps to fin 2 maps to κ maps to ℚ, its defining expression is Satisfies Defect Cancellation Q K D.coeff System defect Coeff Q.",
+      "mathematicalFormula": "\\operatorname{SatisfiesRationalDefectCancellation}(D,K,defectCoeffQ)=\\operatorname{SatisfiesDefectCancellationQ} K D.\\operatorname{coeffSystem} \\operatorname{defectCoeffQ}",
       "leanType": "def SatisfiesRationalDefectCancellation {κ : Type _} [DecidableEq κ] (D : OROperatorData) (K : Finset κ) (defectCoeffQ : ORIndex D.N → Fin 2 → κ → ℚ) : Prop",
       "line": 66
     },
     {
       "leanDeclaration": "satisfiesDefectCancellation_of_rational",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: satisfies Defect Cancellation of rational. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem satisfiesDefectCancellation_of_rational {κ : Type _} [DecidableEq κ] (D : OROperatorData) {K : Finset κ} (E : D.ORDefectExpansion CalConf K) (defectCoeffQ : ORIndex D.N → Fin 2 → κ → ℚ)",
+      "mathematicalMeaning": "For κ a type, D of type OROperator Data, K a finite set, E of type D.ORDefect Expansion Cal Conf K, defectCoeffQ of type ORIndex D.N maps to Fin 2 maps to κ maps to ℚ, hE of type for every I : ORIndex D.N slot : Fin 2 k : κ, E.defect Coeff R I slot k equals defect Coeff Q I slot k, and hQ of type D.Satisfies Rational Defect Cancellation K defect Coeff Q, D.Satisfies Defect Cancellation Cal Conf E.",
+      "mathematicalFormula": "\\forall\\,κ\\colon \\mathrm{Type} _,\\;\\operatorname{DecidableEq} κ,\\;D\\colon \\operatorname{OROperatorData},\\;K\\colon \\operatorname{Finset} κ,\\;E\\colon D.\\operatorname{ORDefectExpansion} \\operatorname{CalConf} K,\\;defectCoeffQ\\colon \\operatorname{ORIndex} N_{\\mathrm{D}} \\longrightarrow \\operatorname{Fin} 2 \\longrightarrow κ \\longrightarrow \\mathbb{Q},\\;hE\\colon \\forall (I \\colon \\operatorname{ORIndex} N_{\\mathrm{D}}) (\\operatorname{slot} \\colon \\operatorname{Fin} 2) (k \\colon κ), E.\\operatorname{defectCoeffR} I \\operatorname{slot} k = \\operatorname{defectCoeffQ} I \\operatorname{slot} k,\\;hQ\\colon D.\\operatorname{SatisfiesRationalDefectCancellation} K \\operatorname{defectCoeffQ},\\quad D.\\operatorname{SatisfiesDefectCancellation} \\operatorname{CalConf} E",
+      "leanType": "theorem satisfiesDefectCancellation_of_rational {κ : Type _} [DecidableEq κ] (D : OROperatorData) {K : Finset κ} (E : D.ORDefectExpansion CalConf K) (defectCoeffQ : ORIndex D.N → Fin 2 → κ → ℚ) (hE : ∀ (I : ORIndex D.N) (slot : Fin 2) (k : κ), E.defectCoeffR I slot k = (defectCoeffQ I slot k : ℝ)) (hQ : D.SatisfiesRationalDefectCancellation K defectCoeffQ) : D.SatisfiesDefectCancellation CalConf E",
       "line": 74
     },
     {
       "leanDeclaration": "isBiTangential_of_defect_cancellation",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: is Bi Tangential of defect cancellation. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem isBiTangential_of_defect_cancellation {κ : Type _} [DecidableEq κ] (D : OROperatorData) {K : Finset κ} (E : D.ORDefectExpansion CalConf K) (hcancel : D.SatisfiesDefectCancellation CalConf E) :",
+      "mathematicalMeaning": "OR defect cancellation implies bidifferential tangentiality. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,κ\\colon \\mathrm{Type} _,\\;\\operatorname{DecidableEq} κ,\\;D\\colon \\operatorname{OROperatorData},\\;K\\colon \\operatorname{Finset} κ,\\;E\\colon D.\\operatorname{ORDefectExpansion} \\operatorname{CalConf} K,\\;hcancel\\colon D.\\operatorname{SatisfiesDefectCancellation} \\operatorname{CalConf} E,\\quad \\operatorname{CalConf}.\\operatorname{IsBiTangentialAtWeights} (D.\\operatorname{toOperator} \\operatorname{CalConf}) w_{\\mathrm{D}}₁ w_{\\mathrm{D}}₂",
+      "leanType": "theorem isBiTangential_of_defect_cancellation {κ : Type _} [DecidableEq κ] (D : OROperatorData) {K : Finset κ} (E : D.ORDefectExpansion CalConf K) (hcancel : D.SatisfiesDefectCancellation CalConf E) : CalConf.IsBiTangentialAtWeights (D.toOperator CalConf) (D.w₁ : ℝ) (D.w₂ : ℝ)",
       "line": 106
     },
     {
       "leanDeclaration": "isBiTangential_of_rational_defect_cancellation",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: is Bi Tangential of rational defect cancellation. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem isBiTangential_of_rational_defect_cancellation {κ : Type _} [DecidableEq κ] (D : OROperatorData) {K : Finset κ} (E : D.ORDefectExpansion CalConf K) (defectCoeffQ : ORIndex D.N → Fin 2 → κ → ℚ)",
+      "mathematicalMeaning": "Rational recurrence/cancellation implies bidifferential tangentiality. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,κ\\colon \\mathrm{Type} _,\\;\\operatorname{DecidableEq} κ,\\;D\\colon \\operatorname{OROperatorData},\\;K\\colon \\operatorname{Finset} κ,\\;E\\colon D.\\operatorname{ORDefectExpansion} \\operatorname{CalConf} K,\\;defectCoeffQ\\colon \\operatorname{ORIndex} N_{\\mathrm{D}} \\longrightarrow \\operatorname{Fin} 2 \\longrightarrow κ \\longrightarrow \\mathbb{Q},\\;hE\\colon \\forall (I \\colon \\operatorname{ORIndex} N_{\\mathrm{D}}) (\\operatorname{slot} \\colon \\operatorname{Fin} 2) (k \\colon κ), E.\\operatorname{defectCoeffR} I \\operatorname{slot} k = \\operatorname{defectCoeffQ} I \\operatorname{slot} k,\\;hQ\\colon D.\\operatorname{SatisfiesRationalDefectCancellation} K \\operatorname{defectCoeffQ},\\quad \\operatorname{CalConf}.\\operatorname{IsBiTangentialAtWeights} (D.\\operatorname{toOperator} \\operatorname{CalConf}) w_{\\mathrm{D}}₁ w_{\\mathrm{D}}₂",
+      "leanType": "theorem isBiTangential_of_rational_defect_cancellation {κ : Type _} [DecidableEq κ] (D : OROperatorData) {K : Finset κ} (E : D.ORDefectExpansion CalConf K) (defectCoeffQ : ORIndex D.N → Fin 2 → κ → ℚ) (hE : ∀ (I : ORIndex D.N) (slot : Fin 2) (k : κ), E.defectCoeffR I slot k = (defectCoeffQ I slot k : ℝ)) (hQ : D.SatisfiesRationalDefectCancellation K defectCoeffQ) : CalConf.IsBiTangentialAtWeights (D.toOperator CalConf) (D.w₁ : ℝ) (D.w₂ : ℝ)",
       "line": 153
     },
     {
       "leanDeclaration": "toWeightedBiTangentialOperator",
       "kind": "def",
-      "mathematicalMeaning": "Definition: to Weighted Bi Tangential Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def toWeightedBiTangentialOperator (D : OROperatorData) (hmaps : CalConf.MapsWeights (D.toOperator CalConf) (D.inputWeights CalConf) D.outputWeight)",
+      "mathematicalMeaning": "Package a proved OR operator as a weighted bidifferential operator. In explicit terms, for d of type oroperator data, hmaps of type cal conf.maps weights d.to operator cal conf d.input weights cal conf d.output weight, and htangential of type cal conf.is bi tangential at weights d.to operator cal conf d.w₁ d.w₂, its defining expression is input Weights : equals D.input Weights Cal Conf output weight : equals D.output weight to Operator : equals D.to Operator Cal Conf maps Weights : equals hmaps tangential : equals by intro F G h F h G h FG have ht : Cal Conf.Is Tangential At Weights D.to Operator Cal Conf Cal Conf.bi Weights D.w₁ D.w₂ : equals by exact htangential simpa input Weights using ht h F h G h FG.",
+      "mathematicalFormula": "\\operatorname{toWeightedBiTangentialOperator}(D,hmaps,htangential)=\\operatorname{inputWeights} = D.\\operatorname{inputWeights} \\operatorname{CalConf} w_{\\mathrm{out}} = D.\\operatorname{outputWeight} \\operatorname{toOperator} = D.\\operatorname{toOperator} \\operatorname{CalConf} \\operatorname{mapsWeights} = \\operatorname{hmaps} \\operatorname{tangential} = \\operatorname{by} \\operatorname{intro} F G \\operatorname{hF} \\operatorname{hG} \\operatorname{hFG} \\operatorname{have} \\operatorname{ht} \\colon \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeights} (D.\\operatorname{toOperator} \\operatorname{CalConf}) (\\operatorname{CalConf}.\\operatorname{biWeights} w_{\\mathrm{D}}₁ w_{\\mathrm{D}}₂ ) = \\operatorname{by} \\operatorname{exact} \\operatorname{htangential} \\operatorname{simpa} [\\operatorname{inputWeights}] \\operatorname{using} \\operatorname{ht} \\operatorname{hF} \\operatorname{hG} \\operatorname{hFG}",
+      "leanType": "def toWeightedBiTangentialOperator (D : OROperatorData) (hmaps : CalConf.MapsWeights (D.toOperator CalConf) (D.inputWeights CalConf) D.outputWeight) (htangential : CalConf.IsBiTangentialAtWeights (D.toOperator CalConf) (D.w₁ : ℝ) (D.w₂ : ℝ)) : CalConf.WeightedBiTangentialOperator",
       "line": 176
     }
   ],

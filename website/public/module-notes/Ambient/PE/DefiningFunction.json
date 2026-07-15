@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/PE/DefiningFunction.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/PE/DefiningFunction.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,35 +19,40 @@
     {
       "leanDeclaration": "DefiningFunction",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Defining Function. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A boundary defining function for a conformally compact bulk. Its mathematical data are: r: Function Symbol X.bulk; positive interior: for every x : X.bulk, x belongs to X.interior maps to 0 < r x; zero on boundary: for every x : X.boundary, r X.boundary Inclusion x equals 0; nondegenerate boundary: Prop.",
+      "mathematicalFormula": "\\begin{aligned}r&\\colon \\operatorname{FunctionSymbol} X.\\operatorname{bulk}\\\\\\operatorname{positive\\_interior}&\\colon \\forall x \\colon X.\\operatorname{bulk}, x \\in X.\\operatorname{interior} \\longrightarrow 0 < r x\\\\\\operatorname{zero\\_on\\_boundary}&\\colon \\forall x \\colon X.\\operatorname{boundary}, r (X.\\operatorname{boundaryInclusion} x) = 0\\\\\\operatorname{nondegenerate\\_boundary}&\\colon \\mathrm{Prop}\\end{aligned}",
       "leanType": "structure DefiningFunction (X : PESpace.{u, v})",
       "line": 21
     },
     {
       "leanDeclaration": "compactifiedMetric",
       "kind": "def",
-      "mathematicalMeaning": "Definition: compactified Metric. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The compactified metric r^2 gPlus. In explicit terms, for x of type pespace, gplus of type metric symbol x.bulk, and r of type defining function x, its defining expression is Metric Symbol.scale By Function the function sending x to r.r x to the power 2 g Plus.",
+      "mathematicalFormula": "\\operatorname{compactifiedMetric}(gPlus,r)=\\operatorname{MetricSymbol}.\\operatorname{scaleByFunction} (x \\longmapsto (r_{\\mathrm{r}} x) ^ 2) \\operatorname{gPlus}",
       "leanType": "def compactifiedMetric {X : PESpace} (gPlus : MetricSymbol X.bulk) (r : DefiningFunction X) : MetricSymbol X.bulk",
       "line": 31
     },
     {
       "leanDeclaration": "GeodesicDefiningFunction",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Geodesic Defining Function. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A geodesic defining function. normSqGradientCompactified represents |dr|^2_(r^2 gPlus). Its interpretation will be supplied by a concrete Riemannian backend. Its mathematical data are: norm Sq Gradient Compactified: Function Symbol X.bulk; gradient certificate: Prop; geodesic condition: for every x : X.bulk, x belongs to X.interior maps to norm Sq Gradient Compactified x equals 1.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{normSqGradientCompactified}&\\colon \\operatorname{FunctionSymbol} X.\\operatorname{bulk}\\\\\\operatorname{gradient\\_certificate}&\\colon \\mathrm{Prop}\\\\\\operatorname{geodesic\\_condition}&\\colon \\forall x \\colon X.\\operatorname{bulk}, x \\in X.\\operatorname{interior} \\longrightarrow \\operatorname{normSqGradientCompactified} x = 1\\end{aligned}",
       "leanType": "structure GeodesicDefiningFunction (X : PESpace.{u, v}) (gPlus : MetricSymbol X.bulk) extends DefiningFunction X",
       "line": 45
     },
     {
       "leanDeclaration": "compactification",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: compactification. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r of type Geodesic Defining Function X g Plus, compactified Metric g Plus r.to Defining Function equals Metric Symbol.scale By Function the function sending x to r.r x to the power 2 g Plus.",
+      "mathematicalFormula": "\\forall\\,r\\colon \\operatorname{GeodesicDefiningFunction} X \\operatorname{gPlus},\\quad \\operatorname{compactifiedMetric} \\operatorname{gPlus} r.\\operatorname{toDefiningFunction} = \\operatorname{MetricSymbol}.\\operatorname{scaleByFunction} (x \\longmapsto (r_{\\mathrm{r}} x) ^ 2) \\operatorname{gPlus}",
       "leanType": "theorem compactification (r : GeodesicDefiningFunction X gPlus) : compactifiedMetric gPlus r.toDefiningFunction = MetricSymbol.scaleByFunction (fun x => (r.r x) ^ 2) gPlus",
       "line": 62
     },
     {
       "leanDeclaration": "normSqGradient_eq_one",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: norm Sq Gradient eq one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r of type Geodesic Defining Function X g Plus, x of type X.bulk, and hx of type x belongs to X.interior, r.norm Sq Gradient Compactified x equals 1.",
+      "mathematicalFormula": "\\forall\\,r\\colon \\operatorname{GeodesicDefiningFunction} X \\operatorname{gPlus},\\;x\\colon X.\\operatorname{bulk},\\;hx\\colon x \\in X.\\operatorname{interior},\\quad r.\\operatorname{normSqGradientCompactified} x = 1",
       "leanType": "theorem normSqGradient_eq_one (r : GeodesicDefiningFunction X gPlus) {x : X.bulk} (hx : x ∈ X.interior) : r.normSqGradientCompactified x = 1",
       "line": 69
     }

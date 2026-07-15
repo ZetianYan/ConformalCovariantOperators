@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in PolyGJMSoperators/Bidifferential.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows PolyGJMSoperators/Bidifferential.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,112 +19,128 @@
     {
       "leanDeclaration": "BiInput",
       "kind": "abbrev",
-      "mathematicalMeaning": "Definition: Bi Input. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Rank-two inputs. In explicit terms, its defining expression is Cal Conf.Multi Input 2.",
+      "mathematicalFormula": "\\operatorname{BiInput}=\\operatorname{CalConf}.\\operatorname{MultiInput} 2",
       "leanType": "abbrev BiInput : Type _",
       "line": 24
     },
     {
       "leanDeclaration": "biWeights",
       "kind": "def",
-      "mathematicalMeaning": "Definition: bi Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Rank-two input weights. In explicit terms, for calconf of type calculus conf, and w₁, w₂ in the real numbers, its defining expression is the function sending i to if i equals 0 then w₁ else w₂.",
+      "mathematicalFormula": "\\operatorname{biWeights}(w₁,w₂)=i \\longmapsto \\operatorname{if} i = 0 \\operatorname{then} w₁ \\operatorname{else} w₂",
       "leanType": "def biWeights (_CalConf : Calculus Conf) (w₁ w₂ : ℝ) : Fin 2 → ℝ",
       "line": 28
     },
     {
       "leanDeclaration": "pairInput",
       "kind": "def",
-      "mathematicalMeaning": "Definition: pair Input. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Build a rank-two input from two ambient functions. In explicit terms, for f, g of type function conf, its defining expression is the function sending i to if i equals 0 then f else g.",
+      "mathematicalFormula": "\\operatorname{pairInput}(f,g)=i \\longmapsto \\operatorname{if} i = 0 \\operatorname{then} f \\operatorname{else} g",
       "leanType": "def pairInput (f g : Function Conf) : CalConf.BiInput",
       "line": 32
     },
     {
       "leanDeclaration": "leftInput",
       "kind": "def",
-      "mathematicalMeaning": "Definition: left Input. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The left input slot. In explicit terms, for f of type cal conf.bi input, its defining expression is F 0.",
+      "mathematicalFormula": "\\operatorname{leftInput}(F)=F 0",
       "leanType": "def leftInput (F : CalConf.BiInput) : Function Conf",
       "line": 37
     },
     {
       "leanDeclaration": "rightInput",
       "kind": "def",
-      "mathematicalMeaning": "Definition: right Input. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The right input slot. In explicit terms, for f of type cal conf.bi input, its defining expression is F 1.",
+      "mathematicalFormula": "\\operatorname{rightInput}(F)=F 1",
       "leanType": "def rightInput (F : CalConf.BiInput) : Function Conf",
       "line": 42
     },
     {
       "leanDeclaration": "IsBiTangentialAtWeights",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Is Bi Tangential At Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Readable bidifferential tangentiality predicate. In explicit terms, for b of type cal conf.bi operator, and w₁, w₂ in the real numbers, its defining expression is Cal Conf.Is Tangential At Weights B Cal Conf.bi Weights w₁ w₂.",
+      "mathematicalFormula": "\\operatorname{IsBiTangentialAtWeights}(B,w₁,w₂)=\\operatorname{CalConf}.\\operatorname{IsTangentialAtWeights} B (\\operatorname{CalConf}.\\operatorname{biWeights} w₁ w₂)",
       "leanType": "def IsBiTangentialAtWeights (B : CalConf.BiOperator) (w₁ w₂ : ℝ) : Prop",
       "line": 47
     },
     {
       "leanDeclaration": "IsBiHomogeneous",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Is Bi Homogeneous. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Readable bidifferential homogeneity predicate. In explicit terms, for w₁, w₂ in the real numbers, and f of type cal conf.bi input, its defining expression is Cal Conf.Is Multi Homogeneous Cal Conf.bi Weights w₁ w₂ F.",
+      "mathematicalFormula": "\\operatorname{IsBiHomogeneous}(w₁,w₂,F)=\\operatorname{CalConf}.\\operatorname{IsMultiHomogeneous} (\\operatorname{CalConf}.\\operatorname{biWeights} w₁ w₂) F",
       "leanType": "def IsBiHomogeneous (w₁ w₂ : ℝ) (F : CalConf.BiInput) : Prop",
       "line": 53
     },
     {
       "leanDeclaration": "biOutputWeight",
       "kind": "def",
-      "mathematicalMeaning": "Definition: bi Output Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Expected output weight for a bidifferential operator of total degree N. In explicit terms, for w₁, w₂ in the real numbers, and n in the natural numbers, its defining expression is Cal Conf.output weight Cal Conf.bi Weights w₁ w₂ N.",
+      "mathematicalFormula": "\\operatorname{biOutputWeight}(w₁,w₂,N)=\\operatorname{CalConf}.\\operatorname{outputWeight} (\\operatorname{CalConf}.\\operatorname{biWeights} w₁ w₂) N",
       "leanType": "def biOutputWeight (w₁ w₂ : ℝ) (N : ℕ) : ℝ",
       "line": 59
     },
     {
       "leanDeclaration": "biWeights_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: bi Weights zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For w₁, w₂ in the real numbers, Cal Conf.bi Weights w₁ w₂ 0 equals w₁.",
+      "mathematicalFormula": "\\forall\\,w₁,w₂\\colon \\mathbb{R},\\quad \\operatorname{CalConf}.\\operatorname{biWeights} w₁ w₂ 0 = w₁",
       "leanType": "theorem biWeights_zero (w₁ w₂ : ℝ) : CalConf.biWeights w₁ w₂ 0 = w₁",
       "line": 65
     },
     {
       "leanDeclaration": "biWeights_one",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: bi Weights one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For w₁, w₂ in the real numbers, Cal Conf.bi Weights w₁ w₂ 1 equals w₂.",
+      "mathematicalFormula": "\\forall\\,w₁,w₂\\colon \\mathbb{R},\\quad \\operatorname{CalConf}.\\operatorname{biWeights} w₁ w₂ 1 = w₂",
       "leanType": "theorem biWeights_one (w₁ w₂ : ℝ) : CalConf.biWeights w₁ w₂ 1 = w₂",
       "line": 71
     },
     {
       "leanDeclaration": "pairInput_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: pair Input zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For f, g of type Function Conf, Cal Conf.pair Input f g 0 equals f.",
+      "mathematicalFormula": "\\forall\\,f,g\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{CalConf}.\\operatorname{pairInput} f g 0 = f",
       "leanType": "theorem pairInput_zero (f g : Function Conf) : CalConf.pairInput f g 0 = f",
       "line": 77
     },
     {
       "leanDeclaration": "pairInput_one",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: pair Input one. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For f, g of type Function Conf, Cal Conf.pair Input f g 1 equals g.",
+      "mathematicalFormula": "\\forall\\,f,g\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{CalConf}.\\operatorname{pairInput} f g 1 = g",
       "leanType": "theorem pairInput_one (f g : Function Conf) : CalConf.pairInput f g 1 = g",
       "line": 83
     },
     {
       "leanDeclaration": "leftInput_pairInput",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: left Input pair Input. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For f, g of type Function Conf, Cal Conf.left Input Cal Conf.pair Input f g equals f.",
+      "mathematicalFormula": "\\forall\\,f,g\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{CalConf}.\\operatorname{leftInput} (\\operatorname{CalConf}.\\operatorname{pairInput} f g) = f",
       "leanType": "theorem leftInput_pairInput (f g : Function Conf) : CalConf.leftInput (CalConf.pairInput f g) = f",
       "line": 89
     },
     {
       "leanDeclaration": "rightInput_pairInput",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: right Input pair Input. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For f, g of type Function Conf, Cal Conf.right Input Cal Conf.pair Input f g equals g.",
+      "mathematicalFormula": "\\forall\\,f,g\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{CalConf}.\\operatorname{rightInput} (\\operatorname{CalConf}.\\operatorname{pairInput} f g) = g",
       "leanType": "theorem rightInput_pairInput (f g : Function Conf) : CalConf.rightInput (CalConf.pairInput f g) = g",
       "line": 95
     },
     {
       "leanDeclaration": "totalWeight_biWeights",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: total Weight bi Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For w₁, w₂ in the real numbers, Cal Conf.total Weight Cal Conf.bi Weights w₁ w₂ equals w₁ plus w₂.",
+      "mathematicalFormula": "\\forall\\,w₁,w₂\\colon \\mathbb{R},\\quad \\operatorname{CalConf}.\\operatorname{totalWeight} (\\operatorname{CalConf}.\\operatorname{biWeights} w₁ w₂) = w₁ + w₂",
       "leanType": "theorem totalWeight_biWeights (w₁ w₂ : ℝ) : CalConf.totalWeight (CalConf.biWeights w₁ w₂) = w₁ + w₂",
       "line": 100
     },
     {
       "leanDeclaration": "biOutputWeight_eq",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: bi Output Weight eq. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For w₁, w₂ in the real numbers, and N in the natural numbers, Cal Conf.bi Output Weight w₁ w₂ N equals w₁ plus w₂ minus 2 times N.",
+      "mathematicalFormula": "\\forall\\,w₁,w₂\\colon \\mathbb{R},\\;N\\colon \\mathbb{N},\\quad \\operatorname{CalConf}.\\operatorname{biOutputWeight} w₁ w₂ N = w₁ + w₂ - 2 \\cdot N",
       "leanType": "theorem biOutputWeight_eq (w₁ w₂ : ℝ) (N : ℕ) : CalConf.biOutputWeight w₁ w₂ N = w₁ + w₂ - 2 * (N : ℝ)",
       "line": 106
     }

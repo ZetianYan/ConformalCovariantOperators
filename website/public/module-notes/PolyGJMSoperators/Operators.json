@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in PolyGJMSoperators/Operators.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows PolyGJMSoperators/Operators.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,77 +19,88 @@
     {
       "leanDeclaration": "multiZero",
       "kind": "def",
-      "mathematicalMeaning": "Definition: multi Zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The zero rank-r multi-operator. In explicit terms, for r in the natural numbers, its defining expression is fun maps to zero Conf.",
+      "mathematicalFormula": "\\operatorname{multiZero}(r)=\\operatorname{fun} _ => \\operatorname{zero} \\operatorname{Conf}",
       "leanType": "def multiZero (r : ℕ) : CalConf.MultiOperator r",
       "line": 24
     },
     {
       "leanDeclaration": "multiAdd",
       "kind": "def",
-      "mathematicalMeaning": "Definition: multi Add. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Pointwise sum of rank-r multi-operators. In explicit terms, for r in the natural numbers, and p, q of type cal conf.multi operator r, its defining expression is fun F U maps to P F U plus Q F U.",
+      "mathematicalFormula": "\\operatorname{multiAdd}(P,Q)=\\operatorname{fun} F U => P F U + Q F U",
       "leanType": "def multiAdd {r : ℕ} (P Q : CalConf.MultiOperator r) : CalConf.MultiOperator r",
       "line": 29
     },
     {
       "leanDeclaration": "multiSub",
       "kind": "def",
-      "mathematicalMeaning": "Definition: multi Sub. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Pointwise difference of rank-r multi-operators. In explicit terms, for r in the natural numbers, and p, q of type cal conf.multi operator r, its defining expression is fun F U maps to P F U minus Q F U.",
+      "mathematicalFormula": "\\operatorname{multiSub}(P,Q)=\\operatorname{fun} F U => P F U - Q F U",
       "leanType": "def multiSub {r : ℕ} (P Q : CalConf.MultiOperator r) : CalConf.MultiOperator r",
       "line": 36
     },
     {
       "leanDeclaration": "multiSmul",
       "kind": "def",
-      "mathematicalMeaning": "Definition: multi Smul. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Scalar multiple of a rank-r multi-operator. In explicit terms, for r in the natural numbers, c in the real numbers, and p of type cal conf.multi operator r, its defining expression is fun F U maps to c times P F U.",
+      "mathematicalFormula": "\\operatorname{multiSmul}(c,P)=\\operatorname{fun} F U => c \\cdot P F U",
       "leanType": "def multiSmul {r : ℕ} (c : ℝ) (P : CalConf.MultiOperator r) : CalConf.MultiOperator r",
       "line": 43
     },
     {
       "leanDeclaration": "postcomp",
       "kind": "def",
-      "mathematicalMeaning": "Definition: postcomp. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Apply a unary operator after a rank-r multi-operator. In explicit terms, for r in the natural numbers, l of type function conf maps to function conf, and p of type cal conf.multi operator r, its defining expression is the function sending F to L P F.",
+      "mathematicalFormula": "\\operatorname{postcomp}(L,P)=F \\longmapsto L (P F)",
       "leanType": "def postcomp {r : ℕ} (L : Function Conf → Function Conf) (P : CalConf.MultiOperator r) : CalConf.MultiOperator r",
       "line": 51
     },
     {
       "leanDeclaration": "precompSlot",
       "kind": "def",
-      "mathematicalMeaning": "Definition: precomp Slot. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Apply a unary operator to one input slot before a rank-r multi-operator. In explicit terms, for r in the natural numbers, i of type fin r, l of type function conf maps to function conf, and p of type cal conf.multi operator r, its defining expression is the function sending F to P Multi Input.replace F i L F i.",
+      "mathematicalFormula": "\\operatorname{precompSlot}(i,L,P)=F \\longmapsto P (\\operatorname{MultiInput}.\\operatorname{replace} F i (L (F i)))",
       "leanType": "def precompSlot {r : ℕ} (i : Fin r) (L : Function Conf → Function Conf) (P : CalConf.MultiOperator r) : CalConf.MultiOperator r",
       "line": 59
     },
     {
       "leanDeclaration": "precompAll",
       "kind": "def",
-      "mathematicalMeaning": "Definition: precomp All. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Apply slot-dependent unary operators before a rank-r multi-operator. In explicit terms, for r in the natural numbers, l of type fin r maps to function conf maps to function conf, and p of type cal conf.multi operator r, its defining expression is the function sending F to P the function sending i to L i F i.",
+      "mathematicalFormula": "\\operatorname{precompAll}(L,P)=F \\longmapsto P (i \\longmapsto L i (F i))",
       "leanType": "def precompAll {r : ℕ} (L : Fin r → Function Conf → Function Conf) (P : CalConf.MultiOperator r) : CalConf.MultiOperator r",
       "line": 68
     },
     {
       "leanDeclaration": "multiZero_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: multi Zero apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r in the natural numbers, and F of type Cal Conf.Multi Input r, Cal Conf.multi Zero r F equals zero Conf.",
+      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\quad \\operatorname{CalConf}.\\operatorname{multiZero} r F = \\operatorname{zero} \\operatorname{Conf}",
       "leanType": "theorem multiZero_apply {r : ℕ} (F : CalConf.MultiInput r) : CalConf.multiZero r F = zero Conf",
       "line": 76
     },
     {
       "leanDeclaration": "multiAdd_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: multi Add apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r in the natural numbers, P, Q of type Cal Conf.Multi Operator r, F of type Cal Conf.Multi Input r, and U of type Conf.Ambient Bundle, Cal Conf.multi Add P Q F U equals P F U plus Q F U.",
+      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;P,Q\\colon \\operatorname{CalConf}.\\operatorname{MultiOperator} r,\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\;U\\colon \\operatorname{Conf}.\\operatorname{AmbientBundle},\\quad \\operatorname{CalConf}.\\operatorname{multiAdd} P Q F U = P F U + Q F U",
       "leanType": "theorem multiAdd_apply {r : ℕ} (P Q : CalConf.MultiOperator r) (F : CalConf.MultiInput r) (U : Conf.AmbientBundle) : CalConf.multiAdd P Q F U = P F U + Q F U",
       "line": 83
     },
     {
       "leanDeclaration": "multiSmul_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: multi Smul apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r in the natural numbers, c in the real numbers, P of type Cal Conf.Multi Operator r, F of type Cal Conf.Multi Input r, and U of type Conf.Ambient Bundle, Cal Conf.multi Smul c P F U equals c times P F U.",
+      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;c\\colon \\mathbb{R},\\;P\\colon \\operatorname{CalConf}.\\operatorname{MultiOperator} r,\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\;U\\colon \\operatorname{Conf}.\\operatorname{AmbientBundle},\\quad \\operatorname{CalConf}.\\operatorname{multiSmul} c P F U = c \\cdot P F U",
       "leanType": "theorem multiSmul_apply {r : ℕ} (c : ℝ) (P : CalConf.MultiOperator r) (F : CalConf.MultiInput r) (U : Conf.AmbientBundle) : CalConf.multiSmul c P F U = c * P F U",
       "line": 92
     },
     {
       "leanDeclaration": "postcomp_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: postcomp apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For r in the natural numbers, L of type Function Conf maps to Function Conf, P of type Cal Conf.Multi Operator r, and F of type Cal Conf.Multi Input r, Cal Conf.postcomp L P F equals L P F.",
+      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;L\\colon \\operatorname{Function} \\operatorname{Conf} \\longrightarrow \\operatorname{Function} \\operatorname{Conf},\\;P\\colon \\operatorname{CalConf}.\\operatorname{MultiOperator} r,\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\quad \\operatorname{CalConf}.\\operatorname{postcomp} L P F = L (P F)",
       "leanType": "theorem postcomp_apply {r : ℕ} (L : Function Conf → Function Conf) (P : CalConf.MultiOperator r) (F : CalConf.MultiInput r) : CalConf.postcomp L P F = L (P F)",
       "line": 102
     }

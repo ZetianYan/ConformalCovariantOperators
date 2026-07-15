@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OR/OperatorData.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows PolyGJMSoperators/OR/OperatorData.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,56 +19,64 @@
     {
       "leanDeclaration": "OROperatorData",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: OROperator Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Concrete OR operator data with rational coefficient parameters. Its mathematical data are: N: the natural numbers w₁ : ℚ w₂ : ℚ; n: ℚ; coeff System: ORCoefficient System N.",
+      "mathematicalFormula": "\\begin{aligned}N&\\colon \\mathbb{N} w₁ \\colon \\mathbb{Q} w₂ \\colon \\mathbb{Q}\\\\n&\\colon \\mathbb{Q}\\\\\\operatorname{coeffSystem}&\\colon \\operatorname{ORCoefficientSystem} N\\end{aligned}",
       "leanType": "structure OROperatorData",
       "line": 30
     },
     {
       "leanDeclaration": "inputWeights",
       "kind": "def",
-      "mathematicalMeaning": "Definition: input Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Input weights cast to real numbers for the ambient calculus. In explicit terms, for d of type oroperator data, and calconf of type calculus conf, its defining expression is Cal Conf.bi Weights D.w₁ D.w₂.",
+      "mathematicalFormula": "\\operatorname{inputWeights}(D,CalConf)=\\operatorname{CalConf}.\\operatorname{biWeights} w_{\\mathrm{D}}₁ w_{\\mathrm{D}}₂",
       "leanType": "def inputWeights (D : OROperatorData) (CalConf : Calculus Conf) : Fin 2 → ℝ",
       "line": 40
     },
     {
       "leanDeclaration": "outputWeight",
       "kind": "def",
-      "mathematicalMeaning": "Definition: output Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Expected real output weight of an OR operator of total degree N. In explicit terms, for d of type oroperator data, its defining expression is D.w₁ plus D.w₂ minus 2 times D.N.",
+      "mathematicalFormula": "w_{\\mathrm{out}}(D)=w_{\\mathrm{D}}₁ + w_{\\mathrm{D}}₂ - 2 \\cdot N_{\\mathrm{D}}",
       "leanType": "def outputWeight (D : OROperatorData) : ℝ",
       "line": 46
     },
     {
       "leanDeclaration": "toOperator",
       "kind": "def",
-      "mathematicalMeaning": "Definition: to Operator. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The rank-two ambient operator associated to the OR data. In explicit terms, for d of type oroperator data, and calconf of type calculus conf, its defining expression is Cal Conf.operator Sum ORIndex.support D.N the function sending I to D.coeff System.coeff R I the function sending I to I.to Word.to Operator Cal Conf.",
+      "mathematicalFormula": "\\operatorname{toOperator}(D,CalConf)=\\operatorname{CalConf}.\\operatorname{operatorSum} (\\operatorname{ORIndex}.\\operatorname{support} N_{\\mathrm{D}}) (I \\longmapsto D.\\operatorname{coeffSystem}.\\operatorname{coeffR} I) (I \\longmapsto I.\\operatorname{toWord}.\\operatorname{toOperator} \\operatorname{CalConf})",
       "leanType": "def toOperator (D : OROperatorData) (CalConf : Calculus Conf) : CalConf.BiOperator",
       "line": 50
     },
     {
       "leanDeclaration": "toOperator_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: to Operator apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For D of type OROperator Data, F of type Cal Conf.Bi Input, and U of type Conf.Ambient Bundle, D.to Operator Cal Conf F U equals ∑ I belongs to ORIndex.support D.N, D.coeff System.coeff I times I.to Word.to Operator Cal Conf F U.",
+      "mathematicalFormula": "\\forall\\,D\\colon \\operatorname{OROperatorData},\\;F\\colon \\operatorname{CalConf}.\\operatorname{BiInput},\\;U\\colon \\operatorname{Conf}.\\operatorname{AmbientBundle},\\quad D.\\operatorname{toOperator} \\operatorname{CalConf} F U = \\sum I \\in \\operatorname{ORIndex}.\\operatorname{support} N_{\\mathrm{D}}, D.\\operatorname{coeffSystem}.\\operatorname{coeff} I \\cdot I.\\operatorname{toWord}.\\operatorname{toOperator} \\operatorname{CalConf} F U",
       "leanType": "theorem toOperator_apply (D : OROperatorData) (F : CalConf.BiInput) (U : Conf.AmbientBundle) : D.toOperator CalConf F U = ∑ I ∈ ORIndex.support D.N, (D.coeffSystem.coeff I : ℝ) * I.toWord.toOperator CalConf F U",
       "line": 60
     },
     {
       "leanDeclaration": "toWord_expectedOutputWeight",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: to Word expected Output Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For D of type OROperator Data, and I of type ORIndex D.N, I.to Word.expected Output Weight Cal Conf D.input Weights Cal Conf equals D.output weight.",
+      "mathematicalFormula": "\\forall\\,D\\colon \\operatorname{OROperatorData},\\;I\\colon \\operatorname{ORIndex} N_{\\mathrm{D}},\\quad I.\\operatorname{toWord}.\\operatorname{expectedOutputWeight} \\operatorname{CalConf} (D.\\operatorname{inputWeights} \\operatorname{CalConf}) = D.\\operatorname{outputWeight}",
       "leanType": "theorem toWord_expectedOutputWeight (D : OROperatorData) (I : ORIndex D.N) : I.toWord.expectedOutputWeight CalConf (D.inputWeights CalConf) = D.outputWeight",
       "line": 69
     },
     {
       "leanDeclaration": "mapsWeights",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: maps Weights. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem mapsWeights (D : OROperatorData) (H : CalConf.AlgebraicIdentities) (Hprod : CalConf.ProductHomogeneityIdentities) (Hsum : PolyLaplacianCombinationData.OperatorSumHomogeneityIdentities CalConf) : CalConf.MapsWeights",
+      "mathematicalMeaning": "Weight mapping for the OR operator, assuming product homogeneity for words and homogeneity of finite operator sums. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,D\\colon \\operatorname{OROperatorData},\\;H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;Hprod\\colon \\operatorname{CalConf}.\\operatorname{ProductHomogeneityIdentities},\\;Hsum\\colon \\operatorname{PolyLaplacianCombinationData}.\\operatorname{OperatorSumHomogeneityIdentities} \\operatorname{CalConf},\\quad \\operatorname{CalConf}.\\operatorname{MapsWeights} (D.\\operatorname{toOperator} \\operatorname{CalConf}) (D.\\operatorname{inputWeights} \\operatorname{CalConf}) D.\\operatorname{outputWeight}",
+      "leanType": "theorem mapsWeights (D : OROperatorData) (H : CalConf.AlgebraicIdentities) (Hprod : CalConf.ProductHomogeneityIdentities) (Hsum : PolyLaplacianCombinationData.OperatorSumHomogeneityIdentities CalConf) : CalConf.MapsWeights (D.toOperator CalConf) (D.inputWeights CalConf) D.outputWeight",
       "line": 81
     },
     {
       "leanDeclaration": "toOvsienkoRedouData",
       "kind": "def",
-      "mathematicalMeaning": "Definition: to Ovsienko Redou Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A word-indexed shadow of the OR data. This is useful for reusing the generic Level 8 API, though toOperator above remains the preferred OR-indexed sum. In explicit terms, for d of type oroperator data, its defining expression is N : equals D.N w₁ : equals D.w₁ w₂ : equals D.w₂ support : equals ORIndex.support D.N.image the function sending I to I.to Word coeff : equals the function sending W to ∑ I belongs to ORIndex.support D.N, if I.to Word equals W then D.coeff System.coeff I else 0 support total Power : equals by intro W h W rcases Finset.mem image.mp h W with ⟨I, h I, rfl⟩ exact I.to Word total Power.",
+      "mathematicalFormula": "\\operatorname{toOvsienkoRedouData}(D)=N = N_{\\mathrm{D}} w₁ = w_{\\mathrm{D}}₁ w₂ = w_{\\mathrm{D}}₂ \\operatorname{support} = (\\operatorname{ORIndex}.\\operatorname{support} N_{\\mathrm{D}}).\\operatorname{image} (I \\longmapsto I.\\operatorname{toWord}) \\operatorname{coeff} = W \\longmapsto \\sum I \\in \\operatorname{ORIndex}.\\operatorname{support} N_{\\mathrm{D}}, \\operatorname{if} I.\\operatorname{toWord} = W \\operatorname{then} D.\\operatorname{coeffSystem}.\\operatorname{coeff} I \\operatorname{else} 0 \\operatorname{support\\_totalPower} = \\operatorname{by} \\operatorname{intro} W \\operatorname{hW} \\operatorname{rcases} \\operatorname{Finset}.\\operatorname{mem\\_image}.\\operatorname{mp} \\operatorname{hW} \\operatorname{with} ⟨I, _\\operatorname{hI}, \\operatorname{rfl}⟩ \\operatorname{exact} I.\\operatorname{toWord\\_totalPower}",
       "leanType": "def toOvsienkoRedouData (D : OROperatorData) : OvsienkoRedouData",
       "line": 108
     }

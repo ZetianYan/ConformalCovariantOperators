@@ -10,8 +10,8 @@
       "formula": "a+b+c=N"
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OR/Index.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows PolyGJMSoperators/OR/Index.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,126 +19,144 @@
     {
       "leanDeclaration": "ORIndex",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: ORIndex. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The coefficient index (a,b,c) of total degree N. Its mathematical data are: a: the natural numbers; b: the natural numbers; c: the natural numbers; sum eq: a plus b plus c equals N.",
+      "mathematicalFormula": "\\begin{aligned}a&\\colon \\mathbb{N}\\\\b&\\colon \\mathbb{N}\\\\c&\\colon \\mathbb{N}\\\\\\operatorname{sum\\_eq}&\\colon a + b + c = N\\end{aligned}",
       "leanType": "structure ORIndex (N : ℕ)",
       "line": 29
     },
     {
       "leanDeclaration": "toWord",
       "kind": "def",
-      "mathematicalMeaning": "Definition: to Word. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The rank-two Laplacian word encoded by an OR index. In explicit terms, for n in the natural numbers, and i of type orindex n, its defining expression is Bi Laplacian Word.mk I.a I.b I.c.",
+      "mathematicalFormula": "\\operatorname{toWord}(I)=\\operatorname{BiLaplacianWord}.\\operatorname{mk} a_{\\mathrm{I}} b_{\\mathrm{I}} c_{\\mathrm{I}}",
       "leanType": "def toWord {N : ℕ} (I : ORIndex N) : LaplacianWord 2",
       "line": 39
     },
     {
       "leanDeclaration": "toWord_totalPower",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: to Word total Power. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For N in the natural numbers, and I of type ORIndex N, I.to Word.total Power equals N.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;I\\colon \\operatorname{ORIndex} N,\\quad I.\\operatorname{toWord}.\\operatorname{totalPower} = N",
       "leanType": "theorem toWord_totalPower {N : ℕ} (I : ORIndex N) : I.toWord.totalPower = N",
       "line": 43
     },
     {
       "leanDeclaration": "supportRaw",
       "kind": "def",
-      "mathematicalMeaning": "Definition: support Raw. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Raw finite support for all triples with entries bounded by N. In explicit terms, for n in the natural numbers, its defining expression is Finset.range N plus 1.product Finset.range N plus 1.product Finset.range N plus 1.filter the function sending p to p.1.1 plus p.1.2 plus p.2 equals N.",
+      "mathematicalFormula": "\\operatorname{supportRaw}(N)=((((\\operatorname{Finset}.\\operatorname{range} (N + 1)).\\operatorname{product} (\\operatorname{Finset}.\\operatorname{range} (N + 1))).\\operatorname{product} (\\operatorname{Finset}.\\operatorname{range} (N + 1))).\\operatorname{filter} (p \\longmapsto 1_{\\mathrm{1}} + 2_{\\mathrm{1}} + 2_{\\mathrm{p}} = N))",
       "leanType": "def supportRaw (N : ℕ) : Finset ((ℕ × ℕ) × ℕ)",
       "line": 48
     },
     {
       "leanDeclaration": "support",
       "kind": "def",
-      "mathematicalMeaning": "Definition: support. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The canonical finite OR support of all coefficient indices of degree N.",
+      "mathematicalFormula": "\\operatorname{support}(N)\\colon \\operatorname{Finset} (\\operatorname{ORIndex} N)",
       "leanType": "def support (N : ℕ) : Finset (ORIndex N)",
       "line": 54
     },
     {
       "leanDeclaration": "support_toWord_totalPower",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: support to Word total Power. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For N in the natural numbers, I of type ORIndex N, and hI of type I belongs to support N, I.to Word.total Power equals N.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;I\\colon \\operatorname{ORIndex} N,\\;_hI\\colon I \\in \\operatorname{support} N,\\quad I.\\operatorname{toWord}.\\operatorname{totalPower} = N",
       "leanType": "theorem support_toWord_totalPower {N : ℕ} {I : ORIndex N} (_hI : I ∈ support N) : I.toWord.totalPower = N",
       "line": 63
     },
     {
       "leanDeclaration": "move_a_to_b",
       "kind": "def",
-      "mathematicalMeaning": "Definition: move a to b. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Move one unit from the output Laplacian power to the first input power. In explicit terms, for n in the natural numbers, i of type orindex n, and ha of type 0 < i.a, its defining expression is a : equals I.a minus 1 b : equals I.b plus 1 c : equals I.c sum eq : equals by have hsum : equals I.sum eq omega.",
+      "mathematicalFormula": "\\operatorname{move\\_a\\_to\\_b}(I,ha)=a = a_{\\mathrm{I}} - 1 b = b_{\\mathrm{I}} + 1 c = c_{\\mathrm{I}} \\operatorname{sum\\_eq} = \\operatorname{by} \\operatorname{have} \\operatorname{hsum} = I.\\operatorname{sum\\_eq} \\operatorname{omega}",
       "leanType": "def move_a_to_b {N : ℕ} (I : ORIndex N) (ha : 0 < I.a) : ORIndex N",
       "line": 73
     },
     {
       "leanDeclaration": "move_a_to_c",
       "kind": "def",
-      "mathematicalMeaning": "Definition: move a to c. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Move one unit from the output Laplacian power to the second input power. In explicit terms, for n in the natural numbers, i of type orindex n, and ha of type 0 < i.a, its defining expression is a : equals I.a minus 1 b : equals I.b c : equals I.c plus 1 sum eq : equals by have hsum : equals I.sum eq omega.",
+      "mathematicalFormula": "\\operatorname{move\\_a\\_to\\_c}(I,ha)=a = a_{\\mathrm{I}} - 1 b = b_{\\mathrm{I}} c = c_{\\mathrm{I}} + 1 \\operatorname{sum\\_eq} = \\operatorname{by} \\operatorname{have} \\operatorname{hsum} = I.\\operatorname{sum\\_eq} \\operatorname{omega}",
       "leanType": "def move_a_to_c {N : ℕ} (I : ORIndex N) (ha : 0 < I.a) : ORIndex N",
       "line": 83
     },
     {
       "leanDeclaration": "move_b_to_a",
       "kind": "def",
-      "mathematicalMeaning": "Definition: move b to a. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Move one unit from the first input power to the output Laplacian power. In explicit terms, for n in the natural numbers, i of type orindex n, and hb of type 0 < i.b, its defining expression is a : equals I.a plus 1 b : equals I.b minus 1 c : equals I.c sum eq : equals by have hsum : equals I.sum eq omega.",
+      "mathematicalFormula": "\\operatorname{move\\_b\\_to\\_a}(I,hb)=a = a_{\\mathrm{I}} + 1 b = b_{\\mathrm{I}} - 1 c = c_{\\mathrm{I}} \\operatorname{sum\\_eq} = \\operatorname{by} \\operatorname{have} \\operatorname{hsum} = I.\\operatorname{sum\\_eq} \\operatorname{omega}",
       "leanType": "def move_b_to_a {N : ℕ} (I : ORIndex N) (hb : 0 < I.b) : ORIndex N",
       "line": 93
     },
     {
       "leanDeclaration": "move_c_to_a",
       "kind": "def",
-      "mathematicalMeaning": "Definition: move c to a. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Move one unit from the second input power to the output Laplacian power. In explicit terms, for n in the natural numbers, i of type orindex n, and hc of type 0 < i.c, its defining expression is a : equals I.a plus 1 b : equals I.b c : equals I.c minus 1 sum eq : equals by have hsum : equals I.sum eq omega.",
+      "mathematicalFormula": "\\operatorname{move\\_c\\_to\\_a}(I,hc)=a = a_{\\mathrm{I}} + 1 b = b_{\\mathrm{I}} c = c_{\\mathrm{I}} - 1 \\operatorname{sum\\_eq} = \\operatorname{by} \\operatorname{have} \\operatorname{hsum} = I.\\operatorname{sum\\_eq} \\operatorname{omega}",
       "leanType": "def move_c_to_a {N : ℕ} (I : ORIndex N) (hc : 0 < I.c) : ORIndex N",
       "line": 103
     },
     {
       "leanDeclaration": "move_b_to_c",
       "kind": "def",
-      "mathematicalMeaning": "Definition: move b to c. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Move one unit from the first input power to the second input power. In explicit terms, for n in the natural numbers, i of type orindex n, and hb of type 0 < i.b, its defining expression is a : equals I.a b : equals I.b minus 1 c : equals I.c plus 1 sum eq : equals by have hsum : equals I.sum eq omega.",
+      "mathematicalFormula": "\\operatorname{move\\_b\\_to\\_c}(I,hb)=a = a_{\\mathrm{I}} b = b_{\\mathrm{I}} - 1 c = c_{\\mathrm{I}} + 1 \\operatorname{sum\\_eq} = \\operatorname{by} \\operatorname{have} \\operatorname{hsum} = I.\\operatorname{sum\\_eq} \\operatorname{omega}",
       "leanType": "def move_b_to_c {N : ℕ} (I : ORIndex N) (hb : 0 < I.b) : ORIndex N",
       "line": 113
     },
     {
       "leanDeclaration": "move_c_to_b",
       "kind": "def",
-      "mathematicalMeaning": "Definition: move c to b. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Move one unit from the second input power to the first input power. In explicit terms, for n in the natural numbers, i of type orindex n, and hc of type 0 < i.c, its defining expression is a : equals I.a b : equals I.b plus 1 c : equals I.c minus 1 sum eq : equals by have hsum : equals I.sum eq omega.",
+      "mathematicalFormula": "\\operatorname{move\\_c\\_to\\_b}(I,hc)=a = a_{\\mathrm{I}} b = b_{\\mathrm{I}} + 1 c = c_{\\mathrm{I}} - 1 \\operatorname{sum\\_eq} = \\operatorname{by} \\operatorname{have} \\operatorname{hsum} = I.\\operatorname{sum\\_eq} \\operatorname{omega}",
       "leanType": "def move_c_to_b {N : ℕ} (I : ORIndex N) (hc : 0 < I.c) : ORIndex N",
       "line": 123
     },
     {
       "leanDeclaration": "N_sub_b_pos_of_a_pos",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: N sub b pos of a pos. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For N in the natural numbers, I of type ORIndex N, and ha of type 0 < I.a, 0 < N minus I.b.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;I\\colon \\operatorname{ORIndex} N,\\;ha\\colon 0 < a_{\\mathrm{I}},\\quad 0 < N - b_{\\mathrm{I}}",
       "leanType": "theorem N_sub_b_pos_of_a_pos {N : ℕ} (I : ORIndex N) (ha : 0 < I.a) : 0 < N - I.b",
       "line": 188
     },
     {
       "leanDeclaration": "N_sub_c_pos_of_a_pos",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: N sub c pos of a pos. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For N in the natural numbers, I of type ORIndex N, and ha of type 0 < I.a, 0 < N minus I.c.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;I\\colon \\operatorname{ORIndex} N,\\;ha\\colon 0 < a_{\\mathrm{I}},\\quad 0 < N - c_{\\mathrm{I}}",
       "leanType": "theorem N_sub_c_pos_of_a_pos {N : ℕ} (I : ORIndex N) (ha : 0 < I.a) : 0 < N - I.c",
       "line": 193
     },
     {
       "leanDeclaration": "N_sub_b_pred_eq",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: N sub b pred eq. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For N in the natural numbers, I of type ORIndex N, and ha of type 0 < I.a, N minus I.b minus 1 equals N minus I.b plus 1.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;I\\colon \\operatorname{ORIndex} N,\\;_ha\\colon 0 < a_{\\mathrm{I}},\\quad N - b_{\\mathrm{I}} - 1 = N - (b_{\\mathrm{I}} + 1)",
       "leanType": "theorem N_sub_b_pred_eq {N : ℕ} (I : ORIndex N) (_ha : 0 < I.a) : N - I.b - 1 = N - (I.b + 1)",
       "line": 198
     },
     {
       "leanDeclaration": "N_sub_c_pred_eq",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: N sub c pred eq. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For N in the natural numbers, I of type ORIndex N, and ha of type 0 < I.a, N minus I.c minus 1 equals N minus I.c plus 1.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;I\\colon \\operatorname{ORIndex} N,\\;_ha\\colon 0 < a_{\\mathrm{I}},\\quad N - c_{\\mathrm{I}} - 1 = N - (c_{\\mathrm{I}} + 1)",
       "leanType": "theorem N_sub_c_pred_eq {N : ℕ} (I : ORIndex N) (_ha : 0 < I.a) : N - I.c - 1 = N - (I.c + 1)",
       "line": 203
     },
     {
       "leanDeclaration": "b_succ_add_c",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: b succ add c. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For N in the natural numbers, and I of type ORIndex N, I.b plus 1 plus I.c equals I.b plus I.c plus 1.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;I\\colon \\operatorname{ORIndex} N,\\quad b_{\\mathrm{I}} + 1 + c_{\\mathrm{I}} = b_{\\mathrm{I}} + c_{\\mathrm{I}} + 1",
       "leanType": "theorem b_succ_add_c {N : ℕ} (I : ORIndex N) : I.b + 1 + I.c = I.b + I.c + 1",
       "line": 208
     },
     {
       "leanDeclaration": "b_add_c_succ",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: b add c succ. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For N in the natural numbers, and I of type ORIndex N, I.b plus I.c plus 1 equals I.b plus I.c plus 1.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;I\\colon \\operatorname{ORIndex} N,\\quad b_{\\mathrm{I}} + (c_{\\mathrm{I}} + 1) = b_{\\mathrm{I}} + c_{\\mathrm{I}} + 1",
       "leanType": "theorem b_add_c_succ {N : ℕ} (I : ORIndex N) : I.b + (I.c + 1) = I.b + I.c + 1",
       "line": 212
     }

@@ -22,7 +22,8 @@
       "baseRaySection",
       "StraightForm",
       "baseScale",
-      "gRho"
+      "gRho",
+      "mkStraightForm"
     ],
     "referenceIds": [
       "FG-AmbientMetric"
@@ -67,7 +68,25 @@
       "lap",
       "lapPow",
       "lapPow_zero",
-      "lapPow_succ"
+      "lapPow_succ",
+      "IsXHomogeneous",
+      "IsXHomogeneousDensity",
+      "densityToFunction",
+      "densityToFunction_apply",
+      "IsXHomogeneousDensity_iff",
+      "AlgebraicIdentities",
+      "lap_smul",
+      "lap_add",
+      "X_Q",
+      "X_lap_comm",
+      "lap_Q_comm",
+      "lap_Qpow_of_XHomogeneous",
+      "lap_sub",
+      "lapPow_sub",
+      "lap_isXHomogeneous",
+      "LapPowHasWeight",
+      "lapPow_isXHomogeneous",
+      "lapPow_Qmul_formula"
     ],
     "referenceIds": [
       "FG-AmbientMetric"
@@ -96,7 +115,16 @@
       "Operator",
       "IsTangentialOperator",
       "PreservesVanishesModQ",
-      "IsTangentialOperator.id"
+      "IsTangentialOperator.id",
+      "IsTangentialOperator.comp",
+      "IsTangentialAtWeight",
+      "MapsHomogeneousWeight",
+      "WeightedTangentialOperator",
+      "criticalWeight",
+      "gjmsOutputWeight",
+      "lapPow_has_GJMS_weight",
+      "ambientGJMSCandidate",
+      "lapPow_isTangentialAtCriticalWeight"
     ],
     "referenceIds": [
       "FG-AmbientMetric"
@@ -561,7 +589,18 @@
       "ambientScalarOne",
       "tensorProdInvariant",
       "ambientTensorProdInvariant",
-      "contractInvariant"
+      "contractInvariant",
+      "ambientContractInvariant",
+      "tensorWeight_contractInvariant",
+      "ambientTensorWeight_contractInvariant",
+      "qsmul",
+      "add",
+      "laplacian",
+      "jMul",
+      "divInvariant",
+      "ambientDivInvariant",
+      "laplacian",
+      "restrictToEinsteinSlice"
     ],
     "referenceIds": [
       "CaseKhaitanLinTyrrellYuan-2024",
@@ -591,7 +630,13 @@
       "weylPower_rank",
       "weylPower_weight",
       "ambientRiemannPower_rank",
-      "ambientRiemannPower_weight"
+      "ambientRiemannPower_weight",
+      "weylPower_straightenable",
+      "CompleteContraction",
+      "WeylCompleteContraction",
+      "AmbientRmCompleteContraction",
+      "WeylCompleteContraction_weight",
+      "WeylPolynomial_straightenable"
     ],
     "referenceIds": [
       "CaseKhaitanLinTyrrellYuan-2024",
@@ -782,7 +827,12 @@
       "scaleFactor",
       "trivialization",
       "fiber_nonempty",
-      "relativeFactor"
+      "relativeFactor",
+      "scale_eq_dilate_relativeFactor",
+      "pointToFiberBundle",
+      "dilateMetricField",
+      "dilateMetricFieldConst",
+      "Scale.dilateTotalMetric"
     ],
     "referenceIds": [
       "FG-AmbientMetric"
@@ -859,7 +909,30 @@
       "calculusInputWeight_one",
       "calculusOutputWeight_one",
       "calculusInputWeight_two",
-      "calculusOutputWeight_two"
+      "calculusOutputWeight_two",
+      "AbstractOperator",
+      "order",
+      "inputWeightOf",
+      "outputWeightOf",
+      "toOperator",
+      "mapsWeight",
+      "tangential",
+      "inputWeightOf_eq",
+      "outputWeightOf_eq",
+      "outputWeightOf_eq_inputWeightOf_sub_two_mul",
+      "Family",
+      "get",
+      "get_k",
+      "get_order",
+      "P0",
+      "P2",
+      "P4",
+      "P0_k",
+      "P2_k",
+      "P4_k",
+      "P0_order",
+      "P2_order",
+      "P4_order"
     ],
     "referenceIds": [
       "GJMS-1992",
@@ -1233,7 +1306,14 @@
       "totalPower",
       "expectedOutputWeight",
       "toOperator_pairInput_apply",
-      "mk"
+      "mk",
+      "mk_outputPower",
+      "mk_inputPower_zero",
+      "mk_inputPower_one",
+      "mk_inputPower_two",
+      "BiLaplacianCombinationData",
+      "toOperator",
+      "toOperator_apply"
     ],
     "referenceIds": [
       "CaseLinYuan-2022"

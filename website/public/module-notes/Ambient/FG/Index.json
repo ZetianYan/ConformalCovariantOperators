@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/FG/Index.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/FG/Index.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,56 +19,64 @@
     {
       "leanDeclaration": "AmbientIndex",
       "kind": "inductive",
-      "mathematicalMeaning": "Definition: Ambient Index. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Ambient normal-form indices: 0, base indices, and infinity. Its constructors are: zero with arguments : Ambient Index ι; base with arguments : ι maps to Ambient Index ι; inf with arguments : Ambient Index ι.",
+      "mathematicalFormula": "\\operatorname{AmbientIndex}::=\\operatorname{zero}(\\colon \\operatorname{AmbientIndex} ι)\\mid\\operatorname{base}(\\colon ι \\longrightarrow \\operatorname{AmbientIndex} ι)\\mid\\operatorname{inf}(\\colon \\operatorname{AmbientIndex} ι)",
       "leanType": "inductive AmbientIndex (ι : Type u) : Type u",
       "line": 29
     },
     {
       "leanDeclaration": "kronecker",
       "kind": "def",
-      "mathematicalMeaning": "Definition: kronecker. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The Kronecker delta on ambient normal-form indices.",
+      "mathematicalFormula": "\\operatorname{kronecker}(I,J)\\colon \\mathbb{R}",
       "leanType": "def kronecker [DecidableEq ι] (I J : AmbientIndex ι) : ℝ",
       "line": 40
     },
     {
       "leanDeclaration": "kronecker_self",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: kronecker self. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For I of type Ambient Index ι, kronecker I I equals 1.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} ι,\\;I\\colon \\operatorname{AmbientIndex} ι,\\quad \\operatorname{kronecker} I I = 1",
       "leanType": "theorem kronecker_self [DecidableEq ι] (I : AmbientIndex ι) : kronecker I I = 1",
       "line": 44
     },
     {
       "leanDeclaration": "kronecker_zero_inf",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: kronecker zero inf. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem kronecker_zero_inf [DecidableEq ι] : kronecker (ι",
+      "mathematicalMeaning": "kronecker ι : equals ι zero inf equals 0.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} ι,\\quad \\operatorname{kronecker} (ι = ι) \\operatorname{zero} \\operatorname{inf} = 0",
+      "leanType": "theorem kronecker_zero_inf [DecidableEq ι] : kronecker (ι := ι) zero inf = 0",
       "line": 49
     },
     {
       "leanDeclaration": "kronecker_inf_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: kronecker inf zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem kronecker_inf_zero [DecidableEq ι] : kronecker (ι",
+      "mathematicalMeaning": "kronecker ι : equals ι inf zero equals 0.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} ι,\\quad \\operatorname{kronecker} (ι = ι) \\operatorname{inf} \\operatorname{zero} = 0",
+      "leanType": "theorem kronecker_inf_zero [DecidableEq ι] : kronecker (ι := ι) inf zero = 0",
       "line": 54
     },
     {
       "leanDeclaration": "kronecker_zero_base",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: kronecker zero base. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For i of type ι, kronecker zero base i equals 0.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} ι,\\;i\\colon ι,\\quad \\operatorname{kronecker} \\operatorname{zero} (\\operatorname{base} i) = 0",
       "leanType": "theorem kronecker_zero_base [DecidableEq ι] (i : ι) : kronecker zero (base i) = 0",
       "line": 59
     },
     {
       "leanDeclaration": "kronecker_base_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: kronecker base zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For i of type ι, kronecker base i zero equals 0.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} ι,\\;i\\colon ι,\\quad \\operatorname{kronecker} (\\operatorname{base} i) \\operatorname{zero} = 0",
       "leanType": "theorem kronecker_base_zero [DecidableEq ι] (i : ι) : kronecker (base i) zero = 0",
       "line": 64
     },
     {
       "leanDeclaration": "NormalCoord",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Normal Coord. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A chosen-scale normal-form coordinate triple (t, x, rho). Its mathematical data are: t: the real numbers; x: M; rho: the real numbers.",
+      "mathematicalFormula": "\\begin{aligned}t&\\colon \\mathbb{R}\\\\x&\\colon M\\\\\\operatorname{rho}&\\colon \\mathbb{R}\\end{aligned}",
       "leanType": "structure NormalCoord (M : Type u)",
       "line": 71
     }

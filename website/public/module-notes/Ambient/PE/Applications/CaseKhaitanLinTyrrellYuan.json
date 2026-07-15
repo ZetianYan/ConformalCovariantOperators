@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/PE/Applications/CaseKhaitanLinTyrrellYuan.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/PE/Applications/CaseKhaitanLinTyrrellYuan.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,85 +19,97 @@
     {
       "leanDeclaration": "doubleFactorial",
       "kind": "def",
-      "mathematicalMeaning": "Definition: double Factorial. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def doubleFactorial : Nat -> Nat | 0 => 1 | 1 => 1 | n + 2 => (n + 2) * doubleFactorial n",
+      "mathematicalMeaning": "Double factorial, with the convention 0!! = 1!! = 1. In explicit terms, its defining expression is | 0 maps to 1 | 1 maps to 1 | n plus 2 maps to n plus 2 times double Factorial n.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{doubleFactorial}(0)&=1\\\\\\operatorname{doubleFactorial}(1)&=1\\\\\\operatorname{doubleFactorial}(n + 2)&=(n + 2) \\cdot \\operatorname{doubleFactorial} n\\end{aligned}",
+      "leanType": "def doubleFactorial : Nat -> Nat",
       "line": 21
     },
     {
       "leanDeclaration": "doubleFactorial_pos",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: double Factorial pos. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem doubleFactorial_pos : forall n : Nat, 0 < doubleFactorial n | 0 => by simp [doubleFactorial] | 1 => by simp [doubleFactorial] | n + 2 => by simp [doubleFactorial, doubleFactorial_pos n]",
+      "mathematicalMeaning": "for every n : Nat, 0 < double Factorial n.",
+      "mathematicalFormula": "\\forall n \\colon \\mathbb{N}, 0 < \\operatorname{doubleFactorial} n",
+      "leanType": "theorem doubleFactorial_pos : forall n : Nat, 0 < doubleFactorial n",
       "line": 26
     },
     {
       "leanDeclaration": "doubleFactorial_ne_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: double Factorial ne zero. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For n in the natural numbers, double Factorial n is not equal to 0.",
+      "mathematicalFormula": "\\forall\\,n\\colon \\mathbb{N},\\quad \\operatorname{doubleFactorial} n \\ne 0",
       "leanType": "theorem doubleFactorial_ne_zero (n : Nat) : doubleFactorial n ≠ 0",
       "line": 32
     },
     {
       "leanDeclaration": "criticalCaseMultiplierQ",
       "kind": "def",
-      "mathematicalMeaning": "Definition: critical Case Multiplier Q. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The PE specialization of the multiplier in Equation (3.2), at ell = n/2-k. In explicit terms, for n, k in the natural numbers, its defining expression is 2 : Rat to the power n divided by 2 minus k times Nat.factorial n divided by 2 minus 1 : Rat times double Factorial n minus 2 times k minus 1 : Rat divided by Nat.factorial k minus 1 : Rat.",
+      "mathematicalFormula": "\\operatorname{criticalCaseMultiplierQ}(n,k)=(2 \\colon \\mathbb{Q}) ^ (n / 2 - k) \\cdot (\\mathbb{N}.\\operatorname{factorial} (n / 2 - 1) \\colon \\mathbb{Q}) \\cdot (\\operatorname{doubleFactorial} (n - 2 \\cdot k - 1) \\colon \\mathbb{Q}) / (\\mathbb{N}.\\operatorname{factorial} (k - 1) \\colon \\mathbb{Q})",
       "leanType": "def criticalCaseMultiplierQ (n k : Nat) : Rat",
       "line": 40
     },
     {
       "leanDeclaration": "CaseCoeff",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Case Coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The coefficient in Theorem 1.4. It is defined as the reciprocal of the explicit critical multiplier, avoiding integer exponent coercions and truncated negative powers. In explicit terms, for n, k in the natural numbers, its defining expression is critical Case Multiplier Q n k : Rat : Real ⁻¹.",
+      "mathematicalFormula": "\\operatorname{CaseCoeff}(n,k)=((\\operatorname{criticalCaseMultiplierQ} n k \\colon \\mathbb{Q}) \\colon \\mathbb{R})⁻¹",
       "leanType": "def CaseCoeff (n k : Nat) : Real",
       "line": 52
     },
     {
       "leanDeclaration": "criticalCaseMultiplierQ_pos",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: critical Case Multiplier Q pos. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For n, k in the natural numbers, 0 < critical Case Multiplier Q n k.",
+      "mathematicalFormula": "\\forall\\,n,k\\colon \\mathbb{N},\\quad 0 < \\operatorname{criticalCaseMultiplierQ} n k",
       "leanType": "theorem criticalCaseMultiplierQ_pos (n k : Nat) : 0 < criticalCaseMultiplierQ n k",
       "line": 55
     },
     {
       "leanDeclaration": "CaseCoeff_mul_criticalCaseMultiplier",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: Case Coeff mul critical Case Multiplier. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The displayed Case coefficient is inverse to the recursion multiplier. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,n,k\\colon \\mathbb{N},\\quad \\operatorname{CaseCoeff} n k \\cdot ((\\operatorname{criticalCaseMultiplierQ} n k \\colon \\mathbb{Q}) \\colon \\mathbb{R}) = 1",
       "leanType": "theorem CaseCoeff_mul_criticalCaseMultiplier (n k : Nat) : CaseCoeff n k * ((criticalCaseMultiplierQ n k : Rat) : Real) = 1",
       "line": 67
     },
     {
       "leanDeclaration": "CaseCoeff_eq_closedForm",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: Case Coeff eq closed Form. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem CaseCoeff_eq_closedForm (n k : Nat) : CaseCoeff n k = (Nat.factorial (k - 1) : Real) / ((2 : Real) ^ (n / 2 - k) * (Nat.factorial (n / 2 - 1) : Real)",
+      "mathematicalMeaning": "Explicit nonnegative-power form of the coefficient in Theorem 1.4. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,n,k\\colon \\mathbb{N},\\quad \\operatorname{CaseCoeff} n k = (\\mathbb{N}.\\operatorname{factorial} (k - 1) \\colon \\mathbb{R}) / (2 ^ (n / 2 - k) \\cdot (\\mathbb{N}.\\operatorname{factorial} (n / 2 - 1) \\colon \\mathbb{R}) \\cdot (\\operatorname{doubleFactorial} (n - 2 \\cdot k - 1) \\colon \\mathbb{R})) = \\operatorname{by} \\operatorname{have} \\operatorname{hMultiplier} \\colon ((\\operatorname{criticalCaseMultiplierQ} n k \\colon \\mathbb{Q}) \\colon \\mathbb{R}) = (2 ^ (n / 2 - k) \\cdot (\\mathbb{N}.\\operatorname{factorial} (n / 2 - 1) \\colon \\mathbb{R}) \\cdot (\\operatorname{doubleFactorial} (n - 2 \\cdot k - 1) \\colon \\mathbb{R})) / (\\mathbb{N}.\\operatorname{factorial} (k - 1) \\colon \\mathbb{R})",
+      "leanType": "theorem CaseCoeff_eq_closedForm (n k : Nat) : CaseCoeff n k = (Nat.factorial (k - 1) : Real) / ((2 : Real) ^ (n / 2 - k) * (Nat.factorial (n / 2 - 1) : Real) * (doubleFactorial (n - 2 * k - 1) : Real)) := by have hMultiplier : ((criticalCaseMultiplierQ n k : Rat) : Real) = ((2 : Real) ^ (n / 2 - k) * (Nat.factorial (n / 2 - 1) : Real) * (doubleFactorial (n - 2 * k - 1) : Real)) / (Nat.factorial (k - 1) : Real)",
       "line": 79
     },
     {
       "leanDeclaration": "CaseEinsteinEvaluationFormula",
       "kind": "class",
-      "mathematicalMeaning": "Data/interface: Case Einstein Evaluation Formula. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Equation (3.2), specialized to a PE metric and the critical iterate, modulo natural divergences. Its mathematical data are: critical recursion mod divergence: for every n k I : Scalar Invariant, 1 < equals k maps to k < equals n divided by 2 maps to I.1.weight equals -2 times k : Int maps to Invariant Evaluation Model.Equal Modulo Divergence Case Laplacian Recursion n k n divided by 2 minus k I Scalar Invariant.qsmul critical Case Multiplier Q n k I.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{critical\\_recursion\\_mod\\_divergence}&\\colon \\forall n k (I \\colon \\operatorname{ScalarInvariant}), 1 <= k \\longrightarrow k <= n / 2 \\longrightarrow I.\\operatorname{1}.\\operatorname{weight} = -2 \\cdot (k \\colon \\mathbb{Z}) \\longrightarrow \\operatorname{InvariantEvaluationModel}.\\operatorname{EqualModuloDivergence} (\\operatorname{CaseLaplacianRecursion} n k (n / 2 - k) I) (\\operatorname{ScalarInvariant}.\\operatorname{qsmul} (\\operatorname{criticalCaseMultiplierQ} n k) I)\\end{aligned}",
       "leanType": "class CaseEinsteinEvaluationFormula [InvariantEvaluationModel] : Prop",
       "line": 114
     },
     {
       "leanDeclaration": "CaseCriticalInvariant",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Case Critical Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The critical ambient invariant i^*(DeltaTilde^(n/2-k) Itilde). In explicit terms, for n, k in the natural numbers, and itilde of type ambient scalar invariant, its defining expression is restrict To Einstein Slice ambient Laplacian Iter n divided by 2 minus k Itilde.",
+      "mathematicalFormula": "\\operatorname{CaseCriticalInvariant}(n,k,Itilde)=\\operatorname{restrictToEinsteinSlice} (\\operatorname{ambientLaplacianIter} (n / 2 - k) \\operatorname{Itilde})",
       "leanType": "def CaseCriticalInvariant (n k : Nat) (Itilde : AmbientScalarInvariant) : ScalarInvariant",
       "line": 128
     },
     {
       "leanDeclaration": "theorem_1_4_renormalizedIntegral",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: theorem 1 4 renormalized Integral. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem theorem_1_4_renormalizedIntegral (X : PESpace.{u, v}) [InvariantEvaluationModel] [EinsteinAmbientLaplacianFormula] [CaseEinsteinEvaluationFormula] [P : PERenormalizationPackage X] (k : Nat)",
+      "mathematicalMeaning": "The abstract integral identity underlying Theorem 1.4, expressed using the renormalized functional in PERenormalizationPackage. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,X\\colon \\operatorname{PESpace}.\\operatorname{}{u, v},\\;\\operatorname{InvariantEvaluationModel},\\;\\operatorname{EinsteinAmbientLaplacianFormula},\\;\\operatorname{CaseEinsteinEvaluationFormula},\\;P\\colon \\operatorname{PERenormalizationPackage} X,\\;k\\colon \\mathbb{N},\\;I\\colon \\operatorname{ScalarInvariant},\\;Itilde\\colon \\operatorname{AmbientScalarInvariant},\\;hn\\colon \\operatorname{Even} X.\\operatorname{bulkDim},\\;hkpos\\colon 1 <= k,\\;hkrange\\colon k <= X.\\operatorname{bulkDim} / 2,\\;hStraight\\colon \\operatorname{ScalarStraightenable} I \\operatorname{Itilde},\\;hWeight\\colon I.\\operatorname{1}.\\operatorname{weight} = -2 \\cdot (k \\colon \\mathbb{Z}),\\quad P.\\operatorname{RInt} I = \\operatorname{CaseCoeff} X.\\operatorname{bulkDim} k \\cdot P.\\operatorname{convergentIntegral} (\\operatorname{CaseCriticalInvariant} X.\\operatorname{bulkDim} k \\operatorname{Itilde})",
+      "leanType": "theorem theorem_1_4_renormalizedIntegral (X : PESpace.{u, v}) [InvariantEvaluationModel] [EinsteinAmbientLaplacianFormula] [CaseEinsteinEvaluationFormula] [P : PERenormalizationPackage X] (k : Nat) (I : ScalarInvariant) (Itilde : AmbientScalarInvariant) (hn : Even X.bulkDim) (hkpos : 1 <= k) (hkrange : k <= X.bulkDim / 2) (hStraight : ScalarStraightenable I Itilde) (hWeight : I.1.weight = -2 * (k : Int)) : P.RInt I = CaseCoeff X.bulkDim k * P.convergentIntegral (CaseCriticalInvariant X.bulkDim k Itilde)",
       "line": 139
     },
     {
       "leanDeclaration": "theorem_1_4_formal",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: theorem 1 4 formal. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem theorem_1_4_formal (X : PESpace.{u, v}) [InvariantEvaluationModel] [EinsteinAmbientLaplacianFormula] [CaseEinsteinEvaluationFormula] [P : PERenormalizationPackage X] (k : Nat)",
+      "mathematicalMeaning": "Theorem 1.4 with the left-hand side written as the Phase B finite-part renormalized curvature integral. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,X\\colon \\operatorname{PESpace}.\\operatorname{}{u, v},\\;\\operatorname{InvariantEvaluationModel},\\;\\operatorname{EinsteinAmbientLaplacianFormula},\\;\\operatorname{CaseEinsteinEvaluationFormula},\\;P\\colon \\operatorname{PERenormalizationPackage} X,\\;k\\colon \\mathbb{N},\\;I\\colon \\operatorname{ScalarInvariant},\\;Itilde\\colon \\operatorname{AmbientScalarInvariant},\\;hn\\colon \\operatorname{Even} X.\\operatorname{bulkDim},\\;hkpos\\colon 1 <= k,\\;hkrange\\colon k <= X.\\operatorname{bulkDim} / 2,\\;hStraight\\colon \\operatorname{ScalarStraightenable} I \\operatorname{Itilde},\\;hWeight\\colon I.\\operatorname{1}.\\operatorname{weight} = -2 \\cdot (k \\colon \\mathbb{Z}),\\quad \\operatorname{RenormalizedCurvatureIntegral} (P.\\operatorname{cutoffData} I) = \\operatorname{CaseCoeff} X.\\operatorname{bulkDim} k \\cdot P.\\operatorname{convergentIntegral} (\\operatorname{CaseCriticalInvariant} X.\\operatorname{bulkDim} k \\operatorname{Itilde})",
+      "leanType": "theorem theorem_1_4_formal (X : PESpace.{u, v}) [InvariantEvaluationModel] [EinsteinAmbientLaplacianFormula] [CaseEinsteinEvaluationFormula] [P : PERenormalizationPackage X] (k : Nat) (I : ScalarInvariant) (Itilde : AmbientScalarInvariant) (hn : Even X.bulkDim) (hkpos : 1 <= k) (hkrange : k <= X.bulkDim / 2) (hStraight : ScalarStraightenable I Itilde) (hWeight : I.1.weight = -2 * (k : Int)) : RenormalizedCurvatureIntegral (P.cutoffData I) = CaseCoeff X.bulkDim k * P.convergentIntegral (CaseCriticalInvariant X.bulkDim k Itilde)",
       "line": 250
     }
   ],

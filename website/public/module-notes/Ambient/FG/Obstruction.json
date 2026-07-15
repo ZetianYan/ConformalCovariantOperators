@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/FG/Obstruction.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/FG/Obstruction.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,36 +19,41 @@
     {
       "leanDeclaration": "obstructionOrder",
       "kind": "def",
-      "mathematicalMeaning": "Definition: obstruction Order. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The critical obstruction order n / 2 in even dimension. In explicit terms, for n in the natural numbers, its defining expression is n divided by 2.",
+      "mathematicalFormula": "\\operatorname{obstructionOrder}(n)=n / 2",
       "leanType": "def obstructionOrder (n : ℕ) : ℕ",
       "line": 26
     },
     {
       "leanDeclaration": "AmbientObstructionData",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Ambient Obstruction Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A component-level obstruction tensor attached to a finite FG metric jet. Its mathematical data are: n: the natural numbers; even dim: n % 2 equals 0; order le: obstruction Order n is at most K; tensor: Sym2 Component ι; symmetric: Symmetric Component tensor; vanishing: Prop.",
+      "mathematicalFormula": "\\begin{aligned}n&\\colon \\mathbb{N}\\\\\\operatorname{even\\_dim}&\\colon n % 2 = 0\\\\\\operatorname{order\\_le}&\\colon \\operatorname{obstructionOrder} n \\le K\\\\\\operatorname{tensor}&\\colon \\operatorname{Sym2Component} ι\\\\\\operatorname{symmetric}&\\colon \\operatorname{SymmetricComponent} \\operatorname{tensor}\\\\\\operatorname{vanishing}&\\colon \\mathrm{Prop}\\end{aligned}",
       "leanType": "structure AmbientObstructionData (J : FormalMetricJet ι K)",
       "line": 30
     },
     {
       "leanDeclaration": "obstructionTensor",
       "kind": "def",
-      "mathematicalMeaning": "Definition: obstruction Tensor. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def obstructionTensor (O : AmbientObstructionData (ι",
+      "mathematicalMeaning": "The obstruction tensor as a component-level two-tensor. In explicit terms, for o of type ambient obstruction data ι : equals ι j, its defining expression is O.tensor.",
+      "mathematicalFormula": "\\operatorname{obstructionTensor}(O)=O.\\operatorname{tensor}",
+      "leanType": "def obstructionTensor (O : AmbientObstructionData (ι := ι) J) : Sym2Component ι",
       "line": 49
     },
     {
       "leanDeclaration": "obstructionTensor_symmetric",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: obstruction Tensor symmetric. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem obstructionTensor_symmetric (O : AmbientObstructionData (ι",
+      "mathematicalMeaning": "For O of type Ambient Obstruction Data ι : equals ι J, Symmetric Component O.obstruction Tensor.",
+      "mathematicalFormula": "\\forall\\,O\\colon \\operatorname{AmbientObstructionData} (ι = ι) J,\\quad \\operatorname{SymmetricComponent} O.\\operatorname{obstructionTensor}",
+      "leanType": "theorem obstructionTensor_symmetric (O : AmbientObstructionData (ι := ι) J) : SymmetricComponent O.obstructionTensor",
       "line": 53
     },
     {
       "leanDeclaration": "IsUnobstructed",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Is Unobstructed. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def IsUnobstructed (O : AmbientObstructionData (ι",
+      "mathematicalMeaning": "A finite jet is formally unobstructed when its obstruction data vanishes. In explicit terms, for o of type ambient obstruction data ι : equals ι j, its defining expression is O.vanishing.",
+      "mathematicalFormula": "\\operatorname{IsUnobstructed}(O)=O.\\operatorname{vanishing}",
+      "leanType": "def IsUnobstructed (O : AmbientObstructionData (ι := ι) J) : Prop",
       "line": 59
     }
   ],

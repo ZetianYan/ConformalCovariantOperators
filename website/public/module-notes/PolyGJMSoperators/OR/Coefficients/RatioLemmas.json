@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OR/Coefficients/RatioLemmas.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows PolyGJMSoperators/OR/Coefficients/RatioLemmas.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,105 +19,120 @@
     {
       "leanDeclaration": "ORFirstSlotMultiplier",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ORFirst Slot Multiplier. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The first-slot recurrence multiplier appearing in Lemma 3.1. In explicit terms, for n in the natural numbers, n, w₁, w₂ of type ℚ, and i of type orindex n, its defining expression is 2 times w₁ plus 2 times w₂ plus n minus 2 times N : ℚ minus 2 times I.b minus 2 times I.c.",
+      "mathematicalFormula": "\\operatorname{ORFirstSlotMultiplier}(n,w₁,w₂,I)=2 \\cdot w₁ + 2 \\cdot w₂ + n - 2 \\cdot (N \\colon \\mathbb{Q}) - 2 \\cdot b_{\\mathrm{I}} - 2 \\cdot c_{\\mathrm{I}}",
       "leanType": "def ORFirstSlotMultiplier {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : ℚ",
       "line": 28
     },
     {
       "leanDeclaration": "ORSecondSlotMultiplier",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ORSecond Slot Multiplier. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The second-slot recurrence multiplier appearing in Lemma 3.1. In explicit terms, for n in the natural numbers, n, w₁, w₂ of type ℚ, and i of type orindex n, its defining expression is 2 times w₁ plus 2 times w₂ plus n minus 2 times N : ℚ minus 2 times I.b minus 2 times I.c.",
+      "mathematicalFormula": "\\operatorname{ORSecondSlotMultiplier}(n,w₁,w₂,I)=2 \\cdot w₁ + 2 \\cdot w₂ + n - 2 \\cdot (N \\colon \\mathbb{Q}) - 2 \\cdot b_{\\mathrm{I}} - 2 \\cdot c_{\\mathrm{I}}",
       "leanType": "def ORSecondSlotMultiplier {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : ℚ",
       "line": 35
     },
     {
       "leanDeclaration": "ORFirstSlotLeftFactor",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ORFirst Slot Left Factor. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The left factor in the first recurrence equation. In explicit terms, for n in the natural numbers, n, w₁ of type ℚ, and i of type orindex n, its defining expression is 2 times w₁ plus n minus 2 times I.b minus 2.",
+      "mathematicalFormula": "\\operatorname{ORFirstSlotLeftFactor}(n,w₁,I)=2 \\cdot w₁ + n - 2 \\cdot b_{\\mathrm{I}} - 2",
       "leanType": "def ORFirstSlotLeftFactor {N : ℕ} (n w₁ : ℚ) (I : ORIndex N) : ℚ",
       "line": 42
     },
     {
       "leanDeclaration": "ORSecondSlotLeftFactor",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ORSecond Slot Left Factor. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The left factor in the second recurrence equation. In explicit terms, for n in the natural numbers, n, w₂ of type ℚ, and i of type orindex n, its defining expression is 2 times w₂ plus n minus 2 times I.c minus 2.",
+      "mathematicalFormula": "\\operatorname{ORSecondSlotLeftFactor}(n,w₂,I)=2 \\cdot w₂ + n - 2 \\cdot c_{\\mathrm{I}} - 2",
       "leanType": "def ORSecondSlotLeftFactor {N : ℕ} (n w₂ : ℚ) (I : ORIndex N) : ℚ",
       "line": 49
     },
     {
       "leanDeclaration": "ORRegularA_move_a_to_b_expanded",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ORRegular A move a to b expanded. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem ORRegularA_move_a_to_b_expanded {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) (ha : 0 < I.a) : ORRegularA n w₁ w₂ (I.move_a_to_b ha) = pochhammerQ (ORAlpha N n w₁ w₂) ((I.b + 1) + I.c)",
+      "mathematicalMeaning": "Expanded form of the Gamma-ratio part after moving one unit from the output power to the first input power. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;n,w₁,w₂\\colon \\mathbb{Q},\\;I\\colon \\operatorname{ORIndex} N,\\;ha\\colon 0 < a_{\\mathrm{I}},\\quad \\operatorname{ORRegularA} n w₁ w₂ (I.\\operatorname{move\\_a\\_to\\_b} \\operatorname{ha}) = \\operatorname{pochhammerQ} (\\operatorname{ORAlpha} N n w₁ w₂) ((b_{\\mathrm{I}} + 1) + c_{\\mathrm{I}}) \\cdot \\operatorname{pochhammerQ} (\\operatorname{ORBeta} N n w₁) (N - (b_{\\mathrm{I}} + 1)) \\cdot \\operatorname{pochhammerQ} (\\operatorname{ORGamma} N n w₂) (N - c_{\\mathrm{I}})",
+      "leanType": "theorem ORRegularA_move_a_to_b_expanded {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) (ha : 0 < I.a) : ORRegularA n w₁ w₂ (I.move_a_to_b ha) = pochhammerQ (ORAlpha N n w₁ w₂) ((I.b + 1) + I.c) * pochhammerQ (ORBeta N n w₁) (N - (I.b + 1)) * pochhammerQ (ORGamma N n w₂) (N - I.c)",
       "line": 59
     },
     {
       "leanDeclaration": "ORRegularA_move_a_to_c_expanded",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ORRegular A move a to c expanded. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem ORRegularA_move_a_to_c_expanded {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) (ha : 0 < I.a) : ORRegularA n w₁ w₂ (I.move_a_to_c ha) = pochhammerQ (ORAlpha N n w₁ w₂) (I.b + (I.c + 1))",
+      "mathematicalMeaning": "Expanded form of the Gamma-ratio part after moving one unit from the output power to the second input power. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;n,w₁,w₂\\colon \\mathbb{Q},\\;I\\colon \\operatorname{ORIndex} N,\\;ha\\colon 0 < a_{\\mathrm{I}},\\quad \\operatorname{ORRegularA} n w₁ w₂ (I.\\operatorname{move\\_a\\_to\\_c} \\operatorname{ha}) = \\operatorname{pochhammerQ} (\\operatorname{ORAlpha} N n w₁ w₂) (b_{\\mathrm{I}} + (c_{\\mathrm{I}} + 1)) \\cdot \\operatorname{pochhammerQ} (\\operatorname{ORBeta} N n w₁) (N - b_{\\mathrm{I}}) \\cdot \\operatorname{pochhammerQ} (\\operatorname{ORGamma} N n w₂) (N - (c_{\\mathrm{I}} + 1))",
+      "leanType": "theorem ORRegularA_move_a_to_c_expanded {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) (ha : 0 < I.a) : ORRegularA n w₁ w₂ (I.move_a_to_c ha) = pochhammerQ (ORAlpha N n w₁ w₂) (I.b + (I.c + 1)) * pochhammerQ (ORBeta N n w₁) (N - I.b) * pochhammerQ (ORGamma N n w₂) (N - (I.c + 1))",
       "line": 74
     },
     {
       "leanDeclaration": "ORRegularAFirstRecurrence",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ORRegular AFirst Recurrence. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The first recurrence equation for the Gamma-ratio part. This is the local identity from which the first-slot defect cancellation proof should proceed. In explicit terms, for n in the natural numbers, n, w₁, w₂ of type ℚ, and i of type orindex n, its defining expression is for every ha : 0 < I.a, ORFirst Slot Left Factor n w₁ I times ORRegular A n w₁ w₂ I.move a to b ha equals -ORFirst Slot Multiplier n w₁ w₂ I times ORRegular A n w₁ w₂ I.",
+      "mathematicalFormula": "\\operatorname{ORRegularAFirstRecurrence}(n,w₁,w₂,I)=\\forall \\operatorname{ha} \\colon 0 < a_{\\mathrm{I}}, \\operatorname{ORFirstSlotLeftFactor} n w₁ I \\cdot \\operatorname{ORRegularA} n w₁ w₂ (I.\\operatorname{move\\_a\\_to\\_b} \\operatorname{ha}) = -\\operatorname{ORFirstSlotMultiplier} n w₁ w₂ I \\cdot \\operatorname{ORRegularA} n w₁ w₂ I",
       "leanType": "def ORRegularAFirstRecurrence {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : Prop",
       "line": 89
     },
     {
       "leanDeclaration": "ORRegularASecondRecurrence",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ORRegular ASecond Recurrence. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The second recurrence equation for the Gamma-ratio part. This is the local identity from which the second-slot defect cancellation proof should proceed. In explicit terms, for n in the natural numbers, n, w₁, w₂ of type ℚ, and i of type orindex n, its defining expression is for every ha : 0 < I.a, ORSecond Slot Left Factor n w₂ I times ORRegular A n w₁ w₂ I.move a to c ha equals -ORSecond Slot Multiplier n w₁ w₂ I times ORRegular A n w₁ w₂ I.",
+      "mathematicalFormula": "\\operatorname{ORRegularASecondRecurrence}(n,w₁,w₂,I)=\\forall \\operatorname{ha} \\colon 0 < a_{\\mathrm{I}}, \\operatorname{ORSecondSlotLeftFactor} n w₂ I \\cdot \\operatorname{ORRegularA} n w₁ w₂ (I.\\operatorname{move\\_a\\_to\\_c} \\operatorname{ha}) = -\\operatorname{ORSecondSlotMultiplier} n w₁ w₂ I \\cdot \\operatorname{ORRegularA} n w₁ w₂ I",
       "leanType": "def ORRegularASecondRecurrence {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : Prop",
       "line": 104
     },
     {
       "leanDeclaration": "ORFirstSlotLeftFactor_eq_two_beta_last",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ORFirst Slot Left Factor eq two beta last. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For N in the natural numbers, n, w₁ of type ℚ, I of type ORIndex N, and ha of type 0 < I.a, ORFirst Slot Left Factor n w₁ I equals 2 times ORBeta N n w₁ plus N minus I.b plus 1 : the natural numbers : ℚ.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;n,w₁\\colon \\mathbb{Q},\\;I\\colon \\operatorname{ORIndex} N,\\;ha\\colon 0 < a_{\\mathrm{I}},\\quad \\operatorname{ORFirstSlotLeftFactor} n w₁ I = 2 \\cdot (\\operatorname{ORBeta} N n w₁ + ((N - (b_{\\mathrm{I}} + 1) \\colon \\mathbb{N}) \\colon \\mathbb{Q}))",
       "leanType": "theorem ORFirstSlotLeftFactor_eq_two_beta_last {N : ℕ} (n w₁ : ℚ) (I : ORIndex N) (ha : 0 < I.a) : ORFirstSlotLeftFactor n w₁ I = 2 * (ORBeta N n w₁ + ((N - (I.b + 1) : ℕ) : ℚ))",
       "line": 115
     },
     {
       "leanDeclaration": "ORSecondSlotLeftFactor_eq_two_gamma_last",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ORSecond Slot Left Factor eq two gamma last. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For N in the natural numbers, n, w₂ of type ℚ, I of type ORIndex N, and ha of type 0 < I.a, ORSecond Slot Left Factor n w₂ I equals 2 times ORGamma N n w₂ plus N minus I.c plus 1 : the natural numbers : ℚ.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;n,w₂\\colon \\mathbb{Q},\\;I\\colon \\operatorname{ORIndex} N,\\;ha\\colon 0 < a_{\\mathrm{I}},\\quad \\operatorname{ORSecondSlotLeftFactor} n w₂ I = 2 \\cdot (\\operatorname{ORGamma} N n w₂ + ((N - (c_{\\mathrm{I}} + 1) \\colon \\mathbb{N}) \\colon \\mathbb{Q}))",
       "leanType": "theorem ORSecondSlotLeftFactor_eq_two_gamma_last {N : ℕ} (n w₂ : ℚ) (I : ORIndex N) (ha : 0 < I.a) : ORSecondSlotLeftFactor n w₂ I = 2 * (ORGamma N n w₂ + ((N - (I.c + 1) : ℕ) : ℚ))",
       "line": 129
     },
     {
       "leanDeclaration": "neg_ORSlotMultiplier_eq_two_alpha_last",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: neg ORSlot Multiplier eq two alpha last. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For N in the natural numbers, n, w₁, w₂ of type ℚ, and I of type ORIndex N, -ORFirst Slot Multiplier n w₁ w₂ I equals 2 times ORAlpha N n w₁ w₂ plus I.b plus I.c : ℚ.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;n,w₁,w₂\\colon \\mathbb{Q},\\;I\\colon \\operatorname{ORIndex} N,\\quad -\\operatorname{ORFirstSlotMultiplier} n w₁ w₂ I = 2 \\cdot (\\operatorname{ORAlpha} N n w₁ w₂ + (b_{\\mathrm{I}} + c_{\\mathrm{I}} \\colon \\mathbb{Q}))",
       "leanType": "theorem neg_ORSlotMultiplier_eq_two_alpha_last {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : -ORFirstSlotMultiplier n w₁ w₂ I = 2 * (ORAlpha N n w₁ w₂ + ((I.b + I.c : ℕ) : ℚ))",
       "line": 143
     },
     {
       "leanDeclaration": "neg_ORSecondSlotMultiplier_eq_two_alpha_last",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: neg ORSecond Slot Multiplier eq two alpha last. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For N in the natural numbers, n, w₁, w₂ of type ℚ, and I of type ORIndex N, -ORSecond Slot Multiplier n w₁ w₂ I equals 2 times ORAlpha N n w₁ w₂ plus I.b plus I.c : ℚ.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;n,w₁,w₂\\colon \\mathbb{Q},\\;I\\colon \\operatorname{ORIndex} N,\\quad -\\operatorname{ORSecondSlotMultiplier} n w₁ w₂ I = 2 \\cdot (\\operatorname{ORAlpha} N n w₁ w₂ + (b_{\\mathrm{I}} + c_{\\mathrm{I}} \\colon \\mathbb{Q}))",
       "leanType": "theorem neg_ORSecondSlotMultiplier_eq_two_alpha_last {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : -ORSecondSlotMultiplier n w₁ w₂ I = 2 * (ORAlpha N n w₁ w₂ + ((I.b + I.c : ℕ) : ℚ))",
       "line": 153
     },
     {
       "leanDeclaration": "ORRegularA_firstRecurrence",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ORRegular A first Recurrence. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For N in the natural numbers, n, w₁, w₂ of type ℚ, and I of type ORIndex N, ORRegular AFirst Recurrence n w₁ w₂ I.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;n,w₁,w₂\\colon \\mathbb{Q},\\;I\\colon \\operatorname{ORIndex} N,\\quad \\operatorname{ORRegularAFirstRecurrence} n w₁ w₂ I",
       "leanType": "theorem ORRegularA_firstRecurrence {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : ORRegularAFirstRecurrence n w₁ w₂ I",
       "line": 163
     },
     {
       "leanDeclaration": "ORRegularA_secondRecurrence",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ORRegular A second Recurrence. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For N in the natural numbers, n, w₁, w₂ of type ℚ, and I of type ORIndex N, ORRegular ASecond Recurrence n w₁ w₂ I.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;n,w₁,w₂\\colon \\mathbb{Q},\\;I\\colon \\operatorname{ORIndex} N,\\quad \\operatorname{ORRegularASecondRecurrence} n w₁ w₂ I",
       "leanType": "theorem ORRegularA_secondRecurrence {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : ORRegularASecondRecurrence n w₁ w₂ I",
       "line": 186
     },
     {
       "leanDeclaration": "ORRegularA_satisfiesLemma31Recurrences",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: ORRegular A satisfies Lemma31 Recurrences. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The regular Gamma-ratio coefficient satisfies both Lemma 3.1 recurrences. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;n,w₁,w₂\\colon \\mathbb{Q},\\quad (\\forall I \\colon \\operatorname{ORIndex} N, \\operatorname{ORRegularAFirstRecurrence} n w₁ w₂ I) \\land (\\forall I \\colon \\operatorname{ORIndex} N, \\operatorname{ORRegularASecondRecurrence} n w₁ w₂ I)",
       "leanType": "theorem ORRegularA_satisfiesLemma31Recurrences {N : ℕ} (n w₁ w₂ : ℚ) : (∀ I : ORIndex N, ORRegularAFirstRecurrence n w₁ w₂ I) ∧ (∀ I : ORIndex N, ORRegularASecondRecurrence n w₁ w₂ I)",
       "line": 210
     }

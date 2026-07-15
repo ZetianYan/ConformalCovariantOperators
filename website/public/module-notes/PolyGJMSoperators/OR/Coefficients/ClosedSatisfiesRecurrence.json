@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in PolyGJMSoperators/OR/Coefficients/ClosedSatisfiesRecurrence.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows PolyGJMSoperators/OR/Coefficients/ClosedSatisfiesRecurrence.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,14 +19,16 @@
     {
       "leanDeclaration": "ORRegularClosedFormula_satisfiesRecurrence_of_defectCancellationQ",
       "kind": "theorem",
-      "mathematicalMeaning": "The proposed closed coefficient expression satisfies the encoded neighboring-index recurrence.",
-      "leanType": "theorem ORRegularClosedFormula_satisfiesRecurrence_of_defectCancellationQ {N : ℕ} {κ : Type _} [DecidableEq κ] (n w₁ w₂ : ℚ) (K : Finset κ) (defectCoeffQ : ORIndex N → Fin 2 → κ → ℚ)",
+      "mathematicalMeaning": "The regular closed formula satisfies the OR recurrence as soon as the chosen rational defect coefficients cancel against the regular closed coefficient system. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;κ\\colon \\mathrm{Type} _,\\;\\operatorname{DecidableEq} κ,\\;n,w₁,w₂\\colon \\mathbb{Q},\\;K\\colon \\operatorname{Finset} κ,\\;defectCoeffQ\\colon \\operatorname{ORIndex} N \\longrightarrow \\operatorname{Fin} 2 \\longrightarrow κ \\longrightarrow \\mathbb{Q},\\;hcancel\\colon \\operatorname{SatisfiesDefectCancellationQ} K (\\operatorname{ORCoefficientSystem}.\\operatorname{regular} N n w₁ w₂) \\operatorname{defectCoeffQ},\\quad \\operatorname{ORRegularClosedFormula}.\\operatorname{SatisfiesRecurrence} n w₁ w₂ K \\operatorname{defectCoeffQ}",
+      "leanType": "theorem ORRegularClosedFormula_satisfiesRecurrence_of_defectCancellationQ {N : ℕ} {κ : Type _} [DecidableEq κ] (n w₁ w₂ : ℚ) (K : Finset κ) (defectCoeffQ : ORIndex N → Fin 2 → κ → ℚ) (hcancel : SatisfiesDefectCancellationQ K (ORCoefficientSystem.regular N n w₁ w₂) defectCoeffQ) : ORRegularClosedFormula.SatisfiesRecurrence n w₁ w₂ K defectCoeffQ",
       "line": 33
     },
     {
       "leanDeclaration": "ORRegularClosedFormula_satisfiesLemma31LocalRecurrences",
       "kind": "theorem",
-      "mathematicalMeaning": "The proposed closed coefficient expression satisfies the encoded neighboring-index recurrence.",
+      "mathematicalMeaning": "The regular closed formula supplies Gamma-ratio coefficients satisfying the two local recurrence equations of Lemma 3.1. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;n,w₁,w₂\\colon \\mathbb{Q},\\quad (\\forall I \\colon \\operatorname{ORIndex} N, \\operatorname{ORRegularAFirstRecurrence} n w₁ w₂ I) \\land (\\forall I \\colon \\operatorname{ORIndex} N, \\operatorname{ORRegularASecondRecurrence} n w₁ w₂ I)",
       "leanType": "theorem ORRegularClosedFormula_satisfiesLemma31LocalRecurrences {N : ℕ} (n w₁ w₂ : ℚ) : (∀ I : ORIndex N, ORRegularAFirstRecurrence n w₁ w₂ I) ∧ (∀ I : ORIndex N, ORRegularASecondRecurrence n w₁ w₂ I)",
       "line": 53
     }

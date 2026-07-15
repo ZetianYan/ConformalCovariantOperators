@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/PE/Invariants/RiemannianInvariant.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/PE/Invariants/RiemannianInvariant.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,128 +19,234 @@
     {
       "leanDeclaration": "InvariantParity",
       "kind": "inductive",
-      "mathematicalMeaning": "Definition: Invariant Parity. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Orientation parity of a symbolic invariant. Its constructors are: even; odd; mixed.",
+      "mathematicalFormula": "\\operatorname{InvariantParity}::=\\operatorname{even}\\mid\\operatorname{odd}\\mid\\operatorname{mixed}",
       "leanType": "inductive InvariantParity",
       "line": 20
     },
     {
       "leanDeclaration": "tensorProduct",
       "kind": "def",
-      "mathematicalMeaning": "Definition: tensor Product. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def tensorProduct : InvariantParity -> InvariantParity -> InvariantParity | even, p => p | p, even => p | odd, odd => even | mixed, _ => mixed | _, mixed => mixed",
+      "mathematicalMeaning": "Parity of a tensor product. In explicit terms, its defining expression is | even, p maps to p | p, even maps to p | odd, odd maps to even | mixed, maps to mixed |, mixed maps to mixed.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{tensorProduct}(\\operatorname{even}, p)&=p\\\\\\operatorname{tensorProduct}(p, \\operatorname{even})&=p\\\\\\operatorname{tensorProduct}(\\operatorname{odd}, \\operatorname{odd})&=\\operatorname{even}\\\\\\operatorname{tensorProduct}(\\operatorname{mixed}, _)&=\\operatorname{mixed}\\\\\\operatorname{tensorProduct}(_, \\operatorname{mixed})&=\\operatorname{mixed}\\end{aligned}",
+      "leanType": "def tensorProduct : InvariantParity -> InvariantParity -> InvariantParity",
       "line": 29
     },
     {
       "leanDeclaration": "IndexPairing",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Index Pairing. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Symbolic data describing a partial contraction of tensor indices. Its mathematical data are: pairs: List Nat × Nat; validity: Prop.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{pairs}&\\colon \\operatorname{List} (\\mathbb{N} × \\mathbb{N})\\\\\\operatorname{validity}&\\colon \\mathrm{Prop}\\end{aligned}",
       "leanType": "structure IndexPairing",
       "line": 39
     },
     {
       "leanDeclaration": "pairCount",
       "kind": "def",
-      "mathematicalMeaning": "Definition: pair Count. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Number of contracted index pairs. In explicit terms, for c of type index pairing, its defining expression is C.pairs.length.",
+      "mathematicalFormula": "\\operatorname{pairCount}(C)=C.\\operatorname{pairs}.\\operatorname{length}",
       "leanType": "def pairCount (C : IndexPairing) : Nat",
       "line": 47
     },
     {
       "leanDeclaration": "TensorInvariantExpr",
       "kind": "inductive",
-      "mathematicalMeaning": "Definition: Tensor Invariant Expr. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Syntax for natural tensor invariants and the operations used in the paper. Its constructors are: const One; metric; inv Metric; riem; cov Deriv Riem with arguments order; tensor Prod with arguments A B : Tensor Invariant Expr; contract with arguments A : Tensor Invariant Expr C : Index Pairing; lin Comb with arguments terms : List Rat × Tensor Invariant Expr; scalar Mul with arguments c : Rat A : Tensor Invariant Expr; add with arguments A B : Tensor Invariant Expr; laplacian with arguments A : Tensor Invariant Expr; j Mul with arguments A : Tensor Invariant Expr; divergence with arguments A : Tensor Invariant Expr; ambient Laplacian with arguments A : Tensor Invariant Expr; restrict Ambient with arguments A : Tensor Invariant Expr; pf Like with arguments order A : Tensor Invariant Expr.",
+      "mathematicalFormula": "\\operatorname{TensorInvariantExpr}::=\\operatorname{constOne}\\mid\\operatorname{metric}\\mid\\operatorname{invMetric}\\mid\\operatorname{riem}\\mid\\operatorname{covDerivRiem}(\\operatorname{order})\\mid\\operatorname{tensorProd}((A B \\colon \\operatorname{TensorInvariantExpr}))\\mid\\operatorname{contract}((A \\colon \\operatorname{TensorInvariantExpr}) (C \\colon \\operatorname{IndexPairing}))\\mid\\operatorname{linComb}((\\operatorname{terms} \\colon \\operatorname{List} (\\mathbb{Q} × \\operatorname{TensorInvariantExpr})))\\mid\\operatorname{scalarMul}((c \\colon \\mathbb{Q}) (A \\colon \\operatorname{TensorInvariantExpr}))\\mid\\operatorname{add}((A B \\colon \\operatorname{TensorInvariantExpr}))\\mid\\widetilde{\\Delta}((A \\colon \\operatorname{TensorInvariantExpr}))\\mid\\operatorname{jMul}((A \\colon \\operatorname{TensorInvariantExpr}))\\mid\\operatorname{divergence}((A \\colon \\operatorname{TensorInvariantExpr}))\\mid\\operatorname{ambientLaplacian}((A \\colon \\operatorname{TensorInvariantExpr}))\\mid\\operatorname{restrictAmbient}((A \\colon \\operatorname{TensorInvariantExpr}))\\mid\\operatorname{pfLike}(\\operatorname{order} (A \\colon \\operatorname{TensorInvariantExpr}))",
       "leanType": "inductive TensorInvariantExpr",
       "line": 53
     },
     {
       "leanDeclaration": "TensorInvariant",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Tensor Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "A base Riemannian invariant with formal metadata. Its mathematical data are: expr: Tensor Invariant Expr; rank: Nat; weight: Int; parity: Invariant Parity.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{expr}&\\colon \\operatorname{TensorInvariantExpr}\\\\\\operatorname{rank}&\\colon \\mathbb{N}\\\\\\operatorname{weight}&\\colon \\mathbb{Z}\\\\\\operatorname{parity}&\\colon \\operatorname{InvariantParity}\\end{aligned}",
       "leanType": "structure TensorInvariant",
       "line": 72
     },
     {
       "leanDeclaration": "AmbientInvariant",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Ambient Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "An ambient Riemannian invariant with formal metadata. Its mathematical data are: expr: Tensor Invariant Expr; rank: Nat; weight: Int; parity: Invariant Parity.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{expr}&\\colon \\operatorname{TensorInvariantExpr}\\\\\\operatorname{rank}&\\colon \\mathbb{N}\\\\\\operatorname{weight}&\\colon \\mathbb{Z}\\\\\\operatorname{parity}&\\colon \\operatorname{InvariantParity}\\end{aligned}",
       "leanType": "structure AmbientInvariant",
       "line": 79
     },
     {
       "leanDeclaration": "ScalarInvariant",
       "kind": "abbrev",
-      "mathematicalMeaning": "Definition: Scalar Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Scalar base invariants. In explicit terms, its defining expression is I : Tensor Invariant divided by divided by I.rank equals 0.",
+      "mathematicalFormula": "\\operatorname{ScalarInvariant}={I \\colon \\operatorname{TensorInvariant} // I.\\operatorname{rank} = 0}",
       "leanType": "abbrev ScalarInvariant",
       "line": 86
     },
     {
       "leanDeclaration": "OneFormInvariant",
       "kind": "abbrev",
-      "mathematicalMeaning": "Definition: One Form Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Rank-one base invariants. In explicit terms, its defining expression is I : Tensor Invariant divided by divided by I.rank equals 1.",
+      "mathematicalFormula": "\\operatorname{OneFormInvariant}={I \\colon \\operatorname{TensorInvariant} // I.\\operatorname{rank} = 1}",
       "leanType": "abbrev OneFormInvariant",
       "line": 90
     },
     {
       "leanDeclaration": "AmbientScalarInvariant",
       "kind": "abbrev",
-      "mathematicalMeaning": "Definition: Ambient Scalar Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Scalar ambient invariants. In explicit terms, its defining expression is I : Ambient Invariant divided by divided by I.rank equals 0.",
+      "mathematicalFormula": "\\operatorname{AmbientScalarInvariant}={I \\colon \\operatorname{AmbientInvariant} // I.\\operatorname{rank} = 0}",
       "leanType": "abbrev AmbientScalarInvariant",
       "line": 94
     },
     {
       "leanDeclaration": "AmbientOneFormInvariant",
       "kind": "abbrev",
-      "mathematicalMeaning": "Definition: Ambient One Form Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Rank-one ambient invariants. In explicit terms, its defining expression is I : Ambient Invariant divided by divided by I.rank equals 1.",
+      "mathematicalFormula": "\\operatorname{AmbientOneFormInvariant}={I \\colon \\operatorname{AmbientInvariant} // I.\\operatorname{rank} = 1}",
       "leanType": "abbrev AmbientOneFormInvariant",
       "line": 98
     },
     {
       "leanDeclaration": "tensorWeight",
       "kind": "def",
-      "mathematicalMeaning": "Definition: tensor Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Tensor weight weight - rank, invariant under contractions. In explicit terms, for i of type tensor invariant, its defining expression is I.weight minus I.rank.",
+      "mathematicalFormula": "\\operatorname{tensorWeight}(I)=I.\\operatorname{weight} - I.\\operatorname{rank}",
       "leanType": "def tensorWeight (I : TensorInvariant) : Int",
       "line": 102
     },
     {
       "leanDeclaration": "ambientTensorWeight",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ambient Tensor Weight. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Ambient tensor weight weight - rank. In explicit terms, for i of type ambient invariant, its defining expression is I.weight minus I.rank.",
+      "mathematicalFormula": "\\operatorname{ambientTensorWeight}(I)=I.\\operatorname{weight} - I.\\operatorname{rank}",
       "leanType": "def ambientTensorWeight (I : AmbientInvariant) : Int",
       "line": 106
     },
     {
       "leanDeclaration": "scalarOne",
       "kind": "def",
-      "mathematicalMeaning": "Definition: scalar One. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The constant scalar invariant 1. In explicit terms, its defining expression is ⟨ expr : equals Tensor Invariant Expr.const One rank : equals 0 weight : equals 0 parity : equals Invariant Parity.even, rfl ⟩.",
+      "mathematicalFormula": "\\operatorname{scalarOne}=⟨ { \\operatorname{expr} = \\operatorname{TensorInvariantExpr}.\\operatorname{constOne} \\operatorname{rank} = 0 \\operatorname{weight} = 0 \\operatorname{parity} = \\operatorname{InvariantParity}.\\operatorname{even} }, \\operatorname{rfl} ⟩",
       "leanType": "def scalarOne : ScalarInvariant",
       "line": 110
     },
     {
       "leanDeclaration": "ambientScalarOne",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ambient Scalar One. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The constant ambient scalar invariant 1. In explicit terms, its defining expression is ⟨ expr : equals Tensor Invariant Expr.const One rank : equals 0 weight : equals 0 parity : equals Invariant Parity.even, rfl ⟩.",
+      "mathematicalFormula": "\\operatorname{ambientScalarOne}=⟨ { \\operatorname{expr} = \\operatorname{TensorInvariantExpr}.\\operatorname{constOne} \\operatorname{rank} = 0 \\operatorname{weight} = 0 \\operatorname{parity} = \\operatorname{InvariantParity}.\\operatorname{even} }, \\operatorname{rfl} ⟩",
       "leanType": "def ambientScalarOne : AmbientScalarInvariant",
       "line": 122
     },
     {
       "leanDeclaration": "tensorProdInvariant",
       "kind": "def",
-      "mathematicalMeaning": "Definition: tensor Prod Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Tensor product of base invariants. In explicit terms, for s, t of type tensor invariant, its defining expression is expr : equals Tensor Invariant Expr.tensor Prod S.expr T.expr rank : equals S.rank plus T.rank weight : equals S.weight plus T.weight parity : equals Invariant Parity.tensor Product S.parity T.parity.",
+      "mathematicalFormula": "\\operatorname{tensorProdInvariant}(S,T)=\\operatorname{expr} = \\operatorname{TensorInvariantExpr}.\\operatorname{tensorProd} S.\\operatorname{expr} T.\\operatorname{expr} \\operatorname{rank} = S.\\operatorname{rank} + T.\\operatorname{rank} \\operatorname{weight} = S.\\operatorname{weight} + T.\\operatorname{weight} \\operatorname{parity} = \\operatorname{InvariantParity}.\\operatorname{tensorProduct} S.\\operatorname{parity} T.\\operatorname{parity}",
       "leanType": "def tensorProdInvariant (S T : TensorInvariant) : TensorInvariant",
       "line": 134
     },
     {
       "leanDeclaration": "ambientTensorProdInvariant",
       "kind": "def",
-      "mathematicalMeaning": "Definition: ambient Tensor Prod Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Tensor product of ambient invariants. In explicit terms, for s, t of type ambient invariant, its defining expression is expr : equals Tensor Invariant Expr.tensor Prod S.expr T.expr rank : equals S.rank plus T.rank weight : equals S.weight plus T.weight parity : equals Invariant Parity.tensor Product S.parity T.parity.",
+      "mathematicalFormula": "\\operatorname{ambientTensorProdInvariant}(S,T)=\\operatorname{expr} = \\operatorname{TensorInvariantExpr}.\\operatorname{tensorProd} S.\\operatorname{expr} T.\\operatorname{expr} \\operatorname{rank} = S.\\operatorname{rank} + T.\\operatorname{rank} \\operatorname{weight} = S.\\operatorname{weight} + T.\\operatorname{weight} \\operatorname{parity} = \\operatorname{InvariantParity}.\\operatorname{tensorProduct} S.\\operatorname{parity} T.\\operatorname{parity}",
       "leanType": "def ambientTensorProdInvariant (S T : AmbientInvariant) : AmbientInvariant",
       "line": 143
     },
     {
       "leanDeclaration": "contractInvariant",
       "kind": "def",
-      "mathematicalMeaning": "Definition: contract Invariant. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Partial contraction of a base tensor. Every contracted pair lowers both rank and metric weight by two, preserving tensor weight when enough indices are present. In explicit terms, for t of type tensor invariant, and c of type index pairing, its defining expression is expr : equals Tensor Invariant Expr.contract T.expr C rank : equals T.rank minus 2 times C.pair Count weight : equals T.weight minus 2 times C.pair Count parity : equals T.parity.",
+      "mathematicalFormula": "\\operatorname{contractInvariant}(T,C)=\\operatorname{expr} = \\operatorname{TensorInvariantExpr}.\\operatorname{contract} T.\\operatorname{expr} C \\operatorname{rank} = T.\\operatorname{rank} - 2 \\cdot C.\\operatorname{pairCount} \\operatorname{weight} = T.\\operatorname{weight} - 2 \\cdot C.\\operatorname{pairCount} \\operatorname{parity} = T.\\operatorname{parity}",
       "leanType": "def contractInvariant (T : TensorInvariant) (C : IndexPairing) : TensorInvariant",
       "line": 157
+    },
+    {
+      "leanDeclaration": "ambientContractInvariant",
+      "kind": "def",
+      "mathematicalMeaning": "Partial contraction of an ambient tensor. In explicit terms, for t of type ambient invariant, and c of type index pairing, its defining expression is expr : equals Tensor Invariant Expr.contract T.expr C rank : equals T.rank minus 2 times C.pair Count weight : equals T.weight minus 2 times C.pair Count parity : equals T.parity.",
+      "mathematicalFormula": "\\operatorname{ambientContractInvariant}(T,C)=\\operatorname{expr} = \\operatorname{TensorInvariantExpr}.\\operatorname{contract} T.\\operatorname{expr} C \\operatorname{rank} = T.\\operatorname{rank} - 2 \\cdot C.\\operatorname{pairCount} \\operatorname{weight} = T.\\operatorname{weight} - 2 \\cdot C.\\operatorname{pairCount} \\operatorname{parity} = T.\\operatorname{parity}",
+      "leanType": "def ambientContractInvariant (T : AmbientInvariant) (C : IndexPairing) : AmbientInvariant",
+      "line": 167
+    },
+    {
+      "leanDeclaration": "tensorWeight_contractInvariant",
+      "kind": "theorem",
+      "mathematicalMeaning": "For T of type Tensor Invariant, C of type Index Pairing, and hC of type 2 times C.pair Count < equals T.rank, tensor Weight contract Invariant T C equals tensor Weight T.",
+      "mathematicalFormula": "\\forall\\,T\\colon \\operatorname{TensorInvariant},\\;C\\colon \\operatorname{IndexPairing},\\;hC\\colon 2 \\cdot C.\\operatorname{pairCount} <= T.\\operatorname{rank},\\quad \\operatorname{tensorWeight} (\\operatorname{contractInvariant} T C) = \\operatorname{tensorWeight} T",
+      "leanType": "theorem tensorWeight_contractInvariant (T : TensorInvariant) (C : IndexPairing) (hC : 2 * C.pairCount <= T.rank) : tensorWeight (contractInvariant T C) = tensorWeight T",
+      "line": 176
+    },
+    {
+      "leanDeclaration": "ambientTensorWeight_contractInvariant",
+      "kind": "theorem",
+      "mathematicalMeaning": "For T of type Ambient Invariant, C of type Index Pairing, and hC of type 2 times C.pair Count < equals T.rank, ambient Tensor Weight ambient Contract Invariant T C equals ambient Tensor Weight T.",
+      "mathematicalFormula": "\\forall\\,T\\colon \\operatorname{AmbientInvariant},\\;C\\colon \\operatorname{IndexPairing},\\;hC\\colon 2 \\cdot C.\\operatorname{pairCount} <= T.\\operatorname{rank},\\quad \\operatorname{ambientTensorWeight} (\\operatorname{ambientContractInvariant} T C) = \\operatorname{ambientTensorWeight} T",
+      "leanType": "theorem ambientTensorWeight_contractInvariant (T : AmbientInvariant) (C : IndexPairing) (hC : 2 * C.pairCount <= T.rank) : ambientTensorWeight (ambientContractInvariant T C) = ambientTensorWeight T",
+      "line": 186
+    },
+    {
+      "leanDeclaration": "qsmul",
+      "kind": "def",
+      "mathematicalMeaning": "Rational scalar multiplication. In explicit terms, for c of type rat, and i of type scalar invariant, its defining expression is ⟨ expr : equals Tensor Invariant Expr.scalar Mul c I.1.expr rank : equals 0 weight : equals I.1.weight parity : equals I.1.parity, rfl ⟩.",
+      "mathematicalFormula": "\\operatorname{qsmul}(c,I)=⟨ { \\operatorname{expr} = \\operatorname{TensorInvariantExpr}.\\operatorname{scalarMul} c I.\\operatorname{1}.\\operatorname{expr} \\operatorname{rank} = 0 \\operatorname{weight} = I.\\operatorname{1}.\\operatorname{weight} \\operatorname{parity} = I.\\operatorname{1}.\\operatorname{parity} }, \\operatorname{rfl} ⟩",
+      "leanType": "def qsmul (c : Rat) (I : ScalarInvariant) : ScalarInvariant",
+      "line": 201
+    },
+    {
+      "leanDeclaration": "add",
+      "kind": "def",
+      "mathematicalMeaning": "Sum of homogeneous scalar invariants of the same weight. In explicit terms, for i, j of type scalar invariant, and hweight of type i.1.weight equals j.1.weight, its defining expression is ⟨ expr : equals Tensor Invariant Expr.add I.1.expr J.1.expr rank : equals 0 weight : equals I.1.weight parity : equals Invariant Parity.mixed, rfl ⟩.",
+      "mathematicalFormula": "\\operatorname{add}(I,J)=⟨ { \\operatorname{expr} = \\operatorname{TensorInvariantExpr}.\\operatorname{add} I.\\operatorname{1}.\\operatorname{expr} J.\\operatorname{1}.\\operatorname{expr} \\operatorname{rank} = 0 \\operatorname{weight} = I.\\operatorname{1}.\\operatorname{weight} \\operatorname{parity} = \\operatorname{InvariantParity}.\\operatorname{mixed} }, \\operatorname{rfl} ⟩",
+      "leanType": "def add (I J : ScalarInvariant) (_hWeight : I.1.weight = J.1.weight) : ScalarInvariant",
+      "line": 213
+    },
+    {
+      "leanDeclaration": "laplacian",
+      "kind": "def",
+      "mathematicalMeaning": "Base Laplacian, lowering weight by two. In explicit terms, for i of type scalar invariant, its defining expression is ⟨ expr : equals Tensor Invariant Expr.ambient Laplacian I.1.expr rank : equals 0 weight : equals I.1.weight minus 2 parity : equals I.1.parity, rfl ⟩.",
+      "mathematicalFormula": "\\widetilde{\\Delta}(I)=⟨ { \\operatorname{expr} = \\operatorname{TensorInvariantExpr}.\\operatorname{laplacian} I.\\operatorname{1}.\\operatorname{expr} \\operatorname{rank} = 0 \\operatorname{weight} = I.\\operatorname{1}.\\operatorname{weight} - 2 \\operatorname{parity} = I.\\operatorname{1}.\\operatorname{parity} }, \\operatorname{rfl} ⟩",
+      "leanType": "def laplacian (I : ScalarInvariant) : ScalarInvariant",
+      "line": 228
+    },
+    {
+      "leanDeclaration": "jMul",
+      "kind": "def",
+      "mathematicalMeaning": "Multiplication by the normalized scalar curvature J. In explicit terms, for i of type scalar invariant, its defining expression is ⟨ expr : equals Tensor Invariant Expr.j Mul I.1.expr rank : equals 0 weight : equals I.1.weight minus 2 parity : equals I.1.parity, rfl ⟩.",
+      "mathematicalFormula": "\\operatorname{jMul}(I)=⟨ { \\operatorname{expr} = \\operatorname{TensorInvariantExpr}.\\operatorname{jMul} I.\\operatorname{1}.\\operatorname{expr} \\operatorname{rank} = 0 \\operatorname{weight} = I.\\operatorname{1}.\\operatorname{weight} - 2 \\operatorname{parity} = I.\\operatorname{1}.\\operatorname{parity} }, \\operatorname{rfl} ⟩",
+      "leanType": "def jMul (I : ScalarInvariant) : ScalarInvariant",
+      "line": 240
+    },
+    {
+      "leanDeclaration": "divInvariant",
+      "kind": "def",
+      "mathematicalMeaning": "Divergence of a rank-one invariant. In explicit terms, for f of type one form invariant, its defining expression is ⟨ expr : equals Tensor Invariant Expr.divergence F.1.expr rank : equals 0 weight : equals F.1.weight minus 2 parity : equals F.1.parity, rfl ⟩.",
+      "mathematicalFormula": "\\operatorname{divInvariant}(F)=⟨ { \\operatorname{expr} = \\operatorname{TensorInvariantExpr}.\\operatorname{divergence} F.\\operatorname{1}.\\operatorname{expr} \\operatorname{rank} = 0 \\operatorname{weight} = F.\\operatorname{1}.\\operatorname{weight} - 2 \\operatorname{parity} = F.\\operatorname{1}.\\operatorname{parity} }, \\operatorname{rfl} ⟩",
+      "leanType": "def divInvariant (F : OneFormInvariant) : ScalarInvariant",
+      "line": 254
+    },
+    {
+      "leanDeclaration": "ambientDivInvariant",
+      "kind": "def",
+      "mathematicalMeaning": "Ambient divergence of a rank-one invariant. In explicit terms, for f of type ambient one form invariant, its defining expression is ⟨ expr : equals Tensor Invariant Expr.divergence F.1.expr rank : equals 0 weight : equals F.1.weight minus 2 parity : equals F.1.parity, rfl ⟩.",
+      "mathematicalFormula": "\\operatorname{ambientDivInvariant}(F)=⟨ { \\operatorname{expr} = \\operatorname{TensorInvariantExpr}.\\operatorname{divergence} F.\\operatorname{1}.\\operatorname{expr} \\operatorname{rank} = 0 \\operatorname{weight} = F.\\operatorname{1}.\\operatorname{weight} - 2 \\operatorname{parity} = F.\\operatorname{1}.\\operatorname{parity} }, \\operatorname{rfl} ⟩",
+      "leanType": "def ambientDivInvariant (F : AmbientOneFormInvariant) : AmbientScalarInvariant",
+      "line": 266
+    },
+    {
+      "leanDeclaration": "laplacian",
+      "kind": "def",
+      "mathematicalMeaning": "Ambient Laplacian, lowering weight by two. In explicit terms, for i of type ambient scalar invariant, its defining expression is ⟨ expr : equals Tensor Invariant Expr.ambient Laplacian I.1.expr rank : equals 0 weight : equals I.1.weight minus 2 parity : equals I.1.parity, rfl ⟩.",
+      "mathematicalFormula": "\\widetilde{\\Delta}(I)=⟨ { \\operatorname{expr} = \\operatorname{TensorInvariantExpr}.\\operatorname{ambientLaplacian} I.\\operatorname{1}.\\operatorname{expr} \\operatorname{rank} = 0 \\operatorname{weight} = I.\\operatorname{1}.\\operatorname{weight} - 2 \\operatorname{parity} = I.\\operatorname{1}.\\operatorname{parity} }, \\operatorname{rfl} ⟩",
+      "leanType": "def laplacian (I : AmbientScalarInvariant) : AmbientScalarInvariant",
+      "line": 282
+    },
+    {
+      "leanDeclaration": "restrictToEinsteinSlice",
+      "kind": "def",
+      "mathematicalMeaning": "Restriction of a scalar ambient invariant to the Einstein slice. This is the i^* appearing in Theorem 1.4; it is not restriction to the conformal boundary of the PE manifold. In explicit terms, for i of type ambient scalar invariant, its defining expression is ⟨ expr : equals Tensor Invariant Expr.restrict Ambient I.1.expr rank : equals 0 weight : equals I.1.weight parity : equals I.1.parity, rfl ⟩.",
+      "mathematicalFormula": "\\operatorname{restrictToEinsteinSlice}(I)=⟨ { \\operatorname{expr} = \\operatorname{TensorInvariantExpr}.\\operatorname{restrictAmbient} I.\\operatorname{1}.\\operatorname{expr} \\operatorname{rank} = 0 \\operatorname{weight} = I.\\operatorname{1}.\\operatorname{weight} \\operatorname{parity} = I.\\operatorname{1}.\\operatorname{parity} }, \\operatorname{rfl} ⟩",
+      "leanType": "def restrictToEinsteinSlice (I : AmbientScalarInvariant) : ScalarInvariant",
+      "line": 301
     }
   ],
   "prerequisites": [],

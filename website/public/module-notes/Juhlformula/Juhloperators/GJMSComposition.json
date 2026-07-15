@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Juhlformula/Juhloperators/GJMSComposition.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Juhlformula/Juhloperators/GJMSComposition.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,35 +19,40 @@
     {
       "leanDeclaration": "canonicalJuhlGJMSFamily",
       "kind": "def",
-      "mathematicalMeaning": "Definition: canonical Juhl GJMSFamily. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The canonical GJMS family, viewed as a Juhl abstract family. In explicit terms, for h of type cal conf.algebraic identities, its defining expression is fun k hk maps to GJMS.canonical Ambient GJMS Cal Conf H k.",
+      "mathematicalFormula": "\\operatorname{canonicalJuhlGJMSFamily}(H)=\\operatorname{fun} k _\\operatorname{hk} => \\operatorname{GJMS}.\\operatorname{canonicalAmbientGJMS} \\operatorname{CalConf} H k",
       "leanType": "def canonicalJuhlGJMSFamily (H : CalConf.AlgebraicIdentities) : AbstractGJMSFamily CalConf",
       "line": 23
     },
     {
       "leanDeclaration": "canonicalGJMSComposition",
       "kind": "def",
-      "mathematicalMeaning": "Definition: canonical GJMSComposition. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The canonical GJMS composition associated to a composition I. Mathematically: P_{2I} = P_{2I_1} ∘... ∘ P_{2I_r}. In explicit terms, for h of type cal conf.algebraic identities, n in the natural numbers, and i of type composition n, its defining expression is compose GJMS Cal Conf canonical Juhl GJMSFamily Cal Conf H I.",
+      "mathematicalFormula": "\\operatorname{canonicalGJMSComposition}(H,I)=\\operatorname{composeGJMS} \\operatorname{CalConf} (\\operatorname{canonicalJuhlGJMSFamily} \\operatorname{CalConf} H) I",
       "leanType": "def canonicalGJMSComposition (H : CalConf.AlgebraicIdentities) {N : Nat} (I : Composition N) : Function Conf → Function Conf",
       "line": 32
     },
     {
       "leanDeclaration": "canonicalGJMSComposition_singleton",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: canonical GJMSComposition singleton. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For H of type Cal Conf.Algebraic Identities, N in the natural numbers, and hN of type 0 < N, canonical GJMSComposition Cal Conf H Composition.singleton N h N equals abstract To Unary Cal Conf GJMS.canonical Ambient GJMS Cal Conf H N.",
+      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;N\\colon \\mathbb{N},\\;hN\\colon 0 < N,\\quad \\operatorname{canonicalGJMSComposition} \\operatorname{CalConf} H (\\operatorname{Composition}.\\operatorname{singleton} N \\operatorname{hN}) = \\operatorname{abstractToUnary} \\operatorname{CalConf} (\\operatorname{GJMS}.\\operatorname{canonicalAmbientGJMS} \\operatorname{CalConf} H N)",
       "leanType": "theorem canonicalGJMSComposition_singleton (H : CalConf.AlgebraicIdentities) (N : Nat) (hN : 0 < N) : canonicalGJMSComposition CalConf H (Composition.singleton N hN) = abstractToUnary CalConf (GJMS.canonicalAmbientGJMS CalConf H N)",
       "line": 40
     },
     {
       "leanDeclaration": "canonicalGJMSComposition_singleton_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: canonical GJMSComposition singleton apply. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For H of type Cal Conf.Algebraic Identities, N in the natural numbers, hN of type 0 < N, and f of type Function Conf, canonical GJMSComposition Cal Conf H Composition.singleton N h N f equals GJMS.canonical Ambient GJMS Cal Conf H N.to Weighted Tangential Operator.to Operator f.",
+      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;N\\colon \\mathbb{N},\\;hN\\colon 0 < N,\\;f\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{canonicalGJMSComposition} \\operatorname{CalConf} H (\\operatorname{Composition}.\\operatorname{singleton} N \\operatorname{hN}) f = (\\operatorname{GJMS}.\\operatorname{canonicalAmbientGJMS} \\operatorname{CalConf} H N).\\operatorname{toWeightedTangentialOperator}.\\operatorname{toOperator} f",
       "leanType": "theorem canonicalGJMSComposition_singleton_apply (H : CalConf.AlgebraicIdentities) (N : Nat) (hN : 0 < N) (f : Function Conf) : canonicalGJMSComposition CalConf H (Composition.singleton N hN) f = (GJMS.canonicalAmbientGJMS CalConf H N).toWeightedTangentialOperator.toOperator f",
       "line": 49
     },
     {
       "leanDeclaration": "canonicalGJMSComposition_singleton_apply_lapPow",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: canonical GJMSComposition singleton apply lap Pow. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For H of type Cal Conf.Algebraic Identities, N in the natural numbers, hN of type 0 < N, and f of type Function Conf, canonical GJMSComposition Cal Conf H Composition.singleton N h N f equals Cal Conf.power of the ambient Laplacian N f.",
+      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;N\\colon \\mathbb{N},\\;hN\\colon 0 < N,\\;f\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{canonicalGJMSComposition} \\operatorname{CalConf} H (\\operatorname{Composition}.\\operatorname{singleton} N \\operatorname{hN}) f = \\operatorname{CalConf}.\\operatorname{lapPow} N f",
       "leanType": "theorem canonicalGJMSComposition_singleton_apply_lapPow (H : CalConf.AlgebraicIdentities) (N : Nat) (hN : 0 < N) (f : Function Conf) : canonicalGJMSComposition CalConf H (Composition.singleton N hN) f = CalConf.lapPow N f",
       "line": 60
     }

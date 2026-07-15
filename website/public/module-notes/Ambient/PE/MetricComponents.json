@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/PE/MetricComponents.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/PE/MetricComponents.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,113 +19,129 @@
     {
       "leanDeclaration": "PEIndex",
       "kind": "inductive",
-      "mathematicalMeaning": "Definition: PEIndex. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Radial and tangential indices in Poincare normal form. Its constructors are: radial with arguments : PEIndex Iota; tangential with arguments : Iota maps to PEIndex Iota.",
+      "mathematicalFormula": "\\operatorname{PEIndex}::=\\operatorname{radial}(\\colon \\operatorname{PEIndex} \\operatorname{Iota})\\mid\\operatorname{tangential}(\\colon \\operatorname{Iota} \\longrightarrow \\operatorname{PEIndex} \\operatorname{Iota})",
       "leanType": "inductive PEIndex (Iota : Type u)",
       "line": 25
     },
     {
       "leanDeclaration": "kronecker",
       "kind": "def",
-      "mathematicalMeaning": "Definition: kronecker. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The Kronecker delta on PE normal-form indices.",
+      "mathematicalFormula": "\\operatorname{kronecker}(I,J)\\colon \\mathbb{R}",
       "leanType": "def kronecker [DecidableEq Iota] (I J : PEIndex Iota) : Real",
       "line": 35
     },
     {
       "leanDeclaration": "kronecker_self",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: kronecker self. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For I of type PEIndex Iota, kronecker I I equals 1.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} \\operatorname{Iota},\\;I\\colon \\operatorname{PEIndex} \\operatorname{Iota},\\quad \\operatorname{kronecker} I I = 1",
       "leanType": "theorem kronecker_self [DecidableEq Iota] (I : PEIndex Iota) : kronecker I I = 1",
       "line": 39
     },
     {
       "leanDeclaration": "kronecker_radial_tangential",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: kronecker radial tangential. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For i of type Iota, kronecker radial tangential i equals 0.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} \\operatorname{Iota},\\;i\\colon \\operatorname{Iota},\\quad \\operatorname{kronecker} \\operatorname{radial} (\\operatorname{tangential} i) = 0",
       "leanType": "theorem kronecker_radial_tangential [DecidableEq Iota] (i : Iota) : kronecker radial (tangential i) = 0",
       "line": 44
     },
     {
       "leanDeclaration": "kronecker_tangential_radial",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: kronecker tangential radial. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For i of type Iota, kronecker tangential i radial equals 0.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} \\operatorname{Iota},\\;i\\colon \\operatorname{Iota},\\quad \\operatorname{kronecker} (\\operatorname{tangential} i) \\operatorname{radial} = 0",
       "leanType": "theorem kronecker_tangential_radial [DecidableEq Iota] (i : Iota) : kronecker (tangential i) radial = 0",
       "line": 51
     },
     {
       "leanDeclaration": "equivOption",
       "kind": "def",
-      "mathematicalMeaning": "Definition: equiv Option. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "PE indices are equivalent to an optional tangential index. In explicit terms, its defining expression is to Fun | radial maps to none | tangential i maps to some i inv Fun | none maps to radial | some i maps to tangential i left inv : equals by intro I cases I <;> rfl right inv : equals by intro I cases I <;> rfl.",
+      "mathematicalFormula": "\\operatorname{equivOption}=\\operatorname{toFun} | \\operatorname{radial} => \\operatorname{none} | \\operatorname{tangential} i => \\operatorname{some} i \\operatorname{invFun} | \\operatorname{none} => \\operatorname{radial} | \\operatorname{some} i => \\operatorname{tangential} i \\operatorname{left\\_inv} = \\operatorname{by} \\operatorname{intro} I \\operatorname{cases} I <;> \\operatorname{rfl} \\operatorname{right\\_inv} = \\operatorname{by} \\operatorname{intro} I \\operatorname{cases} I <;> \\operatorname{rfl}",
       "leanType": "def equivOption : PEIndex Iota ≃ Option Iota",
       "line": 58
     },
     {
       "leanDeclaration": "sum_index",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: sum index. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem sum_index {R : Type w} [Fintype Iota] [AddCommMonoid R] (f : PEIndex Iota -> R) : (∑ I : PEIndex Iota, f I) =",
+      "mathematicalMeaning": "Split a finite PE-index sum into radial and tangential parts. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,R\\colon \\mathrm{Type} w,\\;\\operatorname{Fintype} \\operatorname{Iota},\\;\\operatorname{AddCommMonoid} R,\\;f\\colon \\operatorname{PEIndex} \\operatorname{Iota} \\longrightarrow R,\\quad (\\sum I \\colon \\operatorname{PEIndex} \\operatorname{Iota}, f I) = f \\operatorname{radial} + \\sum i \\colon \\operatorname{Iota}, f (\\operatorname{tangential} i)",
+      "leanType": "theorem sum_index {R : Type w} [Fintype Iota] [AddCommMonoid R] (f : PEIndex Iota -> R) : (∑ I : PEIndex Iota, f I) = f radial + ∑ i : Iota, f (tangential i)",
       "line": 73
     },
     {
       "leanDeclaration": "PENormalMetricComponents",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: PENormal Metric Components. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Boundary metric components and their formal inverse at a fixed radius. Its mathematical data are: r: Real; h: Iota maps to Iota maps to Real; h Inv: Iota maps to Iota maps to Real.",
+      "mathematicalFormula": "\\begin{aligned}r&\\colon \\mathbb{R}\\\\h&\\colon \\operatorname{Iota} \\longrightarrow \\operatorname{Iota} \\longrightarrow \\mathbb{R}\\\\\\operatorname{hInv}&\\colon \\operatorname{Iota} \\longrightarrow \\operatorname{Iota} \\longrightarrow \\mathbb{R}\\end{aligned}",
       "leanType": "structure PENormalMetricComponents (Iota : Type u)",
       "line": 95
     },
     {
       "leanDeclaration": "gPlusDown",
       "kind": "def",
-      "mathematicalMeaning": "Definition: g Plus Down. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def gPlusDown (C : PENormalMetricComponents Iota) : PEIndex Iota -> PEIndex Iota -> Real | PEIndex.radial, PEIndex.radial => (C.r ^ 2)⁻¹ | PEIndex.radial, PEIndex.tangential _ => 0 | PEIndex.tangential _, PEIndex.radial => 0 | PEIndex.tangential i, PEIndex.tangential j => (C.r ^ 2)⁻¹ * C.h i j",
+      "mathematicalMeaning": "Covariant components of gPlus. In explicit terms, for c of type penormal metric components iota, its defining expression is | PEIndex.radial, PEIndex.radial maps to C.r to the power 2 ⁻¹ | PEIndex.radial, PEIndex.tangential maps to 0 | PEIndex.tangential, PEIndex.radial maps to 0 | PEIndex.tangential i, PEIndex.tangential j maps to C.r to the power 2 ⁻¹ times C.h i j.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{gPlusDown}(\\operatorname{PEIndex}.\\operatorname{radial}, \\operatorname{PEIndex}.\\operatorname{radial})&=(r_{\\mathrm{C}} ^ 2)⁻¹\\\\\\operatorname{gPlusDown}(\\operatorname{PEIndex}.\\operatorname{radial}, \\operatorname{PEIndex}.\\operatorname{tangential} _)&=0\\\\\\operatorname{gPlusDown}(\\operatorname{PEIndex}.\\operatorname{tangential} _, \\operatorname{PEIndex}.\\operatorname{radial})&=0\\\\\\operatorname{gPlusDown}(\\operatorname{PEIndex}.\\operatorname{tangential} i, \\operatorname{PEIndex}.\\operatorname{tangential} j)&=(r_{\\mathrm{C}} ^ 2)⁻¹ \\cdot h_{\\mathrm{C}} i j\\end{aligned}",
+      "leanType": "def gPlusDown (C : PENormalMetricComponents Iota) : PEIndex Iota -> PEIndex Iota -> Real",
       "line": 101
     },
     {
       "leanDeclaration": "gPlusUp",
       "kind": "def",
-      "mathematicalMeaning": "Definition: g Plus Up. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "def gPlusUp (C : PENormalMetricComponents Iota) : PEIndex Iota -> PEIndex Iota -> Real | PEIndex.radial, PEIndex.radial => C.r ^ 2 | PEIndex.radial, PEIndex.tangential _ => 0 | PEIndex.tangential _, PEIndex.radial => 0 | PEIndex.tangential i, PEIndex.tangential j => C.r ^ 2 * C.hInv i j",
+      "mathematicalMeaning": "Contravariant components of gPlus. In explicit terms, for c of type penormal metric components iota, its defining expression is | PEIndex.radial, PEIndex.radial maps to C.r to the power 2 | PEIndex.radial, PEIndex.tangential maps to 0 | PEIndex.tangential, PEIndex.radial maps to 0 | PEIndex.tangential i, PEIndex.tangential j maps to C.r to the power 2 times C.h Inv i j.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{gPlusUp}(\\operatorname{PEIndex}.\\operatorname{radial}, \\operatorname{PEIndex}.\\operatorname{radial})&=r_{\\mathrm{C}} ^ 2\\\\\\operatorname{gPlusUp}(\\operatorname{PEIndex}.\\operatorname{radial}, \\operatorname{PEIndex}.\\operatorname{tangential} _)&=0\\\\\\operatorname{gPlusUp}(\\operatorname{PEIndex}.\\operatorname{tangential} _, \\operatorname{PEIndex}.\\operatorname{radial})&=0\\\\\\operatorname{gPlusUp}(\\operatorname{PEIndex}.\\operatorname{tangential} i, \\operatorname{PEIndex}.\\operatorname{tangential} j)&=r_{\\mathrm{C}} ^ 2 \\cdot C.\\operatorname{hInv} i j\\end{aligned}",
+      "leanType": "def gPlusUp (C : PENormalMetricComponents Iota) : PEIndex Iota -> PEIndex Iota -> Real",
       "line": 110
     },
     {
       "leanDeclaration": "gPlusDown_radial_radial",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: g Plus Down radial radial. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type PENormal Metric Components Iota, g Plus Down C PEIndex.radial PEIndex.radial equals C.r to the power 2 ⁻¹.",
+      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{PENormalMetricComponents} \\operatorname{Iota},\\quad \\operatorname{gPlusDown} C \\operatorname{PEIndex}.\\operatorname{radial} \\operatorname{PEIndex}.\\operatorname{radial} = (r_{\\mathrm{C}} ^ 2)⁻¹",
       "leanType": "theorem gPlusDown_radial_radial (C : PENormalMetricComponents Iota) : gPlusDown C PEIndex.radial PEIndex.radial = (C.r ^ 2)⁻¹",
       "line": 119
     },
     {
       "leanDeclaration": "gPlusDown_tangential_tangential",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: g Plus Down tangential tangential. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type PENormal Metric Components Iota, and i, j of type Iota, g Plus Down C PEIndex.tangential i PEIndex.tangential j equals C.r to the power 2 ⁻¹ times C.h i j.",
+      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{PENormalMetricComponents} \\operatorname{Iota},\\;i,j\\colon \\operatorname{Iota},\\quad \\operatorname{gPlusDown} C (\\operatorname{PEIndex}.\\operatorname{tangential} i) (\\operatorname{PEIndex}.\\operatorname{tangential} j) = (r_{\\mathrm{C}} ^ 2)⁻¹ \\cdot h_{\\mathrm{C}} i j",
       "leanType": "theorem gPlusDown_tangential_tangential (C : PENormalMetricComponents Iota) (i j : Iota) : gPlusDown C (PEIndex.tangential i) (PEIndex.tangential j) = (C.r ^ 2)⁻¹ * C.h i j",
       "line": 123
     },
     {
       "leanDeclaration": "gPlusUp_radial_radial",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: g Plus Up radial radial. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type PENormal Metric Components Iota, g Plus Up C PEIndex.radial PEIndex.radial equals C.r to the power 2.",
+      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{PENormalMetricComponents} \\operatorname{Iota},\\quad \\operatorname{gPlusUp} C \\operatorname{PEIndex}.\\operatorname{radial} \\operatorname{PEIndex}.\\operatorname{radial} = r_{\\mathrm{C}} ^ 2",
       "leanType": "theorem gPlusUp_radial_radial (C : PENormalMetricComponents Iota) : gPlusUp C PEIndex.radial PEIndex.radial = C.r ^ 2",
       "line": 131
     },
     {
       "leanDeclaration": "gPlusUp_tangential_tangential",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: g Plus Up tangential tangential. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "For C of type PENormal Metric Components Iota, and i, j of type Iota, g Plus Up C PEIndex.tangential i PEIndex.tangential j equals C.r to the power 2 times C.h Inv i j.",
+      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{PENormalMetricComponents} \\operatorname{Iota},\\;i,j\\colon \\operatorname{Iota},\\quad \\operatorname{gPlusUp} C (\\operatorname{PEIndex}.\\operatorname{tangential} i) (\\operatorname{PEIndex}.\\operatorname{tangential} j) = r_{\\mathrm{C}} ^ 2 \\cdot C.\\operatorname{hInv} i j",
       "leanType": "theorem gPlusUp_tangential_tangential (C : PENormalMetricComponents Iota) (i j : Iota) : gPlusUp C (PEIndex.tangential i) (PEIndex.tangential j) = C.r ^ 2 * C.hInv i j",
       "line": 135
     },
     {
       "leanDeclaration": "BoundaryLeftInverse",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Boundary Left Inverse. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Left-inverse condition for the boundary metric block. In explicit terms, for c of type penormal metric components iota, its defining expression is for every i j : Iota, ∑ k : Iota, C.h Inv i k times C.h k j equals if i equals j then 1 else 0.",
+      "mathematicalFormula": "\\operatorname{BoundaryLeftInverse}(C)=\\forall i j \\colon \\operatorname{Iota}, (\\sum k \\colon \\operatorname{Iota}, C.\\operatorname{hInv} i k \\cdot h_{\\mathrm{C}} k j) = \\operatorname{if} i = j \\operatorname{then} 1 \\operatorname{else} 0",
       "leanType": "def BoundaryLeftInverse [Fintype Iota] [DecidableEq Iota] (C : PENormalMetricComponents Iota) : Prop",
       "line": 143
     },
     {
       "leanDeclaration": "gPlusUp_mul_gPlusDown",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: g Plus Up mul g Plus Down. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem gPlusUp_mul_gPlusDown [Fintype Iota] [DecidableEq Iota] (C : PENormalMetricComponents Iota) (hr : C.r ≠ 0) (hbase : BoundaryLeftInverse C) (I J : PEIndex Iota) :",
+      "mathematicalMeaning": "The displayed contravariant components are a left inverse of the Poincare metric components. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,\\operatorname{Fintype} \\operatorname{Iota},\\;\\operatorname{DecidableEq} \\operatorname{Iota},\\;C\\colon \\operatorname{PENormalMetricComponents} \\operatorname{Iota},\\;hr\\colon r_{\\mathrm{C}} \\ne 0,\\;hbase\\colon \\operatorname{BoundaryLeftInverse} C,\\;I,J\\colon \\operatorname{PEIndex} \\operatorname{Iota},\\quad (\\sum K \\colon \\operatorname{PEIndex} \\operatorname{Iota}, \\operatorname{gPlusUp} C I K \\cdot \\operatorname{gPlusDown} C K J) = \\operatorname{PEIndex}.\\operatorname{kronecker} I J",
+      "leanType": "theorem gPlusUp_mul_gPlusDown [Fintype Iota] [DecidableEq Iota] (C : PENormalMetricComponents Iota) (hr : C.r ≠ 0) (hbase : BoundaryLeftInverse C) (I J : PEIndex Iota) : (∑ K : PEIndex Iota, gPlusUp C I K * gPlusDown C K J) = PEIndex.kronecker I J",
       "line": 156
     }
   ],

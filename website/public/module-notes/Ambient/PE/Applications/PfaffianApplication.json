@@ -10,8 +10,8 @@
       "formula": null
     },
     {
-      "heading": "Formal boundary",
-      "body": "This page describes exactly the declarations present in Ambient/PE/Applications/PfaffianApplication.lean; claims not represented by a declaration are not counted as verified.",
+      "heading": "How to read the translation",
+      "body": "The correspondence below follows Ambient/PE/Applications/PfaffianApplication.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
       "formula": null
     }
   ],
@@ -19,36 +19,41 @@
     {
       "leanDeclaration": "renormalizedIntegral_WeylPfLike",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: renormalized Integral Weyl Pf Like. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem renormalizedIntegral_WeylPfLike (X : PESpace.{u, v}) [InvariantEvaluationModel] [EinsteinAmbientLaplacianFormula] [CaseEinsteinEvaluationFormula] [PfLikeStraightness] [P : PERenormalizationPackage X]",
+      "mathematicalMeaning": "Theorem 1.4 specialized to Pf_ell(W). In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,X\\colon \\operatorname{PESpace}.\\operatorname{}{u, v},\\;\\operatorname{InvariantEvaluationModel},\\;\\operatorname{EinsteinAmbientLaplacianFormula},\\;\\operatorname{CaseEinsteinEvaluationFormula},\\;\\operatorname{PfLikeStraightness},\\;P\\colon \\operatorname{PERenormalizationPackage} X,\\;ell\\colon \\mathbb{N},\\;hn\\colon \\operatorname{Even} X.\\operatorname{bulkDim},\\;hellPos\\colon 1 <= \\operatorname{ell},\\;hellRange\\colon \\operatorname{ell} <= X.\\operatorname{bulkDim} / 2,\\quad \\operatorname{RenormalizedCurvatureIntegral} (P.\\operatorname{cutoffData} (\\operatorname{WeylPfLike} \\operatorname{ell})) = \\operatorname{CaseCoeff} X.\\operatorname{bulkDim} \\operatorname{ell} \\cdot P.\\operatorname{convergentIntegral} (\\operatorname{P\\_l\\_n} \\operatorname{ell} X.\\operatorname{bulkDim})",
+      "leanType": "theorem renormalizedIntegral_WeylPfLike (X : PESpace.{u, v}) [InvariantEvaluationModel] [EinsteinAmbientLaplacianFormula] [CaseEinsteinEvaluationFormula] [PfLikeStraightness] [P : PERenormalizationPackage X] (ell : Nat) (hn : Even X.bulkDim) (hellPos : 1 <= ell) (hellRange : ell <= X.bulkDim / 2) : RenormalizedCurvatureIntegral (P.cutoffData (WeylPfLike ell)) = CaseCoeff X.bulkDim ell * P.convergentIntegral (P_l_n ell X.bulkDim)",
       "line": 25
     },
     {
       "leanDeclaration": "PfaffianCaseCoeff",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Pfaffian Case Coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Coefficient of the P_(ell,n) term in Theorem 1.1. In explicit terms, for n, ell in the natural numbers, its defining expression is Nat.factorial ell minus 1 : Real divided by -2 to the power n divided by 2 minus ell times Nat.factorial n divided by 2 minus 1 : Real.",
+      "mathematicalFormula": "\\operatorname{PfaffianCaseCoeff}(n,ell)=(\\mathbb{N}.\\operatorname{factorial} (\\operatorname{ell} - 1) \\colon \\mathbb{R}) / ((-2 ^ (n / 2 - \\operatorname{ell})) \\cdot (\\mathbb{N}.\\operatorname{factorial} (n / 2 - 1) \\colon \\mathbb{R}))",
       "leanType": "def PfaffianCaseCoeff (n ell : Nat) : Real",
       "line": 49
     },
     {
       "leanDeclaration": "PfaffianVolumeCoeff",
       "kind": "def",
-      "mathematicalMeaning": "Definition: Pfaffian Volume Coeff. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "Coefficient of the renormalized volume term in Theorem 1.1. In explicit terms, for n in the natural numbers, its defining expression is -1 to the power n divided by 2 times double Factorial n minus 1 : Real.",
+      "mathematicalFormula": "\\operatorname{PfaffianVolumeCoeff}(n)=(-1 ^ (n / 2)) \\cdot (\\operatorname{doubleFactorial} (n - 1) \\colon \\mathbb{R})",
       "leanType": "def PfaffianVolumeCoeff (n : Nat) : Real",
       "line": 56
     },
     {
       "leanDeclaration": "PfaffianApplicationData",
       "kind": "structure",
-      "mathematicalMeaning": "Data/interface: Pfaffian Application Data. The exact mathematical type is preserved from the Lean signature shown alongside it.",
+      "mathematicalMeaning": "The two external inputs for the Pfaffian application: Albin's renormalized Gauss--Bonnet identity; the Einstein Pfaffian reduction obtained by applying Theorem 1.4 termwise. Its mathematical data are: volume Data: PEVolume Cutoff Data X; volume normal Form: volume Data.normal Form equals P.normal Form; euler Characteristic: Int; albin Renormalized Pfaffian: P.RInt Full Pfaffian Invariant X.bulk Dim equals 2 times Real.pi to the power X.bulk Dim divided by 2 times euler Characteristic; pfaffian Reduction: P.RInt Full Pfaffian Invariant X.bulk Dim equals Pfaffian Volume Coeff X.bulk Dim times Renormalized Volume volume Data plus ∑ ell belongs to Finset.Icc 2 X.bulk Dim divided by 2, Pfaffian Case Coeff X.bulk Dim ell times P.convergent Integral P l n ell X.bulk Dim.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{volumeData}&\\colon \\operatorname{PEVolumeCutoffData} X\\\\\\operatorname{volume\\_normalForm}&\\colon \\operatorname{volumeData}.\\operatorname{normalForm} = P.\\operatorname{normalForm}\\\\\\operatorname{eulerCharacteristic}&\\colon \\mathbb{Z}\\\\\\operatorname{albinRenormalizedPfaffian}&\\colon P.\\operatorname{RInt} (\\operatorname{FullPfaffianInvariant} X.\\operatorname{bulkDim}) = (2 \\cdot \\mathbb{R}.\\operatorname{pi}) ^ (X.\\operatorname{bulkDim} / 2) \\cdot \\operatorname{eulerCharacteristic}\\\\\\operatorname{pfaffianReduction}&\\colon P.\\operatorname{RInt} (\\operatorname{FullPfaffianInvariant} X.\\operatorname{bulkDim}) = \\operatorname{PfaffianVolumeCoeff} X.\\operatorname{bulkDim} \\cdot \\operatorname{RenormalizedVolume} \\operatorname{volumeData} + \\sum \\operatorname{ell} \\in \\operatorname{Finset}.\\operatorname{Icc} 2 (X.\\operatorname{bulkDim} / 2), \\operatorname{PfaffianCaseCoeff} X.\\operatorname{bulkDim} \\operatorname{ell} \\cdot P.\\operatorname{convergentIntegral} (\\operatorname{P\\_l\\_n} \\operatorname{ell} X.\\operatorname{bulkDim})\\end{aligned}",
       "leanType": "structure PfaffianApplicationData (X : PESpace.{u, v}) [InvariantEvaluationModel] [P : PERenormalizationPackage X]",
       "line": 66
     },
     {
       "leanDeclaration": "theorem_1_1_formal",
       "kind": "theorem",
-      "mathematicalMeaning": "Formal proposition: theorem 1 1 formal. The exact mathematical type is preserved from the Lean signature shown alongside it.",
-      "leanType": "theorem theorem_1_1_formal (X : PESpace.{u, v}) [InvariantEvaluationModel] [P : PERenormalizationPackage X] (D : PfaffianApplicationData X) : (2 * Real.pi) ^ (X.bulkDim / 2) * (D.eulerCharacteristic : Real)",
+      "mathematicalMeaning": "Formal Theorem 1.1. In symbols, the proposition is the statement displayed below.",
+      "mathematicalFormula": "\\forall\\,X\\colon \\operatorname{PESpace}.\\operatorname{}{u, v},\\;\\operatorname{InvariantEvaluationModel},\\;P\\colon \\operatorname{PERenormalizationPackage} X,\\;D\\colon \\operatorname{PfaffianApplicationData} X,\\quad (2 \\cdot \\mathbb{R}.\\operatorname{pi}) ^ (X.\\operatorname{bulkDim} / 2) \\cdot D.\\operatorname{eulerCharacteristic} = \\operatorname{PfaffianVolumeCoeff} X.\\operatorname{bulkDim} \\cdot \\operatorname{RenormalizedVolume} D.\\operatorname{volumeData} + \\sum \\operatorname{ell} \\in \\operatorname{Finset}.\\operatorname{Icc} 2 (X.\\operatorname{bulkDim} / 2), \\operatorname{PfaffianCaseCoeff} X.\\operatorname{bulkDim} \\operatorname{ell} \\cdot P.\\operatorname{convergentIntegral} (\\operatorname{P\\_l\\_n} \\operatorname{ell} X.\\operatorname{bulkDim})",
+      "leanType": "theorem theorem_1_1_formal (X : PESpace.{u, v}) [InvariantEvaluationModel] [P : PERenormalizationPackage X] (D : PfaffianApplicationData X) : (2 * Real.pi) ^ (X.bulkDim / 2) * (D.eulerCharacteristic : Real) = PfaffianVolumeCoeff X.bulkDim * RenormalizedVolume D.volumeData + ∑ ell ∈ Finset.Icc 2 (X.bulkDim / 2), PfaffianCaseCoeff X.bulkDim ell * P.convergentIntegral (P_l_n ell X.bulkDim)",
       "line": 90
     }
   ],
