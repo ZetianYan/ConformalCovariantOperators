@@ -2,7 +2,7 @@ name: Deploy website to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, feature/module-math-references]
     paths:
       - "website/**"
       - ".github/workflows/deploy-website.yml"
