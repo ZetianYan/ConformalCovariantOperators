@@ -12,7 +12,7 @@
     {
       "heading": "Equivariant description",
       "body": "The same density can be viewed as a function F on the conformal metric bundle G. Its value is homogeneous under vertical dilation. Restricting F to a scale gives d_s, while a scale-dependent density reconstructs F by measuring a bundle point relative to any reference scale.",
-      "formula": "F(D_r u)=\\chi(r)F(u),\\qquad d_s(x)=F(x,s(x)),\\qquad F(x,g)=\\chi\\bigl(\\lambda_s(g)\\bigr)d_s(x)"
+      "formula": "F(\\delta_r u)=\\chi(r)F(u),\\qquad d_s(x)=F(x,s(x)),\\qquad F(x,g)=\\chi\\bigl(\\lambda_s(g)\\bigr)d_s(x)"
     },
     {
       "heading": "Notation from header.tex",
@@ -57,7 +57,7 @@
       "leanDeclaration": "Density",
       "kind": "structure",
       "mathematicalMeaning": "An equivariant density is a function F from the conformal metric bundle G to α that is homogeneous with character χ under positive vertical dilation.",
-      "mathematicalFormula": "F:\\mathcal G\\to\\alpha,\\qquad F(D_ru)=\\chi(r)F(u)",
+      "mathematicalFormula": "F:\\mathcal G\\to\\alpha,\\qquad F(\\delta_r u)=\\chi(r)F(u)",
       "leanType": "structure Equivariant.Density (χ : Weight α) where toFun : Conf.MetricBundle → α; equivariant : ∀ (r : PosReal) (u : Conf.MetricBundle), toFun (Conf.dilateBundle r u) = χ r * toFun u",
       "line": 83
     },
@@ -113,7 +113,7 @@
       "leanDeclaration": "equivScaleDependentEquiv",
       "kind": "def",
       "mathematicalMeaning": "Once a global scale exists, restriction to scale sections and homogeneous reconstruction are inverse equivalences between the two definitions of a conformal density.",
-      "mathematicalFormula": "\\{F:\\mathcal G\\to\\alpha\\mid F(D_ru)=\\chi(r)F(u)\\}\\;\\cong\\;\\{(d_s)_s\\mid d_{s_2}=\\chi(\\lambda_{s_1,s_2})d_{s_1}\\}",
+      "mathematicalFormula": "\\{F:\\mathcal G\\to\\alpha\\mid F(\\delta_r u)=\\chi(r)F(u)\\}\\;\\cong\\;\\{(d_s)_s\\mid d_{s_2}=\\chi(\\lambda_{s_1,s_2})d_{s_1}\\}",
       "leanType": "noncomputable def equivScaleDependentEquiv [Nonempty Conf.Scale] : ConformalStructure.Equivariant.Density (Conf := Conf) χ ≃ ConformalStructure.Density (Conf := Conf) χ",
       "line": 308
     }
