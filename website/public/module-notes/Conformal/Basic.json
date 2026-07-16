@@ -105,7 +105,7 @@
       "leanDeclaration": "dilateBundle",
       "kind": "def",
       "mathematicalMeaning": "Positive dilation acts vertically on the conformal metric bundle: the base point stays fixed and only the fiber coordinate is dilated.",
-      "mathematicalFormula": "D_r:\\mathcal G\\to\\mathcal G,\\qquad D_r(x,g)=(x,\\delta_rg)",
+      "mathematicalFormula": "\\delta_r:\\mathcal G\\to\\mathcal G,\\qquad \\delta_r(x,g)=(x,\\delta_rg)",
       "leanType": "def dilateBundle (r : PosReal) : Conf.MetricBundle → Conf.MetricBundle",
       "line": 124
     },
@@ -153,7 +153,7 @@
       "leanDeclaration": "fiber_nonempty",
       "kind": "theorem",
       "mathematicalMeaning": "A chosen scale supplies an element s(x) in every conformal metric fiber, so each fiber is nonempty.",
-      "mathematicalFormula": "s(x)\\in\\mathcal C_x\\quad\\Longrightarrow\\quad\\mathcal C_x\\ne\\varnothing",
+      "mathematicalFormula": "\\operatorname{Nonempty}(\\mathcal C_x),\\qquad\\text{with witness }s(x)",
       "leanType": "theorem fiber_nonempty (s : ConformalStructure.Scale Conf) (x : M) : Nonempty (Conf.MetricFiber x)",
       "line": 203
     },
