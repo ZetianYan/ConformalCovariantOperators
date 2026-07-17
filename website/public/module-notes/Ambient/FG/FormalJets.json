@@ -1,82 +1,82 @@
 {
   "file": "Ambient/FG/FormalJets.lean",
-  "title": "FormalJets",
-  "status": "verified-under-interface",
-  "summary": "Represents a finite rho-jet of the tangential metric g_rho and the condition that it solves the FG Ricci equations to finite order.",
+  "title": "Finite formal metric jets",
+  "status": "scaffold",
+  "summary": "Defines finite component-level ρ-jets of g_ρ and packages the first Fefferman–Graham condition g⁽¹⁾ = 2P as an explicit hypothesis.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Represents a finite rho-jet of the tangential metric g_rho and the condition that it solves the FG Ricci equations to finite order.",
-      "formula": null
+      "heading": "Finite ρ-jet",
+      "body": "A FormalMetricJet stores symmetric-two-tensor-shaped coefficient functions g⁽ᵐ⁾ for 0 ≤ m ≤ K, together with a base metric g and a Schouten-shaped tensor P. Only the zeroth equality g⁽⁰⁾ = g is built into the jet structure.",
+      "formula": "g_\\rho\\sim g^{(0)}+\\rho g^{(1)}+\\cdots+\\rho^K g^{(K)},\\qquad g^{(0)}=g."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Ambient/FG/FormalJets.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "First FG condition",
+      "body": "SatisfiesFGRicciToOrder stores the order bound and, whenever the requested order is at least one, the relation g⁽¹⁾ = 2P. FG_first_jet extracts this stored relation at order one; it is not derived here from the Ricci equations.",
+      "formula": "g^{(1)}_{ij}=2P_{ij}."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "Sym2Component",
       "kind": "abbrev",
-      "mathematicalMeaning": "A component-level symmetric two-tensor expression. In explicit terms, for ι a type, its defining expression is ι maps to ι maps to the real numbers.",
-      "mathematicalFormula": "\\operatorname{Sym2Component}(ι)=ι \\longrightarrow ι \\longrightarrow \\mathbb{R}",
+      "mathematicalMeaning": "A component-level covariant two-tensor is represented simply as a real-valued function of two base indices.",
+      "mathematicalFormula": "\\operatorname{Sym2Component}(\\iota):=\\{T_{ij}:\\iota\\times\\iota\\to\\mathbb R\\}.",
       "leanType": "abbrev Sym2Component (ι : Type w)",
       "line": 26
     },
     {
       "leanDeclaration": "SymmetricComponent",
       "kind": "def",
-      "mathematicalMeaning": "Symmetry predicate for component-level two-tensors. In explicit terms, for t of type sym2 component ι, its defining expression is for every i j : ι, T i j equals T j i.",
-      "mathematicalFormula": "\\operatorname{SymmetricComponent}(T)=\\forall i j \\colon ι, T i j = T j i",
+      "mathematicalMeaning": "This predicate says that the two-index component function is symmetric.",
+      "mathematicalFormula": "\\operatorname{SymmetricComponent}(T)\\quad:\\Longleftrightarrow\\quad T_{ij}=T_{ji}\\quad\\forall i,j.",
       "leanType": "def SymmetricComponent (T : Sym2Component ι) : Prop",
       "line": 29
     },
     {
       "leanDeclaration": "FormalMetricJet",
       "kind": "structure",
-      "mathematicalMeaning": "A finite formal metric jet g_rho = g + rho g^(1) +... + rho^K g^(K). Its mathematical data are: coeff: Fin K plus 1 maps to Sym2 Component ι; base Metric: Sym2 Component ι; schouten: Sym2 Component ι; coeff zero eq base: for every i j : ι, coeff ⟨0, Nat.succ pos K⟩ i j equals base Metric i j.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{coeff}&\\colon \\operatorname{Fin} (K + 1) \\longrightarrow \\operatorname{Sym2Component} ι\\\\\\operatorname{baseMetric}&\\colon \\operatorname{Sym2Component} ι\\\\\\operatorname{schouten}&\\colon \\operatorname{Sym2Component} ι\\\\\\operatorname{coeff\\_zero\\_eq\\_base}&\\colon \\forall i j \\colon ι, \\operatorname{coeff} ⟨0, \\mathbb{N}.\\operatorname{succ\\_pos} K⟩ i j = \\operatorname{baseMetric} i j\\end{aligned}",
+      "mathematicalMeaning": "A K-jet stores coefficients g⁽⁰⁾,…,g⁽ᴷ⁾, a base metric g, a Schouten tensor placeholder P, and the equality g⁽⁰⁾ = g.",
+      "mathematicalFormula": "J=\\left(\\{g^{(m)}_{ij}\\}_{m=0}^{K},g_{ij},P_{ij};\\ g^{(0)}_{ij}=g_{ij}\\right).",
       "leanType": "structure FormalMetricJet (ι : Type w) (K : ℕ)",
       "line": 33
     },
     {
       "leanDeclaration": "coeffAt",
       "kind": "def",
-      "mathematicalMeaning": "Access the coefficient g^(m) using a proof that m <= K. In explicit terms, for j of type formal metric jet ι k, m in the natural numbers, and hm of type m is at most k, its defining expression is J.coeff ⟨m, Nat.lt succ of le hm⟩.",
-      "mathematicalFormula": "\\operatorname{coeffAt}(J,m,hm)=J.\\operatorname{coeff} ⟨m, \\mathbb{N}.\\operatorname{lt\\_succ\\_of\\_le} \\operatorname{hm}⟩",
+      "mathematicalMeaning": "Given m ≤ K, coeffAt accesses the m-th stored jet coefficient.",
+      "mathematicalFormula": "\\operatorname{coeffAt}(J,m):=g^{(m)},\\qquad 0\\le m\\le K.",
       "leanType": "def coeffAt (J : FormalMetricJet ι K) (m : ℕ) (hm : m ≤ K) : Sym2Component ι",
       "line": 46
     },
     {
       "leanDeclaration": "coeffAt_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "For J of type Formal Metric Jet ι K, J.coeff At 0 Nat.zero le K equals J.base Metric.",
-      "mathematicalFormula": "\\forall\\,J\\colon \\operatorname{FormalMetricJet} ι K,\\quad J.\\operatorname{coeffAt} 0 (\\mathbb{N}.\\operatorname{zero\\_le} K) = J.\\operatorname{baseMetric}",
+      "mathematicalMeaning": "The zeroth coefficient accessed through coeffAt is the stored base metric.",
+      "mathematicalFormula": "g^{(0)}=g.",
       "leanType": "theorem coeffAt_zero (J : FormalMetricJet ι K) : J.coeffAt 0 (Nat.zero_le K) = J.baseMetric",
       "line": 50
     },
     {
       "leanDeclaration": "firstCoeff",
       "kind": "def",
-      "mathematicalMeaning": "The first jet coefficient, available when 1 <= K. In explicit terms, for j of type formal metric jet ι k, and hk of type 1 is at most k, its defining expression is J.coeff At 1 h K.",
-      "mathematicalFormula": "\\operatorname{firstCoeff}(J,hK)=J.\\operatorname{coeffAt} 1 \\operatorname{hK}",
+      "mathematicalMeaning": "When K ≥ 1, firstCoeff is the stored coefficient g⁽¹⁾.",
+      "mathematicalFormula": "\\operatorname{firstCoeff}(J):=g^{(1)},\\qquad K\\ge1.",
       "leanType": "def firstCoeff (J : FormalMetricJet ι K) (hK : 1 ≤ K) : Sym2Component ι",
       "line": 56
     },
     {
       "leanDeclaration": "SatisfiesFGRicciToOrder",
       "kind": "structure",
-      "mathematicalMeaning": "Finite-order FG Ricci conditions for a formal metric jet. At order at least one, the first-jet relation is recorded as a field. Later files can refine this structure by replacing the field with a proof from the normal-form Ricci equations. Its mathematical data are: order le: order is at most K; first jet eq two schouten: for every horder : 1 is at most order, for every i j : ι, J.coeff At 1 le trans horder order le i j equals 2 times J.schouten i j.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{order\\_le}&\\colon \\operatorname{order} \\le K\\\\\\operatorname{first\\_jet\\_eq\\_two\\_schouten}&\\colon \\forall \\operatorname{horder} \\colon 1 \\le \\operatorname{order}, \\forall i j \\colon ι, J.\\operatorname{coeffAt} 1 (\\operatorname{le\\_trans} \\operatorname{horder} \\operatorname{order\\_le}) i j = 2 \\cdot J.\\operatorname{schouten} i j\\end{aligned}",
+      "mathematicalMeaning": "This proposition-valued structure records order ≤ K and takes the first-jet identity g⁽¹⁾ = 2P as a field whenever order ≥ 1.",
+      "mathematicalFormula": "\\operatorname{SatisfiesFGRicciToOrder}(J,r)\\Longrightarrow r\\le K\\ \\text{ and }\\ (r\\ge1\\Longrightarrow g^{(1)}_{ij}=2P_{ij}).",
       "leanType": "structure SatisfiesFGRicciToOrder (J : FormalMetricJet ι K) (order : ℕ) : Prop",
       "line": 68
     },
     {
       "leanDeclaration": "FG_first_jet",
       "kind": "theorem",
-      "mathematicalMeaning": "The first FG jet relation g'|_{rho=0} = 2 P. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,J\\colon \\operatorname{FormalMetricJet} ι K,\\;H\\colon \\operatorname{SatisfiesFGRicciToOrder} J 1,\\;i,j\\colon ι,\\quad J.\\operatorname{coeffAt} 1 H.\\operatorname{order\\_le} i j = 2 \\cdot J.\\operatorname{schouten} i j",
+      "mathematicalMeaning": "If the stored FG conditions hold to order one, the first coefficient equals twice the stored Schouten tensor.",
+      "mathematicalFormula": "\\operatorname{SatisfiesFGRicciToOrder}(J,1)\\Longrightarrow g^{(1)}_{ij}=2P_{ij}.",
       "leanType": "theorem FG_first_jet (J : FormalMetricJet ι K) (H : SatisfiesFGRicciToOrder J 1) (i j : ι) : J.coeffAt 1 H.order_le i j = 2 * J.schouten i j",
       "line": 81
     }
@@ -86,14 +86,14 @@
   ],
   "usedBy": [
     "Ambient/FG/Recursion.lean",
-    "Ambient/FG.lean"
+    "Ambient/FG/Obstruction.lean"
   ],
   "references": [
     {
       "referenceId": "FG-AmbientMetric",
-      "locator": "Chapters 2–3, ambient space and normal form",
-      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+      "locator": "Chapter 3, formal ρ-expansion and the first normal-form coefficient",
+      "note": "Source for the formal metric expansion and the relation g′|_{ρ=0}=2P."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "The coefficients are arbitrary component functions and are not required to be symmetric. SatisfiesFGRicciToOrder stores only an order bound and the first-jet relation; it does not encode the full Ricci equations at higher orders or derive g⁽¹⁾ = 2P."
 }

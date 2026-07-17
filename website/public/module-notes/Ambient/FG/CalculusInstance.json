@@ -1,74 +1,76 @@
 {
   "file": "Ambient/FG/CalculusInstance.lean",
-  "title": "CalculusInstance",
-  "status": "scaffold",
-  "summary": "Transfers the FG normal-form component identities into the abstract AlgebraicIdentities interface consumed by the operator calculus.",
+  "title": "FG calculus bridge",
+  "status": "verified-under-interface",
+  "summary": "Transfers a certified FG normal-form Laplacian model into the abstract ambient Calculus and AlgebraicIdentities interfaces used by tangentiality and GJMS code.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Transfers the FG normal-form component identities into the abstract AlgebraicIdentities interface consumed by the operator calculus.",
-      "formula": null
+      "heading": "Bridge between interfaces",
+      "body": "Given normal ambient data A and a NormalLaplacianModel L, toCalculus packages the same straight data, dimension, Q, X, and Δ̃ as an Operators.Calculus. FG_algebraicIdentities then copies the certified laws of L into the AlgebraicIdentities structure.",
+      "formula": "(A,L)\\longmapsto\\left(\\widetilde g_A,n_L,Q_A,X_L,\\widetilde\\Delta_L\\right)."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Ambient/FG/CalculusInstance.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Logical status",
+      "body": "This is a verified interface conversion, not a geometric derivation. It shows that any supplied L satisfying the FG model laws can be consumed by the existing abstract operator theory.",
+      "formula": "\\operatorname{NormalLaplacianModel}(A,L)\\Longrightarrow\\operatorname{AlgebraicIdentities}(\\operatorname{toCalculus}(A,L))."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "toCalculus",
       "kind": "def",
-      "mathematicalMeaning": "The ambient calculus induced by a certified normal-form Laplacian model. In explicit terms, for a of type normal ambient data conf, and l of type normal laplacian model a, its defining expression is straight : equals A.to Straight Form base Dim : equals L.base Dim Q : equals normal Q A X : equals L.X ambient Laplacian : equals L.ambient Laplacian.",
-      "mathematicalFormula": "\\operatorname{toCalculus}(A,L)=\\operatorname{straight} = A.\\operatorname{toStraightForm} \\operatorname{baseDim} = L.\\operatorname{baseDim} Q = \\operatorname{normalQ} A X = X_{\\mathrm{L}} \\widetilde{\\Delta} = L.\\operatorname{laplacian}",
+      "mathematicalMeaning": "This definition constructs the abstract ambient calculus by reusing A's straight form and L's n, X, and Δ̃, with Q fixed to Q_A = 2ρt².",
+      "mathematicalFormula": "\\operatorname{toCalculus}(A,L):=\\left(A.\\operatorname{toStraightForm},\\ n_L,\\ Q_A,\\ X_L,\\ \\widetilde\\Delta_L\\right).",
       "leanType": "def toCalculus (A : NormalAmbientData Conf) (L : NormalLaplacianModel A) : Operators.Calculus Conf",
       "line": 28
     },
     {
       "leanDeclaration": "toCalculus_Q",
       "kind": "theorem",
-      "mathematicalMeaning": "For A of type Normal Ambient Data Conf, and L of type Normal Laplacian Model A, A.to Calculus L.Q equals normal Q A.",
-      "mathematicalFormula": "\\forall\\,A\\colon \\operatorname{NormalAmbientData} \\operatorname{Conf},\\;L\\colon \\operatorname{NormalLaplacianModel} A,\\quad (A.\\operatorname{toCalculus} L).Q = \\operatorname{normalQ} A",
+      "mathematicalMeaning": "The Q field of the converted calculus is definitionally the normal-form function Q_A.",
+      "mathematicalFormula": "Q_{\\operatorname{toCalculus}(A,L)}=Q_A.",
       "leanType": "theorem toCalculus_Q (A : NormalAmbientData Conf) (L : NormalLaplacianModel A) : (A.toCalculus L).Q = normalQ A",
       "line": 39
     },
     {
       "leanDeclaration": "toCalculus_lap",
       "kind": "theorem",
-      "mathematicalMeaning": "For A of type Normal Ambient Data Conf, L of type Normal Laplacian Model A, and f of type Operators.Function Conf, A.to Calculus L.lap f equals L.ambient Laplacian f.",
-      "mathematicalFormula": "\\forall\\,A\\colon \\operatorname{NormalAmbientData} \\operatorname{Conf},\\;L\\colon \\operatorname{NormalLaplacianModel} A,\\;f\\colon \\operatorname{Operators}.\\operatorname{Function} \\operatorname{Conf},\\quad (A.\\operatorname{toCalculus} L).\\operatorname{lap} f = L.\\operatorname{laplacian} f",
+      "mathematicalMeaning": "The Laplacian accessor of the converted calculus acts exactly as the model's supplied Laplacian.",
+      "mathematicalFormula": "\\operatorname{lap}_{\\operatorname{toCalculus}(A,L)}f=\\widetilde\\Delta_Lf.",
       "leanType": "theorem toCalculus_lap (A : NormalAmbientData Conf) (L : NormalLaplacianModel A) (f : Operators.Function Conf) : (A.toCalculus L).lap f = L.laplacian f",
       "line": 45
     },
     {
       "leanDeclaration": "FG_algebraicIdentities",
       "kind": "theorem",
-      "mathematicalMeaning": "The certified normal-form Laplacian identities instantiate the algebraic identity package required by the existing tangentiality proofs. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,A\\colon \\operatorname{NormalAmbientData} \\operatorname{Conf},\\;L\\colon \\operatorname{NormalLaplacianModel} A,\\quad (A.\\operatorname{toCalculus} L).\\operatorname{AlgebraicIdentities}",
+      "mathematicalMeaning": "Every certified NormalLaplacianModel yields an AlgebraicIdentities witness for the converted calculus by transferring its six law fields.",
+      "mathematicalFormula": "L\\in\\operatorname{NormalLaplacianModel}(A)\\Longrightarrow\\operatorname{AlgebraicIdentities}(\\operatorname{toCalculus}(A,L)).",
       "leanType": "theorem FG_algebraicIdentities (A : NormalAmbientData Conf) (L : NormalLaplacianModel A) : (A.toCalculus L).AlgebraicIdentities",
       "line": 57
     },
     {
       "leanDeclaration": "straightForm_instantiates_AlgebraicIdentities",
       "kind": "theorem",
-      "mathematicalMeaning": "Alias matching the first-stage target name. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,A\\colon \\operatorname{NormalAmbientData} \\operatorname{Conf},\\;L\\colon \\operatorname{NormalLaplacianModel} A,\\quad (A.\\operatorname{toCalculus} L).\\operatorname{AlgebraicIdentities}",
+      "mathematicalMeaning": "This is an alias of FG_algebraicIdentities using the target name expected by the first-stage ambient operator architecture.",
+      "mathematicalFormula": "\\operatorname{NormalLaplacianModel}(A,L)\\Longrightarrow\\operatorname{AlgebraicIdentities}(\\operatorname{toCalculus}(A,L)).",
       "leanType": "theorem straightForm_instantiates_AlgebraicIdentities (A : NormalAmbientData Conf) (L : NormalLaplacianModel A) : (A.toCalculus L).AlgebraicIdentities",
       "line": 84
     }
   ],
   "prerequisites": [
-    "Ambient/FG/Commutators.lean"
+    "Ambient/FG/Commutators.lean",
+    "Ambient/Ambientoperator.lean"
   ],
   "usedBy": [
-    "Ambient/FG.lean"
+    "GJMSoperators/Tangentiality.lean",
+    "PolyGJMSoperators/Basic.lean"
   ],
   "references": [
     {
       "referenceId": "FG-AmbientMetric",
-      "locator": "Chapters 2–3, ambient space and normal form",
-      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+      "locator": "Chapter 3, normal-form operator calculus",
+      "note": "Geometric motivation for the identities transferred by this bridge."
     }
   ],
-  "limitations": "This file establishes syntax, aggregate imports, or an abstract bridge. It must not be read as a derivation of the corresponding geometric theorem from concrete tensor and analytic data."
+  "limitations": "The bridge is Lean-verified, but it assumes a completed NormalLaplacianModel. It does not construct such a model from a concrete ambient metric or prove any of its analytic and differential-geometric laws."
 }

@@ -1,139 +1,140 @@
 {
   "file": "Ambient/FG/RicciNormalForm.lean",
-  "title": "RicciNormalForm",
+  "title": "FG Ricci equations in normal form",
   "status": "verified-under-interface",
-  "summary": "States symbolic Ricci-tensor components for an ambient metric in normal form.",
+  "summary": "Defines the symbolic right-hand sides of the normal-form ambient Ricci equations and exposes them through an explicit Ricci component certificate.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "States symbolic Ricci-tensor components for an ambient metric in normal form.",
-      "formula": null
+      "heading": "Normal-form Ricci equations",
+      "body": "Let a prime denote ∂_ρ and let Ric(g_ρ) and ∇ refer to the slice metric. The file defines the standard base–base, base–∞, and ∞–∞ expressions assembled from g_ρ, its first two ρ-derivatives, and the slice Ricci tensor.",
+      "formula": "\\begin{aligned}\\widetilde{\\operatorname{Ric}}_{ij}={}&\\rho g''_{ij}-\\rho g^{kl}g'_{ik}g'_{jl}+\\frac12\\rho(g^{kl}g'_{kl})g'_{ij}-\\left(\\frac n2-1\\right)g'_{ij}\\\\&-\\frac12(g^{kl}g'_{kl})g_{ij}+\\operatorname{Ric}(g_\\rho)_{ij}.\\end{aligned}"
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Ambient/FG/RicciNormalForm.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Certificate boundary",
+      "body": "RicciNormalFormCertificate stores an arbitrary ambient Ricci component function together with proofs that it equals the displayed symbolic expressions. The later theorems merely project those fields; this file does not contract a Riemann tensor or derive Ricci from the Christoffel table.",
+      "formula": "\\widetilde{\\operatorname{Ric}}_{0I}=0,\\qquad \\widetilde{\\operatorname{Ric}}_{i\\infty}=\\frac12g^{kl}(\\nabla_k g'_{il}-\\nabla_i g'_{kl}),\\qquad \\widetilde{\\operatorname{Ric}}_{\\infty\\infty}=-\\frac12g^{kl}g''_{kl}+\\frac14g^{kl}g^{pq}g'_{kp}g'_{lq}."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "RicciNormalFormComponents",
       "kind": "structure",
-      "mathematicalMeaning": "Component data appearing in the FG normal-form Ricci equations. Its mathematical data are: base Dim: the real numbers; g Prime: ι maps to ι maps to the real numbers; g Double Prime: ι maps to ι maps to the real numbers; base Ricci: ι maps to ι maps to the real numbers; cov Deriv GPrime: ι maps to ι maps to ι maps to the real numbers.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{baseDim}&\\colon \\mathbb{R}\\\\\\operatorname{gPrime}&\\colon ι \\longrightarrow ι \\longrightarrow \\mathbb{R}\\\\\\operatorname{gDoublePrime}&\\colon ι \\longrightarrow ι \\longrightarrow \\mathbb{R}\\\\\\operatorname{baseRicci}&\\colon ι \\longrightarrow ι \\longrightarrow \\mathbb{R}\\\\\\operatorname{covDerivGPrime}&\\colon ι \\longrightarrow ι \\longrightarrow ι \\longrightarrow \\mathbb{R}\\end{aligned}",
+      "mathematicalMeaning": "This structure extends metric and inverse component data by n, g′, g″, the slice Ricci tensor, and a formal covariant derivative ∇g′.",
+      "mathematicalFormula": "C=(t,\\rho,g_{ij},g^{ij},n,g'_{ij},g''_{ij},\\operatorname{Ric}(g_\\rho)_{ij},\\nabla_k g'_{ij}).",
       "leanType": "structure RicciNormalFormComponents (ι : Type w) extends NormalInverseMetricComponents ι",
       "line": 26
     },
     {
       "leanDeclaration": "tracePrime",
       "kind": "def",
-      "mathematicalMeaning": "The trace g^{kl} g'_{kl}. In explicit terms, for c of type ricci normal form components ι, its defining expression is ∑ k : ι, ∑ l : ι, C.g Inv k l times C.g Prime k l.",
-      "mathematicalFormula": "\\operatorname{tracePrime}(C)=\\sum k \\colon ι, \\sum l \\colon ι, C.\\operatorname{gInv} k l \\cdot C.\\operatorname{gPrime} k l",
+      "mathematicalMeaning": "tracePrime is the trace of the first ρ-derivative g′ with respect to the proposed inverse g⁻¹.",
+      "mathematicalFormula": "\\operatorname{tr}_{g_\\rho}(g'):=g^{kl}g'_{kl}.",
       "leanType": "def tracePrime (C : RicciNormalFormComponents ι) : ℝ",
       "line": 43
     },
     {
       "leanDeclaration": "traceDoublePrime",
       "kind": "def",
-      "mathematicalMeaning": "The trace g^{kl} g''_{kl}. In explicit terms, for c of type ricci normal form components ι, its defining expression is ∑ k : ι, ∑ l : ι, C.g Inv k l times C.g Double Prime k l.",
-      "mathematicalFormula": "\\operatorname{traceDoublePrime}(C)=\\sum k \\colon ι, \\sum l \\colon ι, C.\\operatorname{gInv} k l \\cdot C.\\operatorname{gDoublePrime} k l",
+      "mathematicalMeaning": "traceDoublePrime is the corresponding trace of g″.",
+      "mathematicalFormula": "\\operatorname{tr}_{g_\\rho}(g''):=g^{kl}g''_{kl}.",
       "leanType": "def traceDoublePrime (C : RicciNormalFormComponents ι) : ℝ",
       "line": 47
     },
     {
       "leanDeclaration": "quadraticPrime",
       "kind": "def",
-      "mathematicalMeaning": "The quadratic term g^{kl} g'_{ik} g'_{jl}. In explicit terms, for c of type ricci normal form components ι, and i, j of type ι, its defining expression is ∑ k : ι, ∑ l : ι, C.g Inv k l times C.g Prime i k times C.g Prime j l.",
-      "mathematicalFormula": "\\operatorname{quadraticPrime}(C,i,j)=\\sum k \\colon ι, \\sum l \\colon ι, C.\\operatorname{gInv} k l \\cdot C.\\operatorname{gPrime} i k \\cdot C.\\operatorname{gPrime} j l",
+      "mathematicalMeaning": "This is the quadratic two-tensor obtained by contracting two copies of g′ with one inverse metric.",
+      "mathematicalFormula": "(g'g^{-1}g')_{ij}:=g^{kl}g'_{ik}g'_{jl}.",
       "leanType": "def quadraticPrime (C : RicciNormalFormComponents ι) (i j : ι) : ℝ",
       "line": 51
     },
     {
       "leanDeclaration": "quadraticTracePrime",
       "kind": "def",
-      "mathematicalMeaning": "The scalar quadratic trace g^{kl} g^{pq} g'_{kp} g'_{lq}. In explicit terms, for c of type ricci normal form components ι, its defining expression is ∑ k : ι, ∑ l : ι, ∑ p : ι, ∑ q : ι, C.g Inv k l times C.g Inv p q times C.g Prime k p times C.g Prime l q.",
-      "mathematicalFormula": "\\operatorname{quadraticTracePrime}(C)=\\sum k \\colon ι, \\sum l \\colon ι, \\sum p \\colon ι, \\sum q \\colon ι, C.\\operatorname{gInv} k l \\cdot C.\\operatorname{gInv} p q \\cdot C.\\operatorname{gPrime} k p \\cdot C.\\operatorname{gPrime} l q",
+      "mathematicalMeaning": "This scalar contracts two copies of g′ with two inverse metrics.",
+      "mathematicalFormula": "|g'|_{g_\\rho}^{2}:=g^{kl}g^{pq}g'_{kp}g'_{lq}.",
       "leanType": "def quadraticTracePrime (C : RicciNormalFormComponents ι) : ℝ",
       "line": 55
     },
     {
       "leanDeclaration": "FG_RicciEq_ij",
       "kind": "def",
-      "mathematicalMeaning": "The base-base part of the FG normal-form Ricci equation. In explicit terms, for c of type ricci normal form components ι, and i, j of type ι, its defining expression is C.rho times C.g Double Prime i j minus C.rho times C.quadratic Prime i j plus 1 divided by 2 times C.rho times C.trace Prime times C.g Prime i j minus C.base Dim divided by 2 minus 1 times C.g Prime i j minus 1 divided by 2 times C.trace Prime times C.g i j plus C.base Ricci i j.",
-      "mathematicalFormula": "\\operatorname{FG\\_RicciEq\\_ij}(C,i,j)=C.\\operatorname{rho} \\cdot C.\\operatorname{gDoublePrime} i j - C.\\operatorname{rho} \\cdot C.\\operatorname{quadraticPrime} i j + 1 / 2 \\cdot C.\\operatorname{rho} \\cdot C.\\operatorname{tracePrime} \\cdot C.\\operatorname{gPrime} i j - (C.\\operatorname{baseDim} / 2 - 1) \\cdot C.\\operatorname{gPrime} i j - 1 / 2 \\cdot C.\\operatorname{tracePrime} \\cdot g_{\\mathrm{C}} i j + C.\\operatorname{baseRicci} i j",
+      "mathematicalMeaning": "This is the symbolic base–base right-hand side for the ambient Ricci tensor in straight normal form.",
+      "mathematicalFormula": "\\begin{aligned}\\mathcal R_{ij}:={}&\\rho g''_{ij}-\\rho g^{kl}g'_{ik}g'_{jl}+\\frac12\\rho(g^{kl}g'_{kl})g'_{ij}-\\left(\\frac n2-1\\right)g'_{ij}\\\\&-\\frac12(g^{kl}g'_{kl})g_{ij}+\\operatorname{Ric}(g_\\rho)_{ij}.\\end{aligned}",
       "leanType": "def FG_RicciEq_ij (C : RicciNormalFormComponents ι) (i j : ι) : ℝ",
       "line": 60
     },
     {
       "leanDeclaration": "FG_RicciEq_iInf",
       "kind": "def",
-      "mathematicalMeaning": "The base-infinity part of the FG normal-form Ricci equation. In explicit terms, for c of type ricci normal form components ι, and i of type ι, its defining expression is 1 divided by 2 times ∑ k : ι, ∑ l : ι, C.g Inv k l times C.cov Deriv GPrime k i l minus C.cov Deriv GPrime i k l.",
-      "mathematicalFormula": "\\operatorname{FG\\_RicciEq\\_iInf}(C,i)=1 / 2 \\cdot (\\sum k \\colon ι, \\sum l \\colon ι, C.\\operatorname{gInv} k l \\cdot (C.\\operatorname{covDerivGPrime} k i l - C.\\operatorname{covDerivGPrime} i k l))",
+      "mathematicalMeaning": "This is the symbolic base–transverse right-hand side of the normal-form Ricci equation.",
+      "mathematicalFormula": "\\mathcal R_{i\\infty}:=\\frac12g^{kl}\\left(\\nabla_k g'_{il}-\\nabla_i g'_{kl}\\right).",
       "leanType": "def FG_RicciEq_iInf (C : RicciNormalFormComponents ι) (i : ι) : ℝ",
       "line": 69
     },
     {
       "leanDeclaration": "FG_RicciEq_infInf",
       "kind": "def",
-      "mathematicalMeaning": "The infinity-infinity part of the FG normal-form Ricci equation. In explicit terms, for c of type ricci normal form components ι, its defining expression is -1 divided by 2 times C.trace Double Prime plus 1 divided by 4 times C.quadratic Trace Prime.",
-      "mathematicalFormula": "\\operatorname{FG\\_RicciEq\\_infInf}(C)=-1 / 2 \\cdot C.\\operatorname{traceDoublePrime} + 1 / 4 \\cdot C.\\operatorname{quadraticTracePrime}",
+      "mathematicalMeaning": "This is the symbolic transverse–transverse right-hand side of the normal-form Ricci equation.",
+      "mathematicalFormula": "\\mathcal R_{\\infty\\infty}:=-\\frac12g^{kl}g''_{kl}+\\frac14g^{kl}g^{pq}g'_{kp}g'_{lq}.",
       "leanType": "def FG_RicciEq_infInf (C : RicciNormalFormComponents ι) : ℝ",
       "line": 75
     },
     {
       "leanDeclaration": "RicciNormalFormCertificate",
       "kind": "structure",
-      "mathematicalMeaning": "A certificate that a symbolic ambient Ricci tensor satisfies the FG normal-form component formulas. Its mathematical data are: Ricci: Ambient Index ι maps to Ambient Index ι maps to the real numbers; ricci zero left: for every I : Ambient Index ι, Ricci Ambient Index.zero I equals 0; ricci zero right: for every I : Ambient Index ι, Ricci I Ambient Index.zero equals 0; ricci base base: for every i j : ι, Ricci Ambient Index.base i Ambient Index.base j equals C.FG Ricci Eq ij i j; ricci base inf: for every i : ι, Ricci Ambient Index.base i Ambient Index.inf equals C.FG Ricci Eq i Inf i; ricci inf base: for every i : ι, Ricci Ambient Index.inf Ambient Index.base i equals C.FG Ricci Eq i Inf i; ricci inf inf: Ricci Ambient Index.inf Ambient Index.inf equals C.FG Ricci Eq inf Inf.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{Ricci}&\\colon \\operatorname{AmbientIndex} ι \\longrightarrow \\operatorname{AmbientIndex} ι \\longrightarrow \\mathbb{R}\\\\\\operatorname{ricci\\_zero\\_left}&\\colon \\forall I \\colon \\operatorname{AmbientIndex} ι, \\operatorname{Ricci} \\operatorname{AmbientIndex}.\\operatorname{zero} I = 0\\\\\\operatorname{ricci\\_zero\\_right}&\\colon \\forall I \\colon \\operatorname{AmbientIndex} ι, \\operatorname{Ricci} I \\operatorname{AmbientIndex}.\\operatorname{zero} = 0\\\\\\operatorname{ricci\\_base\\_base}&\\colon \\forall i j \\colon ι, \\operatorname{Ricci} (\\operatorname{AmbientIndex}.\\operatorname{base} i) (\\operatorname{AmbientIndex}.\\operatorname{base} j) = C.\\operatorname{FG\\_RicciEq\\_ij} i j\\\\\\operatorname{ricci\\_base\\_inf}&\\colon \\forall i \\colon ι, \\operatorname{Ricci} (\\operatorname{AmbientIndex}.\\operatorname{base} i) \\operatorname{AmbientIndex}.\\operatorname{inf} = C.\\operatorname{FG\\_RicciEq\\_iInf} i\\\\\\operatorname{ricci\\_inf\\_base}&\\colon \\forall i \\colon ι, \\operatorname{Ricci} \\operatorname{AmbientIndex}.\\operatorname{inf} (\\operatorname{AmbientIndex}.\\operatorname{base} i) = C.\\operatorname{FG\\_RicciEq\\_iInf} i\\\\\\operatorname{ricci\\_inf\\_inf}&\\colon \\operatorname{Ricci} \\operatorname{AmbientIndex}.\\operatorname{inf} \\operatorname{AmbientIndex}.\\operatorname{inf} = C.\\operatorname{FG\\_RicciEq\\_infInf}\\end{aligned}",
+      "mathematicalMeaning": "A certificate supplies ambient Ricci components and proofs that the 0I and I0 components vanish and that the base–base, base–∞, ∞–base, and ∞–∞ components equal the three defined FG expressions.",
+      "mathematicalFormula": "\\begin{aligned}\\widetilde{\\operatorname{Ric}}_{0I}&=\\widetilde{\\operatorname{Ric}}_{I0}=0,\\qquad \\widetilde{\\operatorname{Ric}}_{ij}=\\mathcal R_{ij},\\\\\\widetilde{\\operatorname{Ric}}_{i\\infty}&=\\widetilde{\\operatorname{Ric}}_{\\infty i}=\\mathcal R_{i\\infty},\\qquad \\widetilde{\\operatorname{Ric}}_{\\infty\\infty}=\\mathcal R_{\\infty\\infty}.\\end{aligned}",
       "leanType": "structure RicciNormalFormCertificate [Fintype ι] (C : RicciNormalFormComponents ι)",
       "line": 85
     },
     {
       "leanDeclaration": "ricci_zero_left_normal_form",
       "kind": "theorem",
-      "mathematicalMeaning": "For C of type Ricci Normal Form Components ι, H of type Ricci Normal Form Certificate C, and I of type Ambient Index ι, H.Ricci Ambient Index.zero I equals 0.",
-      "mathematicalFormula": "\\forall\\,\\operatorname{Fintype} ι,\\;C\\colon \\operatorname{RicciNormalFormComponents} ι,\\;H\\colon \\operatorname{RicciNormalFormCertificate} C,\\;I\\colon \\operatorname{AmbientIndex} ι,\\quad H.\\operatorname{Ricci} \\operatorname{AmbientIndex}.\\operatorname{zero} I = 0",
+      "mathematicalMeaning": "A RicciNormalFormCertificate implies that every component with first index 0 vanishes.",
+      "mathematicalFormula": "\\widetilde{\\operatorname{Ric}}_{0I}=0\\qquad\\forall I.",
       "leanType": "theorem ricci_zero_left_normal_form [Fintype ι] {C : RicciNormalFormComponents ι} (H : RicciNormalFormCertificate C) (I : AmbientIndex ι) : H.Ricci AmbientIndex.zero I = 0",
       "line": 114
     },
     {
       "leanDeclaration": "ricci_base_base_normal_form",
       "kind": "theorem",
-      "mathematicalMeaning": "For C of type Ricci Normal Form Components ι, H of type Ricci Normal Form Certificate C, and i, j of type ι, H.Ricci Ambient Index.base i Ambient Index.base j equals C.FG Ricci Eq ij i j.",
-      "mathematicalFormula": "\\forall\\,\\operatorname{Fintype} ι,\\;C\\colon \\operatorname{RicciNormalFormComponents} ι,\\;H\\colon \\operatorname{RicciNormalFormCertificate} C,\\;i,j\\colon ι,\\quad H.\\operatorname{Ricci} (\\operatorname{AmbientIndex}.\\operatorname{base} i) (\\operatorname{AmbientIndex}.\\operatorname{base} j) = C.\\operatorname{FG\\_RicciEq\\_ij} i j",
+      "mathematicalMeaning": "The certificate identifies each base–base ambient Ricci component with the defined expression ℛᵢⱼ.",
+      "mathematicalFormula": "\\widetilde{\\operatorname{Ric}}_{ij}=\\mathcal R_{ij}.",
       "leanType": "theorem ricci_base_base_normal_form [Fintype ι] {C : RicciNormalFormComponents ι} (H : RicciNormalFormCertificate C) (i j : ι) : H.Ricci (AmbientIndex.base i) (AmbientIndex.base j) = C.FG_RicciEq_ij i j",
       "line": 122
     },
     {
       "leanDeclaration": "ricci_base_inf_normal_form",
       "kind": "theorem",
-      "mathematicalMeaning": "For C of type Ricci Normal Form Components ι, H of type Ricci Normal Form Certificate C, and i of type ι, H.Ricci Ambient Index.base i Ambient Index.inf equals C.FG Ricci Eq i Inf i.",
-      "mathematicalFormula": "\\forall\\,\\operatorname{Fintype} ι,\\;C\\colon \\operatorname{RicciNormalFormComponents} ι,\\;H\\colon \\operatorname{RicciNormalFormCertificate} C,\\;i\\colon ι,\\quad H.\\operatorname{Ricci} (\\operatorname{AmbientIndex}.\\operatorname{base} i) \\operatorname{AmbientIndex}.\\operatorname{inf} = C.\\operatorname{FG\\_RicciEq\\_iInf} i",
+      "mathematicalMeaning": "The certificate identifies each base–transverse component with ℛᵢ∞.",
+      "mathematicalFormula": "\\widetilde{\\operatorname{Ric}}_{i\\infty}=\\mathcal R_{i\\infty}.",
       "leanType": "theorem ricci_base_inf_normal_form [Fintype ι] {C : RicciNormalFormComponents ι} (H : RicciNormalFormCertificate C) (i : ι) : H.Ricci (AmbientIndex.base i) AmbientIndex.inf = C.FG_RicciEq_iInf i",
       "line": 131
     },
     {
       "leanDeclaration": "ricci_inf_inf_normal_form",
       "kind": "theorem",
-      "mathematicalMeaning": "For C of type Ricci Normal Form Components ι, and H of type Ricci Normal Form Certificate C, H.Ricci Ambient Index.inf Ambient Index.inf equals C.FG Ricci Eq inf Inf.",
-      "mathematicalFormula": "\\forall\\,\\operatorname{Fintype} ι,\\;C\\colon \\operatorname{RicciNormalFormComponents} ι,\\;H\\colon \\operatorname{RicciNormalFormCertificate} C,\\quad H.\\operatorname{Ricci} \\operatorname{AmbientIndex}.\\operatorname{inf} \\operatorname{AmbientIndex}.\\operatorname{inf} = C.\\operatorname{FG\\_RicciEq\\_infInf}",
+      "mathematicalMeaning": "The certificate identifies the transverse–transverse component with ℛ∞∞.",
+      "mathematicalFormula": "\\widetilde{\\operatorname{Ric}}_{\\infty\\infty}=\\mathcal R_{\\infty\\infty}.",
       "leanType": "theorem ricci_inf_inf_normal_form [Fintype ι] {C : RicciNormalFormComponents ι} (H : RicciNormalFormCertificate C) : H.Ricci AmbientIndex.inf AmbientIndex.inf = C.FG_RicciEq_infInf",
       "line": 140
     }
   ],
   "prerequisites": [
-    "Ambient/FG/Christoffel.lean"
+    "Ambient/FG/Christoffel.lean",
+    "Ambient/FG/InverseMetric.lean"
   ],
   "usedBy": [
     "Ambient/FG/FormalJets.lean",
-    "Ambient/FG.lean"
+    "Ambient/FG/Recursion.lean"
   ],
   "references": [
     {
       "referenceId": "FG-AmbientMetric",
-      "locator": "Chapters 2–3, ambient space and normal form",
-      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+      "locator": "Chapter 3, Ricci tensor of a straight ambient metric in normal form",
+      "note": "Source for the three displayed normal-form Ricci component equations."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "The component expressions are defined symbolically and related to a supplied Ricci function by certificate fields. The file does not derive Ricci from Christoffel symbols, verify that gInv is an inverse, or prove the certificate for a concrete ambient metric."
 }

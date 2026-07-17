@@ -1,154 +1,154 @@
 {
   "file": "Ambient/FG/NormalForm.lean",
-  "title": "NormalForm",
-  "status": "verified-under-interface",
-  "summary": "Encodes straight ambient metrics in normal form and their block metric components in the t, base, and rho directions.",
+  "title": "FG normal form",
+  "status": "scaffold",
+  "summary": "Packages straight ambient data and defines the component matrix of the Fefferman–Graham normal-form metric in the t, base, and ρ directions.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Encodes straight ambient metrics in normal form and their block metric components in the t, base, and rho directions.",
-      "formula": "\\widetilde g = 2\\rho\\,dt^2 + 2t\\,dt\\,d\\rho + t^2 g_\\rho"
+      "heading": "Normal-form metric",
+      "body": "Relative to a chosen representative g in the conformal class, a straight ambient metric is written using a one-parameter family g_ρ with g₀ = g. In the ordered directions (0,i,∞) = (t,xⁱ,ρ), the file defines the corresponding component matrix.",
+      "formula": "\\widetilde g=2\\rho\\,dt^2+2t\\,dt\\,d\\rho+t^2g_{ij}(x,\\rho)\\,dx^i dx^j."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Ambient/FG/NormalForm.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Component model",
+      "body": "NormalMetricComponents stores only the numbers t, ρ, and gᵢⱼ at one formal point. ambientMetricComp then returns the displayed block components. This is a component definition, not yet a tensor assembled on a smooth ambient manifold.",
+      "formula": "(\\widetilde g_{IJ})=\\begin{pmatrix}2\\rho&0&t\\\\0&t^2g_{ij}&0\\\\t&0&0\\end{pmatrix}."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "NormalAmbientData",
       "kind": "structure",
-      "mathematicalMeaning": "Fefferman-Graham normal ambient data extending the existing straight data. Its mathematical data are: straight Data: Conf.Straight Metric Data.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{straightData}&\\colon \\operatorname{Conf}.\\operatorname{StraightMetricData}\\end{aligned}",
+      "mathematicalMeaning": "Normal ambient data currently consist of the previously defined StraightMetricData: a base scale and a family ρ ↦ g_ρ compatible at ρ = 0.",
+      "mathematicalFormula": "A=\\left(s,\\{g_\\rho\\}_{\\rho\\in\\mathbb R}\\right),\\qquad [g_0(x)]=s(x).",
       "leanType": "structure NormalAmbientData (Conf : ConformalStructure.{u, v} M)",
       "line": 35
     },
     {
       "leanDeclaration": "toStraightForm",
       "kind": "def",
-      "mathematicalMeaning": "The existing straight-form wrapper attached to normal ambient data. In explicit terms, for a of type normal ambient data conf, its defining expression is data : equals A.straight Data.",
-      "mathematicalFormula": "\\operatorname{toStraightForm}(A)=\\operatorname{data} = A.\\operatorname{straightData}",
+      "mathematicalMeaning": "This map wraps the stored normal ambient data as the formal StraightForm used by the ambient layer.",
+      "mathematicalFormula": "A\\longmapsto G_A,\\qquad G_A.\\operatorname{data}=A.\\operatorname{straightData}.",
       "leanType": "def toStraightForm (A : NormalAmbientData Conf) : Conf.StraightForm",
       "line": 41
     },
     {
       "leanDeclaration": "baseScale",
       "kind": "def",
-      "mathematicalMeaning": "The chosen base scale. In explicit terms, for a of type normal ambient data conf, its defining expression is A.straight Data.base Scale.",
-      "mathematicalFormula": "\\operatorname{baseScale}(A)=A.\\operatorname{straightData}.\\operatorname{baseScale}",
+      "mathematicalMeaning": "This accessor returns the chosen scale contained in A.",
+      "mathematicalFormula": "\\operatorname{baseScale}(A):=s_A.",
       "leanType": "def baseScale (A : NormalAmbientData Conf) : Conf.Scale",
       "line": 45
     },
     {
       "leanDeclaration": "gRho",
       "kind": "def",
-      "mathematicalMeaning": "The one-parameter family g_rho. In explicit terms, for a of type normal ambient data conf, its defining expression is A.straight Data.g Rho.",
-      "mathematicalFormula": "\\operatorname{gRho}(A)=A.\\operatorname{straightData}.\\operatorname{gRho}",
+      "mathematicalMeaning": "This accessor returns the complete one-parameter family of concrete metric fields.",
+      "mathematicalFormula": "\\operatorname{gRho}(A):\\mathbb R\\longrightarrow\\operatorname{Met}(M),\\qquad \\rho\\longmapsto g_\\rho.",
       "leanType": "def gRho (A : NormalAmbientData Conf) : ℝ → Conf.MetricField",
       "line": 49
     },
     {
       "leanDeclaration": "compat0",
       "kind": "theorem",
-      "mathematicalMeaning": "For A of type Normal Ambient Data Conf, and x of type M, Conf.to Fiber A.g Rho 0 x equals A.base Scale.metric x.",
-      "mathematicalFormula": "\\forall\\,A\\colon \\operatorname{NormalAmbientData} \\operatorname{Conf},\\;x\\colon M,\\quad \\operatorname{Conf}.\\operatorname{toFiber} (A.\\operatorname{gRho} 0 x) = A.\\operatorname{baseScale}.\\operatorname{metric} x",
+      "mathematicalMeaning": "At ρ = 0, the concrete metric g₀ represents the conformal ray selected by the base scale at every point.",
+      "mathematicalFormula": "[g_0(x)]=s_A(x),\\qquad x\\in M.",
       "leanType": "theorem compat0 (A : NormalAmbientData Conf) (x : M) : Conf.toFiber (A.gRho 0 x) = A.baseScale.metric x",
       "line": 53
     },
     {
       "leanDeclaration": "NormalMetricComponents",
       "kind": "structure",
-      "mathematicalMeaning": "Pointwise base metric components in a normal-form coordinate frame. Its mathematical data are: t: the real numbers; rho: the real numbers; g: ι maps to ι maps to the real numbers.",
-      "mathematicalFormula": "\\begin{aligned}t&\\colon \\mathbb{R}\\\\\\operatorname{rho}&\\colon \\mathbb{R}\\\\g&\\colon ι \\longrightarrow ι \\longrightarrow \\mathbb{R}\\end{aligned}",
+      "mathematicalMeaning": "At one formal normal-coordinate point, this structure stores the values of t, ρ, and the base block gᵢⱼ.",
+      "mathematicalFormula": "C=(t,\\rho,g_{ij}),\\qquad t,\\rho\\in\\mathbb R,\\quad g:\\iota\\times\\iota\\to\\mathbb R.",
       "leanType": "structure NormalMetricComponents (ι : Type w)",
       "line": 60
     },
     {
       "leanDeclaration": "ambientMetricComp",
       "kind": "def",
-      "mathematicalMeaning": "The normal-form ambient metric components g~_IJ. In explicit terms, for c of type normal metric components ι, its defining expression is | Ambient Index.zero, Ambient Index.zero maps to 2 times C.rho | Ambient Index.zero, Ambient Index.base maps to 0 | Ambient Index.zero, Ambient Index.inf maps to C.t | Ambient Index.base, Ambient Index.zero maps to 0 | Ambient Index.base i, Ambient Index.base j maps to C.t to the power 2 times C.g i j | Ambient Index.base, Ambient Index.inf maps to 0 | Ambient Index.inf, Ambient Index.zero maps to C.t | Ambient Index.inf, Ambient Index.base maps to 0 | Ambient Index.inf, Ambient Index.inf maps to 0.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{ambientMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{zero}, \\operatorname{AmbientIndex}.\\operatorname{zero})&=2 \\cdot C.\\operatorname{rho}\\\\\\operatorname{ambientMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{zero}, \\operatorname{AmbientIndex}.\\operatorname{base} _)&=0\\\\\\operatorname{ambientMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{zero}, \\operatorname{AmbientIndex}.\\operatorname{inf})&=t_{\\mathrm{C}}\\\\\\operatorname{ambientMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{base} _, \\operatorname{AmbientIndex}.\\operatorname{zero})&=0\\\\\\operatorname{ambientMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{base} i, \\operatorname{AmbientIndex}.\\operatorname{base} j)&=t_{\\mathrm{C}} ^ 2 \\cdot g_{\\mathrm{C}} i j\\\\\\operatorname{ambientMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{base} _, \\operatorname{AmbientIndex}.\\operatorname{inf})&=0\\\\\\operatorname{ambientMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{inf}, \\operatorname{AmbientIndex}.\\operatorname{zero})&=t_{\\mathrm{C}}\\\\\\operatorname{ambientMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{inf}, \\operatorname{AmbientIndex}.\\operatorname{base} _)&=0\\\\\\operatorname{ambientMetricComp}(\\operatorname{AmbientIndex}.\\operatorname{inf}, \\operatorname{AmbientIndex}.\\operatorname{inf})&=0\\end{aligned}",
-      "leanType": "def ambientMetricComp (C : NormalMetricComponents ι) : AmbientIndex ι → AmbientIndex ι → ℝ",
+      "mathematicalMeaning": "This function defines every component of the formal normal-form metric in the ordered 0, base, and ∞ directions.",
+      "mathematicalFormula": "(\\widetilde g_{IJ})=\\begin{pmatrix}2\\rho&0&t\\\\0&t^2g_{ij}&0\\\\t&0&0\\end{pmatrix}."
+      ,"leanType": "def ambientMetricComp (C : NormalMetricComponents ι) : AmbientIndex ι → AmbientIndex ι → ℝ",
       "line": 69
     },
     {
       "leanDeclaration": "ambientMetricComp_zero_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "For C of type Normal Metric Components ι, ambient Metric Comp C Ambient Index.zero Ambient Index.zero equals 2 times C.rho.",
-      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\quad \\operatorname{ambientMetricComp} C \\operatorname{AmbientIndex}.\\operatorname{zero} \\operatorname{AmbientIndex}.\\operatorname{zero} = 2 \\cdot C.\\operatorname{rho}",
+      "mathematicalMeaning": "The scale–scale component is twice the transverse coordinate.",
+      "mathematicalFormula": "\\widetilde g_{00}=2\\rho.",
       "leanType": "theorem ambientMetricComp_zero_zero (C : NormalMetricComponents ι) : ambientMetricComp C AmbientIndex.zero AmbientIndex.zero = 2 * C.rho",
       "line": 82
     },
     {
       "leanDeclaration": "ambientMetricComp_zero_base",
       "kind": "theorem",
-      "mathematicalMeaning": "For C of type Normal Metric Components ι, and i of type ι, ambient Metric Comp C Ambient Index.zero Ambient Index.base i equals 0.",
-      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\;i\\colon ι,\\quad \\operatorname{ambientMetricComp} C \\operatorname{AmbientIndex}.\\operatorname{zero} (\\operatorname{AmbientIndex}.\\operatorname{base} i) = 0",
+      "mathematicalMeaning": "The scale direction is orthogonal to each base direction in normal form.",
+      "mathematicalFormula": "\\widetilde g_{0i}=0.",
       "leanType": "theorem ambientMetricComp_zero_base (C : NormalMetricComponents ι) (i : ι) : ambientMetricComp C AmbientIndex.zero (AmbientIndex.base i) = 0",
       "line": 86
     },
     {
       "leanDeclaration": "ambientMetricComp_base_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "For C of type Normal Metric Components ι, and i of type ι, ambient Metric Comp C Ambient Index.base i Ambient Index.zero equals 0.",
-      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\;i\\colon ι,\\quad \\operatorname{ambientMetricComp} C (\\operatorname{AmbientIndex}.\\operatorname{base} i) \\operatorname{AmbientIndex}.\\operatorname{zero} = 0",
+      "mathematicalMeaning": "The transposed base–scale component also vanishes.",
+      "mathematicalFormula": "\\widetilde g_{i0}=0.",
       "leanType": "theorem ambientMetricComp_base_zero (C : NormalMetricComponents ι) (i : ι) : ambientMetricComp C (AmbientIndex.base i) AmbientIndex.zero = 0",
       "line": 90
     },
     {
       "leanDeclaration": "ambientMetricComp_zero_inf",
       "kind": "theorem",
-      "mathematicalMeaning": "For C of type Normal Metric Components ι, ambient Metric Comp C Ambient Index.zero Ambient Index.inf equals C.t.",
-      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\quad \\operatorname{ambientMetricComp} C \\operatorname{AmbientIndex}.\\operatorname{zero} \\operatorname{AmbientIndex}.\\operatorname{inf} = t_{\\mathrm{C}}",
+      "mathematicalMeaning": "The scale–transverse component equals t.",
+      "mathematicalFormula": "\\widetilde g_{0\\infty}=t.",
       "leanType": "theorem ambientMetricComp_zero_inf (C : NormalMetricComponents ι) : ambientMetricComp C AmbientIndex.zero AmbientIndex.inf = C.t",
       "line": 94
     },
     {
       "leanDeclaration": "ambientMetricComp_inf_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "For C of type Normal Metric Components ι, ambient Metric Comp C Ambient Index.inf Ambient Index.zero equals C.t.",
-      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\quad \\operatorname{ambientMetricComp} C \\operatorname{AmbientIndex}.\\operatorname{inf} \\operatorname{AmbientIndex}.\\operatorname{zero} = t_{\\mathrm{C}}",
+      "mathematicalMeaning": "The transposed transverse–scale component equals t.",
+      "mathematicalFormula": "\\widetilde g_{\\infty 0}=t.",
       "leanType": "theorem ambientMetricComp_inf_zero (C : NormalMetricComponents ι) : ambientMetricComp C AmbientIndex.inf AmbientIndex.zero = C.t",
       "line": 98
     },
     {
       "leanDeclaration": "ambientMetricComp_base_base",
       "kind": "theorem",
-      "mathematicalMeaning": "For C of type Normal Metric Components ι, and i, j of type ι, ambient Metric Comp C Ambient Index.base i Ambient Index.base j equals C.t to the power 2 times C.g i j.",
-      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\;i,j\\colon ι,\\quad \\operatorname{ambientMetricComp} C (\\operatorname{AmbientIndex}.\\operatorname{base} i) (\\operatorname{AmbientIndex}.\\operatorname{base} j) = t_{\\mathrm{C}} ^ 2 \\cdot g_{\\mathrm{C}} i j",
+      "mathematicalMeaning": "The tangential block of the ambient metric is t² times the slice metric g_ρ.",
+      "mathematicalFormula": "\\widetilde g_{ij}=t^2g_{ij}(x,\\rho).",
       "leanType": "theorem ambientMetricComp_base_base (C : NormalMetricComponents ι) (i j : ι) : ambientMetricComp C (AmbientIndex.base i) (AmbientIndex.base j) = C.t ^ 2 * C.g i j",
       "line": 102
     },
     {
       "leanDeclaration": "ambientMetricComp_base_inf",
       "kind": "theorem",
-      "mathematicalMeaning": "For C of type Normal Metric Components ι, and i of type ι, ambient Metric Comp C Ambient Index.base i Ambient Index.inf equals 0.",
-      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\;i\\colon ι,\\quad \\operatorname{ambientMetricComp} C (\\operatorname{AmbientIndex}.\\operatorname{base} i) \\operatorname{AmbientIndex}.\\operatorname{inf} = 0",
+      "mathematicalMeaning": "Every base–transverse component vanishes.",
+      "mathematicalFormula": "\\widetilde g_{i\\infty}=0.",
       "leanType": "theorem ambientMetricComp_base_inf (C : NormalMetricComponents ι) (i : ι) : ambientMetricComp C (AmbientIndex.base i) AmbientIndex.inf = 0",
       "line": 107
     },
     {
       "leanDeclaration": "ambientMetricComp_inf_base",
       "kind": "theorem",
-      "mathematicalMeaning": "For C of type Normal Metric Components ι, and i of type ι, ambient Metric Comp C Ambient Index.inf Ambient Index.base i equals 0.",
-      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\;i\\colon ι,\\quad \\operatorname{ambientMetricComp} C \\operatorname{AmbientIndex}.\\operatorname{inf} (\\operatorname{AmbientIndex}.\\operatorname{base} i) = 0",
+      "mathematicalMeaning": "Every transverse–base component vanishes.",
+      "mathematicalFormula": "\\widetilde g_{\\infty i}=0.",
       "leanType": "theorem ambientMetricComp_inf_base (C : NormalMetricComponents ι) (i : ι) : ambientMetricComp C AmbientIndex.inf (AmbientIndex.base i) = 0",
       "line": 111
     },
     {
       "leanDeclaration": "ambientMetricComp_inf_inf",
       "kind": "theorem",
-      "mathematicalMeaning": "For C of type Normal Metric Components ι, ambient Metric Comp C Ambient Index.inf Ambient Index.inf equals 0.",
-      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\quad \\operatorname{ambientMetricComp} C \\operatorname{AmbientIndex}.\\operatorname{inf} \\operatorname{AmbientIndex}.\\operatorname{inf} = 0",
+      "mathematicalMeaning": "The transverse direction is null in this coordinate expression.",
+      "mathematicalFormula": "\\widetilde g_{\\infty\\infty}=0.",
       "leanType": "theorem ambientMetricComp_inf_inf (C : NormalMetricComponents ι) : ambientMetricComp C AmbientIndex.inf AmbientIndex.inf = 0",
       "line": 115
     },
     {
       "leanDeclaration": "ambientMetricComp_symm",
       "kind": "theorem",
-      "mathematicalMeaning": "Symmetry of the ambient metric follows from symmetry of the base block. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{NormalMetricComponents} ι,\\;hg\\colon \\forall i j \\colon ι, g_{\\mathrm{C}} i j = g_{\\mathrm{C}} j i,\\;I,J\\colon \\operatorname{AmbientIndex} ι,\\quad \\operatorname{ambientMetricComp} C I J = \\operatorname{ambientMetricComp} C J I",
+      "mathematicalMeaning": "If the base block gᵢⱼ is symmetric, then the complete ambient component matrix is symmetric.",
+      "mathematicalFormula": "g_{ij}=g_{ji}\\ \\forall i,j\\Longrightarrow\\widetilde g_{IJ}=\\widetilde g_{JI}\\ \\forall I,J.",
       "leanType": "theorem ambientMetricComp_symm (C : NormalMetricComponents ι) (hg : ∀ i j : ι, C.g i j = C.g j i) (I J : AmbientIndex ι) : ambientMetricComp C I J = ambientMetricComp C J I",
       "line": 119
     }
@@ -159,15 +159,15 @@
   ],
   "usedBy": [
     "Ambient/FG/InverseMetric.lean",
-    "Ambient/FG.lean",
-    "Ambient/PE/AmbientBridge.lean"
+    "Ambient/FG/Christoffel.lean",
+    "Ambient/FG/Laplacian.lean"
   ],
   "references": [
     {
       "referenceId": "FG-AmbientMetric",
-      "locator": "Chapters 2–3, ambient space and normal form",
-      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+      "locator": "Chapter 3, straight ambient metrics in normal form",
+      "note": "Source for the normal-form expression and its block components."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "This module defines a pointwise component model. It does not construct a smooth ambient metric tensor, prove nondegeneracy or signature, or derive the component matrix from a geometric normal-form theorem."
 }

@@ -142,9 +142,9 @@
   },
   {
     "file": "Ambient/FG/CalculusInstance.lean",
-    "title": "CalculusInstance",
-    "status": "scaffold",
-    "summary": "Transfers the FG normal-form component identities into the abstract AlgebraicIdentities interface consumed by the operator calculus.",
+    "title": "FG calculus bridge",
+    "status": "verified-under-interface",
+    "summary": "Transfers a certified FG normal-form Laplacian model into the ambient Calculus and AlgebraicIdentities interfaces.",
     "declarations": [
       "toCalculus",
       "toCalculus_Q",
@@ -158,9 +158,9 @@
   },
   {
     "file": "Ambient/FG/Christoffel.lean",
-    "title": "Christoffel",
-    "status": "verified-under-interface",
-    "summary": "Records the Christoffel-symbol components associated with the straight ambient normal form.",
+    "title": "Normal-form Christoffel components",
+    "status": "scaffold",
+    "summary": "Stores the rho derivative and base Christoffel data, then defines the selected raised-index ambient components used later.",
     "declarations": [
       "ChristoffelComponents",
       "baseDelta",
@@ -178,9 +178,9 @@
   },
   {
     "file": "Ambient/FG/Commutators.lean",
-    "title": "Commutators",
-    "status": "verified",
-    "summary": "Derives the Euler/defining-function/Laplacian identities used in the tangentiality argument, including XQ = 2Q and the Laplacian–Q commutator.",
+    "title": "FG commutator identities",
+    "status": "verified-under-interface",
+    "summary": "Exposes the Q–X–ambient-Laplacian identities contained in NormalLaplacianModel under names used by tangentiality.",
     "declarations": [
       "straightForm_X_Q",
       "straightForm_X_laplacian_comm",
@@ -193,9 +193,9 @@
   },
   {
     "file": "Ambient/FG/FormalJets.lean",
-    "title": "FormalJets",
-    "status": "verified-under-interface",
-    "summary": "Represents a finite rho-jet of the tangential metric g_rho and the condition that it solves the FG Ricci equations to finite order.",
+    "title": "Finite formal metric jets",
+    "status": "scaffold",
+    "summary": "Defines finite component-level rho-jets and packages the first FG condition g^(1) = 2P as an explicit hypothesis.",
     "declarations": [
       "Sym2Component",
       "SymmetricComponent",
@@ -212,9 +212,9 @@
   },
   {
     "file": "Ambient/FG/Index.lean",
-    "title": "Index",
-    "status": "verified-under-interface",
-    "summary": "Introduces the ambient 0, base, and infinity index types and formal normal coordinates used by component calculations.",
+    "title": "FG normal-form indices",
+    "status": "scaffold",
+    "summary": "Introduces the three index directions and coordinate triple used in FG normal-form component calculations.",
     "declarations": [
       "AmbientIndex",
       "kronecker",
@@ -231,9 +231,9 @@
   },
   {
     "file": "Ambient/FG/InverseMetric.lean",
-    "title": "InverseMetric",
+    "title": "Inverse normal-form metric",
     "status": "verified-under-interface",
-    "summary": "Specifies inverse ambient metric components and verifies the formal block inverse identities in normal coordinates.",
+    "summary": "Defines the expected inverse block components and proves the base-block left-inverse identity from an explicit hypothesis.",
     "declarations": [
       "NormalInverseMetricComponents",
       "inverseMetricComp",
@@ -252,9 +252,9 @@
   },
   {
     "file": "Ambient/FG/Laplacian.lean",
-    "title": "Laplacian",
+    "title": "FG defining function and Laplacian model",
     "status": "verified-under-interface",
-    "summary": "Introduces the normal-form defining function Q = 2 rho t^2 and an interface for the ambient Laplacian in these coordinates.",
+    "summary": "Defines Q = 2 rho t^2 and packages the Euler operator and ambient Laplacian with the laws required downstream.",
     "declarations": [
       "posRealToReal",
       "scaleT",
@@ -271,9 +271,9 @@
   },
   {
     "file": "Ambient/FG/NormalForm.lean",
-    "title": "NormalForm",
-    "status": "verified-under-interface",
-    "summary": "Encodes straight ambient metrics in normal form and their block metric components in the t, base, and rho directions.",
+    "title": "FG normal form",
+    "status": "scaffold",
+    "summary": "Packages straight ambient data and defines the FG normal-form component matrix in the t, base, and rho directions.",
     "declarations": [
       "NormalAmbientData",
       "toStraightForm",
@@ -299,9 +299,9 @@
   },
   {
     "file": "Ambient/FG/Obstruction.lean",
-    "title": "Obstruction",
-    "status": "verified-under-interface",
-    "summary": "Defines even-dimensional obstruction-order data, an abstract obstruction tensor, and unobstructedness.",
+    "title": "Ambient obstruction scaffold",
+    "status": "scaffold",
+    "summary": "Stores even-dimensional obstruction-order data, a symmetric component tensor, and an abstract vanishing proposition.",
     "declarations": [
       "obstructionOrder",
       "AmbientObstructionData",
@@ -315,9 +315,9 @@
   },
   {
     "file": "Ambient/FG/Recursion.lean",
-    "title": "Recursion",
-    "status": "verified-under-interface",
-    "summary": "Packages finite-order Ricci recursion data and the first-jet relation with the Schouten tensor.",
+    "title": "Finite FG recursion scaffold",
+    "status": "scaffold",
+    "summary": "Packages coefficients declared to agree with a finite metric jet; no recursive solver is implemented yet.",
     "declarations": [
       "FormalRicciRecursion",
       "solvedAt",
@@ -332,9 +332,9 @@
   },
   {
     "file": "Ambient/FG/RicciNormalForm.lean",
-    "title": "RicciNormalForm",
+    "title": "FG Ricci equations in normal form",
     "status": "verified-under-interface",
-    "summary": "States symbolic Ricci-tensor components for an ambient metric in normal form.",
+    "summary": "Defines symbolic normal-form Ricci expressions and exposes them through an explicit component certificate.",
     "declarations": [
       "RicciNormalFormComponents",
       "tracePrime",

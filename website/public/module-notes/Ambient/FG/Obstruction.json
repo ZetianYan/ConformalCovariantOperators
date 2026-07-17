@@ -1,74 +1,73 @@
 {
   "file": "Ambient/FG/Obstruction.lean",
-  "title": "Obstruction",
-  "status": "verified-under-interface",
-  "summary": "Defines even-dimensional obstruction-order data, an abstract obstruction tensor, and unobstructedness.",
+  "title": "Ambient obstruction scaffold",
+  "status": "scaffold",
+  "summary": "Stores even-dimensional obstruction-order data, a symmetric component tensor, and an abstract proposition representing vanishing of the obstruction.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Defines even-dimensional obstruction-order data, an abstract obstruction tensor, and unobstructedness.",
-      "formula": null
+      "heading": "Critical even order",
+      "body": "For an even base dimension n, the formal obstruction appears at order n/2 in the ambient expansion. AmbientObstructionData records that this order lies within the available finite jet.",
+      "formula": "m_{\\mathrm{obs}}=\\frac n2,\\qquad n\\equiv0\\pmod2,\\qquad \\frac n2\\le K."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Ambient/FG/Obstruction.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Stored obstruction data",
+      "body": "The structure contains a two-index component function O, a proof that it is symmetric, and a separate proposition called vanishing. The code does not define O from the Ricci recursion, nor does it identify vanishing with the componentwise equation O = 0.",
+      "formula": "\\mathcal O_{ij}=\\mathcal O_{ji},\\qquad \\operatorname{IsUnobstructed}(O):=O.\\operatorname{vanishing}."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "obstructionOrder",
       "kind": "def",
-      "mathematicalMeaning": "The critical obstruction order n / 2 in even dimension. In explicit terms, for n in the natural numbers, its defining expression is n divided by 2.",
-      "mathematicalFormula": "\\operatorname{obstructionOrder}(n)=n / 2",
+      "mathematicalMeaning": "The critical order is defined by natural-number division n/2; the evenness assumption is carried later by AmbientObstructionData.",
+      "mathematicalFormula": "\\operatorname{obstructionOrder}(n):=\\left\\lfloor\\frac n2\\right\\rfloor.",
       "leanType": "def obstructionOrder (n : ℕ) : ℕ",
       "line": 26
     },
     {
       "leanDeclaration": "AmbientObstructionData",
       "kind": "structure",
-      "mathematicalMeaning": "A component-level obstruction tensor attached to a finite FG metric jet. Its mathematical data are: n: the natural numbers; even dim: n % 2 equals 0; order le: obstruction Order n is at most K; tensor: Sym2 Component ι; symmetric: Symmetric Component tensor; vanishing: Prop.",
-      "mathematicalFormula": "\\begin{aligned}n&\\colon \\mathbb{N}\\\\\\operatorname{even\\_dim}&\\colon n % 2 = 0\\\\\\operatorname{order\\_le}&\\colon \\operatorname{obstructionOrder} n \\le K\\\\\\operatorname{tensor}&\\colon \\operatorname{Sym2Component} ι\\\\\\operatorname{symmetric}&\\colon \\operatorname{SymmetricComponent} \\operatorname{tensor}\\\\\\operatorname{vanishing}&\\colon \\mathrm{Prop}\\end{aligned}",
+      "mathematicalMeaning": "This structure stores n, a proof that n is even, availability of order n/2 in the jet, a component tensor ℱᵢⱼ, its symmetry, and an abstract proposition named vanishing.",
+      "mathematicalFormula": "O=\\left(n,\\ n\\equiv0\\!\\pmod2,\\ \\frac n2\\le K,\\ \\mathcal O_{ij},\\ \\mathcal O_{ij}=\\mathcal O_{ji},\\ \\operatorname{vanishing}\\right).",
       "leanType": "structure AmbientObstructionData (J : FormalMetricJet ι K)",
       "line": 30
     },
     {
       "leanDeclaration": "obstructionTensor",
       "kind": "def",
-      "mathematicalMeaning": "The obstruction tensor as a component-level two-tensor. In explicit terms, for o of type ambient obstruction data ι : equals ι j, its defining expression is O.tensor.",
-      "mathematicalFormula": "\\operatorname{obstructionTensor}(O)=O.\\operatorname{tensor}",
+      "mathematicalMeaning": "This accessor returns the two-index component function stored as the obstruction tensor.",
+      "mathematicalFormula": "\\operatorname{obstructionTensor}(O):=\\mathcal O_{ij}.",
       "leanType": "def obstructionTensor (O : AmbientObstructionData (ι := ι) J) : Sym2Component ι",
       "line": 49
     },
     {
       "leanDeclaration": "obstructionTensor_symmetric",
       "kind": "theorem",
-      "mathematicalMeaning": "For O of type Ambient Obstruction Data ι : equals ι J, Symmetric Component O.obstruction Tensor.",
-      "mathematicalFormula": "\\forall\\,O\\colon \\operatorname{AmbientObstructionData} (ι = ι) J,\\quad \\operatorname{SymmetricComponent} O.\\operatorname{obstructionTensor}",
+      "mathematicalMeaning": "The stored obstruction tensor is symmetric because symmetry is a field of AmbientObstructionData.",
+      "mathematicalFormula": "\\mathcal O_{ij}=\\mathcal O_{ji}.",
       "leanType": "theorem obstructionTensor_symmetric (O : AmbientObstructionData (ι := ι) J) : SymmetricComponent O.obstructionTensor",
       "line": 53
     },
     {
       "leanDeclaration": "IsUnobstructed",
       "kind": "def",
-      "mathematicalMeaning": "A finite jet is formally unobstructed when its obstruction data vanishes. In explicit terms, for o of type ambient obstruction data ι : equals ι j, its defining expression is O.vanishing.",
-      "mathematicalFormula": "\\operatorname{IsUnobstructed}(O)=O.\\operatorname{vanishing}",
+      "mathematicalMeaning": "Formal unobstructedness is defined to be the abstract vanishing proposition stored in O.",
+      "mathematicalFormula": "\\operatorname{IsUnobstructed}(O):=O.\\operatorname{vanishing}.",
       "leanType": "def IsUnobstructed (O : AmbientObstructionData (ι := ι) J) : Prop",
       "line": 59
     }
   ],
   "prerequisites": [
-    "Ambient/FG/Recursion.lean"
+    "Ambient/FG/Recursion.lean",
+    "Ambient/FG/FormalJets.lean"
   ],
-  "usedBy": [
-    "Ambient/FG.lean"
-  ],
+  "usedBy": [],
   "references": [
     {
       "referenceId": "FG-AmbientMetric",
-      "locator": "Chapters 2–3, ambient space and normal form",
-      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+      "locator": "Chapter 3, even-dimensional obstruction tensor",
+      "note": "Mathematical source for the critical order n/2 and the ambient obstruction tensor."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "The obstruction tensor and its vanishing are supplied as independent fields. The file proves neither that the tensor arises from the FG recursion nor that vanishing is equivalent to componentwise zero, trace-freeness, divergence-freeness, conformal covariance, or continuation of the ambient expansion."
 }

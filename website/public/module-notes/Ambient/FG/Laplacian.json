@@ -1,82 +1,82 @@
 {
   "file": "Ambient/FG/Laplacian.lean",
-  "title": "Laplacian",
+  "title": "FG defining function and Laplacian model",
   "status": "verified-under-interface",
-  "summary": "Introduces the normal-form defining function Q = 2 rho t^2 and an interface for the ambient Laplacian in these coordinates.",
+  "summary": "Defines Q = 2ρt² in chosen-scale normal coordinates and packages the Euler operator and ambient Laplacian together with the algebraic laws required downstream.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Introduces the normal-form defining function Q = 2 rho t^2 and an interface for the ambient Laplacian in these coordinates.",
-      "formula": "Q = 2\\rho t^2"
+      "heading": "Defining function in normal form",
+      "body": "A chosen scale trivializes the ray coordinate and supplies t > 0. In straight normal form, the ambient defining function is the squared norm of the dilation field and has the concrete expression Q = 2ρt².",
+      "formula": "Q=|X|_{\\widetilde g}^{2}=2\\rho t^2."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Ambient/FG/Laplacian.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Certified operator model",
+      "body": "NormalLaplacianModel stores a formal dimension n, an Euler operator X, and an operator denoted by Δ̃. Its remaining fields are proofs of linearity and the required Q–X–Δ̃ identities. Thus downstream theorems are valid under this model interface; this file does not construct Δ̃ from g̃.",
+      "formula": "XQ=2Q,\\qquad [X,\\widetilde\\Delta]=-2\\widetilde\\Delta,\\qquad [\\widetilde\\Delta,Q]=2(2X+n+2)."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "posRealToReal",
       "kind": "def",
-      "mathematicalMeaning": "Convert the positive scale coordinate to a real number. In explicit terms, for a of type pos real, its defining expression is a.val.",
-      "mathematicalFormula": "\\operatorname{posRealToReal}(a)=a.\\operatorname{val}",
+      "mathematicalMeaning": "This map forgets the positivity proof and regards a positive real number as an ordinary real number.",
+      "mathematicalFormula": "\\mathbb R_{+}\\longrightarrow\\mathbb R,\\qquad r\\longmapsto r.",
       "leanType": "def posRealToReal (a : PosReal) : ℝ",
       "line": 29
     },
     {
       "leanDeclaration": "scaleT",
       "kind": "def",
-      "mathematicalMeaning": "The chosen-scale t coordinate on the ambient bundle. In explicit terms, for s of type conf.scale, and u of type conf.ambient bundle, its defining expression is pos Real To Real Conf.trivialization s U.1.1.",
-      "mathematicalFormula": "\\operatorname{scaleT}(s,U)=\\operatorname{posRealToReal} ((\\operatorname{Conf}.\\operatorname{trivialization} s 1_{\\mathrm{U}}).1)",
+      "mathematicalMeaning": "For a chosen scale s, scaleT is the positive ray coordinate t obtained by trivializing the metric-bundle component of an ambient point U.",
+      "mathematicalFormula": "t_s(U):=\\operatorname{pr}_1\\bigl(\\Phi_s(\\operatorname{pr}_1U)\\bigr)\\in\\mathbb R_{+}\\subset\\mathbb R.",
       "leanType": "noncomputable def scaleT (s : Conf.Scale) (U : Conf.AmbientBundle) : ℝ",
       "line": 33
     },
     {
       "leanDeclaration": "normalQ",
       "kind": "def",
-      "mathematicalMeaning": "The normal-form defining function Q = |T|^2 = 2 rho t^2. In explicit terms, for a of type normal ambient data conf, its defining expression is the function sending U to 2 times Conf.rho Coord U times scale T A.base Scale U to the power 2.",
-      "mathematicalFormula": "\\operatorname{normalQ}(A)=U \\longmapsto 2 \\cdot \\operatorname{Conf}.\\operatorname{rhoCoord} U \\cdot (\\operatorname{scaleT} A.\\operatorname{baseScale} U) ^ 2",
+      "mathematicalMeaning": "The normal-form defining function assigns 2ρ(U)t(U)² to each formal ambient point.",
+      "mathematicalFormula": "Q_A(U):=2\\rho(U)t_{s_A}(U)^2.",
       "leanType": "noncomputable def normalQ (A : NormalAmbientData Conf) : Operators.Function Conf",
       "line": 39
     },
     {
       "leanDeclaration": "normalQ_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "For A of type Normal Ambient Data Conf, and U of type Conf.Ambient Bundle, normal Q A U equals 2 times Conf.rho Coord U times scale T A.base Scale U to the power 2.",
-      "mathematicalFormula": "\\forall\\,A\\colon \\operatorname{NormalAmbientData} \\operatorname{Conf},\\;U\\colon \\operatorname{Conf}.\\operatorname{AmbientBundle},\\quad \\operatorname{normalQ} A U = 2 \\cdot \\operatorname{Conf}.\\operatorname{rhoCoord} U \\cdot (\\operatorname{scaleT} A.\\operatorname{baseScale} U) ^ 2",
+      "mathematicalMeaning": "Evaluating normalQ gives its defining normal-coordinate formula.",
+      "mathematicalFormula": "Q_A(U)=2\\rho(U)t_{s_A}(U)^2.",
       "leanType": "theorem normalQ_apply (A : NormalAmbientData Conf) (U : Conf.AmbientBundle) : normalQ A U = 2 * Conf.rhoCoord U * (scaleT A.baseScale U) ^ 2",
       "line": 45
     },
     {
       "leanDeclaration": "normalQmul",
       "kind": "def",
-      "mathematicalMeaning": "Multiplication by the normal-form defining function Q. In explicit terms, for a of type normal ambient data conf, and f of type operators.function conf, its defining expression is the function sending U to normal Q A U times f U.",
-      "mathematicalFormula": "\\operatorname{normalQmul}(A,f)=U \\longmapsto \\operatorname{normalQ} A U \\cdot f U",
+      "mathematicalMeaning": "This is pointwise multiplication of an ambient function by the normal-form defining function Q_A.",
+      "mathematicalFormula": "M_{Q_A}(f):=Q_Af,\\qquad (Q_Af)(U)=Q_A(U)f(U).",
       "leanType": "def normalQmul (A : NormalAmbientData Conf) (f : Operators.Function Conf) : Operators.Function Conf",
       "line": 51
     },
     {
       "leanDeclaration": "normalQpowMul",
       "kind": "def",
-      "mathematicalMeaning": "Multiplication by Q^m in normal form. In explicit terms, for a of type normal ambient data conf, m in the natural numbers, and f of type operators.function conf, its defining expression is the function sending U to normal Q A U to the power m times f U.",
-      "mathematicalFormula": "\\operatorname{normalQpowMul}(A,m,f)=U \\longmapsto \\operatorname{normalQ} A U ^ m \\cdot f U",
+      "mathematicalMeaning": "This is pointwise multiplication by the m-th power of Q_A.",
+      "mathematicalFormula": "M_{Q_A^m}(f):=Q_A^mf.",
       "leanType": "def normalQpowMul (A : NormalAmbientData Conf) (m : ℕ) (f : Operators.Function Conf) : Operators.Function Conf",
       "line": 58
     },
     {
       "leanDeclaration": "NormalLaplacianModel",
       "kind": "structure",
-      "mathematicalMeaning": "A certified normal-form model for the dilation operator and ambient Laplacian. The fields are deliberately the same identities expected by the existing ambient calculus layer, but with Q fixed to the Fefferman-Graham normal-form function 2 rho t^2. Its mathematical data are: base Dim: the real numbers; X: Operators.Function Conf maps to Operators.Function Conf; laplacian: Operators.Function Conf maps to Operators.Function Conf; X Q: X normal Q A equals the function sending U to 2 times normal Q A U; lap smul: for every c f : Operators.Function Conf, ambient Laplacian the function sending U to c times f U equals the function sending U to c times ambient Laplacian f U; lap add: for every f g : Operators.Function Conf, ambient Laplacian the function sending U to f U plus g U equals the function sending U to ambient Laplacian f U plus ambient Laplacian g U; X lap comm: for every f : Operators.Function Conf, X ambient Laplacian f equals the function sending U to ambient Laplacian X f U minus 2 times ambient Laplacian f U; lap Q comm: for every f : Operators.Function Conf, ambient Laplacian normal Qmul A f equals the function sending U to normal Q A U times ambient Laplacian f U plus 2 times 2 times X f U plus base Dim plus 2 times f U; lap Qpow of XHomogeneous: for every m w : the real numbers f : Operators.Function Conf, X f equals the function sending U to w times f U maps to ambient Laplacian normal Qpow Mul A m f equals the function sending U to normal Q A U to the power m times ambient Laplacian f U plus 2 times m times 2 times w plus base Dim plus 2 times m times normal Q A U to the power m minus 1 times f U.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{baseDim}&\\colon \\mathbb{R}\\\\X&\\colon \\operatorname{Operators}.\\operatorname{Function} \\operatorname{Conf} \\longrightarrow \\operatorname{Operators}.\\operatorname{Function} \\operatorname{Conf}\\\\\\widetilde{\\Delta}&\\colon \\operatorname{Operators}.\\operatorname{Function} \\operatorname{Conf} \\longrightarrow \\operatorname{Operators}.\\operatorname{Function} \\operatorname{Conf}\\\\\\operatorname{X\\_Q}&\\colon X (\\operatorname{normalQ} A) = U \\longmapsto 2 \\cdot \\operatorname{normalQ} A U\\\\\\operatorname{lap\\_smul}&\\colon \\forall c (f \\colon \\operatorname{Operators}.\\operatorname{Function} \\operatorname{Conf}), \\widetilde{\\Delta} (U \\longmapsto c \\cdot f U) = U \\longmapsto c \\cdot \\widetilde{\\Delta} f U\\\\\\operatorname{lap\\_add}&\\colon \\forall f g \\colon \\operatorname{Operators}.\\operatorname{Function} \\operatorname{Conf}, \\widetilde{\\Delta} (U \\longmapsto f U + g U) = U \\longmapsto \\widetilde{\\Delta} f U + \\widetilde{\\Delta} g U\\\\\\operatorname{X\\_lap\\_comm}&\\colon \\forall f \\colon \\operatorname{Operators}.\\operatorname{Function} \\operatorname{Conf}, X (\\widetilde{\\Delta} f) = U \\longmapsto \\widetilde{\\Delta} (X f) U - 2 \\cdot \\widetilde{\\Delta} f U\\\\\\operatorname{lap\\_Q\\_comm}&\\colon \\forall f \\colon \\operatorname{Operators}.\\operatorname{Function} \\operatorname{Conf}, \\widetilde{\\Delta} (\\operatorname{normalQmul} A f) = U \\longmapsto \\operatorname{normalQ} A U \\cdot \\widetilde{\\Delta} f U + 2 \\cdot (2 \\cdot X f U + (\\operatorname{baseDim} + 2) \\cdot f U)\\\\\\operatorname{lap\\_Qpow\\_of\\_XHomogeneous}&\\colon \\forall m {w \\colon \\mathbb{R}} {f \\colon \\operatorname{Operators}.\\operatorname{Function} \\operatorname{Conf}}, X f = (U \\longmapsto w \\cdot f U) \\longrightarrow \\widetilde{\\Delta} (\\operatorname{normalQpowMul} A m f) = U \\longmapsto \\operatorname{normalQ} A U ^ m \\cdot \\widetilde{\\Delta} f U + 2 \\cdot m \\cdot (2 \\cdot w + \\operatorname{baseDim} + 2 \\cdot m ) \\cdot \\operatorname{normalQ} A U ^ (m - 1) \\cdot f U\\end{aligned}",
+      "mathematicalMeaning": "A certified model supplies n, X, and Δ̃ together with proofs of scalar linearity, additivity, the X–Δ̃ commutator, the Q commutator, and the homogeneous Q^m identity. These laws are assumptions of the model.",
+      "mathematicalFormula": "\\begin{aligned}XQ_A&=2Q_A,\\qquad \\widetilde\\Delta(cf)=c\\widetilde\\Delta f,\\qquad \\widetilde\\Delta(f+g)=\\widetilde\\Delta f+\\widetilde\\Delta g,\\\\X\\widetilde\\Delta f&=\\widetilde\\Delta Xf-2\\widetilde\\Delta f,\\qquad \\widetilde\\Delta(Q_Af)=Q_A\\widetilde\\Delta f+2\\bigl(2Xf+(n+2)f\\bigr),\\\\Xf=wf&\\Longrightarrow\\widetilde\\Delta(Q_A^mf)=Q_A^m\\widetilde\\Delta f+2m(2w+n+2m)Q_A^{m-1}f.\\end{aligned}",
       "leanType": "structure NormalLaplacianModel (A : NormalAmbientData Conf)",
       "line": 72
     },
     {
       "leanDeclaration": "straightForm_Q_eq",
       "kind": "theorem",
-      "mathematicalMeaning": "The normal-form expression for Q. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,A\\colon \\operatorname{NormalAmbientData} \\operatorname{Conf},\\quad \\operatorname{normalQ} A = U \\longmapsto 2 \\cdot \\operatorname{Conf}.\\operatorname{rhoCoord} U \\cdot (\\operatorname{scaleT} A.\\operatorname{baseScale} U) ^ 2",
+      "mathematicalMeaning": "The function Q_A is exactly the normal-form expression 2ρt² at every ambient point.",
+      "mathematicalFormula": "Q_A=2\\rho\\,t_{s_A}^{,2}.",
       "leanType": "theorem straightForm_Q_eq (A : NormalAmbientData Conf) : normalQ A = fun U => 2 * Conf.rhoCoord U * (scaleT A.baseScale U) ^ 2",
       "line": 119
     }
@@ -87,14 +87,14 @@
   ],
   "usedBy": [
     "Ambient/FG/Commutators.lean",
-    "Ambient/FG.lean"
+    "Ambient/FG/CalculusInstance.lean"
   ],
   "references": [
     {
       "referenceId": "FG-AmbientMetric",
-      "locator": "Chapters 2–3, ambient space and normal form",
-      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+      "locator": "Chapter 3, defining function, Euler field, and ambient Laplacian in normal form",
+      "note": "Source for Q = 2ρt² and the displayed operator identities."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "Only Q is concretely defined from normal coordinates. X and the ambient Laplacian are supplied as abstract functions, and all commutator and Q-power laws are fields of NormalLaplacianModel rather than consequences derived from a connection or metric."
 }

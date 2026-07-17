@@ -1,82 +1,82 @@
 {
   "file": "Ambient/FG/Index.lean",
-  "title": "Index",
-  "status": "verified-under-interface",
-  "summary": "Introduces the ambient 0, base, and infinity index types and formal normal coordinates used by component calculations.",
+  "title": "FG normal-form indices",
+  "status": "scaffold",
+  "summary": "Introduces the three index directions and the coordinate triple used in Fefferman–Graham normal-form component calculations.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Introduces the ambient 0, base, and infinity index types and formal normal coordinates used by component calculations.",
-      "formula": null
+      "heading": "Index convention",
+      "body": "In chosen-scale normal coordinates (t,x,ρ), the index 0 denotes the scale direction t, a base index i denotes a tangent direction on M, and ∞ denotes the transverse coordinate ρ. The base index type remains abstract so it may later represent a coordinate frame or any finite formal index set.",
+      "formula": "I,J\\in\\{0,i,\\infty\\},\\qquad x^0=t,\\quad x^i\\in M,\\quad x^{\\infty}=\\rho."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Ambient/FG/Index.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "What is formalized",
+      "body": "The file defines only the index type, its Kronecker delta, and a coordinate data record. It does not construct a coordinate chart, tangent basis, differential form, or smooth atlas.",
+      "formula": "\\delta^I{}_J=\\begin{cases}1,&I=J,\\\\0,&I\\ne J.\\end{cases}"
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "AmbientIndex",
       "kind": "inductive",
-      "mathematicalMeaning": "Ambient normal-form indices: 0, base indices, and infinity. Its constructors are: zero with arguments : Ambient Index ι; base with arguments : ι maps to Ambient Index ι; inf with arguments : Ambient Index ι.",
-      "mathematicalFormula": "\\operatorname{AmbientIndex}::=\\operatorname{zero}(\\colon \\operatorname{AmbientIndex} ι)\\mid\\operatorname{base}(\\colon ι \\longrightarrow \\operatorname{AmbientIndex} ι)\\mid\\operatorname{inf}(\\colon \\operatorname{AmbientIndex} ι)",
+      "mathematicalMeaning": "An ambient normal-form index is either the scale index 0, a base-manifold index i, or the transverse index ∞.",
+      "mathematicalFormula": "\\operatorname{AmbientIndex}(\\iota):=\\{0\\}\\sqcup\\iota\\sqcup\\{\\infty\\}.",
       "leanType": "inductive AmbientIndex (ι : Type u) : Type u",
       "line": 29
     },
     {
       "leanDeclaration": "kronecker",
       "kind": "def",
-      "mathematicalMeaning": "The Kronecker delta on ambient normal-form indices.",
-      "mathematicalFormula": "\\operatorname{kronecker}(I,J)\\colon \\mathbb{R}",
+      "mathematicalMeaning": "This is the Kronecker delta on the complete ambient index set.",
+      "mathematicalFormula": "\\delta_{IJ}:=\\begin{cases}1,&I=J,\\\\0,&I\\ne J.\\end{cases}",
       "leanType": "def kronecker [DecidableEq ι] (I J : AmbientIndex ι) : ℝ",
       "line": 40
     },
     {
       "leanDeclaration": "kronecker_self",
       "kind": "theorem",
-      "mathematicalMeaning": "For I of type Ambient Index ι, kronecker I I equals 1.",
-      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} ι,\\;I\\colon \\operatorname{AmbientIndex} ι,\\quad \\operatorname{kronecker} I I = 1",
+      "mathematicalMeaning": "Every diagonal entry of the ambient Kronecker delta equals one.",
+      "mathematicalFormula": "\\delta_{II}=1.",
       "leanType": "theorem kronecker_self [DecidableEq ι] (I : AmbientIndex ι) : kronecker I I = 1",
       "line": 44
     },
     {
       "leanDeclaration": "kronecker_zero_inf",
       "kind": "theorem",
-      "mathematicalMeaning": "kronecker ι : equals ι zero inf equals 0.",
-      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} ι,\\quad \\operatorname{kronecker} (ι = ι) \\operatorname{zero} \\operatorname{inf} = 0",
+      "mathematicalMeaning": "The scale and transverse directions are distinct.",
+      "mathematicalFormula": "\\delta_{0\\infty}=0.",
       "leanType": "theorem kronecker_zero_inf [DecidableEq ι] : kronecker (ι := ι) zero inf = 0",
       "line": 49
     },
     {
       "leanDeclaration": "kronecker_inf_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "kronecker ι : equals ι inf zero equals 0.",
-      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} ι,\\quad \\operatorname{kronecker} (ι = ι) \\operatorname{inf} \\operatorname{zero} = 0",
+      "mathematicalMeaning": "The reversed transverse–scale Kronecker component also vanishes.",
+      "mathematicalFormula": "\\delta_{\\infty 0}=0.",
       "leanType": "theorem kronecker_inf_zero [DecidableEq ι] : kronecker (ι := ι) inf zero = 0",
       "line": 54
     },
     {
       "leanDeclaration": "kronecker_zero_base",
       "kind": "theorem",
-      "mathematicalMeaning": "For i of type ι, kronecker zero base i equals 0.",
-      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} ι,\\;i\\colon ι,\\quad \\operatorname{kronecker} \\operatorname{zero} (\\operatorname{base} i) = 0",
+      "mathematicalMeaning": "The scale index is distinct from every base index.",
+      "mathematicalFormula": "\\delta_{0i}=0.",
       "leanType": "theorem kronecker_zero_base [DecidableEq ι] (i : ι) : kronecker zero (base i) = 0",
       "line": 59
     },
     {
       "leanDeclaration": "kronecker_base_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "For i of type ι, kronecker base i zero equals 0.",
-      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} ι,\\;i\\colon ι,\\quad \\operatorname{kronecker} (\\operatorname{base} i) \\operatorname{zero} = 0",
+      "mathematicalMeaning": "The reversed base–scale Kronecker component vanishes.",
+      "mathematicalFormula": "\\delta_{i0}=0.",
       "leanType": "theorem kronecker_base_zero [DecidableEq ι] (i : ι) : kronecker (base i) zero = 0",
       "line": 64
     },
     {
       "leanDeclaration": "NormalCoord",
       "kind": "structure",
-      "mathematicalMeaning": "A chosen-scale normal-form coordinate triple (t, x, rho). Its mathematical data are: t: the real numbers; x: M; rho: the real numbers.",
-      "mathematicalFormula": "\\begin{aligned}t&\\colon \\mathbb{R}\\\\x&\\colon M\\\\\\operatorname{rho}&\\colon \\mathbb{R}\\end{aligned}",
+      "mathematicalMeaning": "A formal normal-coordinate point stores a real scale coordinate t, a base point x ∈ M, and a real transverse coordinate ρ.",
+      "mathematicalFormula": "(t,x,\\rho)\\in\\mathbb R\\times M\\times\\mathbb R.",
       "leanType": "structure NormalCoord (M : Type u)",
       "line": 71
     }
@@ -84,14 +84,15 @@
   "prerequisites": [],
   "usedBy": [
     "Ambient/FG/NormalForm.lean",
-    "Ambient/FG.lean"
+    "Ambient/FG/InverseMetric.lean",
+    "Ambient/FG/Christoffel.lean"
   ],
   "references": [
     {
       "referenceId": "FG-AmbientMetric",
-      "locator": "Chapters 2–3, ambient space and normal form",
-      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+      "locator": "Chapter 3, normal-form coordinates",
+      "note": "Source for the chosen-scale coordinates (t,x,ρ) and the 0, base, and ∞ index convention."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "This module is an index and coordinate scaffold. NormalCoord is a data record, not a smooth coordinate chart, and no tensor calculus is constructed here."
 }
