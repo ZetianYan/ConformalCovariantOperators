@@ -1,235 +1,240 @@
 {
   "file": "Ambient/Ambienttangential.lean",
-  "title": "Ambienttangential",
-  "status": "verified",
-  "summary": "Formalizes equality modulo the defining function Q and the condition that a weighted ambient operator descends to boundary data.",
+  "title": "Tangential ambient operators",
+  "status": "verified-under-interface",
+  "summary": "Formalizes equality modulo Q and weighted tangentiality, packages the formal GJMS candidate, and records that the critical tangentiality theorem is still planned in this module.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Formalizes equality modulo the defining function Q and the condition that a weighted ambient operator descends to boundary data.",
-      "formula": null
+      "heading": "Boundary values modulo Q",
+      "body": "Because the cone is represented by Q = 0, two ambient extensions have the same boundary value when their difference is divisible by Q. At a fixed input weight w, the quotient h in f − g = Qh is required to have weight w − 2.",
+      "formula": "f\\sim_Q g\\quad\\Longleftrightarrow\\quad f-g=Qh;\\qquad f\\sim_{Q,w}g\\quad\\Longleftrightarrow\\quad f-g=Qh,\\ Xh=(w-2)h."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Ambient/Ambienttangential.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Weighted tangentiality",
+      "body": "An ambient operator P is tangential at weight w if its boundary value is independent of the chosen weight-w extension. For the GJMS construction the expected operator is the k-th ambient Laplacian at w = k − n/2, with output weight −k − n/2.",
+      "formula": "P_k=\\widetilde\\Delta^k:\\widetilde{\\mathcal E}\\left[k-\\frac n2\\right]\\longrightarrow\\widetilde{\\mathcal E}\\left[-k-\\frac n2\\right]."
+    },
+    {
+      "heading": "Formalization boundary",
+      "body": "The module proves the equivalence-relation algebra and weight bookkeeping under AlgebraicIdentities. ambientGJMSCandidate still takes tangentiality as an input hypothesis. The theorem asserting tangentiality of the k-th Laplacian is shown only inside a documentation block as future work and is not compiled here.",
+      "formula": "\\operatorname{IsTangentialAtWeight}\\!\\left(\\widetilde\\Delta^k,k-\\frac n2\\right)\\quad\\text{is not proved in this file}."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "SameBoundaryValue",
       "kind": "def",
-      "mathematicalMeaning": "Two ambient functions have the same boundary value if their difference is divisible by Q. This is a semantic alias for EqModQ. In explicit terms, for f, g of type function conf, its defining expression is Cal Conf.Eq Mod Q f g.",
-      "mathematicalFormula": "\\operatorname{SameBoundaryValue}(f,g)=\\operatorname{CalConf}.\\operatorname{EqModQ} f g",
+      "mathematicalMeaning": "Two ambient functions have the same boundary value when they are congruent modulo Q, equivalently when their difference is a Q-multiple.",
+      "mathematicalFormula": "f\\sim_Q g\\quad:\\Longleftrightarrow\\quad f\\equiv g\\pmod Q\\quad\\Longleftrightarrow\\quad\\exists h,\\ f-g=Qh.",
       "leanType": "def SameBoundaryValue (f g : Function Conf) : Prop",
       "line": 46
     },
     {
       "leanDeclaration": "SameBoundaryValueAtWeight",
       "kind": "def",
-      "mathematicalMeaning": "Weighted boundary equivalence for homogeneous ambient extensions. Besides asking that f - g be a Q-multiple, this records that the error term has the expected shifted homogeneity. This avoids any global cancellation or division by Q. In explicit terms, for w in the real numbers, and f, g of type function conf, its defining expression is there exists h : Function Conf, the function sending U to f U minus g U equals Cal Conf.Qmul h and Cal Conf.Is XHomogeneous w minus 2 h.",
-      "mathematicalFormula": "\\operatorname{SameBoundaryValueAtWeight}(w,f,g)=\\exists h \\colon \\operatorname{Function} \\operatorname{Conf}, (U \\longmapsto f U - g U) = \\operatorname{CalConf}.\\operatorname{Qmul} h \\land \\operatorname{CalConf}.\\operatorname{IsXHomogeneous} (w - 2) h",
+      "mathematicalMeaning": "Weighted boundary equivalence records both f − g = Qh and the expected shifted homogeneity Xh = (w − 2)h of the quotient.",
+      "mathematicalFormula": "f\\sim_{Q,w}g\\quad:\\Longleftrightarrow\\quad\\exists h,\\ f-g=Qh\\ \\text{ and }\\ Xh=(w-2)h.",
       "leanType": "def SameBoundaryValueAtWeight (w : ℝ) (f g : Function Conf) : Prop",
       "line": 56
     },
     {
       "leanDeclaration": "SameBoundaryValue_def",
       "kind": "theorem",
-      "mathematicalMeaning": "For f, g of type Function Conf, Cal Conf.Same Boundary Value f g if and only if Cal Conf.Eq Mod Q f g.",
-      "mathematicalFormula": "\\forall\\,f,g\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} f g \\Longleftrightarrow \\operatorname{CalConf}.\\operatorname{EqModQ} f g",
+      "mathematicalMeaning": "SameBoundaryValue is exactly the previously defined congruence EqModQ.",
+      "mathematicalFormula": "f\\sim_Qg\\iff f\\equiv g\\pmod Q.",
       "leanType": "theorem SameBoundaryValue_def (f g : Function Conf) : CalConf.SameBoundaryValue f g ↔ CalConf.EqModQ f g",
       "line": 62
     },
     {
       "leanDeclaration": "SameBoundaryValueAtWeight.sameBoundaryValue",
       "kind": "theorem",
-      "mathematicalMeaning": "For w in the real numbers, f, g of type Function Conf, and hfg of type Cal Conf.Same Boundary Value At Weight w f g, Cal Conf.Same Boundary Value f g.",
-      "mathematicalFormula": "\\forall\\,w\\colon \\mathbb{R},\\;f,g\\colon \\operatorname{Function} \\operatorname{Conf},\\;hfg\\colon \\operatorname{CalConf}.\\operatorname{SameBoundaryValueAtWeight} w f g,\\quad \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} f g",
+      "mathematicalMeaning": "Weighted boundary equivalence implies ordinary boundary equivalence after forgetting the homogeneity condition on h.",
+      "mathematicalFormula": "f\\sim_{Q,w}g\\Longrightarrow f\\sim_Qg.",
       "leanType": "theorem SameBoundaryValueAtWeight.sameBoundaryValue {w : ℝ} {f g : Function Conf} (hfg : CalConf.SameBoundaryValueAtWeight w f g) : CalConf.SameBoundaryValue f g",
       "line": 66
     },
     {
       "leanDeclaration": "VanishesModQ_Qmul",
       "kind": "theorem",
-      "mathematicalMeaning": "For h of type Function Conf, Cal Conf.Vanishes Mod Q Cal Conf.Qmul h.",
-      "mathematicalFormula": "\\forall\\,h\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{CalConf}.\\operatorname{VanishesModQ} (\\operatorname{CalConf}.\\operatorname{Qmul} h)",
+      "mathematicalMeaning": "Every explicit Q-multiple vanishes modulo Q.",
+      "mathematicalFormula": "Qh=0\\pmod Q.",
       "leanType": "theorem VanishesModQ_Qmul (h : Function Conf) : CalConf.VanishesModQ (CalConf.Qmul h)",
       "line": 75
     },
     {
       "leanDeclaration": "VanishesModQ_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "Cal Conf.Vanishes Mod Q zero Conf.",
-      "mathematicalFormula": "\\operatorname{CalConf}.\\operatorname{VanishesModQ} (\\operatorname{zero} \\operatorname{Conf})",
+      "mathematicalMeaning": "The zero function vanishes modulo Q, with quotient h = 0.",
+      "mathematicalFormula": "0=0\\pmod Q.",
       "leanType": "theorem VanishesModQ_zero : CalConf.VanishesModQ (zero Conf)",
       "line": 80
     },
     {
       "leanDeclaration": "EqModQ_iff_exists_Qmul",
       "kind": "theorem",
-      "mathematicalMeaning": "For f, g of type Function Conf, Cal Conf.Eq Mod Q f g if and only if there exists h : Function Conf, the function sending U to f U minus g U equals Cal Conf.Qmul h.",
-      "mathematicalFormula": "\\forall\\,f,g\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{CalConf}.\\operatorname{EqModQ} f g \\Longleftrightarrow \\exists h \\colon \\operatorname{Function} \\operatorname{Conf}, (U \\longmapsto f U - g U) = \\operatorname{CalConf}.\\operatorname{Qmul} h",
+      "mathematicalMeaning": "Congruence modulo Q is equivalent to the existence of a global quotient h for the difference f − g.",
+      "mathematicalFormula": "f\\equiv g\\pmod Q\\iff\\exists h\\in\\mathcal F(\\widetilde{\\mathcal G}),\\ f-g=Qh.",
       "leanType": "theorem EqModQ_iff_exists_Qmul (f g : Function Conf) : CalConf.EqModQ f g ↔ ∃ h : Function Conf, (fun U => f U - g U) = CalConf.Qmul h",
       "line": 87
     },
     {
       "leanDeclaration": "SameBoundaryValue_refl",
       "kind": "theorem",
-      "mathematicalMeaning": "For f of type Function Conf, Cal Conf.Same Boundary Value f f.",
-      "mathematicalFormula": "\\forall\\,f\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} f f",
+      "mathematicalMeaning": "Boundary equivalence is reflexive.",
+      "mathematicalFormula": "f\\sim_Qf.",
       "leanType": "theorem SameBoundaryValue_refl (f : Function Conf) : CalConf.SameBoundaryValue f f",
       "line": 93
     },
     {
       "leanDeclaration": "SameBoundaryValue_symm",
       "kind": "theorem",
-      "mathematicalMeaning": "For f, g of type Function Conf, and hfg of type Cal Conf.Same Boundary Value f g, Cal Conf.Same Boundary Value g f.",
-      "mathematicalFormula": "\\forall\\,f,g\\colon \\operatorname{Function} \\operatorname{Conf},\\;hfg\\colon \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} f g,\\quad \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} g f",
+      "mathematicalMeaning": "Boundary equivalence is symmetric; if f − g = Qh then g − f = Q(−h).",
+      "mathematicalFormula": "f\\sim_Qg\\Longrightarrow g\\sim_Qf.",
       "leanType": "theorem SameBoundaryValue_symm {f g : Function Conf} (hfg : CalConf.SameBoundaryValue f g) : CalConf.SameBoundaryValue g f",
       "line": 98
     },
     {
       "leanDeclaration": "SameBoundaryValue_trans",
       "kind": "theorem",
-      "mathematicalMeaning": "For f, g, k of type Function Conf, hfg of type Cal Conf.Same Boundary Value f g, and hgk of type Cal Conf.Same Boundary Value g k, Cal Conf.Same Boundary Value f k.",
-      "mathematicalFormula": "\\forall\\,f,g,k\\colon \\operatorname{Function} \\operatorname{Conf},\\;hfg\\colon \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} f g,\\;hgk\\colon \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} g k,\\quad \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} f k",
+      "mathematicalMeaning": "Boundary equivalence is transitive; Q-divisible differences add.",
+      "mathematicalFormula": "f\\sim_Qg\\ \\text{ and }\\ g\\sim_Qk\\Longrightarrow f\\sim_Qk.",
       "leanType": "theorem SameBoundaryValue_trans {f g k : Function Conf} (hfg : CalConf.SameBoundaryValue f g) (hgk : CalConf.SameBoundaryValue g k) : CalConf.SameBoundaryValue f k",
       "line": 112
     },
     {
       "leanDeclaration": "SameBoundaryValue_of_eq",
       "kind": "theorem",
-      "mathematicalMeaning": "For f, g of type Function Conf, and h of type f equals g, Cal Conf.Same Boundary Value f g.",
-      "mathematicalFormula": "\\forall\\,f,g\\colon \\operatorname{Function} \\operatorname{Conf},\\;h\\colon f = g,\\quad \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} f g",
+      "mathematicalMeaning": "Literal equality of ambient functions implies equality of their boundary values.",
+      "mathematicalFormula": "f=g\\Longrightarrow f\\sim_Qg.",
       "leanType": "theorem SameBoundaryValue_of_eq {f g : Function Conf} (h : f = g) : CalConf.SameBoundaryValue f g",
       "line": 130
     },
     {
       "leanDeclaration": "SameBoundaryValue_add",
       "kind": "theorem",
-      "mathematicalMeaning": "For f₁, f₂, g₁, g₂ of type Function Conf, hf of type Cal Conf.Same Boundary Value f₁ f₂, and hg of type Cal Conf.Same Boundary Value g₁ g₂, Cal Conf.Same Boundary Value add Conf f₁ g₁ add Conf f₂ g₂.",
-      "mathematicalFormula": "\\forall\\,f₁,f₂,g₁,g₂\\colon \\operatorname{Function} \\operatorname{Conf},\\;hf\\colon \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} f₁ f₂,\\;hg\\colon \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} g₁ g₂,\\quad \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} (\\operatorname{add} \\operatorname{Conf} f₁ g₁) (\\operatorname{add} \\operatorname{Conf} f₂ g₂)",
+      "mathematicalMeaning": "Boundary equivalence is compatible with pointwise addition.",
+      "mathematicalFormula": "f_1\\sim_Qf_2,\\ g_1\\sim_Qg_2\\Longrightarrow f_1+g_1\\sim_Qf_2+g_2.",
       "leanType": "theorem SameBoundaryValue_add {f₁ f₂ g₁ g₂ : Function Conf} (hf : CalConf.SameBoundaryValue f₁ f₂) (hg : CalConf.SameBoundaryValue g₁ g₂) : CalConf.SameBoundaryValue (add Conf f₁ g₁) (add Conf f₂ g₂)",
       "line": 139
     },
     {
       "leanDeclaration": "SameBoundaryValue_sub",
       "kind": "theorem",
-      "mathematicalMeaning": "For f₁, f₂, g₁, g₂ of type Function Conf, hf of type Cal Conf.Same Boundary Value f₁ f₂, and hg of type Cal Conf.Same Boundary Value g₁ g₂, Cal Conf.Same Boundary Value sub Conf f₁ g₁ sub Conf f₂ g₂.",
-      "mathematicalFormula": "\\forall\\,f₁,f₂,g₁,g₂\\colon \\operatorname{Function} \\operatorname{Conf},\\;hf\\colon \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} f₁ f₂,\\;hg\\colon \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} g₁ g₂,\\quad \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} (\\operatorname{sub} \\operatorname{Conf} f₁ g₁) (\\operatorname{sub} \\operatorname{Conf} f₂ g₂)",
+      "mathematicalMeaning": "Boundary equivalence is compatible with pointwise subtraction.",
+      "mathematicalFormula": "f_1\\sim_Qf_2,\\ g_1\\sim_Qg_2\\Longrightarrow f_1-g_1\\sim_Qf_2-g_2.",
       "leanType": "theorem SameBoundaryValue_sub {f₁ f₂ g₁ g₂ : Function Conf} (hf : CalConf.SameBoundaryValue f₁ f₂) (hg : CalConf.SameBoundaryValue g₁ g₂) : CalConf.SameBoundaryValue (sub Conf f₁ g₁) (sub Conf f₂ g₂)",
       "line": 161
     },
     {
       "leanDeclaration": "SameBoundaryValue_smul",
       "kind": "theorem",
-      "mathematicalMeaning": "For c in the real numbers, f, g of type Function Conf, and hfg of type Cal Conf.Same Boundary Value f g, Cal Conf.Same Boundary Value smul Conf c f smul Conf c g.",
-      "mathematicalFormula": "\\forall\\,c\\colon \\mathbb{R},\\;f,g\\colon \\operatorname{Function} \\operatorname{Conf},\\;hfg\\colon \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} f g,\\quad \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} (\\operatorname{smul} \\operatorname{Conf} c f) (\\operatorname{smul} \\operatorname{Conf} c g)",
+      "mathematicalMeaning": "Boundary equivalence is preserved by multiplication by any real constant.",
+      "mathematicalFormula": "f\\sim_Qg\\Longrightarrow cf\\sim_Qcg,\\qquad c\\in\\mathbb R.",
       "leanType": "theorem SameBoundaryValue_smul (c : ℝ) {f g : Function Conf} (hfg : CalConf.SameBoundaryValue f g) : CalConf.SameBoundaryValue (smul Conf c f) (smul Conf c g)",
       "line": 183
     },
     {
       "leanDeclaration": "Operator",
       "kind": "abbrev",
-      "mathematicalMeaning": "A formal ambient scalar operator. In explicit terms, its defining expression is Function Conf maps to Function Conf.",
-      "mathematicalFormula": "\\operatorname{Operator}=\\operatorname{Function} \\operatorname{Conf} \\longrightarrow \\operatorname{Function} \\operatorname{Conf}",
+      "mathematicalMeaning": "An ambient scalar operator is any map from ambient functions to ambient functions; linearity is not included in this abbreviation.",
+      "mathematicalFormula": "P:\\mathcal F(\\widetilde{\\mathcal G})\\longrightarrow\\mathcal F(\\widetilde{\\mathcal G}).",
       "leanType": "abbrev Operator : Type _",
       "line": 204
     },
     {
       "leanDeclaration": "IsTangentialOperator",
       "kind": "def",
-      "mathematicalMeaning": "An ambient operator is tangential if it preserves the equivalence relation given by equality modulo Q. In explicit terms, for p of type operator conf : equals conf, its defining expression is for every f g : Function Conf, Cal Conf.Same Boundary Value f g maps to Cal Conf.Same Boundary Value P f P g.",
-      "mathematicalFormula": "\\operatorname{IsTangentialOperator}(P)=\\forall {f g \\colon \\operatorname{Function} \\operatorname{Conf}}, \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} f g \\longrightarrow \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} (P f) (P g)",
+      "mathematicalMeaning": "An operator is tangential when its output modulo Q depends only on its input modulo Q.",
+      "mathematicalFormula": "\\operatorname{Tangential}(P)\\quad:\\Longleftrightarrow\\quad f\\sim_Qg\\Longrightarrow Pf\\sim_QPg.",
       "leanType": "def IsTangentialOperator (P : Operator (Conf := Conf)) : Prop",
       "line": 211
     },
     {
       "leanDeclaration": "PreservesVanishesModQ",
       "kind": "def",
-      "mathematicalMeaning": "A weaker-looking but useful formulation: an operator preserves functions vanishing modulo Q. For a general nonlinear operator this is not equivalent to tangentiality. The equivalence requires additivity/subtractivity assumptions. In explicit terms, for p of type operator conf : equals conf, its defining expression is for every f : Function Conf, Cal Conf.Vanishes Mod Q f maps to Cal Conf.Vanishes Mod Q P f.",
-      "mathematicalFormula": "\\operatorname{PreservesVanishesModQ}(P)=\\forall {f \\colon \\operatorname{Function} \\operatorname{Conf}}, \\operatorname{CalConf}.\\operatorname{VanishesModQ} f \\longrightarrow \\operatorname{CalConf}.\\operatorname{VanishesModQ} (P f)",
+      "mathematicalMeaning": "This weaker predicate requires P to send every Q-divisible function to another Q-divisible function. For a general nonlinear P it is not equivalent to tangentiality.",
+      "mathematicalFormula": "f=0\\pmod Q\\Longrightarrow Pf=0\\pmod Q.",
       "leanType": "def PreservesVanishesModQ (P : Operator (Conf := Conf)) : Prop",
       "line": 223
     },
     {
       "leanDeclaration": "IsTangentialOperator.id",
       "kind": "theorem",
-      "mathematicalMeaning": "Cal Conf.Is Tangential Operator fun f : Function Conf maps to f.",
-      "mathematicalFormula": "\\operatorname{CalConf}.\\operatorname{IsTangentialOperator} (\\operatorname{fun} f \\colon \\operatorname{Function} \\operatorname{Conf} => f)",
+      "mathematicalMeaning": "The identity operator preserves boundary equivalence and is therefore tangential.",
+      "mathematicalFormula": "\\operatorname{Tangential}(\\operatorname{Id}).",
       "leanType": "theorem IsTangentialOperator.id : CalConf.IsTangentialOperator (fun f : Function Conf => f)",
       "line": 228
     },
     {
       "leanDeclaration": "IsTangentialOperator.comp",
       "kind": "theorem",
-      "mathematicalMeaning": "For P, R of type Operator Conf : equals Conf, hP of type Cal Conf.Is Tangential Operator P, and hR of type Cal Conf.Is Tangential Operator R, Cal Conf.Is Tangential Operator the function sending f to P R f.",
-      "mathematicalFormula": "\\forall\\,P,R\\colon \\operatorname{Operator} (\\operatorname{Conf} = \\operatorname{Conf}),\\;hP\\colon \\operatorname{CalConf}.\\operatorname{IsTangentialOperator} P,\\;hR\\colon \\operatorname{CalConf}.\\operatorname{IsTangentialOperator} R,\\quad \\operatorname{CalConf}.\\operatorname{IsTangentialOperator} (f \\longmapsto P (R f))",
+      "mathematicalMeaning": "The composition of two tangential operators is tangential.",
+      "mathematicalFormula": "\\operatorname{Tangential}(P),\\ \\operatorname{Tangential}(R)\\Longrightarrow\\operatorname{Tangential}(P\\circ R).",
       "leanType": "theorem IsTangentialOperator.comp {P R : Operator (Conf := Conf)} (hP : CalConf.IsTangentialOperator P) (hR : CalConf.IsTangentialOperator R) : CalConf.IsTangentialOperator (fun f => P (R f))",
       "line": 233
     },
     {
       "leanDeclaration": "IsTangentialAtWeight",
       "kind": "def",
-      "mathematicalMeaning": "Tangentiality restricted to homogeneous functions of input weight w. This is the right notion for ambient GJMS operators, because powers of the ambient Laplacian are tangential only at the critical input weights. In explicit terms, for p of type operator conf : equals conf, and w in the real numbers, its defining expression is for every f g : Function Conf, Cal Conf.Is XHomogeneous w f maps to Cal Conf.Is XHomogeneous w g maps to Cal Conf.Same Boundary Value At Weight w f g maps to Cal Conf.Same Boundary Value P f P g.",
-      "mathematicalFormula": "\\operatorname{IsTangentialAtWeight}(P,w)=\\forall {f g \\colon \\operatorname{Function} \\operatorname{Conf}}, \\operatorname{CalConf}.\\operatorname{IsXHomogeneous} w f \\longrightarrow \\operatorname{CalConf}.\\operatorname{IsXHomogeneous} w g \\longrightarrow \\operatorname{CalConf}.\\operatorname{SameBoundaryValueAtWeight} w f g \\longrightarrow \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} (P f) (P g)",
+      "mathematicalMeaning": "P is tangential at weight w if any two weight-w extensions whose difference is Qh with h of weight w − 2 produce outputs with the same boundary value.",
+      "mathematicalFormula": "\\begin{aligned}\\operatorname{Tangential}_w(P)\\Longleftrightarrow{}&Xf=wf,\\ Xg=wg,\\ f-g=Qh,\\ Xh=(w-2)h\\\\&\\Longrightarrow Pf\\sim_QPg.\\end{aligned}",
       "leanType": "def IsTangentialAtWeight (P : Operator (Conf := Conf)) (w : ℝ) : Prop",
       "line": 250
     },
     {
       "leanDeclaration": "MapsHomogeneousWeight",
       "kind": "def",
-      "mathematicalMeaning": "An operator maps homogeneous functions of weight w₁ to homogeneous functions of weight w₂. In explicit terms, for p of type operator conf : equals conf, and w₁, w₂ in the real numbers, its defining expression is for every f : Function Conf, Cal Conf.Is XHomogeneous w₁ f maps to Cal Conf.Is XHomogeneous w₂ P f.",
-      "mathematicalFormula": "\\operatorname{MapsHomogeneousWeight}(P,w₁,w₂)=\\forall {f \\colon \\operatorname{Function} \\operatorname{Conf}}, \\operatorname{CalConf}.\\operatorname{IsXHomogeneous} w₁ f \\longrightarrow \\operatorname{CalConf}.\\operatorname{IsXHomogeneous} w₂ (P f)",
+      "mathematicalMeaning": "P maps weight w₁ to weight w₂ when every X-homogeneous input of weight w₁ is sent to an X-homogeneous output of weight w₂.",
+      "mathematicalFormula": "Xf=w_1f\\Longrightarrow X(Pf)=w_2Pf.",
       "leanType": "def MapsHomogeneousWeight (P : Operator (Conf := Conf)) (w₁ w₂ : ℝ) : Prop",
       "line": 263
     },
     {
       "leanDeclaration": "WeightedTangentialOperator",
       "kind": "structure",
-      "mathematicalMeaning": "A weighted tangential ambient operator. This is the structure which should eventually model an operator E[w₁] → E[w₂] defined by choosing an ambient extension, applying an ambient operator, and restricting back to the boundary. Its mathematical data are: input Weight: the real numbers; output Weight: the real numbers; to Operator: Operator Conf : equals Conf; maps Weight: Cal Conf.Maps Homogeneous Weight to Operator input weight output weight; tangential: Cal Conf.Is Tangential At Weight to Operator input weight.",
-      "mathematicalFormula": "\\begin{aligned}w_{\\mathrm{in}}&\\colon \\mathbb{R}\\\\w_{\\mathrm{out}}&\\colon \\mathbb{R}\\\\\\operatorname{toOperator}&\\colon \\operatorname{Operator} (\\operatorname{Conf} = \\operatorname{Conf})\\\\\\operatorname{mapsWeight}&\\colon \\operatorname{CalConf}.\\operatorname{MapsHomogeneousWeight} \\operatorname{toOperator} w_{\\mathrm{in}} w_{\\mathrm{out}}\\\\\\operatorname{tangential}&\\colon \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeight} \\operatorname{toOperator} w_{\\mathrm{in}}\\end{aligned}",
+      "mathematicalMeaning": "This structure packages an input weight, an output weight, an ambient operator P, a proof of its weight mapping, and a proof of tangentiality at the input weight.",
+      "mathematicalFormula": "P:\\widetilde{\\mathcal E}[w_{\\mathrm{in}}]\\longrightarrow\\widetilde{\\mathcal E}[w_{\\mathrm{out}}],\\qquad X(Pf)=w_{\\mathrm{out}}Pf,\\qquad \\operatorname{Tangential}_{w_{\\mathrm{in}}}(P).",
       "leanType": "structure WeightedTangentialOperator",
       "line": 280
     },
     {
       "leanDeclaration": "criticalWeight",
       "kind": "def",
-      "mathematicalMeaning": "The critical input weight for the k-th GJMS-type construction. In explicit terms, for k in the natural numbers, its defining expression is k minus the dimension n of the ambient calculus divided by 2.",
-      "mathematicalFormula": "\\operatorname{criticalWeight}(k)=k - n_{\\mathrm{CalConf}} / 2",
+      "mathematicalMeaning": "The critical input weight for the k-th ambient GJMS construction is k − n/2.",
+      "mathematicalFormula": "w_k:=k-\\frac n2.",
       "leanType": "def criticalWeight (k : ℕ) : ℝ",
       "line": 293
     },
     {
       "leanDeclaration": "gjmsOutputWeight",
       "kind": "def",
-      "mathematicalMeaning": "The output weight after applying Δ̃^k at the critical input weight. In explicit terms, for k in the natural numbers, its defining expression is - k minus the dimension n of the ambient calculus divided by 2.",
-      "mathematicalFormula": "\\operatorname{gjmsOutputWeight}(k)=- k - n_{\\mathrm{CalConf}} / 2",
+      "mathematicalMeaning": "Applying k Laplacians lowers the critical input weight by 2k, giving output weight −k − n/2.",
+      "mathematicalFormula": "w_k-2k=-k-\\frac n2.",
       "leanType": "def gjmsOutputWeight (k : ℕ) : ℝ",
       "line": 297
     },
     {
       "leanDeclaration": "lapPow_has_GJMS_weight",
       "kind": "theorem",
-      "mathematicalMeaning": "Weight bookkeeping for powers of the ambient Laplacian at the GJMS critical weight. This uses the already proved theorem lapPow_isXHomogeneous from Ambientoperator.lean. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\;f\\colon \\operatorname{Function} \\operatorname{Conf},\\;hf\\colon \\operatorname{CalConf}.\\operatorname{IsXHomogeneous} (\\operatorname{CalConf}.\\operatorname{criticalWeight} k) f,\\quad \\operatorname{CalConf}.\\operatorname{IsXHomogeneous} (\\operatorname{CalConf}.\\operatorname{gjmsOutputWeight} k) (\\operatorname{CalConf}.\\operatorname{lapPow} k f)",
+      "mathematicalMeaning": "Under AlgebraicIdentities, the k-th ambient Laplacian sends an X-homogeneous function of critical weight k − n/2 to one of weight −k − n/2.",
+      "mathematicalFormula": "Xf=\\left(k-\\frac n2\\right)f\\Longrightarrow X(\\widetilde\\Delta^kf)=\\left(-k-\\frac n2\\right)\\widetilde\\Delta^kf.",
       "leanType": "theorem lapPow_has_GJMS_weight (H : CalConf.AlgebraicIdentities) (k : ℕ) {f : Function Conf} (hf : CalConf.IsXHomogeneous (CalConf.criticalWeight k) f) : CalConf.IsXHomogeneous (CalConf.gjmsOutputWeight k) (CalConf.lapPow k f)",
       "line": 307
     },
     {
       "leanDeclaration": "ambientGJMSCandidate",
       "kind": "def",
-      "mathematicalMeaning": "The formal ambient k-th GJMS candidate, assuming tangentiality has been proved separately. At this abstraction level, the missing nontrivial theorem is exactly the tangentiality of Δ̃^k at the critical weight. In explicit terms, for h of type cal conf.algebraic identities, k in the natural numbers, and htangential of type cal conf.is tangential at weight fun f : function conf maps to cal conf.power of the ambient laplacian k f cal conf.critical weight k, its defining expression is input weight : equals Cal Conf.critical Weight k output weight : equals Cal Conf.gjms Output Weight k to Operator : equals the function sending f to Cal Conf.power of the ambient Laplacian k f maps Weight : equals by intro f hf exact Cal Conf.lap Pow has GJMS weight H k hf tangential : equals htangential.",
-      "mathematicalFormula": "\\operatorname{ambientGJMSCandidate}(H,k,htangential)=w_{\\mathrm{in}} = \\operatorname{CalConf}.\\operatorname{criticalWeight} k w_{\\mathrm{out}} = \\operatorname{CalConf}.\\operatorname{gjmsOutputWeight} k \\operatorname{toOperator} = f \\longmapsto \\operatorname{CalConf}.\\operatorname{lapPow} k f \\operatorname{mapsWeight} = \\operatorname{by} \\operatorname{intro} f \\operatorname{hf} \\operatorname{exact} \\operatorname{CalConf}.\\operatorname{lapPow\\_has\\_GJMS\\_weight} H k \\operatorname{hf} \\operatorname{tangential} = \\operatorname{htangential}",
+      "mathematicalMeaning": "Given AlgebraicIdentities and a separate proof that the k-th ambient Laplacian is tangential at the critical weight, this constructor packages Δ̃^k as a weighted tangential operator.",
+      "mathematicalFormula": "\\operatorname{Tangential}_{k-n/2}(\\widetilde\\Delta^k)\\Longrightarrow \\widetilde\\Delta^k:\\widetilde{\\mathcal E}\\left[k-\\frac n2\\right]\\longrightarrow\\widetilde{\\mathcal E}\\left[-k-\\frac n2\\right].",
       "leanType": "def ambientGJMSCandidate (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (fun f : Function Conf => CalConf.lapPow k f) (CalConf.criticalWeight k)) : CalConf.WeightedTangentialOperator",
       "line": 328
     },
     {
       "leanDeclaration": "lapPow_isTangentialAtCriticalWeight",
-      "kind": "theorem",
-      "mathematicalMeaning": "For H of type Cal Conf.Algebraic Identities, and k in the natural numbers, Cal Conf.Is Tangential At Weight fun f : Function Conf maps to Cal Conf.power of the ambient Laplacian k f Cal Conf.critical Weight k.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\quad \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeight} (\\operatorname{fun} f \\colon \\operatorname{Function} \\operatorname{Conf} => \\operatorname{CalConf}.\\operatorname{lapPow} k f) (\\operatorname{CalConf}.\\operatorname{criticalWeight} k)",
-      "leanType": "theorem lapPow_isTangentialAtCriticalWeight (H : CalConf.AlgebraicIdentities) (k : ℕ) : CalConf.IsTangentialAtWeight (fun f : Function Conf => CalConf.lapPow k f) (CalConf.criticalWeight k)",
+      "kind": "planned",
+      "mathematicalMeaning": "This name occurs only in the module's Future theorem documentation block. The intended statement is that Δ̃^k is tangential at weight k − n/2, but there is no compiled Lean declaration or proof of it in this file.",
+      "mathematicalFormula": "\\operatorname{Tangential}_{k-n/2}(\\widetilde\\Delta^k)\\qquad\\text{(planned; not proved here)}.",
+      "leanType": "future theorem displayed in a documentation comment, not a compiled Lean declaration",
       "line": 351
     }
   ],
@@ -243,9 +248,9 @@
   "references": [
     {
       "referenceId": "FG-AmbientMetric",
-      "locator": "Chapters 2–3, ambient space and normal form",
-      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+      "locator": "Chapter 3, ambient construction of conformally invariant powers of the Laplacian",
+      "note": "Geometric source for extension independence, critical weights, and the ambient GJMS construction."
     }
   ],
-  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+  "limitations": "The equivalence-relation and weight bookkeeping results are Lean-verified, with the latter depending on AlgebraicIdentities. The crucial theorem that Δ̃^k is tangential at the critical weight is not implemented in this module: it appears only in a documentation comment, and ambientGJMSCandidate therefore requires tangentiality as an explicit input."
 }

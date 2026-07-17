@@ -1,58 +1,58 @@
 {
   "file": "Ambient/Ambientdensity.lean",
-  "title": "Ambientdensity",
-  "status": "verified",
-  "summary": "Defines homogeneous ambient densities and their restriction to conformal densities on the null cone.",
+  "title": "Ambient densities",
+  "status": "scaffold",
+  "summary": "Defines ambient densities as homogeneous functions under positive dilation and restricts them to conformal densities on the hypersurface ρ = 0.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Defines homogeneous ambient densities and their restriction to conformal densities on the null cone.",
-      "formula": null
+      "heading": "Homogeneous ambient functions",
+      "body": "An ambient density with character χ is a function F on the formal ambient bundle satisfying the dilation law F(δ_r U) = χ(r)F(U). For the usual real weight w, one takes χ(r) = r^w. The Lean definition allows a general commutative-monoid-valued character.",
+      "formula": "F(\\delta_r U)=\\chi(r)F(U),\\qquad r>0;\\qquad \\chi_w(r)=r^w."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Ambient/Ambientdensity.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Restriction to conformal data",
+      "body": "Restricting F to the cone ρ = 0 gives a homogeneous function on the conformal metric ray bundle. Evaluating that boundary function along a chosen scale s produces its scale-dependent representative on M.",
+      "formula": "F_0(u):=F(\\iota(u))=F(u,0),\\qquad (F_0)_s(x)=F(s(x),0)."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "AmbientWeight",
       "kind": "abbrev",
-      "mathematicalMeaning": "the ambient weight is defined to be Conformal Structure.Weight α : equals α.",
-      "mathematicalFormula": "\\operatorname{AmbientWeight}=\\operatorname{ConformalStructure}.\\operatorname{Weight} (α = α)",
+      "mathematicalMeaning": "AmbientWeight is not a new notion: it is the same multiplicative character of positive real dilations used for conformal densities.",
+      "mathematicalFormula": "\\operatorname{AmbientWeight}(\\alpha):=\\operatorname{Hom}_{\\mathrm{Mon}}(\\mathbb R_{+},\\alpha).",
       "leanType": "abbrev AmbientWeight",
       "line": 15
     },
     {
       "leanDeclaration": "Density",
       "kind": "structure",
-      "mathematicalMeaning": "An ambient density is an equivariant function on the ambient bundle. Its mathematical data are: to Fun: Conf.Ambient Bundle maps to α; equivariant: for every r : Pos Real U : Conf.Ambient Bundle, to Fun Conf.ambient Dilate r U equals χ r times to Fun U; instance: Coe Fun Density Conf : equals Conf χ fun maps to Conf.Ambient Bundle maps to α where coe d : equals d.to Fun @ simp theorem equivariant apply d : Density Conf : equals Conf χ r : Pos Real U : Conf.Ambient Bundle : d Conf.ambient Dilate r U equals χ r times d U : equals d.equivariant r U @ ext theorem ext d₁ d₂ : Density Conf : equals Conf χ h : for every U : Conf.Ambient Bundle, d₁.to Fun U equals d₂.to Fun U : d₁ equals d₂ : equals by cases d₁ with | mk f₁ h₁ maps to cases d₂ with | mk f₂ h₂ maps to have hf : f₁ equals f₂ : equals funext h cases hf have hh : h₁ equals h₂ : equals by apply Subsingleton.elim cases hh rfl.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{toFun}&\\colon \\operatorname{Conf}.\\operatorname{AmbientBundle} \\longrightarrow α\\\\\\operatorname{equivariant}&\\colon \\forall (r \\colon \\operatorname{PosReal}) (U \\colon \\operatorname{Conf}.\\operatorname{AmbientBundle}), \\operatorname{toFun} (\\operatorname{Conf}.\\operatorname{ambientDilate} r U) = χ r \\cdot \\operatorname{toFun} U\\\\\\operatorname{instance}&\\colon \\operatorname{CoeFun} (\\operatorname{Density} (\\operatorname{Conf} = \\operatorname{Conf}) χ) (\\operatorname{fun} _ => \\operatorname{Conf}.\\operatorname{AmbientBundle} \\longrightarrow α) \\operatorname{where} \\operatorname{coe} d = d.\\operatorname{toFun} @[\\operatorname{simp}] \\operatorname{theorem} \\operatorname{equivariant\\_apply} (d \\colon \\operatorname{Density} (\\operatorname{Conf} = \\operatorname{Conf}) χ) (r \\colon \\operatorname{PosReal}) (U \\colon \\operatorname{Conf}.\\operatorname{AmbientBundle}) \\colon d (\\operatorname{Conf}.\\operatorname{ambientDilate} r U) = χ r \\cdot d U = d.\\operatorname{equivariant} r U @[\\operatorname{ext}] \\operatorname{theorem} \\operatorname{ext} {d₁ d₂ \\colon \\operatorname{Density} (\\operatorname{Conf} = \\operatorname{Conf}) χ} (h \\colon \\forall U \\colon \\operatorname{Conf}.\\operatorname{AmbientBundle}, d₁.\\operatorname{toFun} U = d₂.\\operatorname{toFun} U) \\colon d₁ = d₂ = \\operatorname{by} \\operatorname{cases} d₁ \\operatorname{with} | \\operatorname{mk} f₁ h₁ => \\operatorname{cases} d₂ \\operatorname{with} | \\operatorname{mk} f₂ h₂ => \\operatorname{have} \\operatorname{hf} \\colon f₁ = f₂ = \\operatorname{funext} h \\operatorname{cases} \\operatorname{hf} \\operatorname{have} \\operatorname{hh} \\colon h₁ = h₂ = \\operatorname{by} \\operatorname{apply} \\operatorname{Subsingleton}.\\operatorname{elim} \\operatorname{cases} \\operatorname{hh} \\operatorname{rfl}\\end{aligned}",
+      "mathematicalMeaning": "In Ambient.Equivariant, a density of character χ is an α-valued function on the ray-model ambient bundle that transforms equivariantly under every positive dilation.",
+      "mathematicalFormula": "\\widetilde{\\mathcal E}_{\\chi}(\\alpha):=\\left\\{F:\\widetilde{\\mathcal G}\\to\\alpha\\;\\middle|\\;F(\\delta_r U)=\\chi(r)F(U)\\ \\forall r>0,\\ U\\in\\widetilde{\\mathcal G}\\right\\}.",
       "leanType": "structure Density (χ : Weight α)",
       "line": 21
     },
     {
       "leanDeclaration": "restrictToBoundary",
       "kind": "def",
-      "mathematicalMeaning": "Restriction of an ambient density to the hypersurface ρ = 0. In explicit terms, for d of type density conf : equals conf χ, its defining expression is to Fun : equals the function sending u to d.to Fun Conf.iota u equivariant : equals by intro r u simpa Conformal Structure.iota, Conformal Structure.ambient Dilate, Conformal Structure.dilate Bundle using d.equivariant r Conf.iota u.",
-      "mathematicalFormula": "\\operatorname{restrictToBoundary}(d)=\\operatorname{toFun} = u \\longmapsto d.\\operatorname{toFun} (\\operatorname{Conf}.\\operatorname{iota} u) \\operatorname{equivariant} = \\operatorname{by} \\operatorname{intro} r u \\operatorname{simpa} [\\operatorname{ConformalStructure}.\\operatorname{iota}, \\operatorname{ConformalStructure}.\\operatorname{ambientDilate}, \\operatorname{ConformalStructure}.\\operatorname{dilateBundle}] \\operatorname{using} d.\\operatorname{equivariant} r (\\operatorname{Conf}.\\operatorname{iota} u)",
+      "mathematicalMeaning": "The boundary restriction pulls an ambient density back along the inclusion ι of the hypersurface ρ = 0. Its equivariance is inherited from the ambient dilation law.",
+      "mathematicalFormula": "\\operatorname{res}_0F:=\\iota^*F,\\qquad (\\operatorname{res}_0F)(u)=F(\\iota(u))=F(u,0).",
       "leanType": "def restrictToBoundary (d : Density (Conf := Conf) χ) : ConformalStructure.Equivariant.Density (Conf := Conf) χ",
       "line": 55
     },
     {
       "leanDeclaration": "restrictToScaleDependent",
       "kind": "def",
-      "mathematicalMeaning": "Restriction to the boundary, evaluated on the section of a chosen scale. In explicit terms, for d of type density conf : equals conf χ, its defining expression is restrict To Boundary d : equals d.to Scale Dependent.",
-      "mathematicalFormula": "\\operatorname{restrictToScaleDependent}(d)=(\\operatorname{restrictToBoundary} (d = d)).\\operatorname{toScaleDependent}",
+      "mathematicalMeaning": "After restricting to ρ = 0, this definition evaluates the resulting conformal density on the section determined by each scale s.",
+      "mathematicalFormula": "(\\operatorname{res}_0F)_s(x):=F\\bigl(s(x),0\\bigr).",
       "leanType": "def restrictToScaleDependent (d : Density (Conf := Conf) χ) : ConformalStructure.Density (Conf := Conf) χ",
       "line": 76
     },
     {
       "leanDeclaration": "Density",
       "kind": "structure",
-      "mathematicalMeaning": "A concrete ambient density is an equivariant function on the concrete ambient bundle. Its mathematical data are: to Fun: Conf.Ambient Point Metric Bundle maps to α; equivariant: for every r : Pos Real U : Conf.Ambient Point Metric Bundle, to Fun Conf.ambient Point Dilate r U equals χ r times to Fun U; instance: Coe Fun Density Conf : equals Conf χ fun maps to Conf.Ambient Point Metric Bundle maps to α where coe d : equals d.to Fun @ simp theorem equivariant apply d : Density Conf : equals Conf χ r : Pos Real U : Conf.Ambient Point Metric Bundle : d Conf.ambient Point Dilate r U equals χ r times d U : equals d.equivariant r U @ ext theorem ext d₁ d₂ : Density Conf : equals Conf χ h : for every U : Conf.Ambient Point Metric Bundle, d₁.to Fun U equals d₂.to Fun U : d₁ equals d₂ : equals by cases d₁ with | mk f₁ h₁ maps to cases d₂ with | mk f₂ h₂ maps to have hf : f₁ equals f₂ : equals funext h cases hf have hh : h₁ equals h₂ : equals by apply Subsingleton.elim cases hh rfl.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{toFun}&\\colon \\operatorname{Conf}.\\operatorname{AmbientPointMetricBundle} \\longrightarrow α\\\\\\operatorname{equivariant}&\\colon \\forall (r \\colon \\operatorname{PosReal}) (U \\colon \\operatorname{Conf}.\\operatorname{AmbientPointMetricBundle}), \\operatorname{toFun} (\\operatorname{Conf}.\\operatorname{ambientPointDilate} r U) = χ r \\cdot \\operatorname{toFun} U\\\\\\operatorname{instance}&\\colon \\operatorname{CoeFun} (\\operatorname{Density} (\\operatorname{Conf} = \\operatorname{Conf}) χ) (\\operatorname{fun} _ => \\operatorname{Conf}.\\operatorname{AmbientPointMetricBundle} \\longrightarrow α) \\operatorname{where} \\operatorname{coe} d = d.\\operatorname{toFun} @[\\operatorname{simp}] \\operatorname{theorem} \\operatorname{equivariant\\_apply} (d \\colon \\operatorname{Density} (\\operatorname{Conf} = \\operatorname{Conf}) χ) (r \\colon \\operatorname{PosReal}) (U \\colon \\operatorname{Conf}.\\operatorname{AmbientPointMetricBundle}) \\colon d (\\operatorname{Conf}.\\operatorname{ambientPointDilate} r U) = χ r \\cdot d U = d.\\operatorname{equivariant} r U @[\\operatorname{ext}] \\operatorname{theorem} \\operatorname{ext} {d₁ d₂ \\colon \\operatorname{Density} (\\operatorname{Conf} = \\operatorname{Conf}) χ} (h \\colon \\forall U \\colon \\operatorname{Conf}.\\operatorname{AmbientPointMetricBundle}, d₁.\\operatorname{toFun} U = d₂.\\operatorname{toFun} U) \\colon d₁ = d₂ = \\operatorname{by} \\operatorname{cases} d₁ \\operatorname{with} | \\operatorname{mk} f₁ h₁ => \\operatorname{cases} d₂ \\operatorname{with} | \\operatorname{mk} f₂ h₂ => \\operatorname{have} \\operatorname{hf} \\colon f₁ = f₂ = \\operatorname{funext} h \\operatorname{cases} \\operatorname{hf} \\operatorname{have} \\operatorname{hh} \\colon h₁ = h₂ = \\operatorname{by} \\operatorname{apply} \\operatorname{Subsingleton}.\\operatorname{elim} \\operatorname{cases} \\operatorname{hh} \\operatorname{rfl}\\end{aligned}",
+      "mathematicalMeaning": "In Ambient.ConcreteEquivariant, the same equivariance condition is imposed on functions of actual pointwise metric representatives rather than conformal rays.",
+      "mathematicalFormula": "\\widetilde{\\mathcal E}^{\\mathrm{pt}}_{\\chi}(\\alpha):=\\left\\{F:\\widetilde{\\mathcal G}_{\\mathrm{pt}}\\to\\alpha\\;\\middle|\\;F(\\delta^{\\mathrm{pt}}_rU)=\\chi(r)F(U)\\ \\forall r>0\\right\\}.",
       "leanType": "structure Density (χ : Weight α)",
       "line": 95
     }
@@ -68,9 +68,9 @@
   "references": [
     {
       "referenceId": "FG-AmbientMetric",
-      "locator": "Chapters 2–3, ambient space and normal form",
-      "note": "Geometric source for the ambient bundle, homogeneity, normal form, and commutator calculations."
+      "locator": "Chapters 2–3, homogeneous functions on the metric bundle and ambient space",
+      "note": "Source for interpreting conformal and ambient densities as homogeneous functions under dilation."
     }
   ],
-  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+  "limitations": "This module verifies the algebraic equivariance and restriction maps for arbitrary functions. It does not formalize smoothness, vector-bundle sections, the conventional identification χ(r)=r^w, or analytic extension and restriction results."
 }
