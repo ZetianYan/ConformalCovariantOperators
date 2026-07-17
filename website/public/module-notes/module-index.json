@@ -1,9 +1,9 @@
 [
   {
     "file": "Ambient/Ambientbasic.lean",
-    "title": "Ambientbasic",
-    "status": "verified",
-    "summary": "Builds the ambient bundle, dilation action, straight metric data, the cone inclusion at rho = 0, and the straight normal-form interface.",
+    "title": "Ambient basic geometry",
+    "status": "scaffold",
+    "summary": "Introduces the formal ambient bundle, its dilation and boundary inclusion, and the data used to represent a straight-form ambient metric.",
     "declarations": [
       "AmbientBundle",
       "AmbientPointMetricBundle",
@@ -31,9 +31,9 @@
   },
   {
     "file": "Ambient/Ambientdensity.lean",
-    "title": "Ambientdensity",
-    "status": "verified",
-    "summary": "Defines homogeneous ambient densities and their restriction to conformal densities on the null cone.",
+    "title": "Ambient densities",
+    "status": "scaffold",
+    "summary": "Defines ambient densities as homogeneous functions under positive dilation and restricts them to conformal densities on the hypersurface rho = 0.",
     "declarations": [
       "AmbientWeight",
       "Density",
@@ -47,9 +47,9 @@
   },
   {
     "file": "Ambient/Ambientoperator.lean",
-    "title": "Ambientoperator",
-    "status": "verified",
-    "summary": "Packages the abstract ambient operator calculus: Q, the Euler operator X, the ambient Laplacian, powers, homogeneity, and commutator laws.",
+    "title": "Ambient operator calculus",
+    "status": "verified-under-interface",
+    "summary": "Packages a formal calculus of Q, the Euler operator X, and the ambient Laplacian, then proves its consequences under an explicit interface of algebraic identities.",
     "declarations": [
       "Function",
       "zero",
@@ -94,9 +94,9 @@
   },
   {
     "file": "Ambient/Ambienttangential.lean",
-    "title": "Ambienttangential",
-    "status": "verified",
-    "summary": "Formalizes equality modulo the defining function Q and the condition that a weighted ambient operator descends to boundary data.",
+    "title": "Tangential ambient operators",
+    "status": "verified-under-interface",
+    "summary": "Formalizes equality modulo Q and weighted tangentiality, packages a formal GJMS candidate, and records that critical tangentiality remains planned here.",
     "declarations": [
       "SameBoundaryValue",
       "SameBoundaryValueAtWeight",
