@@ -1,147 +1,152 @@
 {
   "file": "Ambient/PE/MetricComponents.lean",
-  "title": "MetricComponents",
+  "title": "Metric components",
   "status": "verified-under-interface",
-  "summary": "Records the metric and inverse-metric block components of a Poincaré normal-form metric.",
+  "summary": "Expands the Poincaré normal form into radial–tangential blocks and proves that the displayed contravariant block is a left inverse when hⁱʲ is a left inverse of hᵢⱼ and r ≠ 0.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Records the metric and inverse-metric block components of a Poincaré normal-form metric.",
-      "formula": null
+      "heading": "Radial–tangential indices",
+      "body": "An index I is either the radial direction r or a tangential index i. This allows every contraction to be split into one radial term and a sum over tangential directions.",
+      "formula": "I\\in\\{r\\}\\sqcup\\mathcal I,\\qquad \\sum_I F_I=F_r+\\sum_{i\\in\\mathcal I}F_i"
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Ambient/PE/MetricComponents.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Metric and inverse blocks",
+      "body": "For g₊ = r⁻²(dr²+hᵣ), the covariant matrix is r⁻² diag(1,hᵢⱼ), while the proposed contravariant matrix is r² diag(1,hⁱʲ). All mixed radial–tangential components vanish.",
+      "formula": "(g_{+\\,IJ})=r^{-2}\\begin{pmatrix}1&0\\\\0&h_{ij}\\end{pmatrix},\\qquad (g_+^{IJ})=r^2\\begin{pmatrix}1&0\\\\0&h^{ij}\\end{pmatrix}"
+    },
+    {
+      "heading": "Inverse identity",
+      "body": "Assuming r is nonzero and hⁱᵏhₖⱼ = δⁱⱼ, Lean proves the full radial–tangential contraction g₊ⁱᴷg₊ₖⱼ = δⁱⱼ by cases on the two outer indices.",
+      "formula": "r\\neq0,\\quad \\sum_k h^{ik}h_{kj}=\\delta^i{}_j\\quad\\Longrightarrow\\quad \\sum_K g_+^{IK}g_{+\\,KJ}=\\delta^I{}_J"
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "PEIndex",
       "kind": "inductive",
-      "mathematicalMeaning": "Radial and tangential indices in Poincare normal form. Its constructors are: radial with arguments : PEIndex Iota; tangential with arguments : Iota maps to PEIndex Iota.",
-      "mathematicalFormula": "\\operatorname{PEIndex}::=\\operatorname{radial}(\\colon \\operatorname{PEIndex} \\operatorname{Iota})\\mid\\operatorname{tangential}(\\colon \\operatorname{Iota} \\longrightarrow \\operatorname{PEIndex} \\operatorname{Iota})",
-      "leanType": "inductive PEIndex (Iota : Type u)",
+      "mathematicalMeaning": "Creates the index set consisting of one radial index and all tangential indices from ι.",
+      "mathematicalFormula": "\\operatorname{PEIndex}(\\mathcal I)=\\{r\\}\\sqcup\\mathcal I",
+      "leanType": "inductive PEIndex (Iota : Type u) | radial | tangential (i : Iota)",
       "line": 25
     },
     {
       "leanDeclaration": "kronecker",
-      "kind": "def",
-      "mathematicalMeaning": "The Kronecker delta on PE normal-form indices.",
-      "mathematicalFormula": "\\operatorname{kronecker}(I,J)\\colon \\mathbb{R}",
-      "leanType": "def kronecker [DecidableEq Iota] (I J : PEIndex Iota) : Real",
+      "kind": "definition",
+      "mathematicalMeaning": "Defines the Kronecker delta on radial–tangential indices.",
+      "mathematicalFormula": "\\delta^I{}_J=\\begin{cases}1,&I=J,\\\\0,&I\\neq J.\\end{cases}",
+      "leanType": "def kronecker (I J : PEIndex Iota) : Real := if I = J then 1 else 0",
       "line": 35
     },
     {
       "leanDeclaration": "kronecker_self",
       "kind": "theorem",
-      "mathematicalMeaning": "For I of type PEIndex Iota, kronecker I I equals 1.",
-      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} \\operatorname{Iota},\\;I\\colon \\operatorname{PEIndex} \\operatorname{Iota},\\quad \\operatorname{kronecker} I I = 1",
-      "leanType": "theorem kronecker_self [DecidableEq Iota] (I : PEIndex Iota) : kronecker I I = 1",
+      "mathematicalMeaning": "The diagonal value of the Kronecker delta is one.",
+      "mathematicalFormula": "\\forall I,\\qquad \\delta^I{}_I=1",
+      "leanType": "theorem kronecker_self (I : PEIndex Iota) : kronecker I I = 1",
       "line": 39
     },
     {
       "leanDeclaration": "kronecker_radial_tangential",
       "kind": "theorem",
-      "mathematicalMeaning": "For i of type Iota, kronecker radial tangential i equals 0.",
-      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} \\operatorname{Iota},\\;i\\colon \\operatorname{Iota},\\quad \\operatorname{kronecker} \\operatorname{radial} (\\operatorname{tangential} i) = 0",
-      "leanType": "theorem kronecker_radial_tangential [DecidableEq Iota] (i : Iota) : kronecker radial (tangential i) = 0",
+      "mathematicalMeaning": "A radial index and a tangential index are distinct, so the corresponding Kronecker delta vanishes.",
+      "mathematicalFormula": "\\delta^r{}_i=0",
+      "leanType": "theorem kronecker_radial_tangential (i : Iota) : kronecker radial (tangential i) = 0",
       "line": 44
     },
     {
       "leanDeclaration": "kronecker_tangential_radial",
       "kind": "theorem",
-      "mathematicalMeaning": "For i of type Iota, kronecker tangential i radial equals 0.",
-      "mathematicalFormula": "\\forall\\,\\operatorname{DecidableEq} \\operatorname{Iota},\\;i\\colon \\operatorname{Iota},\\quad \\operatorname{kronecker} (\\operatorname{tangential} i) \\operatorname{radial} = 0",
-      "leanType": "theorem kronecker_tangential_radial [DecidableEq Iota] (i : Iota) : kronecker (tangential i) radial = 0",
+      "mathematicalMeaning": "The Kronecker delta also vanishes with a tangential first index and the radial second index.",
+      "mathematicalFormula": "\\delta^i{}_r=0",
+      "leanType": "theorem kronecker_tangential_radial (i : Iota) : kronecker (tangential i) radial = 0",
       "line": 51
     },
     {
       "leanDeclaration": "equivOption",
-      "kind": "def",
-      "mathematicalMeaning": "PE indices are equivalent to an optional tangential index. In explicit terms, its defining expression is to Fun | radial maps to none | tangential i maps to some i inv Fun | none maps to radial | some i maps to tangential i left inv : equals by intro I cases I <;> rfl right inv : equals by intro I cases I <;> rfl.",
-      "mathematicalFormula": "\\operatorname{equivOption}=\\operatorname{toFun} | \\operatorname{radial} => \\operatorname{none} | \\operatorname{tangential} i => \\operatorname{some} i \\operatorname{invFun} | \\operatorname{none} => \\operatorname{radial} | \\operatorname{some} i => \\operatorname{tangential} i \\operatorname{left\\_inv} = \\operatorname{by} \\operatorname{intro} I \\operatorname{cases} I <;> \\operatorname{rfl} \\operatorname{right\\_inv} = \\operatorname{by} \\operatorname{intro} I \\operatorname{cases} I <;> \\operatorname{rfl}",
+      "kind": "definition",
+      "mathematicalMeaning": "Identifies the radial index with none and each tangential index i with some i; this is a bijection with Option ι.",
+      "mathematicalFormula": "\\{r\\}\\sqcup\\mathcal I\\cong\\operatorname{Option}(\\mathcal I),\\qquad r\\leftrightarrow\\operatorname{none},\\quad i\\leftrightarrow\\operatorname{some}(i)",
       "leanType": "def equivOption : PEIndex Iota ≃ Option Iota",
       "line": 58
     },
     {
       "leanDeclaration": "sum_index",
       "kind": "theorem",
-      "mathematicalMeaning": "Split a finite PE-index sum into radial and tangential parts. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,R\\colon \\mathrm{Type} w,\\;\\operatorname{Fintype} \\operatorname{Iota},\\;\\operatorname{AddCommMonoid} R,\\;f\\colon \\operatorname{PEIndex} \\operatorname{Iota} \\longrightarrow R,\\quad (\\sum I \\colon \\operatorname{PEIndex} \\operatorname{Iota}, f I) = f \\operatorname{radial} + \\sum i \\colon \\operatorname{Iota}, f (\\operatorname{tangential} i)",
-      "leanType": "theorem sum_index {R : Type w} [Fintype Iota] [AddCommMonoid R] (f : PEIndex Iota -> R) : (∑ I : PEIndex Iota, f I) = f radial + ∑ i : Iota, f (tangential i)",
+      "mathematicalMeaning": "Splits a finite sum over PE indices into its single radial contribution and its tangential contributions.",
+      "mathematicalFormula": "\\sum_{I\\in\\{r\\}\\sqcup\\mathcal I}f(I)=f(r)+\\sum_{i\\in\\mathcal I}f(i)",
+      "leanType": "theorem sum_index (f : PEIndex Iota -> R) : sum I, f I = f radial + sum i, f (tangential i)",
       "line": 73
     },
     {
       "leanDeclaration": "PENormalMetricComponents",
       "kind": "structure",
-      "mathematicalMeaning": "Boundary metric components and their formal inverse at a fixed radius. Its mathematical data are: r: Real; h: Iota maps to Iota maps to Real; h Inv: Iota maps to Iota maps to Real.",
-      "mathematicalFormula": "\\begin{aligned}r&\\colon \\mathbb{R}\\\\h&\\colon \\operatorname{Iota} \\longrightarrow \\operatorname{Iota} \\longrightarrow \\mathbb{R}\\\\\\operatorname{hInv}&\\colon \\operatorname{Iota} \\longrightarrow \\operatorname{Iota} \\longrightarrow \\mathbb{R}\\end{aligned}",
-      "leanType": "structure PENormalMetricComponents (Iota : Type u)",
+      "mathematicalMeaning": "Stores a radius r, a tangential covariant block hᵢⱼ, and a proposed contravariant block hⁱʲ. Invertibility is not a structure field and must be supplied separately.",
+      "mathematicalFormula": "C=(r,h_{ij},h^{ij})",
+      "leanType": "structure PENormalMetricComponents (Iota : Type u) where r; h; hInv",
       "line": 95
     },
     {
       "leanDeclaration": "gPlusDown",
-      "kind": "def",
-      "mathematicalMeaning": "Covariant components of gPlus. In explicit terms, for c of type penormal metric components iota, its defining expression is | PEIndex.radial, PEIndex.radial maps to C.r to the power 2 ⁻¹ | PEIndex.radial, PEIndex.tangential maps to 0 | PEIndex.tangential, PEIndex.radial maps to 0 | PEIndex.tangential i, PEIndex.tangential j maps to C.r to the power 2 ⁻¹ times C.h i j.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{gPlusDown}(\\operatorname{PEIndex}.\\operatorname{radial}, \\operatorname{PEIndex}.\\operatorname{radial})&=(r_{\\mathrm{C}} ^ 2)⁻¹\\\\\\operatorname{gPlusDown}(\\operatorname{PEIndex}.\\operatorname{radial}, \\operatorname{PEIndex}.\\operatorname{tangential} _)&=0\\\\\\operatorname{gPlusDown}(\\operatorname{PEIndex}.\\operatorname{tangential} _, \\operatorname{PEIndex}.\\operatorname{radial})&=0\\\\\\operatorname{gPlusDown}(\\operatorname{PEIndex}.\\operatorname{tangential} i, \\operatorname{PEIndex}.\\operatorname{tangential} j)&=(r_{\\mathrm{C}} ^ 2)⁻¹ \\cdot h_{\\mathrm{C}} i j\\end{aligned}",
+      "kind": "definition",
+      "mathematicalMeaning": "Defines the covariant components of g₊: the radial entry is r⁻², mixed entries are zero, and the tangential block is r⁻²hᵢⱼ.",
+      "mathematicalFormula": "g_{+\\,rr}=r^{-2},\\qquad g_{+\\,ri}=g_{+\\,ir}=0,\\qquad g_{+\\,ij}=r^{-2}h_{ij}",
       "leanType": "def gPlusDown (C : PENormalMetricComponents Iota) : PEIndex Iota -> PEIndex Iota -> Real",
       "line": 101
     },
     {
       "leanDeclaration": "gPlusUp",
-      "kind": "def",
-      "mathematicalMeaning": "Contravariant components of gPlus. In explicit terms, for c of type penormal metric components iota, its defining expression is | PEIndex.radial, PEIndex.radial maps to C.r to the power 2 | PEIndex.radial, PEIndex.tangential maps to 0 | PEIndex.tangential, PEIndex.radial maps to 0 | PEIndex.tangential i, PEIndex.tangential j maps to C.r to the power 2 times C.h Inv i j.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{gPlusUp}(\\operatorname{PEIndex}.\\operatorname{radial}, \\operatorname{PEIndex}.\\operatorname{radial})&=r_{\\mathrm{C}} ^ 2\\\\\\operatorname{gPlusUp}(\\operatorname{PEIndex}.\\operatorname{radial}, \\operatorname{PEIndex}.\\operatorname{tangential} _)&=0\\\\\\operatorname{gPlusUp}(\\operatorname{PEIndex}.\\operatorname{tangential} _, \\operatorname{PEIndex}.\\operatorname{radial})&=0\\\\\\operatorname{gPlusUp}(\\operatorname{PEIndex}.\\operatorname{tangential} i, \\operatorname{PEIndex}.\\operatorname{tangential} j)&=r_{\\mathrm{C}} ^ 2 \\cdot C.\\operatorname{hInv} i j\\end{aligned}",
+      "kind": "definition",
+      "mathematicalMeaning": "Defines the proposed contravariant components: the radial entry is r², mixed entries are zero, and the tangential block is r²hⁱʲ.",
+      "mathematicalFormula": "g_+^{rr}=r^2,\\qquad g_+^{ri}=g_+^{ir}=0,\\qquad g_+^{ij}=r^2h^{ij}",
       "leanType": "def gPlusUp (C : PENormalMetricComponents Iota) : PEIndex Iota -> PEIndex Iota -> Real",
       "line": 110
     },
     {
       "leanDeclaration": "gPlusDown_radial_radial",
       "kind": "theorem",
-      "mathematicalMeaning": "For C of type PENormal Metric Components Iota, g Plus Down C PEIndex.radial PEIndex.radial equals C.r to the power 2 ⁻¹.",
-      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{PENormalMetricComponents} \\operatorname{Iota},\\quad \\operatorname{gPlusDown} C \\operatorname{PEIndex}.\\operatorname{radial} \\operatorname{PEIndex}.\\operatorname{radial} = (r_{\\mathrm{C}} ^ 2)⁻¹",
-      "leanType": "theorem gPlusDown_radial_radial (C : PENormalMetricComponents Iota) : gPlusDown C PEIndex.radial PEIndex.radial = (C.r ^ 2)⁻¹",
+      "mathematicalMeaning": "Unfolds the radial–radial covariant component of the Poincaré metric.",
+      "mathematicalFormula": "g_{+\\,rr}=r^{-2}",
+      "leanType": "theorem gPlusDown_radial_radial (C : PENormalMetricComponents Iota) : gPlusDown C radial radial = (C.r^2)^(-1)",
       "line": 119
     },
     {
       "leanDeclaration": "gPlusDown_tangential_tangential",
       "kind": "theorem",
-      "mathematicalMeaning": "For C of type PENormal Metric Components Iota, and i, j of type Iota, g Plus Down C PEIndex.tangential i PEIndex.tangential j equals C.r to the power 2 ⁻¹ times C.h i j.",
-      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{PENormalMetricComponents} \\operatorname{Iota},\\;i,j\\colon \\operatorname{Iota},\\quad \\operatorname{gPlusDown} C (\\operatorname{PEIndex}.\\operatorname{tangential} i) (\\operatorname{PEIndex}.\\operatorname{tangential} j) = (r_{\\mathrm{C}} ^ 2)⁻¹ \\cdot h_{\\mathrm{C}} i j",
-      "leanType": "theorem gPlusDown_tangential_tangential (C : PENormalMetricComponents Iota) (i j : Iota) : gPlusDown C (PEIndex.tangential i) (PEIndex.tangential j) = (C.r ^ 2)⁻¹ * C.h i j",
+      "mathematicalMeaning": "Unfolds the tangential covariant block of the Poincaré metric.",
+      "mathematicalFormula": "g_{+\\,ij}=r^{-2}h_{ij}",
+      "leanType": "theorem gPlusDown_tangential_tangential (C) (i j) : gPlusDown C (tangential i) (tangential j) = (C.r^2)^(-1) * C.h i j",
       "line": 123
     },
     {
       "leanDeclaration": "gPlusUp_radial_radial",
       "kind": "theorem",
-      "mathematicalMeaning": "For C of type PENormal Metric Components Iota, g Plus Up C PEIndex.radial PEIndex.radial equals C.r to the power 2.",
-      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{PENormalMetricComponents} \\operatorname{Iota},\\quad \\operatorname{gPlusUp} C \\operatorname{PEIndex}.\\operatorname{radial} \\operatorname{PEIndex}.\\operatorname{radial} = r_{\\mathrm{C}} ^ 2",
-      "leanType": "theorem gPlusUp_radial_radial (C : PENormalMetricComponents Iota) : gPlusUp C PEIndex.radial PEIndex.radial = C.r ^ 2",
+      "mathematicalMeaning": "Unfolds the radial–radial contravariant component.",
+      "mathematicalFormula": "g_+^{rr}=r^2",
+      "leanType": "theorem gPlusUp_radial_radial (C : PENormalMetricComponents Iota) : gPlusUp C radial radial = C.r^2",
       "line": 131
     },
     {
       "leanDeclaration": "gPlusUp_tangential_tangential",
       "kind": "theorem",
-      "mathematicalMeaning": "For C of type PENormal Metric Components Iota, and i, j of type Iota, g Plus Up C PEIndex.tangential i PEIndex.tangential j equals C.r to the power 2 times C.h Inv i j.",
-      "mathematicalFormula": "\\forall\\,C\\colon \\operatorname{PENormalMetricComponents} \\operatorname{Iota},\\;i,j\\colon \\operatorname{Iota},\\quad \\operatorname{gPlusUp} C (\\operatorname{PEIndex}.\\operatorname{tangential} i) (\\operatorname{PEIndex}.\\operatorname{tangential} j) = r_{\\mathrm{C}} ^ 2 \\cdot C.\\operatorname{hInv} i j",
-      "leanType": "theorem gPlusUp_tangential_tangential (C : PENormalMetricComponents Iota) (i j : Iota) : gPlusUp C (PEIndex.tangential i) (PEIndex.tangential j) = C.r ^ 2 * C.hInv i j",
+      "mathematicalMeaning": "Unfolds the tangential contravariant block.",
+      "mathematicalFormula": "g_+^{ij}=r^2h^{ij}",
+      "leanType": "theorem gPlusUp_tangential_tangential (C) (i j) : gPlusUp C (tangential i) (tangential j) = C.r^2 * C.hInv i j",
       "line": 135
     },
     {
       "leanDeclaration": "BoundaryLeftInverse",
-      "kind": "def",
-      "mathematicalMeaning": "Left-inverse condition for the boundary metric block. In explicit terms, for c of type penormal metric components iota, its defining expression is for every i j : Iota, ∑ k : Iota, C.h Inv i k times C.h k j equals if i equals j then 1 else 0.",
-      "mathematicalFormula": "\\operatorname{BoundaryLeftInverse}(C)=\\forall i j \\colon \\operatorname{Iota}, (\\sum k \\colon \\operatorname{Iota}, C.\\operatorname{hInv} i k \\cdot h_{\\mathrm{C}} k j) = \\operatorname{if} i = j \\operatorname{then} 1 \\operatorname{else} 0",
-      "leanType": "def BoundaryLeftInverse [Fintype Iota] [DecidableEq Iota] (C : PENormalMetricComponents Iota) : Prop",
+      "kind": "definition",
+      "mathematicalMeaning": "States that the proposed inverse boundary block hⁱʲ is a left inverse of hᵢⱼ.",
+      "mathematicalFormula": "\\operatorname{BoundaryLeftInverse}(C)\\iff\\forall i,j,\\quad \\sum_k h^{ik}h_{kj}=\\delta^i{}_j",
+      "leanType": "def BoundaryLeftInverse (C : PENormalMetricComponents Iota) : Prop := forall i j, sum k, C.hInv i k * C.h k j = if i = j then 1 else 0",
       "line": 143
     },
     {
       "leanDeclaration": "gPlusUp_mul_gPlusDown",
       "kind": "theorem",
-      "mathematicalMeaning": "The displayed contravariant components are a left inverse of the Poincare metric components. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,\\operatorname{Fintype} \\operatorname{Iota},\\;\\operatorname{DecidableEq} \\operatorname{Iota},\\;C\\colon \\operatorname{PENormalMetricComponents} \\operatorname{Iota},\\;hr\\colon r_{\\mathrm{C}} \\ne 0,\\;hbase\\colon \\operatorname{BoundaryLeftInverse} C,\\;I,J\\colon \\operatorname{PEIndex} \\operatorname{Iota},\\quad (\\sum K \\colon \\operatorname{PEIndex} \\operatorname{Iota}, \\operatorname{gPlusUp} C I K \\cdot \\operatorname{gPlusDown} C K J) = \\operatorname{PEIndex}.\\operatorname{kronecker} I J",
-      "leanType": "theorem gPlusUp_mul_gPlusDown [Fintype Iota] [DecidableEq Iota] (C : PENormalMetricComponents Iota) (hr : C.r ≠ 0) (hbase : BoundaryLeftInverse C) (I J : PEIndex Iota) : (∑ K : PEIndex Iota, gPlusUp C I K * gPlusDown C K J) = PEIndex.kronecker I J",
+      "mathematicalMeaning": "Proves that the proposed contravariant matrix is a left inverse of the covariant Poincaré matrix. The proof uses r ≠ 0 to cancel r² with r⁻² and uses BoundaryLeftInverse in the tangential–tangential case.",
+      "mathematicalFormula": "r\\neq0\\ \\land\\ \\sum_kh^{ik}h_{kj}=\\delta^i{}_j\\quad\\Longrightarrow\\quad\\sum_Kg_+^{IK}g_{+\\,KJ}=\\delta^I{}_J",
+      "leanType": "theorem gPlusUp_mul_gPlusDown (C) (hr : C.r != 0) (hbase : BoundaryLeftInverse C) (I J : PEIndex Iota) : sum K, gPlusUp C I K * gPlusDown C K J = kronecker I J",
       "line": 156
     }
   ],
@@ -156,8 +161,8 @@
     {
       "referenceId": "FG-AmbientMetric",
       "locator": "Chapter 4, Poincaré metrics",
-      "note": "Source for Poincaré normal form and its relation to straight ambient metrics."
+      "note": "Background for the radial–tangential component form of a Poincaré metric."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "The component theorem is an algebraic result for finite index sets. It assumes r ≠ 0 and assumes BoundaryLeftInverse; it does not construct hⁱʲ, prove positive-definiteness, or connect these arrays to the abstract MetricSymbol in NormalForm.lean."
 }

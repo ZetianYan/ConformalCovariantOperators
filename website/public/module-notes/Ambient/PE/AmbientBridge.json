@@ -1,75 +1,80 @@
 {
   "file": "Ambient/PE/AmbientBridge.lean",
-  "title": "AmbientBridge",
+  "title": "Ambient–PE bridge",
   "status": "verified-under-interface",
-  "summary": "States the formal cone relationship between straight ambient geometry and the associated Poincaré–Einstein metric.",
+  "summary": "Records the coordinate change ρ = −r²/2, s = rt, the relation hᵣ = g(−r²/2), and the ambient cone decomposition.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "States the formal cone relationship between straight ambient geometry and the associated Poincaré–Einstein metric.",
-      "formula": null
+      "heading": "Coordinate change",
+      "body": "The Fefferman–Graham normal coordinate ρ and the cone scale s are expressed in terms of the PE radius r and ambient homogeneity coordinate t.",
+      "formula": "\\rho=-\\frac{r^2}{2},\\qquad s=rt"
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Ambient/PE/AmbientBridge.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Boundary metric family",
+      "body": "Under a supplied adapter between the FG metric field and PE metric symbols, the PE slice family hᵣ is the FG family gρ evaluated at ρ=−r²/2.",
+      "formula": "h_r=g_{-r^2/2}"
+    },
+    {
+      "heading": "Cone decomposition",
+      "body": "After transporting the ambient metric to the cone coordinates, the intended relation is a Lorentzian radial term plus s² times the Poincaré metric.",
+      "formula": "\\widetilde g=-ds^2+s^2g_+"
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "ambientRhoOfRadial",
-      "kind": "def",
-      "mathematicalMeaning": "The ambient normal coordinate corresponding to a PE radius. In explicit terms, for r in the real numbers, its defining expression is - r to the power 2 divided by 2.",
-      "mathematicalFormula": "\\operatorname{ambientRhoOfRadial}(r)=-(r ^ 2) / 2",
-      "leanType": "def ambientRhoOfRadial (r : Real) : Real",
+      "kind": "definition",
+      "mathematicalMeaning": "Defines the ambient normal coordinate corresponding to a PE radius r.",
+      "mathematicalFormula": "\\rho(r)=-\\frac{r^2}{2}",
+      "leanType": "def ambientRhoOfRadial (r : Real) : Real := -(r^2) / 2",
       "line": 31
     },
     {
       "leanDeclaration": "coneScale",
-      "kind": "def",
-      "mathematicalMeaning": "The cone scale coordinate s = r t. In explicit terms, for r, t in the real numbers, its defining expression is r times t.",
-      "mathematicalFormula": "\\operatorname{coneScale}(r,t)=r \\cdot t",
-      "leanType": "def coneScale (r t : Real) : Real",
+      "kind": "definition",
+      "mathematicalMeaning": "Defines the cone coordinate s as the product of the PE radius r and ambient scale t.",
+      "mathematicalFormula": "s(r,t)=rt",
+      "leanType": "def coneScale (r t : Real) : Real := r * t",
       "line": 35
     },
     {
       "leanDeclaration": "ambientRhoOfRadial_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "ambient Rho Of Radial 0 equals 0.",
-      "mathematicalFormula": "\\operatorname{ambientRhoOfRadial} 0 = 0",
+      "mathematicalMeaning": "The boundary r=0 corresponds to the ambient hypersurface ρ=0.",
+      "mathematicalFormula": "\\rho(0)=0",
       "leanType": "theorem ambientRhoOfRadial_zero : ambientRhoOfRadial 0 = 0",
       "line": 39
     },
     {
       "leanDeclaration": "coneScale_eq_mul",
       "kind": "theorem",
-      "mathematicalMeaning": "For r, t in the real numbers, cone Scale r t equals r times t.",
-      "mathematicalFormula": "\\forall\\,r,t\\colon \\mathbb{R},\\quad \\operatorname{coneScale} r t = r \\cdot t",
+      "mathematicalMeaning": "Unfolds the definition of the cone scale coordinate.",
+      "mathematicalFormula": "\\forall r,t\\in\\mathbb R,\\qquad s(r,t)=rt",
       "leanType": "theorem coneScale_eq_mul (r t : Real) : coneScale r t = r * t",
       "line": 44
     },
     {
       "leanDeclaration": "AmbientPEBridge",
       "kind": "structure",
-      "mathematicalMeaning": "Data identifying an FG normal form with a PE normal form. Its mathematical data are: boundary Equiv: X.boundary ≃ M; boundary Metric Adapter: Conf.Metric Field maps to Metric Symbol X.boundary; h R eq: for every r : Real, NF.h R r equals boundary Metric Adapter A.g Rho ambient Rho Of Radial r; ambient T: Function Symbol X.bulk; ambient Rho: Function Symbol X.bulk; s: Function Symbol X.bulk; rho coordinate eq: for every z : X.bulk, ambient Rho z equals ambient Rho Of Radial NF.r.r z; s coordinate eq: for every z : X.bulk, s z equals cone Scale NF.r.r z ambient T z; ds Squared: Metric Symbol X.bulk; ambient Metric In Cone Coordinates: Metric Symbol X.bulk; cone decomposition: ambient Metric In Cone Coordinates equals Metric Symbol.add Metric Symbol.scale By Scalar -1 ds Squared Metric Symbol.scale By Function the function sending z to s z to the power 2 NF.metric.g Plus.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{boundaryEquiv}&\\colon X.\\operatorname{boundary} ≃ M\\\\\\operatorname{boundaryMetricAdapter}&\\colon \\operatorname{Conf}.\\operatorname{MetricField} \\longrightarrow \\operatorname{MetricSymbol} X.\\operatorname{boundary}\\\\\\operatorname{hR\\_eq}&\\colon \\forall r \\colon \\mathbb{R}, \\operatorname{NF}.\\operatorname{hR} r = \\operatorname{boundaryMetricAdapter} (A.\\operatorname{gRho} (\\operatorname{ambientRhoOfRadial} r))\\\\\\operatorname{ambientT}&\\colon \\operatorname{FunctionSymbol} X.\\operatorname{bulk}\\\\\\operatorname{ambientRho}&\\colon \\operatorname{FunctionSymbol} X.\\operatorname{bulk}\\\\s&\\colon \\operatorname{FunctionSymbol} X.\\operatorname{bulk}\\\\\\operatorname{rho\\_coordinate\\_eq}&\\colon \\forall z \\colon X.\\operatorname{bulk}, \\operatorname{ambientRho} z = \\operatorname{ambientRhoOfRadial} (r_{\\mathrm{r}} z)\\\\\\operatorname{s\\_coordinate\\_eq}&\\colon \\forall z \\colon X.\\operatorname{bulk}, s z = \\operatorname{coneScale} (r_{\\mathrm{r}} z) (\\operatorname{ambientT} z)\\\\\\operatorname{dsSquared}&\\colon \\operatorname{MetricSymbol} X.\\operatorname{bulk}\\\\\\operatorname{ambientMetricInConeCoordinates}&\\colon \\operatorname{MetricSymbol} X.\\operatorname{bulk}\\\\\\operatorname{cone\\_decomposition}&\\colon \\operatorname{ambientMetricInConeCoordinates} = \\operatorname{MetricSymbol}.\\operatorname{add} (\\operatorname{MetricSymbol}.\\operatorname{scaleByScalar} (-1) \\operatorname{dsSquared}) (\\operatorname{MetricSymbol}.\\operatorname{scaleByFunction} (z \\longmapsto (s z) ^ 2) \\operatorname{NF}.\\operatorname{metric}.\\operatorname{gPlus})\\end{aligned}",
-      "leanType": "structure AmbientPEBridge {M : Type u} {Conf : ConformalStructure.{u, v} M} (A : FG.NormalAmbientData Conf) {X : PESpace.{w, x}} (NF : PoincareNormalFormData.{w, x, y} X)",
+      "mathematicalMeaning": "Packages a boundary identification, an adapter for FG metric fields, the equation hᵣ=g(−r²/2), coordinate functions t, ρ, and s satisfying ρ=−r²/2 and s=rt, formal ds² and ambient metric symbols, and the cone-decomposition equation.",
+      "mathematicalFormula": "\\partial\\overline X\\cong M,\\qquad h_r=g_{-r^2/2},\\qquad \\rho=-\\frac{r^2}{2},\\qquad s=rt,\\qquad \\widetilde g=-ds^2+s^2g_+",
+      "leanType": "structure AmbientPEBridge (A : FG.NormalAmbientData Conf) (NF : PoincareNormalFormData X) where boundaryEquiv; boundaryMetricAdapter; hR_eq; ambientT; ambientRho; s; rho_coordinate_eq; s_coordinate_eq; dsSquared; ambientMetricInConeCoordinates; cone_decomposition",
       "line": 49
     },
     {
       "leanDeclaration": "boundary_family_from_ambient",
       "kind": "theorem",
-      "mathematicalMeaning": "The slice relation h_r = g_(-r^2/2). In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,B\\colon \\operatorname{AmbientPEBridge} A \\operatorname{NF},\\;r\\colon \\mathbb{R},\\quad \\operatorname{NF}.\\operatorname{hR} r = B.\\operatorname{boundaryMetricAdapter} (A.\\operatorname{gRho} (\\operatorname{ambientRhoOfRadial} r))",
+      "mathematicalMeaning": "Extracts the stored identification of the PE slice metric hᵣ with the adapted FG metric family at ρ=−r²/2.",
+      "mathematicalFormula": "h_r=g_{\\rho(r)}=g_{-r^2/2}",
       "leanType": "theorem boundary_family_from_ambient (B : AmbientPEBridge A NF) (r : Real) : NF.hR r = B.boundaryMetricAdapter (A.gRho (ambientRhoOfRadial r))",
       "line": 100
     },
     {
       "leanDeclaration": "ambient_metric_cone_decomposition",
       "kind": "theorem",
-      "mathematicalMeaning": "The ambient metric cone decomposition -ds^2 + s^2 gPlus. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,B\\colon \\operatorname{AmbientPEBridge} A \\operatorname{NF},\\quad B.\\operatorname{ambientMetricInConeCoordinates} = \\operatorname{MetricSymbol}.\\operatorname{add} (\\operatorname{MetricSymbol}.\\operatorname{scaleByScalar} (-1) B.\\operatorname{dsSquared}) (\\operatorname{MetricSymbol}.\\operatorname{scaleByFunction} (z \\longmapsto (s_{\\mathrm{B}} z) ^ 2) \\operatorname{NF}.\\operatorname{metric}.\\operatorname{gPlus})",
-      "leanType": "theorem ambient_metric_cone_decomposition (B : AmbientPEBridge A NF) : B.ambientMetricInConeCoordinates = MetricSymbol.add (MetricSymbol.scaleByScalar (-1) B.dsSquared) (MetricSymbol.scaleByFunction (fun z => (B.s z) ^ 2) NF.metric.gPlus)",
+      "mathematicalMeaning": "Extracts the cone-decomposition equality stored in the bridge data.",
+      "mathematicalFormula": "\\widetilde g=-ds^2+s^2g_+",
+      "leanType": "theorem ambient_metric_cone_decomposition (B : AmbientPEBridge A NF) : B.ambientMetricInConeCoordinates = add (scaleByScalar (-1) B.dsSquared) (scaleByFunction (fun z => (B.s z)^2) NF.metric.gPlus)",
       "line": 109
     }
   ],
@@ -84,8 +89,8 @@
     {
       "referenceId": "FG-AmbientMetric",
       "locator": "Chapter 4, Poincaré metrics",
-      "note": "Source for Poincaré normal form and its relation to straight ambient metrics."
+      "note": "Source for the ambient-to-Poincaré coordinate change and cone relation."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "The coordinate formulas are genuine definitions, but hR_eq and cone_decomposition are fields of AmbientPEBridge. The module does not construct the boundary equivalence or derive the transported metric identity from the FG normal form."
 }

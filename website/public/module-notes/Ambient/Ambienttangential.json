@@ -228,14 +228,6 @@
       "mathematicalFormula": "\\operatorname{Tangential}_{k-n/2}(\\widetilde\\Delta^k)\\Longrightarrow \\widetilde\\Delta^k:\\widetilde{\\mathcal E}\\left[k-\\frac n2\\right]\\longrightarrow\\widetilde{\\mathcal E}\\left[-k-\\frac n2\\right].",
       "leanType": "def ambientGJMSCandidate (H : CalConf.AlgebraicIdentities) (k : ℕ) (htangential : CalConf.IsTangentialAtWeight (fun f : Function Conf => CalConf.lapPow k f) (CalConf.criticalWeight k)) : CalConf.WeightedTangentialOperator",
       "line": 328
-    },
-    {
-      "leanDeclaration": "lapPow_isTangentialAtCriticalWeight",
-      "kind": "planned",
-      "mathematicalMeaning": "This name occurs only in the module's Future theorem documentation block. The intended statement is that Δ̃^k is tangential at weight k − n/2, but there is no compiled Lean declaration or proof of it in this file.",
-      "mathematicalFormula": "\\operatorname{Tangential}_{k-n/2}(\\widetilde\\Delta^k)\\qquad\\text{(planned; not proved here)}.",
-      "leanType": "future theorem displayed in a documentation comment, not a compiled Lean declaration",
-      "line": 351
     }
   ],
   "prerequisites": [

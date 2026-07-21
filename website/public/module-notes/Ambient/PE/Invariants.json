@@ -1,18 +1,18 @@
 {
   "file": "Ambient/PE/Invariants.lean",
-  "title": "Invariants",
+  "title": "PE invariants",
   "status": "scaffold",
-  "summary": "Aggregate entry point for the symbolic PE invariant calculus.",
+  "summary": "Aggregate import for the symbolic invariant, ambient-extension, Laplacian-recursion, divergence, and Pfaffian modules.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Aggregate entry point for the symbolic PE invariant calculus.",
-      "formula": null
+      "heading": "What this entry point collects",
+      "body": "This file introduces no Lean declarations. It makes five submodules available together: symbolic Riemannian invariants, straightenable ambient extensions, ambient-Laplacian recursion, natural divergences, and Pfaffian-like invariants.",
+      "formula": "\\mathcal I(g_+)\\longleftrightarrow \\widetilde{\\mathcal I}(\\widetilde g),\\qquad \\widetilde\\Delta^k\\widetilde{\\mathcal I},\\qquad \\operatorname{div}_{g_+}T,\\qquad \\operatorname{Pf}(g_+)"
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Ambient/PE/Invariants.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Reading status",
+      "body": "Because the present file contains imports only, every mathematical definition and theorem must be checked in the named child module. The aggregate node itself proves nothing.",
+      "formula": "\\operatorname{Decl}(\\text{Ambient/PE/Invariants.lean})=\\varnothing"
     }
   ],
   "correspondence": [],
@@ -30,7 +30,7 @@
     {
       "referenceId": "CaseKhaitanLinTyrrellYuan-2024",
       "locator": "Proposition 3.7, Proposition 3.10, Lemma 4.1, and Theorems 1.1/1.4 as applicable",
-      "note": "Primary source for the renormalized-curvature-integral mechanism represented by these modules."
+      "note": "Primary source for the invariant and divergence mechanisms represented by the imported child modules."
     },
     {
       "referenceId": "FG-AmbientMetric",
@@ -38,5 +38,5 @@
       "note": "Background for the ambient/Poincaré correspondence."
     }
   ],
-  "limitations": "This file establishes syntax, aggregate imports, or an abstract bridge. It must not be read as a derivation of the corresponding geometric theorem from concrete tensor and analytic data."
+  "limitations": "This is an import-only aggregate. The formulas summarize the subjects of its child modules and are not declarations or theorems in Invariants.lean itself."
 }

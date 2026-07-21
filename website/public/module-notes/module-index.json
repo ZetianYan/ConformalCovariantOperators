@@ -123,8 +123,7 @@
       "criticalWeight",
       "gjmsOutputWeight",
       "lapPow_has_GJMS_weight",
-      "ambientGJMSCandidate",
-      "lapPow_isTangentialAtCriticalWeight"
+      "ambientGJMSCandidate"
     ],
     "referenceIds": [
       "FG-AmbientMetric"
@@ -366,9 +365,9 @@
   },
   {
     "file": "Ambient/PE/AmbientBridge.lean",
-    "title": "AmbientBridge",
+    "title": "Ambient–PE bridge",
     "status": "verified-under-interface",
-    "summary": "States the formal cone relationship between straight ambient geometry and the associated Poincaré–Einstein metric.",
+    "summary": "Records the coordinate change ρ = −r²/2, s = rt, the relation hᵣ = g(−r²/2), and the ambient cone decomposition.",
     "declarations": [
       "ambientRhoOfRadial",
       "coneScale",
@@ -384,13 +383,12 @@
   },
   {
     "file": "Ambient/PE/Applications.lean",
-    "title": "Applications",
+    "title": "PE applications",
     "status": "scaffold",
-    "summary": "Aggregate entry point for the PE renormalized-curvature-integral theorem and Pfaffian application.",
+    "summary": "Aggregate import for the Case–Khaitan–Lin–Tyrrell–Yuan finite-part identity and its Pfaffian specialization.",
     "declarations": [],
     "referenceIds": [
-      "CaseKhaitanLinTyrrellYuan-2024",
-      "FG-AmbientMetric"
+      "CaseKhaitanLinTyrrellYuan-2024"
     ]
   },
   {
@@ -436,9 +434,9 @@
   },
   {
     "file": "Ambient/PE/Basic.lean",
-    "title": "Basic",
-    "status": "verified-under-interface",
-    "summary": "Defines the formal Poincaré–Einstein space, its bulk and boundary dimensions, compactification data, and Einstein condition.",
+    "title": "PE foundations",
+    "status": "scaffold",
+    "summary": "Introduces the abstract bulk-boundary data and the formal metric-expression language used by the Poincaré–Einstein layer.",
     "declarations": [
       "PESpace",
       "bulkDim_eq_boundaryDim_add_one",
@@ -456,9 +454,9 @@
   },
   {
     "file": "Ambient/PE/DefiningFunction.lean",
-    "title": "DefiningFunction",
-    "status": "verified-under-interface",
-    "summary": "Formalizes boundary defining functions, geodesic defining functions, and their normalization conditions.",
+    "title": "Defining functions",
+    "status": "scaffold",
+    "summary": "Encodes boundary defining functions, the compactification ḡ = r²g₊, and the geodesic normalization through explicit certificate fields.",
     "declarations": [
       "DefiningFunction",
       "compactifiedMetric",
@@ -472,11 +470,10 @@
   },
   {
     "file": "Ambient/PE/EinsteinEquation.lean",
-    "title": "EinsteinEquation",
+    "title": "Einstein equation and parity",
     "status": "verified-under-interface",
-    "summary": "Packages the Einstein equation and parity/expansion certificates used by later PE constructions.",
+    "summary": "Packages the equation Ric(g₊) = −ng₊ together with a formal hᵣ-expansion whose odd coefficients below order n vanish.",
     "declarations": [
-      "can",
       "PEFormalExpansion",
       "HasEvenExpansionToOrder",
       "hasEvenExpansionToBoundaryOrder",
@@ -489,9 +486,9 @@
   },
   {
     "file": "Ambient/PE/Invariants.lean",
-    "title": "Invariants",
+    "title": "PE invariants",
     "status": "scaffold",
-    "summary": "Aggregate entry point for the symbolic PE invariant calculus.",
+    "summary": "Aggregate import for the symbolic invariant, ambient-extension, Laplacian-recursion, divergence, and Pfaffian modules.",
     "declarations": [],
     "referenceIds": [
       "CaseKhaitanLinTyrrellYuan-2024",
@@ -645,9 +642,9 @@
   },
   {
     "file": "Ambient/PE/MetricComponents.lean",
-    "title": "MetricComponents",
+    "title": "Metric components",
     "status": "verified-under-interface",
-    "summary": "Records the metric and inverse-metric block components of a Poincaré normal-form metric.",
+    "summary": "Expands the Poincaré normal form into radial–tangential blocks and proves that the displayed contravariant block is a left inverse when hⁱʲ is a left inverse of hᵢⱼ and r ≠ 0.",
     "declarations": [
       "PEIndex",
       "kronecker",
@@ -672,9 +669,9 @@
   },
   {
     "file": "Ambient/PE/NormalForm.lean",
-    "title": "NormalForm",
+    "title": "Poincaré normal form",
     "status": "verified-under-interface",
-    "summary": "Encodes the Poincaré normal form g_+ = r^{-2}(dr^2 + h_r) at the level of abstract metric data.",
+    "summary": "Packages the family hᵣ and the identity g₊ = r⁻²(dr² + hᵣ), with the collar and boundary identifications supplied as interface data.",
     "declarations": [
       "PoincareNormalFormData",
       "hR_at_zero",
@@ -686,9 +683,9 @@
   },
   {
     "file": "Ambient/PE/Renormalization.lean",
-    "title": "Renormalization",
+    "title": "PE renormalization",
     "status": "scaffold",
-    "summary": "Aggregate entry point for Laurent/log expansions, finite parts, cutoff functionals, volume, and curvature integrals.",
+    "summary": "Aggregate import for Laurent/log expansions, finite parts, cutoff functionals, renormalized volume, curvature integrals, and divergence vanishing.",
     "declarations": [],
     "referenceIds": [
       "CaseKhaitanLinTyrrellYuan-2024",

@@ -1,18 +1,18 @@
 {
   "file": "Ambient/PE/Applications.lean",
-  "title": "Applications",
+  "title": "PE applications",
   "status": "scaffold",
-  "summary": "Aggregate entry point for the PE renormalized-curvature-integral theorem and Pfaffian application.",
+  "summary": "Aggregate import for the Case–Khaitan–Lin–Tyrrell–Yuan finite-part identity and its Pfaffian specialization.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Aggregate entry point for the PE renormalized-curvature-integral theorem and Pfaffian application.",
-      "formula": null
+      "heading": "Application layer",
+      "body": "The two imported modules assemble abstract evaluation, recursion, divergence, and renormalization interfaces into a finite-part curvature-integral statement, then specialize that framework to a Pfaffian-like invariant.",
+      "formula": "\\operatorname{FP}_{\\varepsilon\\to0}\\int_{\\{r>\\varepsilon\\}}\\mathcal I(g_+)\\,dv_{g_+},\\qquad \\mathcal I=\\operatorname{Pf}"
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Ambient/PE/Applications.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "What this file proves",
+      "body": "Applications.lean itself is only an import hub and declares no result. The theorem hypotheses and the exact formal identities are documented in CaseKhaitanLinTyrrellYuan.lean and PfaffianApplication.lean.",
+      "formula": "\\operatorname{Decl}(\\text{Ambient/PE/Applications.lean})=\\varnothing"
     }
   ],
   "correspondence": [],
@@ -26,14 +26,9 @@
   "references": [
     {
       "referenceId": "CaseKhaitanLinTyrrellYuan-2024",
-      "locator": "Proposition 3.7, Proposition 3.10, Lemma 4.1, and Theorems 1.1/1.4 as applicable",
-      "note": "Primary source for the renormalized-curvature-integral mechanism represented by these modules."
-    },
-    {
-      "referenceId": "FG-AmbientMetric",
-      "locator": "Chapter 4",
-      "note": "Background for the ambient/Poincaré correspondence."
+      "locator": "Theorems 1.1 and 1.4",
+      "note": "Source of the two application themes represented by the imported modules."
     }
   ],
-  "limitations": "This file establishes syntax, aggregate imports, or an abstract bridge. It must not be read as a derivation of the corresponding geometric theorem from concrete tensor and analytic data."
+  "limitations": "This is an import-only aggregate. It neither states nor proves the application theorems; readers must inspect the two child modules and their interface assumptions."
 }

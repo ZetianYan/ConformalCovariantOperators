@@ -1,18 +1,18 @@
 {
   "file": "Ambient/PE/Renormalization.lean",
-  "title": "Renormalization",
+  "title": "PE renormalization",
   "status": "scaffold",
-  "summary": "Aggregate entry point for Laurent/log expansions, finite parts, cutoff functionals, volume, and curvature integrals.",
+  "summary": "Aggregate import for Laurent/log expansions, finite parts, cutoff functionals, renormalized volume, curvature integrals, and divergence vanishing.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Aggregate entry point for Laurent/log expansions, finite parts, cutoff functionals, volume, and curvature integrals.",
-      "formula": null
+      "heading": "Renormalized quantities",
+      "body": "The imported modules model a cutoff quantity by a finite Laurent expansion, a logarithmic term, and a constant term. The constant term is the finite part or renormalized value, while the log coefficient records the anomaly.",
+      "formula": "I(\\varepsilon)=\\sum_{j=-N}^{-1}a_j\\varepsilon^j+L\\log\\frac1\\varepsilon+V+o(1),\\qquad \\operatorname{FP}_{\\varepsilon\\to0}I=V"
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Ambient/PE/Renormalization.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "What this file proves",
+      "body": "Renormalization.lean itself contains only six imports and no declarations. The precise interfaces for finite parts, volumes, curvature integrals, and divergence cancellation live in the child modules.",
+      "formula": "\\operatorname{Decl}(\\text{Ambient/PE/Renormalization.lean})=\\varnothing"
     }
   ],
   "correspondence": [],
@@ -31,13 +31,13 @@
     {
       "referenceId": "CaseKhaitanLinTyrrellYuan-2024",
       "locator": "Proposition 3.7, Proposition 3.10, Lemma 4.1, and Theorems 1.1/1.4 as applicable",
-      "note": "Primary source for the renormalized-curvature-integral mechanism represented by these modules."
+      "note": "Primary source for the renormalized-curvature-integral mechanism represented by the imported modules."
     },
     {
       "referenceId": "FG-AmbientMetric",
       "locator": "Chapter 4",
-      "note": "Background for the ambient/Poincaré correspondence."
+      "note": "Background for conformally compact metrics and their asymptotic expansions."
     }
   ],
-  "limitations": "This file establishes syntax, aggregate imports, or an abstract bridge. It must not be read as a derivation of the corresponding geometric theorem from concrete tensor and analytic data."
+  "limitations": "This is an import-only aggregate. The displayed asymptotic formula explains the common mathematical theme but is not a theorem declared in Renormalization.lean."
 }

@@ -29,7 +29,12 @@ for (const file of sources) {
   if (note.file !== file) errors.push(`${file}: file field mismatch`);
   if (!allowedStatuses.has(note.status)) errors.push(`${file}: invalid status ${note.status}`);
   for (const ref of note.references ?? []) if (!referenceIds.has(ref.referenceId)) errors.push(`${file}: unknown reference ${ref.referenceId}`);
-  const sourceDeclarationCount = [...source.matchAll(/^\s*(?:noncomputable\s+)?(?:structure|class|def|abbrev|inductive|theorem|lemma|axiom)\s+([^\s(:{]+)/gm)].length;
+  // Ignore Lean comments before counting declarations. Without this, prose such
+  // as "a later theorem can ..." inside a module doc comment is misclassified.
+  const sourceWithoutComments = source
+    .replace(/\/-[\s\S]*?-\//g, (comment) => comment.replace(/[^\r\n]/g, " "))
+    .replace(/--.*$/gm, "");
+  const sourceDeclarationCount = [...sourceWithoutComments.matchAll(/^\s*(?:noncomputable\s+)?(?:structure|class|def|abbrev|inductive|theorem|lemma|axiom)\s+([^\s(:{]+)/gm)].length;
   if ((note.correspondence ?? []).length !== sourceDeclarationCount) errors.push(`${file}: translated ${(note.correspondence ?? []).length} of ${sourceDeclarationCount} top-level declarations`);
   for (const item of note.correspondence ?? []) {
     translationCount++;
