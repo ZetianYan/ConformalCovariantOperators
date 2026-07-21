@@ -1,162 +1,167 @@
 {
   "file": "GJMSoperators/Tangentiality.lean",
-  "title": "Tangentiality",
+  "title": "Critical-weight tangentiality",
   "status": "verified-under-interface",
-  "summary": "Proves that the kth ambient Laplacian power is tangential at weight k - n/2 and packages the resulting canonical GJMS family.",
+  "summary": "Proves algebraically that Δ̃ᵏ preserves boundary values at weight k − n/2, then assembles the canonical abstract GJMS operator family.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Proves that the kth ambient Laplacian power is tangential at weight k - n/2 and packages the resulting canonical GJMS family.",
-      "formula": "f_1-f_2=Qh\\;\\Longrightarrow\\;i^*(\\widetilde\\Delta^k f_1)=i^*(\\widetilde\\Delta^k f_2)"
+      "heading": "Boundary values modulo Q",
+      "body": "Two homogeneous ambient extensions represent the same boundary density when their difference is Qh. Because Q has homogeneity two, h has weight k−n/2−2 when f and g have the critical input weight.",
+      "formula": "f-g=Qh,\\qquad Xf=Xg=\\left(k-\\frac n2\\right)(f,g),\\qquad Xh=\\left(k-\\frac n2-2\\right)h."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows GJMSoperators/Tangentiality.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Critical coefficient cancellation",
+      "body": "The iterated commutator formula expresses Δ̃ᵏ(Qh) as QΔ̃ᵏh plus a multiple of Δ̃ᵏ⁻¹h. At the critical error weight the scalar coefficient is zero, leaving a Q-multiple.",
+      "formula": "\\widetilde\\Delta^k(Qh)=Q\\widetilde\\Delta^kh+2k\\!\\left(2\\left(k-\\frac n2-2\\right)+n+2-2(k-1)\\right)\\widetilde\\Delta^{k-1}h=Q\\widetilde\\Delta^kh."
+    },
+    {
+      "heading": "Descent to conformal densities",
+      "body": "Linearity then gives Δ̃ᵏf−Δ̃ᵏg = Δ̃ᵏ(Qh), which vanishes modulo Q. Thus Δ̃ᵏ is tangential at the critical weight and defines the canonical abstract operator of order 2k.",
+      "formula": "P_{2k}[f]:=\\left.\\widetilde\\Delta^k\\widetilde f\\right|_{Q=0},\\qquad P_{2k}:\\mathcal E\\!\\left[k-\\frac n2\\right]\\to\\mathcal E\\!\\left[-k-\\frac n2\\right]."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "vanishesModQ_Qmul_local",
       "kind": "theorem",
-      "mathematicalMeaning": "Every Q-multiple vanishes modulo Q. This duplicate local lemma keeps this file independent of theorem names in Tangential.lean. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,h\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{CalConf}.\\operatorname{VanishesModQ} (\\operatorname{CalConf}.\\operatorname{Qmul} h)",
+      "mathematicalMeaning": "Constructs the basic witness that every function of the form Qh is zero modulo Q.",
+      "mathematicalFormula": "Qh\\equiv0\\pmod Q.",
       "leanType": "theorem vanishesModQ_Qmul_local (h : Function Conf) : CalConf.VanishesModQ (CalConf.Qmul h)",
       "line": 54
     },
     {
       "leanDeclaration": "sameBoundaryValue_of_difference_vanishes",
       "kind": "theorem",
-      "mathematicalMeaning": "A local way to construct equality modulo Q. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,f,g\\colon \\operatorname{Function} \\operatorname{Conf},\\;h\\colon \\operatorname{CalConf}.\\operatorname{VanishesModQ} (U \\longmapsto f U - g U),\\quad \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} f g",
+      "mathematicalMeaning": "Converts vanishing of f−g modulo Q into equality of the boundary values represented by f and g.",
+      "mathematicalFormula": "f-g\\equiv0\\pmod Q\\quad\\Longrightarrow\\quad f|_{Q=0}=g|_{Q=0}.",
       "leanType": "theorem sameBoundaryValue_of_difference_vanishes {f g : Function Conf} (h : CalConf.VanishesModQ (fun U => f U - g U)) : CalConf.SameBoundaryValue f g",
       "line": 63
     },
     {
       "leanDeclaration": "lapPow_Qmul_vanishes_at_criticalWeight",
       "kind": "theorem",
-      "mathematicalMeaning": "The key vanishing statement: If h has the critical error weight k - n / 2 - 2, then Δ̃^k(Qh) vanishes modulo Q. This is the precise algebraic reason why Δ̃^k descends to the boundary. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\;h\\colon \\operatorname{Function} \\operatorname{Conf},\\;hh\\colon \\operatorname{CalConf}.\\operatorname{IsXHomogeneous} (w_{\\mathrm{in}} \\operatorname{CalConf} k - 2) h,\\quad \\operatorname{CalConf}.\\operatorname{VanishesModQ} (\\operatorname{CalConf}.\\operatorname{lapPow} k (\\operatorname{CalConf}.\\operatorname{Qmul} h))",
+      "mathematicalMeaning": "This is the key cancellation lemma. If h has weight k−n/2−2, the non-Q term in the iterated Laplacian–Q commutator has coefficient zero, so Δ̃ᵏ(Qh) is itself a Q-multiple.",
+      "mathematicalFormula": "Xh=\\left(k-\\frac n2-2\\right)h\\quad\\Longrightarrow\\quad\\widetilde\\Delta^k(Qh)=Q\\widetilde\\Delta^kh\\equiv0\\pmod Q.",
       "leanType": "theorem lapPow_Qmul_vanishes_at_criticalWeight (H : CalConf.AlgebraicIdentities) (k : ℕ) {h : Function Conf} (hh : CalConf.IsXHomogeneous (calculusInputWeight CalConf k - 2) h) : CalConf.VanishesModQ (CalConf.lapPow k (CalConf.Qmul h))",
       "line": 86
     },
     {
       "leanDeclaration": "lapPow_preserves_sameBoundaryValue_at_criticalWeight",
       "kind": "theorem",
-      "mathematicalMeaning": "If two homogeneous functions of the GJMS input weight differ by a Q-multiple, then applying Δ̃^k preserves equality modulo Q. This is the direct mod Q form of tangentiality. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\;f,g\\colon \\operatorname{Function} \\operatorname{Conf},\\;_hf\\colon \\operatorname{CalConf}.\\operatorname{IsXHomogeneous} (w_{\\mathrm{in}} \\operatorname{CalConf} k) f,\\;_hg\\colon \\operatorname{CalConf}.\\operatorname{IsXHomogeneous} (w_{\\mathrm{in}} \\operatorname{CalConf} k) g,\\;hfg\\colon \\operatorname{CalConf}.\\operatorname{SameBoundaryValueAtWeight} (w_{\\mathrm{in}} \\operatorname{CalConf} k) f g,\\quad \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} (\\operatorname{CalConf}.\\operatorname{lapPow} k f) (\\operatorname{CalConf}.\\operatorname{lapPow} k g)",
+      "mathematicalMeaning": "For homogeneous f and g of critical weight with f−g=Qh and h of the required error weight, linearity and the key lemma show that their kth Laplacian powers still differ by a Q-multiple.",
+      "mathematicalFormula": "f-g=Qh\\quad\\Longrightarrow\\quad\\widetilde\\Delta^kf-\\widetilde\\Delta^kg=\\widetilde\\Delta^k(Qh)\\equiv0\\pmod Q.",
       "leanType": "theorem lapPow_preserves_sameBoundaryValue_at_criticalWeight (H : CalConf.AlgebraicIdentities) (k : ℕ) {f g : Function Conf} (_hf : CalConf.IsXHomogeneous (calculusInputWeight CalConf k) f) (_hg : CalConf.IsXHomogeneous (calculusInputWeight CalConf k) g) (hfg : CalConf.SameBoundaryValueAtWeight (calculusInputWeight CalConf k) f g) : CalConf.SameBoundaryValue (CalConf.lapPow k f) (CalConf.lapPow k g)",
       "line": 146
     },
     {
       "leanDeclaration": "lapPow_isTangentialAtCriticalWeight",
       "kind": "theorem",
-      "mathematicalMeaning": "Main theorem: Δ̃^k is tangential at the GJMS critical input weight. In other words, Δ̃^k : E[k - n / 2] → E[-k - n / 2] is well-defined on boundary densities, provided the extra tangentiality identities are available. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\quad \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeight} (\\operatorname{ambientLaplacianPowerOperator} \\operatorname{CalConf} k) (w_{\\mathrm{in}} \\operatorname{CalConf} k)",
+      "mathematicalMeaning": "Main theorem: under AlgebraicIdentities, the kth ambient Laplacian power is tangential at weight k−n/2. Hence its boundary value is independent of the chosen homogeneous extension.",
+      "mathematicalFormula": "\\operatorname{Tangential}_{k-n/2}\\!\\left(\\widetilde\\Delta^k\\right).",
       "leanType": "theorem lapPow_isTangentialAtCriticalWeight (H : CalConf.AlgebraicIdentities) (k : ℕ) : CalConf.IsTangentialAtWeight (ambientLaplacianPowerOperator CalConf k) (calculusInputWeight CalConf k)",
       "line": 213
     },
     {
       "leanDeclaration": "canonicalAmbientGJMS",
       "kind": "def",
-      "mathematicalMeaning": "The canonical ambient GJMS operator obtained from Δ̃^k, once the tangentiality identities are available. In explicit terms, for h of type cal conf.algebraic identities, and k in the natural numbers, its defining expression is ambient Laplacian Power Abstract Operator Cal Conf H k lap Pow is Tangential At Critical Weight Cal Conf H k.",
-      "mathematicalFormula": "\\operatorname{canonicalAmbientGJMS}(H,k)=\\operatorname{ambientLaplacianPowerAbstractOperator} \\operatorname{CalConf} H k (\\operatorname{lapPow\\_isTangentialAtCriticalWeight} \\operatorname{CalConf} H k)",
+      "mathematicalMeaning": "Uses the proved tangentiality theorem, together with the weight theorem from Ambientconstruction, to define the canonical abstract GJMS operator associated with Δ̃ᵏ.",
+      "mathematicalFormula": "P_{2k}^{\\mathrm{amb}}:=\\left[\\widetilde\\Delta^k\\right]_{Q=0}.",
       "leanType": "def canonicalAmbientGJMS (H : CalConf.AlgebraicIdentities) (k : ℕ) : AbstractOperator CalConf",
       "line": 231
     },
     {
       "leanDeclaration": "canonicalAmbientGJMS_k",
       "kind": "theorem",
-      "mathematicalMeaning": "For H of type Cal Conf.Algebraic Identities, and k in the natural numbers, canonical Ambient GJMS Cal Conf H k.k equals k.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\quad (\\operatorname{canonicalAmbientGJMS} \\operatorname{CalConf} H k).k = k",
+      "mathematicalMeaning": "The canonical operator constructed from the kth ambient power stores index k.",
+      "mathematicalFormula": "(P_{2k}^{\\mathrm{amb}}).k=k.",
       "leanType": "theorem canonicalAmbientGJMS_k (H : CalConf.AlgebraicIdentities) (k : ℕ) : (canonicalAmbientGJMS CalConf H k).k = k",
       "line": 239
     },
     {
       "leanDeclaration": "canonicalAmbientGJMS_order",
       "kind": "theorem",
-      "mathematicalMeaning": "For H of type Cal Conf.Algebraic Identities, and k in the natural numbers, canonical Ambient GJMS Cal Conf H k.order equals 2 times k.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\quad (\\operatorname{canonicalAmbientGJMS} \\operatorname{CalConf} H k).\\operatorname{order} = 2 \\cdot k",
+      "mathematicalMeaning": "The canonical kth operator has expected differential order 2k.",
+      "mathematicalFormula": "\\operatorname{ord}(P_{2k}^{\\mathrm{amb}})=2k.",
       "leanType": "theorem canonicalAmbientGJMS_order (H : CalConf.AlgebraicIdentities) (k : ℕ) : (canonicalAmbientGJMS CalConf H k).order = 2 * k",
       "line": 247
     },
     {
       "leanDeclaration": "canonicalAmbientGJMS_toOperator",
       "kind": "theorem",
-      "mathematicalMeaning": "For H of type Cal Conf.Algebraic Identities, and k in the natural numbers, canonical Ambient GJMS Cal Conf H k.to Operator equals ambient Laplacian Power Operator Cal Conf k.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\quad (\\operatorname{canonicalAmbientGJMS} \\operatorname{CalConf} H k).\\operatorname{toOperator} = \\operatorname{ambientLaplacianPowerOperator} \\operatorname{CalConf} k",
+      "mathematicalMeaning": "Forgetting its weight and tangentiality data returns the ambient operator Δ̃ᵏ.",
+      "mathematicalFormula": "\\operatorname{toOperator}(P_{2k}^{\\mathrm{amb}})=\\widetilde\\Delta^k.",
       "leanType": "theorem canonicalAmbientGJMS_toOperator (H : CalConf.AlgebraicIdentities) (k : ℕ) : (canonicalAmbientGJMS CalConf H k).toOperator = ambientLaplacianPowerOperator CalConf k",
       "line": 255
     },
     {
       "leanDeclaration": "canonicalAmbientGJMS_toOperator_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "Applying the canonical ambient GJMS operator is the same as applying lapPow k. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\;f\\colon \\operatorname{Function} \\operatorname{Conf},\\quad (\\operatorname{canonicalAmbientGJMS} \\operatorname{CalConf} H k).\\operatorname{toOperator} f = \\operatorname{CalConf}.\\operatorname{lapPow} k f",
+      "mathematicalMeaning": "Applying the underlying ambient operator of the canonical package to f is exactly lapPow k f.",
+      "mathematicalFormula": "\\operatorname{toOperator}(P_{2k}^{\\mathrm{amb}})f=\\widetilde\\Delta^k f.",
       "leanType": "theorem canonicalAmbientGJMS_toOperator_apply (H : CalConf.AlgebraicIdentities) (k : ℕ) (f : Function Conf) : (canonicalAmbientGJMS CalConf H k).toOperator f = CalConf.lapPow k f",
       "line": 268
     },
     {
       "leanDeclaration": "canonicalAmbientGJMS_mapsWeight",
       "kind": "theorem",
-      "mathematicalMeaning": "The canonical ambient GJMS operator maps the GJMS input weight to the GJMS output weight. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\quad \\operatorname{CalConf}.\\operatorname{MapsHomogeneousWeight} (\\operatorname{canonicalAmbientGJMS} \\operatorname{CalConf} H k).\\operatorname{toOperator} (w_{\\mathrm{in}} \\operatorname{CalConf} k) (w_{\\mathrm{out}} \\operatorname{CalConf} k)",
+      "mathematicalMeaning": "The canonical operator carries the critical input homogeneity to the GJMS output homogeneity.",
+      "mathematicalFormula": "\\widetilde\\Delta^k:\\widetilde{\\mathcal E}\\!\\left[k-\\frac n2\\right]\\longrightarrow\\widetilde{\\mathcal E}\\!\\left[-k-\\frac n2\\right].",
       "leanType": "theorem canonicalAmbientGJMS_mapsWeight (H : CalConf.AlgebraicIdentities) (k : ℕ) : CalConf.MapsHomogeneousWeight (canonicalAmbientGJMS CalConf H k).toOperator (calculusInputWeight CalConf k) (calculusOutputWeight CalConf k)",
       "line": 281
     },
     {
       "leanDeclaration": "canonicalAmbientGJMS_tangential",
       "kind": "theorem",
-      "mathematicalMeaning": "The canonical ambient GJMS operator is tangential at the GJMS input weight. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\quad \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeight} (\\operatorname{canonicalAmbientGJMS} \\operatorname{CalConf} H k).\\operatorname{toOperator} (w_{\\mathrm{in}} \\operatorname{CalConf} k)",
+      "mathematicalMeaning": "Restates for the canonical package the proved independence of homogeneous extension.",
+      "mathematicalFormula": "f\\equiv g\\pmod Q\\quad\\Longrightarrow\\quad\\widetilde\\Delta^kf\\equiv\\widetilde\\Delta^kg\\pmod Q.",
       "leanType": "theorem canonicalAmbientGJMS_tangential (H : CalConf.AlgebraicIdentities) (k : ℕ) : CalConf.IsTangentialAtWeight (canonicalAmbientGJMS CalConf H k).toOperator (calculusInputWeight CalConf k)",
       "line": 296
     },
     {
       "leanDeclaration": "canonicalAmbientGJMSFamily",
       "kind": "def",
-      "mathematicalMeaning": "The whole canonical GJMS family obtained from all powers of the ambient Laplacian. In explicit terms, for h of type cal conf.algebraic identities, its defining expression is operator : equals the function sending k to canonical Ambient GJMS Cal Conf H k operator k : equals by intro k rfl.",
-      "mathematicalFormula": "\\operatorname{canonicalAmbientGJMSFamily}(H)=\\operatorname{operator} = k \\longmapsto \\operatorname{canonicalAmbientGJMS} \\operatorname{CalConf} H k \\operatorname{operator\\_k} = \\operatorname{by} \\operatorname{intro} k \\operatorname{rfl}",
+      "mathematicalMeaning": "Packages all canonical ambient operators, one for every k, into a Family.",
+      "mathematicalFormula": "\\mathcal P^{\\mathrm{amb}}=\\left(P_{2k}^{\\mathrm{amb}}\\right)_{k\\geq0}.",
       "leanType": "def canonicalAmbientGJMSFamily (H : CalConf.AlgebraicIdentities) : Family CalConf",
       "line": 314
     },
     {
       "leanDeclaration": "canonicalAmbientGJMSFamily_get",
       "kind": "theorem",
-      "mathematicalMeaning": "For H of type Cal Conf.Algebraic Identities, and k in the natural numbers, canonical Ambient GJMSFamily Cal Conf H.get k equals canonical Ambient GJMS Cal Conf H k.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\quad (\\operatorname{canonicalAmbientGJMSFamily} \\operatorname{CalConf} H).\\operatorname{get} k = \\operatorname{canonicalAmbientGJMS} \\operatorname{CalConf} H k",
+      "mathematicalMeaning": "Selecting index k from the canonical family returns the canonical operator constructed from Δ̃ᵏ.",
+      "mathematicalFormula": "\\operatorname{get}(\\mathcal P^{\\mathrm{amb}},k)=P_{2k}^{\\mathrm{amb}}.",
       "leanType": "theorem canonicalAmbientGJMSFamily_get (H : CalConf.AlgebraicIdentities) (k : ℕ) : (canonicalAmbientGJMSFamily CalConf H).get k = canonicalAmbientGJMS CalConf H k",
       "line": 323
     },
     {
       "leanDeclaration": "canonicalAmbientGJMSFamily_get_order",
       "kind": "theorem",
-      "mathematicalMeaning": "For H of type Cal Conf.Algebraic Identities, and k in the natural numbers, canonical Ambient GJMSFamily Cal Conf H.get k.order equals 2 times k.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;k\\colon \\mathbb{N},\\quad ((\\operatorname{canonicalAmbientGJMSFamily} \\operatorname{CalConf} H).\\operatorname{get} k).\\operatorname{order} = 2 \\cdot k",
+      "mathematicalMeaning": "The kth member of the canonical family has order 2k.",
+      "mathematicalFormula": "\\operatorname{ord}(\\operatorname{get}(\\mathcal P^{\\mathrm{amb}},k))=2k.",
       "leanType": "theorem canonicalAmbientGJMSFamily_get_order (H : CalConf.AlgebraicIdentities) (k : ℕ) : ((canonicalAmbientGJMSFamily CalConf H).get k).order = 2 * k",
       "line": 331
     },
     {
       "leanDeclaration": "canonicalAmbientGJMS_zero_toOperator_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "The zeroth canonical ambient GJMS operator is represented by the identity. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;f\\colon \\operatorname{Function} \\operatorname{Conf},\\quad (\\operatorname{canonicalAmbientGJMS} \\operatorname{CalConf} H 0).\\operatorname{toOperator} f = f",
+      "mathematicalMeaning": "At k=0 the canonical ambient operator is the identity.",
+      "mathematicalFormula": "P_0^{\\mathrm{amb}}f=f.",
       "leanType": "theorem canonicalAmbientGJMS_zero_toOperator_apply (H : CalConf.AlgebraicIdentities) (f : Function Conf) : (canonicalAmbientGJMS CalConf H 0).toOperator f = f",
       "line": 343
     },
     {
       "leanDeclaration": "canonicalAmbientGJMS_one_toOperator_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "The first nontrivial canonical ambient GJMS operator is represented by the ambient Laplacian. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;f\\colon \\operatorname{Function} \\operatorname{Conf},\\quad (\\operatorname{canonicalAmbientGJMS} \\operatorname{CalConf} H 1).\\operatorname{toOperator} f = \\operatorname{CalConf}.\\operatorname{lap} f",
+      "mathematicalMeaning": "At k=1 the underlying canonical ambient operator is one application of the ambient Laplacian.",
+      "mathematicalFormula": "P_2^{\\mathrm{amb}}f=\\widetilde\\Delta f.",
       "leanType": "theorem canonicalAmbientGJMS_one_toOperator_apply (H : CalConf.AlgebraicIdentities) (f : Function Conf) : (canonicalAmbientGJMS CalConf H 1).toOperator f = CalConf.lap f",
       "line": 353
     },
     {
       "leanDeclaration": "canonicalAmbientGJMS_two_toOperator_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "The second nontrivial canonical ambient GJMS operator is represented by lapPow 2. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;f\\colon \\operatorname{Function} \\operatorname{Conf},\\quad (\\operatorname{canonicalAmbientGJMS} \\operatorname{CalConf} H 2).\\operatorname{toOperator} f = \\operatorname{CalConf}.\\operatorname{lapPow} 2 f",
+      "mathematicalMeaning": "At k=2 the underlying canonical ambient operator is the second ambient Laplacian power.",
+      "mathematicalFormula": "P_4^{\\mathrm{amb}}f=\\widetilde\\Delta^2 f.",
       "leanType": "theorem canonicalAmbientGJMS_two_toOperator_apply (H : CalConf.AlgebraicIdentities) (f : Function Conf) : (canonicalAmbientGJMS CalConf H 2).toOperator f = CalConf.lapPow 2 f",
       "line": 364
     }
@@ -179,5 +184,5 @@
       "note": "Ambient-metric background for the formal construction."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "The tangentiality proof is Lean-verified relative to the abstract Calculus.AlgebraicIdentities laws, including linearity and the iterated Laplacian–Q commutator. The file does not construct those laws from a concrete Fefferman–Graham ambient metric, address even-dimensional existence restrictions for arbitrary k, or derive the usual lower-order curvature formulas for GJMS operators."
 }

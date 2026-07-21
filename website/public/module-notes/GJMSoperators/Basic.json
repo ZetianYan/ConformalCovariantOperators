@@ -1,346 +1,351 @@
 {
   "file": "GJMSoperators/Basic.lean",
-  "title": "Basic",
+  "title": "GJMS weights and abstract operators",
   "status": "verified-under-interface",
-  "summary": "Defines the critical input/output density weights, abstract GJMS operators, and operator families of order 2k.",
+  "summary": "Defines the critical weights wₖ = k − n/2 and wₖ′ = −k − n/2, then packages weighted tangential operators and their low-order family notation.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Defines the critical input/output density weights, abstract GJMS operators, and operator families of order 2k.",
-      "formula": "P_{2k}:\\mathcal E[k-n/2]\\longrightarrow\\mathcal E[-k-n/2]"
+      "heading": "Critical GJMS weights",
+      "body": "For the operator of order 2k on an n-dimensional conformal manifold, the ambient extension has input homogeneity k−n/2. Applying the ambient Laplacian k times lowers homogeneity by 2k, producing output weight −k−n/2.",
+      "formula": "w_k=k-\\frac n2,\\qquad w'_k=-k-\\frac n2=w_k-2k."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows GJMSoperators/Basic.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Abstract operator interface",
+      "body": "An AbstractOperator does not construct the GJMS operator. It stores a weighted ambient operator already known to preserve the required homogeneities and to be tangential at wₖ.",
+      "formula": "P_{2k}:\\mathcal E\\!\\left[k-\\frac n2\\right]\\longrightarrow\\mathcal E\\!\\left[-k-\\frac n2\\right],\\qquad \\operatorname{ord}(P_{2k})=2k."
+    },
+    {
+      "heading": "Families and low orders",
+      "body": "A Family chooses one such abstract operator for every k and certifies that the stored index is k. The names P0, P2, and P4 select k=0,1,2; they do not identify these operators with explicit curvature formulas.",
+      "formula": "P_0=P_{2\\cdot0},\\qquad P_2=P_{2\\cdot1},\\qquad P_4=P_{2\\cdot2}."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "inputWeight",
       "kind": "def",
-      "mathematicalMeaning": "The critical input weight for the k-th GJMS construction. Mathematically, this is k - n / 2. In explicit terms, for n in the real numbers, and k in the natural numbers, its defining expression is k minus n divided by 2.",
-      "mathematicalFormula": "w_{\\mathrm{in}}(n,k)=k - n / 2",
+      "mathematicalMeaning": "Defines the critical input homogeneity for the kth ambient construction on an n-dimensional conformal manifold.",
+      "mathematicalFormula": "w_k:=k-\\frac n2.",
       "leanType": "def inputWeight (n : ℝ) (k : ℕ) : ℝ",
       "line": 49
     },
     {
       "leanDeclaration": "outputWeight",
       "kind": "def",
-      "mathematicalMeaning": "The output weight of the k-th GJMS construction. Mathematically, this is -k - n / 2. In explicit terms, for n in the real numbers, and k in the natural numbers, its defining expression is - k minus n divided by 2.",
-      "mathematicalFormula": "w_{\\mathrm{out}}(n,k)=- k - n / 2",
+      "mathematicalMeaning": "Defines the homogeneity after k applications of the ambient Laplacian.",
+      "mathematicalFormula": "w'_k:=-k-\\frac n2.",
       "leanType": "def outputWeight (n : ℝ) (k : ℕ) : ℝ",
       "line": 59
     },
     {
       "leanDeclaration": "outputWeight_eq_inputWeight_sub_two_mul",
       "kind": "theorem",
-      "mathematicalMeaning": "The output weight equals the input weight minus 2k. This encodes the fact that Δ̃^k lowers homogeneity by 2k. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,n\\colon \\mathbb{R},\\;k\\colon \\mathbb{N},\\quad w_{\\mathrm{out}} n k = w_{\\mathrm{in}} n k - 2 \\cdot k",
+      "mathematicalMeaning": "Proves the expected weight drop: each ambient Laplacian lowers homogeneity by two, so k applications lower it by 2k.",
+      "mathematicalFormula": "w'_k=w_k-2k.",
       "leanType": "theorem outputWeight_eq_inputWeight_sub_two_mul (n : ℝ) (k : ℕ) : outputWeight n k = inputWeight n k - 2 * (k : ℝ)",
       "line": 67
     },
     {
       "leanDeclaration": "inputWeight_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "For n in the real numbers, input weight n 0 equals minus n divided by 2.",
-      "mathematicalFormula": "\\forall\\,n\\colon \\mathbb{R},\\quad w_{\\mathrm{in}} n 0 = - n / 2",
+      "mathematicalMeaning": "Evaluates the critical input weight at k=0.",
+      "mathematicalFormula": "w_0=-\\frac n2.",
       "leanType": "theorem inputWeight_zero (n : ℝ) : inputWeight n 0 = - n / 2",
       "line": 74
     },
     {
       "leanDeclaration": "outputWeight_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "For n in the real numbers, output weight n 0 equals minus n divided by 2.",
-      "mathematicalFormula": "\\forall\\,n\\colon \\mathbb{R},\\quad w_{\\mathrm{out}} n 0 = - n / 2",
+      "mathematicalMeaning": "Evaluates the output weight at k=0; it agrees with the input weight because no Laplacian is applied.",
+      "mathematicalFormula": "w'_0=-\\frac n2.",
       "leanType": "theorem outputWeight_zero (n : ℝ) : outputWeight n 0 = - n / 2",
       "line": 80
     },
     {
       "leanDeclaration": "inputWeight_one",
       "kind": "theorem",
-      "mathematicalMeaning": "For n in the real numbers, input weight n 1 equals 1 minus n divided by 2.",
-      "mathematicalFormula": "\\forall\\,n\\colon \\mathbb{R},\\quad w_{\\mathrm{in}} n 1 = 1 - n / 2",
+      "mathematicalMeaning": "Evaluates the critical input weight for the second-order operator.",
+      "mathematicalFormula": "w_1=1-\\frac n2.",
       "leanType": "theorem inputWeight_one (n : ℝ) : inputWeight n 1 = 1 - n / 2",
       "line": 86
     },
     {
       "leanDeclaration": "outputWeight_one",
       "kind": "theorem",
-      "mathematicalMeaning": "For n in the real numbers, output weight n 1 equals -1 minus n divided by 2.",
-      "mathematicalFormula": "\\forall\\,n\\colon \\mathbb{R},\\quad w_{\\mathrm{out}} n 1 = -1 - n / 2",
+      "mathematicalMeaning": "Evaluates the output weight for the second-order operator.",
+      "mathematicalFormula": "w'_1=-1-\\frac n2.",
       "leanType": "theorem outputWeight_one (n : ℝ) : outputWeight n 1 = -1 - n / 2",
       "line": 92
     },
     {
       "leanDeclaration": "inputWeight_two",
       "kind": "theorem",
-      "mathematicalMeaning": "For n in the real numbers, input weight n 2 equals 2 minus n divided by 2.",
-      "mathematicalFormula": "\\forall\\,n\\colon \\mathbb{R},\\quad w_{\\mathrm{in}} n 2 = 2 - n / 2",
+      "mathematicalMeaning": "Evaluates the critical input weight for the fourth-order operator.",
+      "mathematicalFormula": "w_2=2-\\frac n2.",
       "leanType": "theorem inputWeight_two (n : ℝ) : inputWeight n 2 = 2 - n / 2",
       "line": 98
     },
     {
       "leanDeclaration": "outputWeight_two",
       "kind": "theorem",
-      "mathematicalMeaning": "For n in the real numbers, output weight n 2 equals -2 minus n divided by 2.",
-      "mathematicalFormula": "\\forall\\,n\\colon \\mathbb{R},\\quad w_{\\mathrm{out}} n 2 = -2 - n / 2",
+      "mathematicalMeaning": "Evaluates the output weight for the fourth-order operator.",
+      "mathematicalFormula": "w'_2=-2-\\frac n2.",
       "leanType": "theorem outputWeight_two (n : ℝ) : outputWeight n 2 = -2 - n / 2",
       "line": 104
     },
     {
       "leanDeclaration": "calculusInputWeight",
       "kind": "def",
-      "mathematicalMeaning": "The critical input weight for the k-th GJMS operator associated to a fixed ambient calculus. In explicit terms, for k in the natural numbers, its defining expression is input weight the dimension n of the ambient calculus k.",
-      "mathematicalFormula": "w_{\\mathrm{in}}(k)=w_{\\mathrm{in}} n_{\\mathrm{CalConf}} k",
+      "mathematicalMeaning": "Specializes the general input-weight formula to the dimension n stored in the fixed ambient calculus.",
+      "mathematicalFormula": "w_k(\\mathrm{Cal})=k-\\frac{n_{\\mathrm{Cal}}}{2}.",
       "leanType": "def calculusInputWeight (k : ℕ) : ℝ",
       "line": 116
     },
     {
       "leanDeclaration": "calculusOutputWeight",
       "kind": "def",
-      "mathematicalMeaning": "The output weight for the k-th GJMS operator associated to a fixed ambient calculus. In explicit terms, for k in the natural numbers, its defining expression is output weight the dimension n of the ambient calculus k.",
-      "mathematicalFormula": "w_{\\mathrm{out}}(k)=w_{\\mathrm{out}} n_{\\mathrm{CalConf}} k",
+      "mathematicalMeaning": "Specializes the general output-weight formula to the dimension stored in the fixed ambient calculus.",
+      "mathematicalFormula": "w'_k(\\mathrm{Cal})=-k-\\frac{n_{\\mathrm{Cal}}}{2}.",
       "leanType": "def calculusOutputWeight (k : ℕ) : ℝ",
       "line": 123
     },
     {
       "leanDeclaration": "calculusOutputWeight_eq_calculusInputWeight_sub_two_mul",
       "kind": "theorem",
-      "mathematicalMeaning": "For k in the natural numbers, calculus Output Weight Cal Conf k equals calculus Input Weight Cal Conf k minus 2 times k.",
-      "mathematicalFormula": "\\forall\\,k\\colon \\mathbb{N},\\quad w_{\\mathrm{out}} \\operatorname{CalConf} k = w_{\\mathrm{in}} \\operatorname{CalConf} k - 2 \\cdot k",
+      "mathematicalMeaning": "Restates the 2k weight drop for the fixed ambient calculus.",
+      "mathematicalFormula": "w'_k(\\mathrm{Cal})=w_k(\\mathrm{Cal})-2k.",
       "leanType": "theorem calculusOutputWeight_eq_calculusInputWeight_sub_two_mul (k : ℕ) : calculusOutputWeight CalConf k = calculusInputWeight CalConf k - 2 * (k : ℝ)",
       "line": 126
     },
     {
       "leanDeclaration": "calculusInputWeight_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "calculus Input Weight Cal Conf 0 equals minus the dimension n of the ambient calculus divided by 2.",
-      "mathematicalFormula": "w_{\\mathrm{in}} \\operatorname{CalConf} 0 = - n_{\\mathrm{CalConf}} / 2",
+      "mathematicalMeaning": "Computes the fixed-calculus input weight at k=0.",
+      "mathematicalFormula": "w_0(\\mathrm{Cal})=-\\frac{n_{\\mathrm{Cal}}}{2}.",
       "leanType": "theorem calculusInputWeight_zero : calculusInputWeight CalConf 0 = - CalConf.n / 2",
       "line": 135
     },
     {
       "leanDeclaration": "calculusOutputWeight_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "calculus Output Weight Cal Conf 0 equals minus the dimension n of the ambient calculus divided by 2.",
-      "mathematicalFormula": "w_{\\mathrm{out}} \\operatorname{CalConf} 0 = - n_{\\mathrm{CalConf}} / 2",
+      "mathematicalMeaning": "Computes the fixed-calculus output weight at k=0.",
+      "mathematicalFormula": "w'_0(\\mathrm{Cal})=-\\frac{n_{\\mathrm{Cal}}}{2}.",
       "leanType": "theorem calculusOutputWeight_zero : calculusOutputWeight CalConf 0 = - CalConf.n / 2",
       "line": 141
     },
     {
       "leanDeclaration": "calculusInputWeight_one",
       "kind": "theorem",
-      "mathematicalMeaning": "calculus Input Weight Cal Conf 1 equals 1 minus the dimension n of the ambient calculus divided by 2.",
-      "mathematicalFormula": "w_{\\mathrm{in}} \\operatorname{CalConf} 1 = 1 - n_{\\mathrm{CalConf}} / 2",
+      "mathematicalMeaning": "Computes the fixed-calculus input weight at k=1.",
+      "mathematicalFormula": "w_1(\\mathrm{Cal})=1-\\frac{n_{\\mathrm{Cal}}}{2}.",
       "leanType": "theorem calculusInputWeight_one : calculusInputWeight CalConf 1 = 1 - CalConf.n / 2",
       "line": 147
     },
     {
       "leanDeclaration": "calculusOutputWeight_one",
       "kind": "theorem",
-      "mathematicalMeaning": "calculus Output Weight Cal Conf 1 equals -1 minus the dimension n of the ambient calculus divided by 2.",
-      "mathematicalFormula": "w_{\\mathrm{out}} \\operatorname{CalConf} 1 = -1 - n_{\\mathrm{CalConf}} / 2",
+      "mathematicalMeaning": "Computes the fixed-calculus output weight at k=1.",
+      "mathematicalFormula": "w'_1(\\mathrm{Cal})=-1-\\frac{n_{\\mathrm{Cal}}}{2}.",
       "leanType": "theorem calculusOutputWeight_one : calculusOutputWeight CalConf 1 = -1 - CalConf.n / 2",
       "line": 153
     },
     {
       "leanDeclaration": "calculusInputWeight_two",
       "kind": "theorem",
-      "mathematicalMeaning": "calculus Input Weight Cal Conf 2 equals 2 minus the dimension n of the ambient calculus divided by 2.",
-      "mathematicalFormula": "w_{\\mathrm{in}} \\operatorname{CalConf} 2 = 2 - n_{\\mathrm{CalConf}} / 2",
+      "mathematicalMeaning": "Computes the fixed-calculus input weight at k=2.",
+      "mathematicalFormula": "w_2(\\mathrm{Cal})=2-\\frac{n_{\\mathrm{Cal}}}{2}.",
       "leanType": "theorem calculusInputWeight_two : calculusInputWeight CalConf 2 = 2 - CalConf.n / 2",
       "line": 159
     },
     {
       "leanDeclaration": "calculusOutputWeight_two",
       "kind": "theorem",
-      "mathematicalMeaning": "calculus Output Weight Cal Conf 2 equals -2 minus the dimension n of the ambient calculus divided by 2.",
-      "mathematicalFormula": "w_{\\mathrm{out}} \\operatorname{CalConf} 2 = -2 - n_{\\mathrm{CalConf}} / 2",
+      "mathematicalMeaning": "Computes the fixed-calculus output weight at k=2.",
+      "mathematicalFormula": "w'_2(\\mathrm{Cal})=-2-\\frac{n_{\\mathrm{Cal}}}{2}.",
       "leanType": "theorem calculusOutputWeight_two : calculusOutputWeight CalConf 2 = -2 - CalConf.n / 2",
       "line": 165
     },
     {
       "leanDeclaration": "AbstractOperator",
       "kind": "structure",
-      "mathematicalMeaning": "An abstract GJMS-type operator of order 2k. At the current abstraction level, a GJMS operator is represented by a weighted tangential ambient operator whose input and output weights are the standard GJMS weights: k - n / 2 → -k - n / 2. The actual construction from Δ̃^k is not included in this file. Its mathematical data are: k: the natural numbers; to Weighted Tangential Operator: Cal Conf.Weighted Tangential Operator; input Weight eq: to Weighted Tangential Operator.input weight equals calculus Input Weight Cal Conf k; output Weight eq: to Weighted Tangential Operator.output weight equals calculus Output Weight Cal Conf k.",
-      "mathematicalFormula": "\\begin{aligned}k&\\colon \\mathbb{N}\\\\\\operatorname{toWeightedTangentialOperator}&\\colon \\operatorname{CalConf}.\\operatorname{WeightedTangentialOperator}\\\\\\operatorname{inputWeight\\_eq}&\\colon \\operatorname{toWeightedTangentialOperator}.\\operatorname{inputWeight} = w_{\\mathrm{in}} \\operatorname{CalConf} k\\\\\\operatorname{outputWeight\\_eq}&\\colon \\operatorname{toWeightedTangentialOperator}.\\operatorname{outputWeight} = w_{\\mathrm{out}} \\operatorname{CalConf} k\\end{aligned}",
+      "mathematicalMeaning": "Packages an index k together with a weighted tangential ambient operator whose stored input and output weights are exactly the two GJMS weights. Tangentiality and weight preservation come from the stored operator; they are not proved by this structure.",
+      "mathematicalFormula": "P_{2k}:\\mathcal E[w_k]\\longrightarrow\\mathcal E[w'_k],\\qquad w_k=k-\\frac n2,\\quad w'_k=-k-\\frac n2.",
       "leanType": "structure AbstractOperator",
       "line": 184
     },
     {
       "leanDeclaration": "order",
       "kind": "def",
-      "mathematicalMeaning": "The expected differential order of the GJMS operator. In explicit terms, for p of type abstract operator cal conf, its defining expression is 2 times P.k.",
-      "mathematicalFormula": "\\operatorname{order}(P)=2 \\cdot k_{\\mathrm{P}}",
+      "mathematicalMeaning": "Defines the expected differential order from the stored index k.",
+      "mathematicalFormula": "\\operatorname{ord}(P)=2k.",
       "leanType": "def order (P : AbstractOperator CalConf) : ℕ",
       "line": 207
     },
     {
       "leanDeclaration": "inputWeightOf",
       "kind": "def",
-      "mathematicalMeaning": "The input weight of an abstract GJMS operator. In explicit terms, for p of type abstract operator cal conf, its defining expression is P.to Weighted Tangential Operator.input weight.",
-      "mathematicalFormula": "\\operatorname{inputWeightOf}(P)=P.\\operatorname{toWeightedTangentialOperator}.\\operatorname{inputWeight}",
+      "mathematicalMeaning": "Returns the input weight stored in the underlying weighted tangential operator.",
+      "mathematicalFormula": "\\operatorname{wt}_{\\mathrm{in}}(P):=w_{\\mathrm{stored}}.",
       "leanType": "def inputWeightOf (P : AbstractOperator CalConf) : ℝ",
       "line": 211
     },
     {
       "leanDeclaration": "outputWeightOf",
       "kind": "def",
-      "mathematicalMeaning": "The output weight of an abstract GJMS operator. In explicit terms, for p of type abstract operator cal conf, its defining expression is P.to Weighted Tangential Operator.output weight.",
-      "mathematicalFormula": "\\operatorname{outputWeightOf}(P)=P.\\operatorname{toWeightedTangentialOperator}.\\operatorname{outputWeight}",
+      "mathematicalMeaning": "Returns the output weight stored in the underlying weighted tangential operator.",
+      "mathematicalFormula": "\\operatorname{wt}_{\\mathrm{out}}(P):=w'_{\\mathrm{stored}}.",
       "leanType": "def outputWeightOf (P : AbstractOperator CalConf) : ℝ",
       "line": 215
     },
     {
       "leanDeclaration": "toOperator",
       "kind": "def",
-      "mathematicalMeaning": "The underlying ambient operator. In explicit terms, for p of type abstract operator cal conf, its defining expression is P.to Weighted Tangential Operator.to Operator.",
-      "mathematicalFormula": "\\operatorname{toOperator}(P)=P.\\operatorname{toWeightedTangentialOperator}.\\operatorname{toOperator}",
+      "mathematicalMeaning": "Forgets the weights and tangentiality certificate and returns the underlying ambient operator.",
+      "mathematicalFormula": "\\operatorname{toOperator}(P)=P_{\\mathrm{ambient}}.",
       "leanType": "def toOperator (P : AbstractOperator CalConf) : Operator (Conf := Conf)",
       "line": 219
     },
     {
       "leanDeclaration": "mapsWeight",
       "kind": "theorem",
-      "mathematicalMeaning": "The underlying ambient operator maps the correct input weight to the output weight. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,P\\colon \\operatorname{AbstractOperator} \\operatorname{CalConf},\\quad \\operatorname{CalConf}.\\operatorname{MapsHomogeneousWeight} P.\\operatorname{toOperator} P.\\operatorname{inputWeightOf} P.\\operatorname{outputWeightOf}",
+      "mathematicalMeaning": "Extracts the stored assertion that the underlying operator sends homogeneous functions of the input weight to homogeneous functions of the output weight.",
+      "mathematicalFormula": "Xf=w_kf\\quad\\Longrightarrow\\quad X(Pf)=w'_k(Pf).",
       "leanType": "theorem mapsWeight (P : AbstractOperator CalConf) : CalConf.MapsHomogeneousWeight P.toOperator P.inputWeightOf P.outputWeightOf",
       "line": 224
     },
     {
       "leanDeclaration": "tangential",
       "kind": "theorem",
-      "mathematicalMeaning": "The underlying ambient operator is tangential at its input weight. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,P\\colon \\operatorname{AbstractOperator} \\operatorname{CalConf},\\quad \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeight} P.\\operatorname{toOperator} P.\\operatorname{inputWeightOf}",
+      "mathematicalMeaning": "Extracts the stored tangentiality assertion: on homogeneous extensions of the input weight, equal boundary values give equal boundary values after applying P.",
+      "mathematicalFormula": "f\\equiv g\\pmod Q\\quad\\Longrightarrow\\quad Pf\\equiv Pg\\pmod Q.",
       "leanType": "theorem tangential (P : AbstractOperator CalConf) : CalConf.IsTangentialAtWeight P.toOperator P.inputWeightOf",
       "line": 232
     },
     {
       "leanDeclaration": "inputWeightOf_eq",
       "kind": "theorem",
-      "mathematicalMeaning": "The input weight is explicitly k - n / 2. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,P\\colon \\operatorname{AbstractOperator} \\operatorname{CalConf},\\quad P.\\operatorname{inputWeightOf} = w_{\\mathrm{in}} \\operatorname{CalConf} k_{\\mathrm{P}}",
+      "mathematicalMeaning": "Identifies the stored input weight with the critical GJMS value determined by P.k.",
+      "mathematicalFormula": "\\operatorname{wt}_{\\mathrm{in}}(P)=P.k-\\frac n2.",
       "leanType": "theorem inputWeightOf_eq (P : AbstractOperator CalConf) : P.inputWeightOf = calculusInputWeight CalConf P.k",
       "line": 239
     },
     {
       "leanDeclaration": "outputWeightOf_eq",
       "kind": "theorem",
-      "mathematicalMeaning": "The output weight is explicitly -k - n / 2. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,P\\colon \\operatorname{AbstractOperator} \\operatorname{CalConf},\\quad P.\\operatorname{outputWeightOf} = w_{\\mathrm{out}} \\operatorname{CalConf} k_{\\mathrm{P}}",
+      "mathematicalMeaning": "Identifies the stored output weight with the GJMS output value determined by P.k.",
+      "mathematicalFormula": "\\operatorname{wt}_{\\mathrm{out}}(P)=-P.k-\\frac n2.",
       "leanType": "theorem outputWeightOf_eq (P : AbstractOperator CalConf) : P.outputWeightOf = calculusOutputWeight CalConf P.k",
       "line": 245
     },
     {
       "leanDeclaration": "outputWeightOf_eq_inputWeightOf_sub_two_mul",
       "kind": "theorem",
-      "mathematicalMeaning": "The output weight equals the input weight minus 2k. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,P\\colon \\operatorname{AbstractOperator} \\operatorname{CalConf},\\quad P.\\operatorname{outputWeightOf} = P.\\operatorname{inputWeightOf} - 2 \\cdot k_{\\mathrm{P}}",
+      "mathematicalMeaning": "Combines the two stored weight identities to show that an abstract kth operator lowers homogeneity by 2k.",
+      "mathematicalFormula": "\\operatorname{wt}_{\\mathrm{out}}(P)=\\operatorname{wt}_{\\mathrm{in}}(P)-2P.k.",
       "leanType": "theorem outputWeightOf_eq_inputWeightOf_sub_two_mul (P : AbstractOperator CalConf) : P.outputWeightOf = P.inputWeightOf - 2 * (P.k : ℝ)",
       "line": 253
     },
     {
       "leanDeclaration": "Family",
       "kind": "structure",
-      "mathematicalMeaning": "A formal family of GJMS operators, one for each natural number k. This is useful later when we want to package the whole GJMS sequence. Its mathematical data are: operator: the natural numbers maps to Abstract Operator Cal Conf; operator k: for every k : the natural numbers, operator k.k equals k.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{operator}&\\colon \\mathbb{N} \\longrightarrow \\operatorname{AbstractOperator} \\operatorname{CalConf}\\\\\\operatorname{operator\\_k}&\\colon \\forall k \\colon \\mathbb{N}, (\\operatorname{operator} k).k = k\\end{aligned}",
+      "mathematicalMeaning": "Packages one AbstractOperator for every natural number k and a proof that the kth chosen operator really stores the index k.",
+      "mathematicalFormula": "\\mathcal P=(P_{2k})_{k\\geq0},\\qquad (P_{2k}).k=k.",
       "leanType": "structure Family",
       "line": 270
     },
     {
       "leanDeclaration": "get",
       "kind": "def",
-      "mathematicalMeaning": "The k-th GJMS operator in a family. In explicit terms, for p of type family cal conf, and k in the natural numbers, its defining expression is P.operator k.",
-      "mathematicalFormula": "\\operatorname{get}(P,k)=P.\\operatorname{operator} k",
+      "mathematicalMeaning": "Selects the kth abstract operator from a family.",
+      "mathematicalFormula": "\\operatorname{get}(\\mathcal P,k)=P_{2k}.",
       "leanType": "def get (P : Family CalConf) (k : ℕ) : AbstractOperator CalConf",
       "line": 280
     },
     {
       "leanDeclaration": "get_k",
       "kind": "theorem",
-      "mathematicalMeaning": "For P of type Family Cal Conf, and k in the natural numbers, P.get k.k equals k.",
-      "mathematicalFormula": "\\forall\\,P\\colon \\operatorname{Family} \\operatorname{CalConf},\\;k\\colon \\mathbb{N},\\quad (P.\\operatorname{get} k).k = k",
+      "mathematicalMeaning": "Proves that the operator selected at k has stored index k.",
+      "mathematicalFormula": "(\\operatorname{get}(\\mathcal P,k)).k=k.",
       "leanType": "theorem get_k (P : Family CalConf) (k : ℕ) : (P.get k).k = k",
       "line": 285
     },
     {
       "leanDeclaration": "get_order",
       "kind": "theorem",
-      "mathematicalMeaning": "The expected differential order of the k-th operator is 2k. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,P\\colon \\operatorname{Family} \\operatorname{CalConf},\\;k\\colon \\mathbb{N},\\quad (P.\\operatorname{get} k).\\operatorname{order} = 2 \\cdot k",
+      "mathematicalMeaning": "Consequently, the kth member of a family has expected order 2k.",
+      "mathematicalFormula": "\\operatorname{ord}(\\operatorname{get}(\\mathcal P,k))=2k.",
       "leanType": "theorem get_order (P : Family CalConf) (k : ℕ) : (P.get k).order = 2 * k",
       "line": 291
     },
     {
       "leanDeclaration": "P0",
       "kind": "abbrev",
-      "mathematicalMeaning": "The zeroth GJMS operator, formally of order 0. In explicit terms, for calconf of type calculus conf, and p of type family cal conf, its defining expression is P.get 0.",
-      "mathematicalFormula": "\\operatorname{P0}(P)=P.\\operatorname{get} 0",
+      "mathematicalMeaning": "Names the family member with k=0.",
+      "mathematicalFormula": "P_0:=\\operatorname{get}(\\mathcal P,0).",
       "leanType": "abbrev P0 {CalConf : Calculus Conf} (P : Family CalConf) : AbstractOperator CalConf",
       "line": 302
     },
     {
       "leanDeclaration": "P2",
       "kind": "abbrev",
-      "mathematicalMeaning": "The first nontrivial GJMS operator, formally of order 2. In explicit terms, for calconf of type calculus conf, and p of type family cal conf, its defining expression is P.get 1.",
-      "mathematicalFormula": "\\operatorname{P2}(P)=P.\\operatorname{get} 1",
+      "mathematicalMeaning": "Names the family member with k=1, hence expected order two.",
+      "mathematicalFormula": "P_2:=\\operatorname{get}(\\mathcal P,1).",
       "leanType": "abbrev P2 {CalConf : Calculus Conf} (P : Family CalConf) : AbstractOperator CalConf",
       "line": 306
     },
     {
       "leanDeclaration": "P4",
       "kind": "abbrev",
-      "mathematicalMeaning": "The second nontrivial GJMS operator, formally of order 4. In explicit terms, for calconf of type calculus conf, and p of type family cal conf, its defining expression is P.get 2.",
-      "mathematicalFormula": "\\operatorname{P4}(P)=P.\\operatorname{get} 2",
+      "mathematicalMeaning": "Names the family member with k=2, hence expected order four.",
+      "mathematicalFormula": "P_4:=\\operatorname{get}(\\mathcal P,2).",
       "leanType": "abbrev P4 {CalConf : Calculus Conf} (P : Family CalConf) : AbstractOperator CalConf",
       "line": 310
     },
     {
       "leanDeclaration": "P0_k",
       "kind": "theorem",
-      "mathematicalMeaning": "For P of type Family Cal Conf, P0 P.k equals 0.",
-      "mathematicalFormula": "\\forall\\,P\\colon \\operatorname{Family} \\operatorname{CalConf},\\quad (\\operatorname{P0} P).k = 0",
+      "mathematicalMeaning": "The operator P0 stores index zero.",
+      "mathematicalFormula": "(P_0).k=0.",
       "leanType": "theorem P0_k (P : Family CalConf) : (P0 P).k = 0",
       "line": 314
     },
     {
       "leanDeclaration": "P2_k",
       "kind": "theorem",
-      "mathematicalMeaning": "For P of type Family Cal Conf, P2 P.k equals 1.",
-      "mathematicalFormula": "\\forall\\,P\\colon \\operatorname{Family} \\operatorname{CalConf},\\quad (\\operatorname{P2} P).k = 1",
+      "mathematicalMeaning": "The operator P2 stores index one.",
+      "mathematicalFormula": "(P_2).k=1.",
       "leanType": "theorem P2_k (P : Family CalConf) : (P2 P).k = 1",
       "line": 320
     },
     {
       "leanDeclaration": "P4_k",
       "kind": "theorem",
-      "mathematicalMeaning": "For P of type Family Cal Conf, P4 P.k equals 2.",
-      "mathematicalFormula": "\\forall\\,P\\colon \\operatorname{Family} \\operatorname{CalConf},\\quad (\\operatorname{P4} P).k = 2",
+      "mathematicalMeaning": "The operator P4 stores index two.",
+      "mathematicalFormula": "(P_4).k=2.",
       "leanType": "theorem P4_k (P : Family CalConf) : (P4 P).k = 2",
       "line": 326
     },
     {
       "leanDeclaration": "P0_order",
       "kind": "theorem",
-      "mathematicalMeaning": "For P of type Family Cal Conf, P0 P.order equals 0.",
-      "mathematicalFormula": "\\forall\\,P\\colon \\operatorname{Family} \\operatorname{CalConf},\\quad (\\operatorname{P0} P).\\operatorname{order} = 0",
+      "mathematicalMeaning": "The expected order of P0 is zero.",
+      "mathematicalFormula": "\\operatorname{ord}(P_0)=0.",
       "leanType": "theorem P0_order (P : Family CalConf) : (P0 P).order = 0",
       "line": 332
     },
     {
       "leanDeclaration": "P2_order",
       "kind": "theorem",
-      "mathematicalMeaning": "For P of type Family Cal Conf, P2 P.order equals 2.",
-      "mathematicalFormula": "\\forall\\,P\\colon \\operatorname{Family} \\operatorname{CalConf},\\quad (\\operatorname{P2} P).\\operatorname{order} = 2",
+      "mathematicalMeaning": "The expected order of P2 is two.",
+      "mathematicalFormula": "\\operatorname{ord}(P_2)=2.",
       "leanType": "theorem P2_order (P : Family CalConf) : (P2 P).order = 2",
       "line": 338
     },
     {
       "leanDeclaration": "P4_order",
       "kind": "theorem",
-      "mathematicalMeaning": "For P of type Family Cal Conf, P4 P.order equals 4.",
-      "mathematicalFormula": "\\forall\\,P\\colon \\operatorname{Family} \\operatorname{CalConf},\\quad (\\operatorname{P4} P).\\operatorname{order} = 4",
+      "mathematicalMeaning": "The expected order of P4 is four.",
+      "mathematicalFormula": "\\operatorname{ord}(P_4)=4.",
       "leanType": "theorem P4_order (P : Family CalConf) : (P4 P).order = 4",
       "line": 344
     }
@@ -364,5 +369,5 @@
       "note": "Ambient-metric background for the formal construction."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "The numerical weight identities are fully proved. AbstractOperator and Family are interfaces: they store weight preservation and tangentiality rather than constructing them. This file does not prove that an ambient Laplacian power is tangential or identify P2 and P4 with explicit conformal Laplacian and Paneitz formulas."
 }

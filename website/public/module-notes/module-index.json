@@ -860,9 +860,9 @@
   },
   {
     "file": "GJMSoperators/Ambientconstruction.lean",
-    "title": "Ambientconstruction",
+    "title": "Ambient Laplacian construction",
     "status": "verified-under-interface",
-    "summary": "Packages powers of the ambient Laplacian as weighted operators and proves their weight shift under the algebraic calculus interface.",
+    "summary": "Shows that Δ̃ᵏ has the GJMS weight shift under AlgebraicIdentities, then packages it as a weighted tangential and abstract GJMS operator once tangentiality is supplied.",
     "declarations": [
       "ambientLaplacianPowerOperator",
       "ambientLaplacianPowerOperator_apply",
@@ -885,9 +885,9 @@
   },
   {
     "file": "GJMSoperators/Basic.lean",
-    "title": "Basic",
+    "title": "GJMS weights and abstract operators",
     "status": "verified-under-interface",
-    "summary": "Defines the critical input/output density weights, abstract GJMS operators, and operator families of order 2k.",
+    "summary": "Defines the critical weights wₖ = k − n/2 and wₖ′ = −k − n/2, then packages weighted tangential operators and their low-order family notation.",
     "declarations": [
       "inputWeight",
       "outputWeight",
@@ -938,9 +938,9 @@
   },
   {
     "file": "GJMSoperators/Tangentiality.lean",
-    "title": "Tangentiality",
+    "title": "Critical-weight tangentiality",
     "status": "verified-under-interface",
-    "summary": "Proves that the kth ambient Laplacian power is tangential at weight k - n/2 and packages the resulting canonical GJMS family.",
+    "summary": "Proves algebraically that Δ̃ᵏ preserves boundary values at weight k − n/2, then assembles the canonical abstract GJMS operator family.",
     "declarations": [
       "vanishesModQ_Qmul_local",
       "sameBoundaryValue_of_difference_vanishes",
