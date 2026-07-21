@@ -1196,9 +1196,9 @@
   },
   {
     "file": "PolyGJMSoperators/Basic.lean",
-    "title": "Basic",
-    "status": "verified-under-interface",
-    "summary": "Defines multilinear ambient inputs/operators and basic operations for replacing or transforming input slots.",
+    "title": "Multi-input operator foundations",
+    "status": "scaffold",
+    "summary": "Defines rank-r tuples of ambient functions, rank-r operators, unary adapters, slot replacement, and slotwise unary mapping.",
     "declarations": [
       "MultiInput",
       "MultiOperator",
@@ -1220,9 +1220,9 @@
   },
   {
     "file": "PolyGJMSoperators/Bidifferential.lean",
-    "title": "Bidifferential",
-    "status": "verified-under-interface",
-    "summary": "Specializes the multilinear framework to two inputs, two weights, and bidifferential tangentiality.",
+    "title": "Bidifferential specialization",
+    "status": "scaffold",
+    "summary": "Specializes multi-input notation to two slots, with weights (w₁,w₂), paired inputs (f,g), and expected output weight w₁+w₂−2N.",
     "declarations": [
       "BiInput",
       "biWeights",
@@ -1247,9 +1247,9 @@
   },
   {
     "file": "PolyGJMSoperators/Boundary.lean",
-    "title": "Boundary",
+    "title": "Boundary equivalence for multi-inputs",
     "status": "verified-under-interface",
-    "summary": "Defines componentwise equality of multilinear inputs on the boundary and proves its equivalence-relation laws.",
+    "summary": "Lifts unary equality modulo Q and its weighted refinement pointwise to every slot of a rank-r ambient input tuple.",
     "declarations": [
       "SameBoundaryValues",
       "SameBoundaryValueAtWeights",
@@ -1264,9 +1264,9 @@
   },
   {
     "file": "PolyGJMSoperators/Homogeneity.lean",
-    "title": "Homogeneity",
+    "title": "Multiweight homogeneity",
     "status": "verified-under-interface",
-    "summary": "Defines slot weights, total weight, output weight, and multihomogeneity for multilinear operators.",
+    "summary": "Assigns one ambient homogeneity to each input slot, sums the input weights, and defines the expected output weight after total Laplacian degree N.",
     "declarations": [
       "IsMultiHomogeneous",
       "totalWeight",
@@ -1282,9 +1282,9 @@
   },
   {
     "file": "PolyGJMSoperators/LaplacianWords.lean",
-    "title": "LaplacianWords",
+    "title": "Laplacian monomial words",
     "status": "verified-under-interface",
-    "summary": "Defines words built from ambient Laplacians and multiplication, together with total-power bookkeeping.",
+    "summary": "Encodes ambient-Laplacian monomials of the form Δ̃ᵃ(∏ᵢ Δ̃ᵇⁱFᵢ), proves their output homogeneity from explicit algebraic and product-homogeneity interfaces, and specializes the syntax to two and three inputs.",
     "declarations": [
       "LaplacianWord",
       "inputProduct",
@@ -1337,9 +1337,9 @@
   },
   {
     "file": "PolyGJMSoperators/Operators.lean",
-    "title": "Operators",
-    "status": "verified-under-interface",
-    "summary": "Provides core multilinear operator constructors and their evaluation rules.",
+    "title": "Algebra of multi-operators",
+    "status": "scaffold",
+    "summary": "Defines pointwise zero, addition, subtraction, scalar multiplication, and unary pre- and post-composition for rank-r ambient operators.",
     "declarations": [
       "multiZero",
       "multiAdd",
@@ -1627,9 +1627,9 @@
   },
   {
     "file": "PolyGJMSoperators/Tangential.lean",
-    "title": "Tangential",
+    "title": "Multiweight tangential operators",
     "status": "verified-under-interface",
-    "summary": "Defines weighted multi-tangentiality: replacing any input by a boundary-equivalent representative does not change the restricted output.",
+    "summary": "Defines multi-input tangentiality and weight mapping, packages both properties, and proves closure of tangentiality under sums and scalar multiples.",
     "declarations": [
       "IsTangentialAtWeights",
       "MapsWeights",

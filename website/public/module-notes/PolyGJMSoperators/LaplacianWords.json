@@ -1,218 +1,228 @@
 {
   "file": "PolyGJMSoperators/LaplacianWords.lean",
-  "title": "LaplacianWords",
+  "title": "Laplacian monomial words",
   "status": "verified-under-interface",
-  "summary": "Defines words built from ambient Laplacians and multiplication, together with total-power bookkeeping.",
+  "summary": "Encodes ambient-Laplacian monomials of the form Δ̃ᵃ(∏ᵢ Δ̃ᵇⁱFᵢ), proves their output homogeneity from explicit algebraic and product-homogeneity interfaces, and specializes the syntax to two and three inputs.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Defines words built from ambient Laplacians and multiplication, together with total-power bookkeeping.",
-      "formula": null
+      "heading": "A Laplacian word",
+      "body": "A rank-r word records one outer exponent a and one exponent bᵢ for each input. Applied to F=(F₀,…,Fᵣ₋₁), it first differentiates each input, multiplies the results pointwise, and then applies the outer ambient Laplacian power.",
+      "formula": "W(F)=\\widetilde{\\Delta}^{a}\\!\\left(\\prod_{i=0}^{r-1}\\widetilde{\\Delta}^{b_i}F_i\\right)."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows PolyGJMSoperators/LaplacianWords.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Total degree and weight",
+      "body": "Every ambient Laplacian lowers homogeneity by two. Hence the word has total Laplacian degree N(W)=a+Σᵢbᵢ and sends input weights (wᵢ) to the expected output weight Σᵢwᵢ−2N(W).",
+      "formula": "N(W)=a+\\sum_i b_i,\\qquad w_{\\mathrm{out}}=\\sum_i w_i-2N(W)."
+    },
+    {
+      "heading": "What Lean proves",
+      "body": "Assuming the calculus algebraic identities and an explicit interface asserting that a finite product of homogeneous functions has the sum of their weights, Lean proves the input-product weight and then the output weight of the complete word.",
+      "formula": "XF_i=w_iF_i\\ \\forall i\\quad\\Longrightarrow\\quad X\\bigl(W(F)\\bigr)=\\left(\\sum_iw_i-2a-2\\sum_i b_i\\right)W(F)."
+    },
+    {
+      "heading": "Low ranks and finite sums",
+      "body": "For two inputs, the constructor (a;b,c) represents Δ̃ᵃ((Δ̃ᵇf)(Δ̃ᶜg)); the three-input constructor stores (a;b,c,d). A finite coefficient table then produces a finite linear combination of rank-two words.",
+      "formula": "W_{a;b,c}(f,g)=\\widetilde{\\Delta}^{a}\\!\\left((\\widetilde{\\Delta}^{b}f)(\\widetilde{\\Delta}^{c}g)\\right),\\qquad P=\\sum_{W\\in S}c_WW."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "LaplacianWord",
       "kind": "structure",
-      "mathematicalMeaning": "A rank-r Laplacian monomial word. Its mathematical data are: output Power: the natural numbers; input Power: Fin r maps to the natural numbers.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{outputPower}&\\colon \\mathbb{N}\\\\\\operatorname{inputPower}&\\colon \\operatorname{Fin} r \\longrightarrow \\mathbb{N}\\end{aligned}",
+      "mathematicalMeaning": "Stores the outer Laplacian exponent a and the input exponents bᵢ of a rank-r monomial word.",
+      "mathematicalFormula": "W=(a;(b_i)_{i\\in\\operatorname{Fin}(r)}).",
       "leanType": "structure LaplacianWord (r : ℕ)",
       "line": 34
     },
     {
       "leanDeclaration": "inputProduct",
       "kind": "def",
-      "mathematicalMeaning": "The product of input-side Laplacian powers. In explicit terms, for r in the natural numbers, w of type laplacian word r, calconf of type calculus conf, and f of type cal conf.multi input r, its defining expression is the function sending U to ∏ i : Fin r, Cal Conf.power of the ambient Laplacian W.input Power i F i U.",
-      "mathematicalFormula": "\\operatorname{inputProduct}(W,CalConf,F)=U \\longmapsto \\prod i \\colon \\operatorname{Fin} r, \\operatorname{CalConf}.\\operatorname{lapPow} (W.\\operatorname{inputPower} i) (F i) U",
+      "mathematicalMeaning": "Forms the pointwise product of the separately differentiated inputs.",
+      "mathematicalFormula": "I_W(F)(U):=\\prod_{i\\in\\operatorname{Fin}(r)}\\bigl(\\widetilde{\\Delta}^{b_i}F_i\\bigr)(U).",
       "leanType": "def inputProduct {r : ℕ} (W : LaplacianWord r) (CalConf : Calculus Conf) (F : CalConf.MultiInput r) : Function Conf",
       "line": 44
     },
     {
       "leanDeclaration": "toOperator",
       "kind": "def",
-      "mathematicalMeaning": "The rank-r multi-operator represented by a Laplacian word. In explicit terms, for r in the natural numbers, w of type laplacian word r, and calconf of type calculus conf, its defining expression is the function sending F to Cal Conf.power of the ambient Laplacian W.output Power W.input Product Cal Conf F.",
-      "mathematicalFormula": "\\operatorname{toOperator}(W,CalConf)=F \\longmapsto \\operatorname{CalConf}.\\operatorname{lapPow} W.\\operatorname{outputPower} (W.\\operatorname{inputProduct} \\operatorname{CalConf} F)",
+      "mathematicalMeaning": "Turns a word into the multi-operator obtained by applying the outer Laplacian power to its input product.",
+      "mathematicalFormula": "W(F):=\\widetilde{\\Delta}^{a}\\!\\left(\\prod_i\\widetilde{\\Delta}^{b_i}F_i\\right).",
       "leanType": "def toOperator {r : ℕ} (W : LaplacianWord r) (CalConf : Calculus Conf) : CalConf.MultiOperator r",
       "line": 53
     },
     {
       "leanDeclaration": "totalPower",
       "kind": "def",
-      "mathematicalMeaning": "Total Laplacian degree in the word. In explicit terms, for r in the natural numbers, and w of type laplacian word r, its defining expression is W.output Power plus ∑ i : Fin r, W.input Power i.",
-      "mathematicalFormula": "\\operatorname{totalPower}(W)=W.\\operatorname{outputPower} + \\sum i \\colon \\operatorname{Fin} r, W.\\operatorname{inputPower} i",
+      "mathematicalMeaning": "Defines the total number of ambient Laplacians appearing in the word.",
+      "mathematicalFormula": "N(W):=a+\\sum_i b_i.",
       "leanType": "def totalPower {r : ℕ} (W : LaplacianWord r) : ℕ",
       "line": 61
     },
     {
       "leanDeclaration": "expectedOutputWeight",
       "kind": "def",
-      "mathematicalMeaning": "Expected output weight from applying the word to inputs of multiweight w. In explicit terms, for r in the natural numbers, w of type laplacian word r, calconf of type calculus conf, and w of type fin r maps to the real numbers, its defining expression is Cal Conf.total Weight w minus 2 times W.total Power.",
-      "mathematicalFormula": "\\operatorname{expectedOutputWeight}(W,CalConf,w)=\\operatorname{CalConf}.\\operatorname{totalWeight} w - 2 \\cdot W.\\operatorname{totalPower}",
+      "mathematicalMeaning": "Defines the predicted output weight by subtracting twice the total Laplacian degree from the sum of the input weights.",
+      "mathematicalFormula": "w_{\\mathrm{out}}(W,w):=\\sum_iw_i-2\\!\\left(a+\\sum_i b_i\\right).",
       "leanType": "def expectedOutputWeight {r : ℕ} (W : LaplacianWord r) (CalConf : Calculus Conf) (w : Fin r → ℝ) : ℝ",
       "line": 67
     },
     {
       "leanDeclaration": "inputProduct_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "For r in the natural numbers, W of type Laplacian Word r, F of type Cal Conf.Multi Input r, and U of type Conf.Ambient Bundle, W.input Product Cal Conf F U equals ∏ i : Fin r, Cal Conf.power of the ambient Laplacian W.input Power i F i U.",
-      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;W\\colon \\operatorname{LaplacianWord} r,\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\;U\\colon \\operatorname{Conf}.\\operatorname{AmbientBundle},\\quad W.\\operatorname{inputProduct} \\operatorname{CalConf} F U = \\prod i \\colon \\operatorname{Fin} r, \\operatorname{CalConf}.\\operatorname{lapPow} (W.\\operatorname{inputPower} i) (F i) U",
+      "mathematicalMeaning": "Expands the definition of the input product at an ambient point U.",
+      "mathematicalFormula": "I_W(F)(U)=\\prod_i\\bigl(\\widetilde{\\Delta}^{b_i}F_i\\bigr)(U).",
       "leanType": "theorem inputProduct_apply {r : ℕ} (W : LaplacianWord r) (F : CalConf.MultiInput r) (U : Conf.AmbientBundle) : W.inputProduct CalConf F U = ∏ i : Fin r, CalConf.lapPow (W.inputPower i) (F i) U",
       "line": 75
     },
     {
       "leanDeclaration": "toOperator_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "For r in the natural numbers, W of type Laplacian Word r, and F of type Cal Conf.Multi Input r, W.to Operator Cal Conf F equals Cal Conf.power of the ambient Laplacian W.output Power W.input Product Cal Conf F.",
-      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;W\\colon \\operatorname{LaplacianWord} r,\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\quad W.\\operatorname{toOperator} \\operatorname{CalConf} F = \\operatorname{CalConf}.\\operatorname{lapPow} W.\\operatorname{outputPower} (W.\\operatorname{inputProduct} \\operatorname{CalConf} F)",
+      "mathematicalMeaning": "Expands the operator associated with a single word.",
+      "mathematicalFormula": "W(F)=\\widetilde{\\Delta}^{a}\\bigl(I_W(F)\\bigr).",
       "leanType": "theorem toOperator_apply {r : ℕ} (W : LaplacianWord r) (F : CalConf.MultiInput r) : W.toOperator CalConf F = CalConf.lapPow W.outputPower (W.inputProduct CalConf F)",
       "line": 85
     },
     {
       "leanDeclaration": "ProductHomogeneityIdentities",
       "kind": "structure",
-      "mathematicalMeaning": "Abstract product homogeneity identity. This is the isolated assumption needed to prove weight mapping for Laplacian words. Later it can be proved from an X_mul / Leibniz rule. Its mathematical data are: product homogeneous: for every r : the natural numbers A : Fin r maps to Function Conf w : Fin r maps to the real numbers, for every i : Fin r, Cal Conf.Is XHomogeneous w i A i maps to Cal Conf.Is XHomogeneous Cal Conf.total Weight w the function sending U to ∏ i : Fin r, A i U.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{product\\_homogeneous}&\\colon \\forall {r \\colon \\mathbb{N}} (A \\colon \\operatorname{Fin} r \\longrightarrow \\operatorname{Function} \\operatorname{Conf}) (w \\colon \\operatorname{Fin} r \\longrightarrow \\mathbb{R}), (\\forall i \\colon \\operatorname{Fin} r, \\operatorname{CalConf}.\\operatorname{IsXHomogeneous} (w i) (A i)) \\longrightarrow \\operatorname{CalConf}.\\operatorname{IsXHomogeneous} (\\operatorname{CalConf}.\\operatorname{totalWeight} w) (U \\longmapsto \\prod i \\colon \\operatorname{Fin} r, A i U)\\end{aligned}",
+      "mathematicalMeaning": "Packages the additional product rule needed here: a pointwise product of homogeneous factors is homogeneous of the sum of their weights.",
+      "mathematicalFormula": "\\bigl(XA_i=\\lambda_iA_i\\ \\forall i\\bigr)\\quad\\Longrightarrow\\quad X\\!\\left(\\prod_iA_i\\right)=\\left(\\sum_i\\lambda_i\\right)\\prod_iA_i.",
       "leanType": "structure ProductHomogeneityIdentities : Prop",
       "line": 101
     },
     {
       "leanDeclaration": "inputProduct_mapsWeight",
       "kind": "theorem",
-      "mathematicalMeaning": "The input product has the sum of the shifted input weights. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;Hprod\\colon \\operatorname{CalConf}.\\operatorname{ProductHomogeneityIdentities},\\;r\\colon \\mathbb{N},\\;W\\colon \\operatorname{LaplacianWord} r,\\;w\\colon \\operatorname{Fin} r \\longrightarrow \\mathbb{R},\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\;hF\\colon \\operatorname{CalConf}.\\operatorname{IsMultiHomogeneous} w F,\\quad \\operatorname{CalConf}.\\operatorname{IsXHomogeneous} (\\operatorname{CalConf}.\\operatorname{totalWeight} (\\operatorname{fun} i \\colon \\operatorname{Fin} r => w i - 2 \\cdot W.\\operatorname{inputPower} i )) (W.\\operatorname{inputProduct} \\operatorname{CalConf} F)",
+      "mathematicalMeaning": "If each input Fᵢ has weight wᵢ, then its differentiated factor Δ̃ᵇⁱFᵢ has weight wᵢ−2bᵢ, so the input product has the sum of these shifted weights.",
+      "mathematicalFormula": "XF_i=w_iF_i\\ \\forall i\\quad\\Longrightarrow\\quad X I_W(F)=\\left(\\sum_i(w_i-2b_i)\\right)I_W(F).",
       "leanType": "theorem inputProduct_mapsWeight (H : CalConf.AlgebraicIdentities) (Hprod : CalConf.ProductHomogeneityIdentities) {r : ℕ} (W : LaplacianWord r) {w : Fin r → ℝ} {F : CalConf.MultiInput r} (hF : CalConf.IsMultiHomogeneous w F) : CalConf.IsXHomogeneous (CalConf.totalWeight (fun i : Fin r => w i - 2 * (W.inputPower i : ℝ))) (W.inputProduct CalConf F)",
       "line": 114
     },
     {
       "leanDeclaration": "mapsWeights",
       "kind": "theorem",
-      "mathematicalMeaning": "A Laplacian word maps its input multiweight to its expected output weight. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;Hprod\\colon \\operatorname{CalConf}.\\operatorname{ProductHomogeneityIdentities},\\;r\\colon \\mathbb{N},\\;W\\colon \\operatorname{LaplacianWord} r,\\;w\\colon \\operatorname{Fin} r \\longrightarrow \\mathbb{R},\\quad \\operatorname{CalConf}.\\operatorname{MapsWeights} (W.\\operatorname{toOperator} \\operatorname{CalConf}) w (W.\\operatorname{expectedOutputWeight} \\operatorname{CalConf} w)",
+      "mathematicalMeaning": "Under the algebraic and product-homogeneity interfaces, the complete Laplacian word maps the prescribed input weights to its expected output weight.",
+      "mathematicalFormula": "XF_i=w_iF_i\\ \\forall i\\quad\\Longrightarrow\\quad X\\bigl(W(F)\\bigr)=\\left(\\sum_iw_i-2N(W)\\right)W(F).",
       "leanType": "theorem mapsWeights (H : CalConf.AlgebraicIdentities) (Hprod : CalConf.ProductHomogeneityIdentities) {r : ℕ} (W : LaplacianWord r) (w : Fin r → ℝ) : CalConf.MapsWeights (W.toOperator CalConf) w (W.expectedOutputWeight CalConf w)",
       "line": 132
     },
     {
       "leanDeclaration": "mk",
       "kind": "def",
-      "mathematicalMeaning": "The rank-two word (a; b, c), i.e. Δ̃^a(Δ̃^b f · Δ̃^c g). In explicit terms, for a, b, c in the natural numbers, its defining expression is output Power : equals a input Power : equals the function sending i to if i equals 0 then b else c.",
-      "mathematicalFormula": "\\operatorname{mk}(a,b,c)=\\operatorname{outputPower} = a \\operatorname{inputPower} = i \\longmapsto \\operatorname{if} i = 0 \\operatorname{then} b \\operatorname{else} c",
+      "mathematicalMeaning": "Constructs the rank-two word with outer exponent a and input exponents b,c.",
+      "mathematicalFormula": "W_{a;b,c}:=(a;b,c).",
       "leanType": "def mk (a b c : ℕ) : LaplacianWord 2",
       "line": 160
     },
     {
       "leanDeclaration": "mk_outputPower",
       "kind": "theorem",
-      "mathematicalMeaning": "For a, b, c in the natural numbers, mk a b c.output Power equals a.",
-      "mathematicalFormula": "\\forall\\,a,b,c\\colon \\mathbb{N},\\quad (\\operatorname{mk} a b c).\\operatorname{outputPower} = a",
+      "mathematicalMeaning": "The outer exponent of the rank-two constructor is a.",
+      "mathematicalFormula": "\\operatorname{out}(W_{a;b,c})=a.",
       "leanType": "theorem mk_outputPower (a b c : ℕ) : (mk a b c).outputPower = a",
       "line": 165
     },
     {
       "leanDeclaration": "mk_inputPower_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "For a, b, c in the natural numbers, mk a b c.input Power 0 equals b.",
-      "mathematicalFormula": "\\forall\\,a,b,c\\colon \\mathbb{N},\\quad (\\operatorname{mk} a b c).\\operatorname{inputPower} 0 = b",
+      "mathematicalMeaning": "The exponent in the first input slot of W₍a;b,c₎ is b.",
+      "mathematicalFormula": "b_0(W_{a;b,c})=b.",
       "leanType": "theorem mk_inputPower_zero (a b c : ℕ) : (mk a b c).inputPower 0 = b",
       "line": 171
     },
     {
       "leanDeclaration": "mk_inputPower_one",
       "kind": "theorem",
-      "mathematicalMeaning": "For a, b, c in the natural numbers, mk a b c.input Power 1 equals c.",
-      "mathematicalFormula": "\\forall\\,a,b,c\\colon \\mathbb{N},\\quad (\\operatorname{mk} a b c).\\operatorname{inputPower} 1 = c",
+      "mathematicalMeaning": "The exponent in the second input slot of W₍a;b,c₎ is c.",
+      "mathematicalFormula": "b_1(W_{a;b,c})=c.",
       "leanType": "theorem mk_inputPower_one (a b c : ℕ) : (mk a b c).inputPower 1 = c",
       "line": 177
     },
     {
       "leanDeclaration": "totalPower",
       "kind": "theorem",
-      "mathematicalMeaning": "For a, b, c in the natural numbers, mk a b c.total Power equals a plus b plus c.",
-      "mathematicalFormula": "\\forall\\,a,b,c\\colon \\mathbb{N},\\quad (\\operatorname{mk} a b c).\\operatorname{totalPower} = a + b + c",
+      "mathematicalMeaning": "For the rank-two word (a;b,c), the total Laplacian degree is a+b+c.",
+      "mathematicalFormula": "N(W_{a;b,c})=a+b+c.",
       "leanType": "theorem totalPower (a b c : ℕ) : (mk a b c).totalPower = a + b + c",
       "line": 182
     },
     {
       "leanDeclaration": "expectedOutputWeight",
       "kind": "theorem",
-      "mathematicalMeaning": "For a, b, c in the natural numbers, and w₁, w₂ in the real numbers, mk a b c.expected Output Weight Cal Conf Cal Conf.bi Weights w₁ w₂ equals w₁ plus w₂ minus 2 times a plus b plus c : the real numbers.",
-      "mathematicalFormula": "\\forall\\,a,b,c\\colon \\mathbb{N},\\;w₁,w₂\\colon \\mathbb{R},\\quad (\\operatorname{mk} a b c).\\operatorname{expectedOutputWeight} \\operatorname{CalConf} (\\operatorname{CalConf}.\\operatorname{biWeights} w₁ w₂) = w₁ + w₂ - 2 \\cdot (a + b + c \\colon \\mathbb{R})",
+      "mathematicalMeaning": "For a two-input word, the predicted output weight is w₁+w₂−2(a+b+c).",
+      "mathematicalFormula": "w_{\\mathrm{out}}(W_{a;b,c};w_1,w_2)=w_1+w_2-2(a+b+c).",
       "leanType": "theorem expectedOutputWeight (a b c : ℕ) (w₁ w₂ : ℝ) : (mk a b c).expectedOutputWeight CalConf (CalConf.biWeights w₁ w₂) = w₁ + w₂ - 2 * ((a + b + c : ℕ) : ℝ)",
       "line": 190
     },
     {
       "leanDeclaration": "toOperator_pairInput_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "For a, b, c in the natural numbers, and f, g of type Function Conf, mk a b c.to Operator Cal Conf Cal Conf.pair Input f g equals Cal Conf.power of the ambient Laplacian a the function sending U to Cal Conf.power of the ambient Laplacian b f U times Cal Conf.power of the ambient Laplacian c g U : equals by unfold Laplacian Word.to Operator Laplacian Word.input Product mk congr 1 funext U rw Fin.prod univ two simp pair Input.",
-      "mathematicalFormula": "\\forall\\,a,b,c\\colon \\mathbb{N},\\;f,g\\colon \\operatorname{Function} \\operatorname{Conf},\\quad (\\operatorname{mk} a b c).\\operatorname{toOperator} \\operatorname{CalConf} (\\operatorname{CalConf}.\\operatorname{pairInput} f g) = \\operatorname{CalConf}.\\operatorname{lapPow} a (U \\longmapsto \\operatorname{CalConf}.\\operatorname{lapPow} b f U \\cdot \\operatorname{CalConf}.\\operatorname{lapPow} c g U) = \\operatorname{by} \\operatorname{unfold} \\operatorname{LaplacianWord}.\\operatorname{toOperator} \\operatorname{LaplacianWord}.\\operatorname{inputProduct} \\operatorname{mk} \\operatorname{congr} 1 \\operatorname{funext} U \\operatorname{rw} [\\operatorname{Fin}.\\operatorname{prod\\_univ\\_two}] \\operatorname{simp} [\\operatorname{pairInput}]",
+      "mathematicalMeaning": "Expands the rank-two word on the ordered pair of inputs (f,g).",
+      "mathematicalFormula": "W_{a;b,c}(f,g)=\\widetilde{\\Delta}^{a}\\!\\left((\\widetilde{\\Delta}^{b}f)(\\widetilde{\\Delta}^{c}g)\\right).",
       "leanType": "theorem toOperator_pairInput_apply (a b c : ℕ) (f g : Function Conf) : (mk a b c).toOperator CalConf (CalConf.pairInput f g) = CalConf.lapPow a (fun U => CalConf.lapPow b f U * CalConf.lapPow c g U) := by unfold LaplacianWord.toOperator LaplacianWord.inputProduct mk congr 1 funext U rw [Fin.prod_univ_two] simp [pairInput]",
       "line": 200
     },
     {
       "leanDeclaration": "mk",
       "kind": "def",
-      "mathematicalMeaning": "The rank-three word (a; b, c, d). In explicit terms, for a, b, c, d in the natural numbers, its defining expression is output Power : equals a input Power : equals the function sending i to if i equals 0 then b else if i equals 1 then c else d.",
-      "mathematicalFormula": "\\operatorname{mk}(a,b,c,d)=\\operatorname{outputPower} = a \\operatorname{inputPower} = i \\longmapsto \\operatorname{if} i = 0 \\operatorname{then} b \\operatorname{else} \\operatorname{if} i = 1 \\operatorname{then} c \\operatorname{else} d",
+      "mathematicalMeaning": "Constructs the rank-three word with outer exponent a and input exponents b,c,d.",
+      "mathematicalFormula": "W_{a;b,c,d}:=(a;b,c,d).",
       "leanType": "def mk (a b c d : ℕ) : LaplacianWord 3",
       "line": 221
     },
     {
       "leanDeclaration": "mk_outputPower",
       "kind": "theorem",
-      "mathematicalMeaning": "For a, b, c, d in the natural numbers, mk a b c d.output Power equals a.",
-      "mathematicalFormula": "\\forall\\,a,b,c,d\\colon \\mathbb{N},\\quad (\\operatorname{mk} a b c d).\\operatorname{outputPower} = a",
+      "mathematicalMeaning": "The outer exponent of the rank-three constructor is a.",
+      "mathematicalFormula": "\\operatorname{out}(W_{a;b,c,d})=a.",
       "leanType": "theorem mk_outputPower (a b c d : ℕ) : (mk a b c d).outputPower = a",
       "line": 227
     },
     {
       "leanDeclaration": "mk_inputPower_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "For a, b, c, d in the natural numbers, mk a b c d.input Power 0 equals b.",
-      "mathematicalFormula": "\\forall\\,a,b,c,d\\colon \\mathbb{N},\\quad (\\operatorname{mk} a b c d).\\operatorname{inputPower} 0 = b",
+      "mathematicalMeaning": "The exponent in the first input slot of W₍a;b,c,d₎ is b.",
+      "mathematicalFormula": "b_0(W_{a;b,c,d})=b.",
       "leanType": "theorem mk_inputPower_zero (a b c d : ℕ) : (mk a b c d).inputPower 0 = b",
       "line": 233
     },
     {
       "leanDeclaration": "mk_inputPower_one",
       "kind": "theorem",
-      "mathematicalMeaning": "For a, b, c, d in the natural numbers, mk a b c d.input Power 1 equals c.",
-      "mathematicalFormula": "\\forall\\,a,b,c,d\\colon \\mathbb{N},\\quad (\\operatorname{mk} a b c d).\\operatorname{inputPower} 1 = c",
+      "mathematicalMeaning": "The exponent in the second input slot of W₍a;b,c,d₎ is c.",
+      "mathematicalFormula": "b_1(W_{a;b,c,d})=c.",
       "leanType": "theorem mk_inputPower_one (a b c d : ℕ) : (mk a b c d).inputPower 1 = c",
       "line": 239
     },
     {
       "leanDeclaration": "mk_inputPower_two",
       "kind": "theorem",
-      "mathematicalMeaning": "For a, b, c, d in the natural numbers, mk a b c d.input Power 2 equals d.",
-      "mathematicalFormula": "\\forall\\,a,b,c,d\\colon \\mathbb{N},\\quad (\\operatorname{mk} a b c d).\\operatorname{inputPower} 2 = d",
+      "mathematicalMeaning": "The exponent in the third input slot of W₍a;b,c,d₎ is d.",
+      "mathematicalFormula": "b_2(W_{a;b,c,d})=d.",
       "leanType": "theorem mk_inputPower_two (a b c d : ℕ) : (mk a b c d).inputPower 2 = d",
       "line": 245
     },
     {
       "leanDeclaration": "BiLaplacianCombinationData",
       "kind": "structure",
-      "mathematicalMeaning": "Data for a finite bidifferential linear combination of Laplacian words. Its mathematical data are: support: Finset Laplacian Word 2; coeff: Laplacian Word 2 maps to the real numbers.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{support}&\\colon \\operatorname{Finset} (\\operatorname{LaplacianWord} 2)\\\\\\operatorname{coeff}&\\colon \\operatorname{LaplacianWord} 2 \\longrightarrow \\mathbb{R}\\end{aligned}",
+      "mathematicalMeaning": "Stores a finite set S of rank-two Laplacian words together with a real coefficient c_W for every word.",
+      "mathematicalFormula": "S\\subset\\{\\text{rank-two Laplacian words}\\}\\text{ finite},\\qquad c:\\{\\text{words}\\}\\to\\mathbb{R}.",
       "leanType": "structure BiLaplacianCombinationData",
       "line": 258
     },
     {
       "leanDeclaration": "toOperator",
       "kind": "def",
-      "mathematicalMeaning": "The bidifferential operator associated to a finite Laplacian-word sum. In explicit terms, for d of type bi laplacian combination data, and calconf of type calculus conf, its defining expression is Cal Conf.operator Sum D.support D.coeff the function sending W to W.to Operator Cal Conf.",
-      "mathematicalFormula": "\\operatorname{toOperator}(D,CalConf)=\\operatorname{CalConf}.\\operatorname{operatorSum} D.\\operatorname{support} D.\\operatorname{coeff} (W \\longmapsto W.\\operatorname{toOperator} \\operatorname{CalConf})",
+      "mathematicalMeaning": "Associates to finite coefficient data the corresponding finite sum of bidifferential Laplacian words.",
+      "mathematicalFormula": "P_D:=\\sum_{W\\in\\operatorname{supp}(D)}c_D(W)\\,W.",
       "leanType": "def toOperator (D : BiLaplacianCombinationData) (CalConf : Calculus Conf) : CalConf.BiOperator",
       "line": 265
     },
     {
       "leanDeclaration": "toOperator_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "For D of type Bi Laplacian Combination Data, F of type Cal Conf.Bi Input, and U of type Conf.Ambient Bundle, D.to Operator Cal Conf F U equals ∑ W belongs to D.support, D.coeff W times W.to Operator Cal Conf F U.",
-      "mathematicalFormula": "\\forall\\,D\\colon \\operatorname{BiLaplacianCombinationData},\\;F\\colon \\operatorname{CalConf}.\\operatorname{BiInput},\\;U\\colon \\operatorname{Conf}.\\operatorname{AmbientBundle},\\quad D.\\operatorname{toOperator} \\operatorname{CalConf} F U = \\sum W \\in D.\\operatorname{support}, D.\\operatorname{coeff} W \\cdot W.\\operatorname{toOperator} \\operatorname{CalConf} F U",
+      "mathematicalMeaning": "Evaluates the finite word combination pointwise.",
+      "mathematicalFormula": "P_D(F)(U)=\\sum_{W\\in\\operatorname{supp}(D)}c_D(W)\\,W(F)(U).",
       "leanType": "theorem toOperator_apply (D : BiLaplacianCombinationData) (F : CalConf.BiInput) (U : Conf.AmbientBundle) : D.toOperator CalConf F U = ∑ W ∈ D.support, D.coeff W * W.toOperator CalConf F U",
       "line": 273
     }
@@ -233,5 +243,5 @@
       "note": "Source for multilinear tangentiality and Laplacian-word constructions."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "The weight theorem is verified only under AlgebraicIdentities and ProductHomogeneityIdentities. The latter is assumed rather than derived here from an Euler-field Leibniz rule. This file does not prove tangentiality, compute boundary defects, establish multilinearity, or show that arbitrary finite combinations share a common output weight."
 }

@@ -1,122 +1,127 @@
 {
   "file": "PolyGJMSoperators/Basic.lean",
-  "title": "Basic",
-  "status": "verified-under-interface",
-  "summary": "Defines multilinear ambient inputs/operators and basic operations for replacing or transforming input slots.",
+  "title": "Multi-input operator foundations",
+  "status": "scaffold",
+  "summary": "Defines rank-r tuples of ambient functions, rank-r operators, unary adapters, slot replacement, and slotwise unary mapping.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Defines multilinear ambient inputs/operators and basic operations for replacing or transforming input slots.",
-      "formula": null
+      "heading": "Rank-r inputs and operators",
+      "body": "A multi-input is an ordered r-tuple of ambient functions indexed by Fin r. A rank-r operator consumes such a tuple and returns one ambient function; no linearity or differential-order condition is imposed.",
+      "formula": "F=(f_0,\\ldots,f_{r-1})\\in\\mathcal F^r,\\qquad P:\\mathcal F^r\\to\\mathcal F."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows PolyGJMSoperators/Basic.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Unary adapters",
+      "body": "An ordinary unary operator can be viewed as a one-input multi-operator by reading slot zero. Conversely a one-input multi-operator becomes unary by filling its unique slot with f.",
+      "formula": "\\operatorname{unaryToMulti}(P)(F)=P(F_0),\\qquad \\operatorname{multiToUnary}(A)(f)=A(i\\mapsto f)."
+    },
+    {
+      "heading": "Input transformations",
+      "body": "replace changes one chosen slot, while mapUnary applies the same unary transformation independently to every slot.",
+      "formula": "(F[i\\leftarrow f])_j=\\begin{cases}f,&j=i,\\\\F_j,&j\\ne i,\\end{cases}\\qquad (L_*F)_i=L(F_i)."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "MultiInput",
       "kind": "abbrev",
-      "mathematicalMeaning": "A rank-r tuple of ambient functions. In explicit terms, for calconf of type calculus conf, and r in the natural numbers, its defining expression is Fin r maps to Function Conf.",
-      "mathematicalFormula": "\\operatorname{MultiInput}(r)=\\operatorname{Fin} r \\longrightarrow \\operatorname{Function} \\operatorname{Conf}",
+      "mathematicalMeaning": "Defines a rank-r ambient input as a function from the finite index set Fin r to ambient functions, equivalently an ordered r-tuple.",
+      "mathematicalFormula": "\\operatorname{MultiInput}_r=\\{F:\\operatorname{Fin}(r)\\to\\mathcal F\\}\\cong\\mathcal F^r.",
       "leanType": "abbrev MultiInput (_CalConf : Calculus Conf) (r : ℕ) : Type _",
       "line": 27
     },
     {
       "leanDeclaration": "MultiOperator",
       "kind": "abbrev",
-      "mathematicalMeaning": "A rank-r ambient operator. In explicit terms, for calconf of type calculus conf, and r in the natural numbers, its defining expression is Cal Conf.Multi Input r maps to Function Conf.",
-      "mathematicalFormula": "\\operatorname{MultiOperator}(CalConf,r)=\\operatorname{CalConf}.\\operatorname{MultiInput} r \\longrightarrow \\operatorname{Function} \\operatorname{Conf}",
+      "mathematicalMeaning": "Defines a rank-r ambient operator as an arbitrary map from r ambient inputs to one ambient function.",
+      "mathematicalFormula": "\\operatorname{MultiOperator}_r=\\{P:\\mathcal F^r\\to\\mathcal F\\}.",
       "leanType": "abbrev MultiOperator (CalConf : Calculus Conf) (r : ℕ) : Type _",
       "line": 31
     },
     {
       "leanDeclaration": "UnaryMultiOperator",
       "kind": "abbrev",
-      "mathematicalMeaning": "Rank-one multi-operators. In explicit terms, its defining expression is Cal Conf.Multi Operator 1.",
-      "mathematicalFormula": "\\operatorname{UnaryMultiOperator}=\\operatorname{CalConf}.\\operatorname{MultiOperator} 1",
+      "mathematicalMeaning": "Specializes MultiOperator to one input slot.",
+      "mathematicalFormula": "\\operatorname{UnaryMultiOperator}=\\operatorname{MultiOperator}_1.",
       "leanType": "abbrev UnaryMultiOperator : Type _",
       "line": 35
     },
     {
       "leanDeclaration": "BiOperator",
       "kind": "abbrev",
-      "mathematicalMeaning": "Rank-two multi-operators, i.e. bidifferential ambient operators. In explicit terms, its defining expression is Cal Conf.Multi Operator 2.",
-      "mathematicalFormula": "\\operatorname{BiOperator}=\\operatorname{CalConf}.\\operatorname{MultiOperator} 2",
+      "mathematicalMeaning": "Specializes MultiOperator to two input slots; this is the ambient bidifferential-operator carrier type, without a differential property yet.",
+      "mathematicalFormula": "\\operatorname{BiOperator}=\\operatorname{MultiOperator}_2.",
       "leanType": "abbrev BiOperator : Type _",
       "line": 39
     },
     {
       "leanDeclaration": "TriOperator",
       "kind": "abbrev",
-      "mathematicalMeaning": "Rank-three multi-operators, i.e. tridifferential ambient operators. In explicit terms, its defining expression is Cal Conf.Multi Operator 3.",
-      "mathematicalFormula": "\\operatorname{TriOperator}=\\operatorname{CalConf}.\\operatorname{MultiOperator} 3",
+      "mathematicalMeaning": "Specializes MultiOperator to three input slots.",
+      "mathematicalFormula": "\\operatorname{TriOperator}=\\operatorname{MultiOperator}_3.",
       "leanType": "abbrev TriOperator : Type _",
       "line": 43
     },
     {
       "leanDeclaration": "unaryToMulti",
       "kind": "def",
-      "mathematicalMeaning": "Regard an ordinary unary ambient operator as a rank-one multi-operator. In explicit terms, for p of type function conf maps to function conf, its defining expression is the function sending F to P F 0.",
-      "mathematicalFormula": "\\operatorname{unaryToMulti}(P)=F \\longmapsto P (F 0)",
+      "mathematicalMeaning": "Turns a unary ambient operator P into a rank-one multi-operator by applying P to the unique input F(0).",
+      "mathematicalFormula": "\\operatorname{unaryToMulti}(P)(F)=P(F_0).",
       "leanType": "def unaryToMulti (P : Function Conf → Function Conf) : CalConf.MultiOperator 1",
       "line": 47
     },
     {
       "leanDeclaration": "multiToUnary",
       "kind": "def",
-      "mathematicalMeaning": "Regard a rank-one multi-operator as an ordinary unary ambient operator. In explicit terms, for p of type cal conf.multi operator 1, its defining expression is the function sending f to P fun maps to f.",
-      "mathematicalFormula": "\\operatorname{multiToUnary}(P)=f \\longmapsto P (\\operatorname{fun} _ => f)",
+      "mathematicalMeaning": "Turns a rank-one multi-operator A into a unary operator by supplying the constant one-slot tuple with value f.",
+      "mathematicalFormula": "\\operatorname{multiToUnary}(A)(f)=A(i\\mapsto f).",
       "leanType": "def multiToUnary (P : CalConf.MultiOperator 1) : Function Conf → Function Conf",
       "line": 53
     },
     {
       "leanDeclaration": "unaryToMulti_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "For P of type Function Conf maps to Function Conf, and F of type Cal Conf.Multi Input 1, Cal Conf.unary To Multi P F equals P F 0.",
-      "mathematicalFormula": "\\forall\\,P\\colon \\operatorname{Function} \\operatorname{Conf} \\longrightarrow \\operatorname{Function} \\operatorname{Conf},\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} 1,\\quad \\operatorname{CalConf}.\\operatorname{unaryToMulti} P F = P (F 0)",
+      "mathematicalMeaning": "Unfolds unaryToMulti on a rank-one input tuple.",
+      "mathematicalFormula": "\\operatorname{unaryToMulti}(P)(F)=P(F_0).",
       "leanType": "theorem unaryToMulti_apply (P : Function Conf → Function Conf) (F : CalConf.MultiInput 1) : CalConf.unaryToMulti P F = P (F 0)",
       "line": 59
     },
     {
       "leanDeclaration": "multiToUnary_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "For P of type Cal Conf.Multi Operator 1, and f of type Function Conf, Cal Conf.multi To Unary P f equals P fun maps to f.",
-      "mathematicalFormula": "\\forall\\,P\\colon \\operatorname{CalConf}.\\operatorname{MultiOperator} 1,\\;f\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{CalConf}.\\operatorname{multiToUnary} P f = P (\\operatorname{fun} _ => f)",
+      "mathematicalMeaning": "Unfolds multiToUnary on an ambient function.",
+      "mathematicalFormula": "\\operatorname{multiToUnary}(A)(f)=A(i\\mapsto f).",
       "leanType": "theorem multiToUnary_apply (P : CalConf.MultiOperator 1) (f : Function Conf) : CalConf.multiToUnary P f = P (fun _ => f)",
       "line": 66
     },
     {
       "leanDeclaration": "replace",
       "kind": "def",
-      "mathematicalMeaning": "Replace one input slot. In explicit terms, for r in the natural numbers, f of type cal conf.multi input r, i of type fin r, and f of type function conf, its defining expression is Function.update F i f.",
-      "mathematicalFormula": "\\operatorname{replace}(F,i,f)=\\operatorname{Function}.\\operatorname{update} F i f",
+      "mathematicalMeaning": "Replaces the ith entry of an r-tuple F by f and leaves all other slots unchanged.",
+      "mathematicalFormula": "\\bigl(F[i\\leftarrow f]\\bigr)_j=\\begin{cases}f,&j=i,\\\\F_j,&j\\ne i.\\end{cases}",
       "leanType": "def replace {r : ℕ} (F : CalConf.MultiInput r) (i : Fin r) (f : Function Conf) : CalConf.MultiInput r",
       "line": 77
     },
     {
       "leanDeclaration": "mapUnary",
       "kind": "def",
-      "mathematicalMeaning": "Apply the same unary operator to every input slot. In explicit terms, for r in the natural numbers, p of type function conf maps to function conf, and f of type cal conf.multi input r, its defining expression is the function sending i to P F i.",
-      "mathematicalFormula": "\\operatorname{mapUnary}(P,F)=i \\longmapsto P (F i)",
+      "mathematicalMeaning": "Applies one unary operator P separately to every component of a multi-input.",
+      "mathematicalFormula": "\\bigl(\\operatorname{mapUnary}(P,F)\\bigr)_i=P(F_i).",
       "leanType": "def mapUnary {r : ℕ} (P : Function Conf → Function Conf) (F : CalConf.MultiInput r) : CalConf.MultiInput r",
       "line": 86
     },
     {
       "leanDeclaration": "replace_same",
       "kind": "theorem",
-      "mathematicalMeaning": "For r in the natural numbers, F of type Cal Conf.Multi Input r, i of type Fin r, and f of type Function Conf, replace F i f i equals f.",
-      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\;i\\colon \\operatorname{Fin} r,\\;f\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{replace} F i f i = f",
+      "mathematicalMeaning": "At the replaced slot, the updated tuple evaluates to the new function f.",
+      "mathematicalFormula": "\\bigl(F[i\\leftarrow f]\\bigr)_i=f.",
       "leanType": "theorem replace_same {r : ℕ} (F : CalConf.MultiInput r) (i : Fin r) (f : Function Conf) : replace F i f i = f",
       "line": 94
     },
     {
       "leanDeclaration": "mapUnary_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "For r in the natural numbers, P of type Function Conf maps to Function Conf, F of type Cal Conf.Multi Input r, and i of type Fin r, map Unary P F i equals P F i.",
-      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;P\\colon \\operatorname{Function} \\operatorname{Conf} \\longrightarrow \\operatorname{Function} \\operatorname{Conf},\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\;i\\colon \\operatorname{Fin} r,\\quad \\operatorname{mapUnary} P F i = P (F i)",
+      "mathematicalMeaning": "Evaluating the mapped tuple at i gives P applied to the original ith input.",
+      "mathematicalFormula": "\\bigl(\\operatorname{mapUnary}(P,F)\\bigr)_i=P(F_i).",
       "leanType": "theorem mapUnary_apply {r : ℕ} (P : Function Conf → Function Conf) (F : CalConf.MultiInput r) (i : Fin r) : mapUnary P F i = P (F i)",
       "line": 104
     }
@@ -134,5 +139,5 @@
       "note": "Source for multilinear tangentiality and Laplacian-word constructions."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "This is syntax-level scaffold code. MultiOperator is an arbitrary function between function spaces: the file does not require multilinearity, differential dependence, symmetry, locality, homogeneity, or tangentiality."
 }

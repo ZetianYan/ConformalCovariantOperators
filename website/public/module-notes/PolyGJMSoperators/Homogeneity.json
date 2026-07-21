@@ -1,74 +1,79 @@
 {
   "file": "PolyGJMSoperators/Homogeneity.lean",
-  "title": "Homogeneity",
+  "title": "Multiweight homogeneity",
   "status": "verified-under-interface",
-  "summary": "Defines slot weights, total weight, output weight, and multihomogeneity for multilinear operators.",
+  "summary": "Assigns one ambient homogeneity to each input slot, sums the input weights, and defines the expected output weight after total Laplacian degree N.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Defines slot weights, total weight, output weight, and multihomogeneity for multilinear operators.",
-      "formula": null
+      "heading": "One weight per input",
+      "body": "For F=(fᵢ), multi-homogeneity of weight vector w=(wᵢ) means that every component is homogeneous for the ambient Euler field X with its own weight.",
+      "formula": "XF_i=w_iF_i\\qquad(0\\leq i<r)."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows PolyGJMSoperators/Homogeneity.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Total and output weights",
+      "body": "The total input weight is the sum of the slot weights. An expression with total Laplacian degree N is expected to lower that sum by 2N.",
+      "formula": "|w|:=\\sum_{i=0}^{r-1}w_i,\\qquad w_{\\mathrm{out}}=|w|-2N."
+    },
+    {
+      "heading": "Low-rank expansions",
+      "body": "For two and three inputs, the finite sums reduce to the usual pair and triple sums.",
+      "formula": "|(w_1,w_2)|=w_1+w_2,\\qquad |(w_1,w_2,w_3)|=w_1+w_2+w_3."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "IsMultiHomogeneous",
       "kind": "def",
-      "mathematicalMeaning": "Pointwise homogeneity for rank-r input tuples. In explicit terms, for r in the natural numbers, w of type fin r maps to the real numbers, and f of type cal conf.multi input r, its defining expression is for every i : Fin r, Cal Conf.Is XHomogeneous w i F i.",
-      "mathematicalFormula": "\\operatorname{IsMultiHomogeneous}(w,F)=\\forall i \\colon \\operatorname{Fin} r, \\operatorname{CalConf}.\\operatorname{IsXHomogeneous} (w i) (F i)",
+      "mathematicalMeaning": "Defines pointwise homogeneity of an input tuple: its ith function must have Euler weight wᵢ.",
+      "mathematicalFormula": "\\operatorname{IsMultiHomogeneous}(w,F)\\iff\\forall i,\\quad XF_i=w_iF_i.",
       "leanType": "def IsMultiHomogeneous {r : ℕ} (w : Fin r → ℝ) (F : CalConf.MultiInput r) : Prop",
       "line": 27
     },
     {
       "leanDeclaration": "totalWeight",
       "kind": "def",
-      "mathematicalMeaning": "Total input weight. In explicit terms, for calconf of type calculus conf, r in the natural numbers, and w of type fin r maps to the real numbers, its defining expression is ∑ i, w i.",
-      "mathematicalFormula": "\\operatorname{totalWeight}(w)=\\sum i, w i",
+      "mathematicalMeaning": "Defines the total input weight as the finite sum of all slot weights.",
+      "mathematicalFormula": "|w|:=\\sum_{i\\in\\operatorname{Fin}(r)}w_i.",
       "leanType": "def totalWeight (_CalConf : Calculus Conf) {r : ℕ} (w : Fin r → ℝ) : ℝ",
       "line": 34
     },
     {
       "leanDeclaration": "outputWeight",
       "kind": "def",
-      "mathematicalMeaning": "Expected output weight after lowering total degree by 2N. In explicit terms, for calconf of type calculus conf, r in the natural numbers, w of type fin r maps to the real numbers, and n in the natural numbers, its defining expression is Cal Conf.total Weight w minus 2 times N.",
-      "mathematicalFormula": "w_{\\mathrm{out}}(CalConf,w,N)=\\operatorname{CalConf}.\\operatorname{totalWeight} w - 2 \\cdot N",
+      "mathematicalMeaning": "Defines the expected output homogeneity after total Laplacian degree N by subtracting 2N from the total input weight.",
+      "mathematicalFormula": "w_{\\mathrm{out}}(w,N):=\\sum_iw_i-2N.",
       "leanType": "def outputWeight (CalConf : Calculus Conf) {r : ℕ} (w : Fin r → ℝ) (N : ℕ) : ℝ",
       "line": 41
     },
     {
       "leanDeclaration": "IsMultiHomogeneous.apply",
       "kind": "theorem",
-      "mathematicalMeaning": "For r in the natural numbers, w of type Fin r maps to the real numbers, F of type Cal Conf.Multi Input r, hF of type Cal Conf.Is Multi Homogeneous w F, and i of type Fin r, Cal Conf.Is XHomogeneous w i F i.",
-      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;w\\colon \\operatorname{Fin} r \\longrightarrow \\mathbb{R},\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\;hF\\colon \\operatorname{CalConf}.\\operatorname{IsMultiHomogeneous} w F,\\;i\\colon \\operatorname{Fin} r,\\quad \\operatorname{CalConf}.\\operatorname{IsXHomogeneous} (w i) (F i)",
+      "mathematicalMeaning": "Extracts the ith component of a multi-homogeneity hypothesis.",
+      "mathematicalFormula": "\\operatorname{IsMultiHomogeneous}(w,F)\\Longrightarrow XF_i=w_iF_i.",
       "leanType": "theorem IsMultiHomogeneous.apply {r : ℕ} {w : Fin r → ℝ} {F : CalConf.MultiInput r} (hF : CalConf.IsMultiHomogeneous w F) (i : Fin r) : CalConf.IsXHomogeneous (w i) (F i)",
       "line": 48
     },
     {
       "leanDeclaration": "totalWeight_fin_two",
       "kind": "theorem",
-      "mathematicalMeaning": "For w of type Fin 2 maps to the real numbers, Cal Conf.total Weight w equals w 0 plus w 1.",
-      "mathematicalFormula": "\\forall\\,w\\colon \\operatorname{Fin} 2 \\longrightarrow \\mathbb{R},\\quad \\operatorname{CalConf}.\\operatorname{totalWeight} w = w 0 + w 1",
+      "mathematicalMeaning": "Evaluates the total weight for a two-slot weight vector.",
+      "mathematicalFormula": "\\sum_{i\\in\\operatorname{Fin}(2)}w_i=w_0+w_1.",
       "leanType": "theorem totalWeight_fin_two (w : Fin 2 → ℝ) : CalConf.totalWeight w = w 0 + w 1",
       "line": 57
     },
     {
       "leanDeclaration": "totalWeight_fin_three",
       "kind": "theorem",
-      "mathematicalMeaning": "For w of type Fin 3 maps to the real numbers, Cal Conf.total Weight w equals w 0 plus w 1 plus w 2.",
-      "mathematicalFormula": "\\forall\\,w\\colon \\operatorname{Fin} 3 \\longrightarrow \\mathbb{R},\\quad \\operatorname{CalConf}.\\operatorname{totalWeight} w = w 0 + w 1 + w 2",
+      "mathematicalMeaning": "Evaluates the total weight for a three-slot weight vector.",
+      "mathematicalFormula": "\\sum_{i\\in\\operatorname{Fin}(3)}w_i=w_0+w_1+w_2.",
       "leanType": "theorem totalWeight_fin_three (w : Fin 3 → ℝ) : CalConf.totalWeight w = w 0 + w 1 + w 2",
       "line": 63
     },
     {
       "leanDeclaration": "outputWeight_def",
       "kind": "theorem",
-      "mathematicalMeaning": "For r in the natural numbers, w of type Fin r maps to the real numbers, and N in the natural numbers, Cal Conf.output weight w N equals Cal Conf.total Weight w minus 2 times N.",
-      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;w\\colon \\operatorname{Fin} r \\longrightarrow \\mathbb{R},\\;N\\colon \\mathbb{N},\\quad \\operatorname{CalConf}.\\operatorname{outputWeight} w N = \\operatorname{CalConf}.\\operatorname{totalWeight} w - 2 \\cdot N",
+      "mathematicalMeaning": "Unfolds the definition of expected output weight.",
+      "mathematicalFormula": "w_{\\mathrm{out}}(w,N)=|w|-2N.",
       "leanType": "theorem outputWeight_def {r : ℕ} (w : Fin r → ℝ) (N : ℕ) : CalConf.outputWeight w N = CalConf.totalWeight w - 2 * (N : ℝ)",
       "line": 70
     }
@@ -86,5 +91,5 @@
       "note": "Source for multilinear tangentiality and Laplacian-word constructions."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "The arithmetic identities are proved, but homogeneity is expressed through the abstract Calculus.IsXHomogeneous predicate. outputWeight is bookkeeping only; this module does not prove that any concrete multi-operator actually has that output weight."
 }
