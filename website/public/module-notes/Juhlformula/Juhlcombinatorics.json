@@ -1,18 +1,18 @@
 {
   "file": "Juhlformula/Juhlcombinatorics.lean",
-  "title": "Juhlcombinatorics",
+  "title": "Juhl combinatorics module aggregate",
   "status": "scaffold",
-  "summary": "Aggregate entry point for the formal obstruction recursion and OR–Juhl bridge.",
+  "summary": "Collects the formal jet recursion, low-order syntax checks, formal statement, abstract OR bridge, and curved-OR assembly under one import path.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Aggregate entry point for the formal obstruction recursion and OR–Juhl bridge.",
+      "heading": "Module role",
+      "body": "This file introduces no declarations; it only imports the Juhl combinatorics stack.",
       "formula": null
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Juhlformula/Juhlcombinatorics.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Included pipeline",
+      "body": "The imported files build formal jet syntax, recursively produce formal obstruction expressions, check orders one and two, and connect formal right-hand sides through abstract bridge data.",
+      "formula": "\\text{formal jets}\\longrightarrow\\text{recursion}\\longrightarrow\\text{low-order syntax checks}\\longrightarrow\\text{formal bridge assembly}."
     }
   ],
   "correspondence": [],
@@ -37,5 +37,5 @@
       "note": "Source for the Juhl side of the formal syntax."
     }
   ],
-  "limitations": "This file establishes syntax, aggregate imports, or an abstract bridge. It must not be read as a derivation of the corresponding geometric theorem from concrete tensor and analytic data."
+  "limitations": "Importing this aggregate does not establish the geometric Juhl formula. The imported stack remains a formal syntax and bridge scaffold, with actual OR/GJMS comparison and general coefficients still absent."
 }

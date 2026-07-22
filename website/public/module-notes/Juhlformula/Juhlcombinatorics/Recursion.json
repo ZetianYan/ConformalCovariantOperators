@@ -1,124 +1,129 @@
 {
   "file": "Juhlformula/Juhlcombinatorics/Recursion.lean",
-  "title": "Recursion",
-  "status": "verified",
-  "summary": "Performs syntax-level recursive elimination of normal jets and defines the formal obstruction expression formalP.",
+  "title": "Formal obstruction recursion",
+  "status": "scaffold",
+  "summary": "Recursively solves the formal equations Lₛ=0 for normal jets Fₛ₊₁ and defines a normalized formal obstruction expression P₂ℓ, without interpreting it as a geometric differential operator.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Performs syntax-level recursive elimination of normal jets and defines the formal obstruction expression formalP.",
-      "formula": null
+      "heading": "Solving normal jets",
+      "body": "At step s, the equation Lₛ=0 is solved formally for Fₛ₊₁ by multiplying the rest term by the negative inverse of its highest-jet coefficient and substituting previously solved jets.",
+      "formula": "F_{s+1}^{\\mathrm{sol}}=-h_{\\ell,s}^{-1}\\,L_s^{\\mathrm{rest}}\\bigl[F_m\\mapsto F_m^{\\mathrm{sol}}\\ (m\\le s)\\bigr]."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Juhlformula/Juhlcombinatorics/Recursion.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Obstruction coefficient",
+      "body": "For ℓ>0 the obstruction is the coefficient equation L_{ℓ−1} after replacing every normal jet by its recursive formal solution.",
+      "formula": "G_0^{(\\ell)}:=L_{\\ell-1}\\bigl[F_m\\mapsto F_m^{\\mathrm{sol}}\\bigr]."
+    },
+    {
+      "heading": "Normalization",
+      "body": "The formal P₂ℓ expression multiplies the obstruction by aℓ⁻¹=(-1)^ℓ2^{2ℓ−2}((ℓ−1)!)². Lean checks the first three scalar values.",
+      "formula": "P_{2\\ell}^{\\mathrm{formal}}:=(-1)^\\ell2^{2\\ell-2}((\\ell-1)!)^2G_0^{(\\ell)}."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "substF",
       "kind": "def",
-      "mathematicalMeaning": "Substitute all formal normal jets using a substitution function. In explicit terms, for σ of type the natural numbers maps to formal expr, its defining expression is | zero maps to zero | one maps to one | rat q maps to rat q | k maps to k | f maps to f | F m maps to σ m | tr j maps to tr j | add A B maps to subst F σ A plus subst F σ B | neg A maps to minus subst F σ A | mul A B maps to subst F σ A times subst F σ B | op D j A maps to op D j subst F σ A.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{substF}(\\operatorname{zero})&=\\operatorname{zero}\\\\\\operatorname{substF}(\\operatorname{one})&=\\operatorname{one}\\\\\\operatorname{substF}(\\operatorname{rat} q)&=\\operatorname{rat} q\\\\\\operatorname{substF}(k)&=k\\\\\\operatorname{substF}(f)&=f\\\\\\operatorname{substF}(F m)&=σ m\\\\\\operatorname{substF}(\\operatorname{tr} j)&=\\operatorname{tr} j\\\\\\operatorname{substF}(\\operatorname{add} A B)&=\\operatorname{substF} σ A + \\operatorname{substF} σ B\\\\\\operatorname{substF}(\\operatorname{neg} A)&=- \\operatorname{substF} σ A\\\\\\operatorname{substF}(\\operatorname{mul} A B)&=\\operatorname{substF} σ A \\cdot \\operatorname{substF} σ B\\\\\\operatorname{substF}(\\operatorname{opD} j A)&=\\operatorname{opD} j (\\operatorname{substF} σ A)\\end{aligned}",
       "leanType": "def substF (σ : ℕ → FormalExpr) : FormalExpr → FormalExpr",
-      "line": 18
+      "line": 18,
+      "mathematicalMeaning": "Recursively substitutes a chosen expression σ(m) for each normal-jet symbol Fₘ while preserving all other syntax constructors.",
+      "mathematicalFormula": "\\operatorname{substF}(\\sigma,F_m)=\\sigma(m),\\qquad\\operatorname{substF}(\\sigma,D_jE)=D_j(\\operatorname{substF}(\\sigma,E))."
     },
     {
       "leanDeclaration": "solveStepCoeff",
       "kind": "def",
-      "mathematicalMeaning": "The scalar used to solve L_s = 0 for F_{s+1}. In explicit terms, for ell, s in the natural numbers, its defining expression is - highest Coeff ell s ⁻¹.",
-      "mathematicalFormula": "\\operatorname{solveStepCoeff}(ell,s)=- (\\operatorname{highestCoeff} \\operatorname{ell} s)⁻¹",
       "leanType": "def solveStepCoeff (ell s : ℕ) : ℚ",
-      "line": 34
+      "line": 34,
+      "mathematicalMeaning": "Defines the scalar used to solve Lₛ=0 for Fₛ₊₁.",
+      "mathematicalFormula": "s_{\\ell,s}:=-h_{\\ell,s}^{-1}=-\\left(\\frac{4(s+1-\\ell)}{s!}\\right)^{-1}."
     },
     {
       "leanDeclaration": "solvedJetAux",
       "kind": "def",
-      "mathematicalMeaning": "Recursive formal solution for normal jets. In explicit terms, for ell in the natural numbers, its defining expression is | 0 maps to Formal Expr.f | s plus 1 maps to let σ : the natural numbers maps to Formal Expr : equals the function sending m to if hm : m is at most s then solved Jet Aux ell m else Formal Expr.F m Formal Expr.qsmul solve Step Coeff ell s Formal Expr.subst F σ Lrest ell s termination by n maps to n decreasing by exact Nat.lt succ of le hm.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{solvedJetAux}(0)&=f_{\\mathrm{FormalExpr}}\\\\\\operatorname{solvedJetAux}(s + 1)&=\\operatorname{let} σ \\colon \\mathbb{N} \\longrightarrow \\operatorname{FormalExpr} = m \\longmapsto \\operatorname{if} \\operatorname{hm} \\colon m \\le s \\operatorname{then} \\operatorname{solvedJetAux} \\operatorname{ell} m \\operatorname{else} F_{\\mathrm{FormalExpr}} m \\operatorname{FormalExpr}.\\operatorname{qsmul} (\\operatorname{solveStepCoeff} \\operatorname{ell} s) (\\operatorname{FormalExpr}.\\operatorname{substF} σ (\\operatorname{Lrest} \\operatorname{ell} s)) \\operatorname{termination\\_by} n => n \\operatorname{decreasing\\_by} \\operatorname{exact} \\mathbb{N}.\\operatorname{lt\\_succ\\_of\\_le} \\operatorname{hm}\\end{aligned}",
       "leanType": "def solvedJetAux (ell : ℕ) : ℕ → FormalExpr",
-      "line": 39
+      "line": 39,
+      "mathematicalMeaning": "Recursively defines F₀=f and solves each higher jet using previously solved lower jets.",
+      "mathematicalFormula": "F_0^{\\mathrm{sol}}:=f,\\qquad F_{s+1}^{\\mathrm{sol}}:=s_{\\ell,s}L_s^{\\mathrm{rest}}[F_m\\mapsto F_m^{\\mathrm{sol}}\\text{ for }m\\le s]."
     },
     {
       "leanDeclaration": "solvedJet",
       "kind": "def",
-      "mathematicalMeaning": "The formal normal jet F_m solved from the obstruction recursion. In explicit terms, for ell, m in the natural numbers, its defining expression is solved Jet Aux ell m.",
-      "mathematicalFormula": "\\operatorname{solvedJet}(ell,m)=\\operatorname{solvedJetAux} \\operatorname{ell} m",
       "leanType": "def solvedJet (ell m : ℕ) : FormalExpr",
-      "line": 55
+      "line": 55,
+      "mathematicalMeaning": "Exposes the auxiliary recursive solution as the formal solved jet.",
+      "mathematicalFormula": "\\operatorname{solvedJet}(\\ell,m):=F_m^{\\mathrm{sol}}."
     },
     {
       "leanDeclaration": "solvedJet_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "For ell in the natural numbers, solved Jet ell 0 equals Formal Expr.f.",
-      "mathematicalFormula": "\\forall\\,ell\\colon \\mathbb{N},\\quad \\operatorname{solvedJet} \\operatorname{ell} 0 = f_{\\mathrm{FormalExpr}}",
       "leanType": "theorem solvedJet_zero (ell : ℕ) : solvedJet ell 0 = FormalExpr.f",
-      "line": 59
+      "line": 59,
+      "mathematicalMeaning": "Proves the zeroth solved jet is the boundary datum f.",
+      "mathematicalFormula": "F_0^{\\mathrm{sol}}=f."
     },
     {
       "leanDeclaration": "solvedSubst",
       "kind": "def",
-      "mathematicalMeaning": "Substitute every normal jet by the solved formal jet. In explicit terms, for ell in the natural numbers, its defining expression is the function sending m to solved Jet ell m.",
-      "mathematicalFormula": "\\operatorname{solvedSubst}(ell)=m \\longmapsto \\operatorname{solvedJet} \\operatorname{ell} m",
       "leanType": "def solvedSubst (ell : ℕ) : ℕ → FormalExpr",
-      "line": 64
+      "line": 64,
+      "mathematicalMeaning": "Defines the substitution that replaces every Fₘ by its solved expression.",
+      "mathematicalFormula": "\\sigma_\\ell(m):=F_m^{\\mathrm{sol}}."
     },
     {
       "leanDeclaration": "obstructionCoeff",
       "kind": "def",
-      "mathematicalMeaning": "The formal obstruction coefficient G_0.",
-      "mathematicalFormula": "\\operatorname{obstructionCoeff}(ell)\\colon \\operatorname{FormalExpr}",
       "leanType": "def obstructionCoeff (ell : ℕ) : FormalExpr",
-      "line": 68
+      "line": 68,
+      "mathematicalMeaning": "Defines the formal obstruction coefficient; it is zero at ℓ=0 and substituted L_{ℓ−1} for positive ℓ.",
+      "mathematicalFormula": "G_0^{(0)}:=0,\\qquad G_0^{(\\ell)}:=L_{\\ell-1}[F_m\\mapsto F_m^{\\mathrm{sol}}]\\quad(\\ell>0)."
     },
     {
       "leanDeclaration": "obstructionCoeff_one",
       "kind": "theorem",
-      "mathematicalMeaning": "obstruction Coeff 1 equals Formal Expr.subst F solved Subst 1 Lcoeff 1 0.",
-      "mathematicalFormula": "\\operatorname{obstructionCoeff} 1 = \\operatorname{FormalExpr}.\\operatorname{substF} (\\operatorname{solvedSubst} 1) (\\operatorname{Lcoeff} 1 0)",
       "leanType": "theorem obstructionCoeff_one : obstructionCoeff 1 = FormalExpr.substF (solvedSubst 1) (Lcoeff 1 0)",
-      "line": 76
+      "line": 76,
+      "mathematicalMeaning": "Unfolds the order-one obstruction coefficient.",
+      "mathematicalFormula": "G_0^{(1)}=L_0[F_m\\mapsto F_m^{\\mathrm{sol}}]."
     },
     {
       "leanDeclaration": "aEllInv",
       "kind": "def",
-      "mathematicalMeaning": "The inverse normalization constant a_ell^{-1}.",
-      "mathematicalFormula": "\\operatorname{aEllInv}(ell)\\colon \\mathbb{Q}",
       "leanType": "def aEllInv (ell : ℕ) : ℚ",
-      "line": 82
+      "line": 82,
+      "mathematicalMeaning": "Defines the inverse normalization factor for positive ℓ.",
+      "mathematicalFormula": "a_0^{-1}:=0,\\qquad a_\\ell^{-1}:=(-1)^\\ell2^{2\\ell-2}((\\ell-1)!)^2\\quad(\\ell>0)."
     },
     {
       "leanDeclaration": "formalP",
       "kind": "def",
-      "mathematicalMeaning": "The formal obstruction operator P_{2 ell} applied to the boundary value f. In explicit terms, for ell in the natural numbers, its defining expression is Formal Expr.qsmul a Ell Inv ell obstruction Coeff ell.",
-      "mathematicalFormula": "\\operatorname{formalP}(ell)=\\operatorname{FormalExpr}.\\operatorname{qsmul} (\\operatorname{aEllInv} \\operatorname{ell}) (\\operatorname{obstructionCoeff} \\operatorname{ell})",
       "leanType": "def formalP (ell : ℕ) : FormalExpr",
-      "line": 91
+      "line": 91,
+      "mathematicalMeaning": "Defines the normalized formal obstruction expression called P₂ℓ.",
+      "mathematicalFormula": "P_{2\\ell}^{\\mathrm{formal}}:=a_\\ell^{-1}G_0^{(\\ell)}."
     },
     {
       "leanDeclaration": "aEllInv_one",
       "kind": "theorem",
-      "mathematicalMeaning": "a Ell Inv 1 equals -1.",
-      "mathematicalFormula": "\\operatorname{aEllInv} 1 = -1",
       "leanType": "theorem aEllInv_one : aEllInv 1 = -1",
-      "line": 95
+      "line": 95,
+      "mathematicalMeaning": "Computes the first normalization factor.",
+      "mathematicalFormula": "a_1^{-1}=-1."
     },
     {
       "leanDeclaration": "aEllInv_two",
       "kind": "theorem",
-      "mathematicalMeaning": "a Ell Inv 2 equals 4.",
-      "mathematicalFormula": "\\operatorname{aEllInv} 2 = 4",
       "leanType": "theorem aEllInv_two : aEllInv 2 = 4",
-      "line": 100
+      "line": 100,
+      "mathematicalMeaning": "Computes the second normalization factor.",
+      "mathematicalFormula": "a_2^{-1}=4."
     },
     {
       "leanDeclaration": "aEllInv_three",
       "kind": "theorem",
-      "mathematicalMeaning": "a Ell Inv 3 equals -64.",
-      "mathematicalFormula": "\\operatorname{aEllInv} 3 = -64",
       "leanType": "theorem aEllInv_three : aEllInv 3 = -64",
-      "line": 105
+      "line": 105,
+      "mathematicalMeaning": "Computes the third normalization factor.",
+      "mathematicalFormula": "a_3^{-1}=-64."
     }
   ],
   "prerequisites": [
@@ -140,5 +145,5 @@
       "note": "Source for the Juhl side of the formal syntax."
     }
   ],
-  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+  "limitations": "This is a formal recursive syntax calculation. It does not prove that the highest coefficient is invertible in a geometric setting, interpret Dⱼ or trⱼ, establish equality with canonical GJMS operators, or justify the obstruction equation analytically."
 }

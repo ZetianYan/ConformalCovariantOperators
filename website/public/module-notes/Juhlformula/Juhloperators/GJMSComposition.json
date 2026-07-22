@@ -1,60 +1,65 @@
 {
   "file": "Juhlformula/Juhloperators/GJMSComposition.lean",
-  "title": "GJMSComposition",
-  "status": "verified",
-  "summary": "Specializes ordered compositions to the canonical ambient GJMS family.",
+  "title": "Canonical GJMS compositions",
+  "status": "verified-under-interface",
+  "summary": "Specializes abstract Juhl compositions to the canonical ambient GJMS family and verifies that the singleton composition is the ambient Laplacian power Δ̃ᴺ under the algebraic-identities interface.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Specializes ordered compositions to the canonical ambient GJMS family.",
-      "formula": null
+      "heading": "Canonical family",
+      "body": "Given the ambient algebraic identities, each positive k is assigned the canonical abstract GJMS operator constructed from the kth ambient Laplacian power.",
+      "formula": "G_k:=P_{2k}^{\\mathrm{can}}."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Juhlformula/Juhloperators/GJMSComposition.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Ordered composite",
+      "body": "For I=(I₁,…,Iᵣ), the resulting unary operator is the ordered composition of the canonical family.",
+      "formula": "P_{2I}^{\\mathrm{can}}:=P_{2I_1}^{\\mathrm{can}}\\circ\\cdots\\circ P_{2I_r}^{\\mathrm{can}}."
+    },
+    {
+      "heading": "Singleton theorem",
+      "body": "Lean proves that the one-part composition (N) acts exactly by the Nth ambient Laplacian power.",
+      "formula": "P_{2(N)}^{\\mathrm{can}}f=\\widetilde\\Delta^Nf."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "canonicalJuhlGJMSFamily",
       "kind": "def",
-      "mathematicalMeaning": "The canonical GJMS family, viewed as a Juhl abstract family. In explicit terms, for h of type cal conf.algebraic identities, its defining expression is fun k hk maps to GJMS.canonical Ambient GJMS Cal Conf H k.",
-      "mathematicalFormula": "\\operatorname{canonicalJuhlGJMSFamily}(H)=\\operatorname{fun} k _\\operatorname{hk} => \\operatorname{GJMS}.\\operatorname{canonicalAmbientGJMS} \\operatorname{CalConf} H k",
       "leanType": "def canonicalJuhlGJMSFamily (H : CalConf.AlgebraicIdentities) : AbstractGJMSFamily CalConf",
-      "line": 23
+      "line": 23,
+      "mathematicalMeaning": "Defines the Juhl family obtained from the canonical abstract ambient GJMS operators.",
+      "mathematicalFormula": "G_k^{\\mathrm{can}}:=\\operatorname{canonicalAmbientGJMS}(k)."
     },
     {
       "leanDeclaration": "canonicalGJMSComposition",
       "kind": "def",
-      "mathematicalMeaning": "The canonical GJMS composition associated to a composition I. Mathematically: P_{2I} = P_{2I_1} ∘... ∘ P_{2I_r}. In explicit terms, for h of type cal conf.algebraic identities, n in the natural numbers, and i of type composition n, its defining expression is compose GJMS Cal Conf canonical Juhl GJMSFamily Cal Conf H I.",
-      "mathematicalFormula": "\\operatorname{canonicalGJMSComposition}(H,I)=\\operatorname{composeGJMS} \\operatorname{CalConf} (\\operatorname{canonicalJuhlGJMSFamily} \\operatorname{CalConf} H) I",
       "leanType": "def canonicalGJMSComposition (H : CalConf.AlgebraicIdentities) {N : Nat} (I : Composition N) : Function Conf → Function Conf",
-      "line": 32
+      "line": 32,
+      "mathematicalMeaning": "Defines the ordered canonical GJMS composite indexed by a composition I.",
+      "mathematicalFormula": "P_{2I}^{\\mathrm{can}}:=P_{2I_1}^{\\mathrm{can}}\\circ\\cdots\\circ P_{2I_r}^{\\mathrm{can}}."
     },
     {
       "leanDeclaration": "canonicalGJMSComposition_singleton",
       "kind": "theorem",
-      "mathematicalMeaning": "For H of type Cal Conf.Algebraic Identities, N in the natural numbers, and hN of type 0 < N, canonical GJMSComposition Cal Conf H Composition.singleton N h N equals abstract To Unary Cal Conf GJMS.canonical Ambient GJMS Cal Conf H N.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;N\\colon \\mathbb{N},\\;hN\\colon 0 < N,\\quad \\operatorname{canonicalGJMSComposition} \\operatorname{CalConf} H (\\operatorname{Composition}.\\operatorname{singleton} N \\operatorname{hN}) = \\operatorname{abstractToUnary} \\operatorname{CalConf} (\\operatorname{GJMS}.\\operatorname{canonicalAmbientGJMS} \\operatorname{CalConf} H N)",
       "leanType": "theorem canonicalGJMSComposition_singleton (H : CalConf.AlgebraicIdentities) (N : Nat) (hN : 0 < N) : canonicalGJMSComposition CalConf H (Composition.singleton N hN) = abstractToUnary CalConf (GJMS.canonicalAmbientGJMS CalConf H N)",
-      "line": 40
+      "line": 40,
+      "mathematicalMeaning": "Shows that the singleton composition is the underlying canonical order-2N GJMS operator.",
+      "mathematicalFormula": "P_{2(N)}^{\\mathrm{can}}=\\underline{P_{2N}^{\\mathrm{can}}}."
     },
     {
       "leanDeclaration": "canonicalGJMSComposition_singleton_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "For H of type Cal Conf.Algebraic Identities, N in the natural numbers, hN of type 0 < N, and f of type Function Conf, canonical GJMSComposition Cal Conf H Composition.singleton N h N f equals GJMS.canonical Ambient GJMS Cal Conf H N.to Weighted Tangential Operator.to Operator f.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;N\\colon \\mathbb{N},\\;hN\\colon 0 < N,\\;f\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{canonicalGJMSComposition} \\operatorname{CalConf} H (\\operatorname{Composition}.\\operatorname{singleton} N \\operatorname{hN}) f = (\\operatorname{GJMS}.\\operatorname{canonicalAmbientGJMS} \\operatorname{CalConf} H N).\\operatorname{toWeightedTangentialOperator}.\\operatorname{toOperator} f",
       "leanType": "theorem canonicalGJMSComposition_singleton_apply (H : CalConf.AlgebraicIdentities) (N : Nat) (hN : 0 < N) (f : Function Conf) : canonicalGJMSComposition CalConf H (Composition.singleton N hN) f = (GJMS.canonicalAmbientGJMS CalConf H N).toWeightedTangentialOperator.toOperator f",
-      "line": 49
+      "line": 49,
+      "mathematicalMeaning": "Evaluates the singleton equality on an ambient function f.",
+      "mathematicalFormula": "P_{2(N)}^{\\mathrm{can}}f=P_{2N}^{\\mathrm{can}}f."
     },
     {
       "leanDeclaration": "canonicalGJMSComposition_singleton_apply_lapPow",
       "kind": "theorem",
-      "mathematicalMeaning": "For H of type Cal Conf.Algebraic Identities, N in the natural numbers, hN of type 0 < N, and f of type Function Conf, canonical GJMSComposition Cal Conf H Composition.singleton N h N f equals Cal Conf.power of the ambient Laplacian N f.",
-      "mathematicalFormula": "\\forall\\,H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;N\\colon \\mathbb{N},\\;hN\\colon 0 < N,\\;f\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{canonicalGJMSComposition} \\operatorname{CalConf} H (\\operatorname{Composition}.\\operatorname{singleton} N \\operatorname{hN}) f = \\operatorname{CalConf}.\\operatorname{lapPow} N f",
       "leanType": "theorem canonicalGJMSComposition_singleton_apply_lapPow (H : CalConf.AlgebraicIdentities) (N : Nat) (hN : 0 < N) (f : Function Conf) : canonicalGJMSComposition CalConf H (Composition.singleton N hN) f = CalConf.lapPow N f",
-      "line": 60
+      "line": 60,
+      "mathematicalMeaning": "Uses the canonical construction to identify the singleton composite with the Nth ambient Laplacian power.",
+      "mathematicalFormula": "P_{2(N)}^{\\mathrm{can}}f=\\widetilde\\Delta^Nf."
     }
   ],
   "prerequisites": [
@@ -76,5 +81,5 @@
       "note": "Ambient interpretation of the composition formula."
     }
   ],
-  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+  "limitations": "Only the singleton composition is simplified. No theorem here proves the full Juhl formula, maps weights through a nontrivial composition, or descends the composite to a concrete curved conformal operator; the canonical family itself depends on AlgebraicIdentities."
 }

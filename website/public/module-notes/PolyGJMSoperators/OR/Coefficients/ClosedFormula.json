@@ -1,100 +1,105 @@
 {
   "file": "PolyGJMSoperators/OR/Coefficients/ClosedFormula.lean",
-  "title": "ClosedFormula",
-  "status": "verified-under-interface",
-  "summary": "Defines the proposed closed product formula for OR coefficients.",
+  "title": "Regular closed OR coefficients",
+  "status": "scaffold",
+  "summary": "Defines the rational/Pochhammer form of the regular Ovsienko–Redou coefficient and packages it as a coefficient system, while leaving its global defect-cancellation recurrence separate.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Defines the proposed closed product formula for OR coefficients.",
-      "formula": null
+      "heading": "Closed coefficient container",
+      "body": "A closed formula assigns a rational coefficient to every order, rational dimension/weight triple, and OR index.",
+      "formula": "\\Phi_N(n,w_1,w_2;I)\\in\\mathbb Q."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows PolyGJMSoperators/OR/Coefficients/ClosedFormula.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Regular formula",
+      "body": "For I=(a,b,c), a+b+c=N, the coefficient is a trinomial factor times three Pochhammer factors.",
+      "formula": "C_{a,b,c}=\\frac{N!}{a!b!c!}(\\alpha)_{b+c}(\\beta)_{N-b}(\\gamma)_{N-c}."
+    },
+    {
+      "heading": "Separation of tasks",
+      "body": "The module defines the formula and the predicate that it satisfies a chosen recurrence, but does not prove the full defect-cancellation statement.",
+      "formula": "\\operatorname{SatisfiesRecurrence}(\\Phi)\\iff\\operatorname{ORRecurrence}(\\Phi,d)."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "ORClosedCoefficientFormula",
       "kind": "structure",
-      "mathematicalMeaning": "A closed formula for OR rational coefficients. Its mathematical data are: coeff: N maps to n w₁ w₂ : ℚ maps to ORIndex N maps to ℚ.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{coeff}&\\colon N \\longrightarrow (n w₁ w₂ \\colon \\mathbb{Q}) \\longrightarrow \\operatorname{ORIndex} N \\longrightarrow \\mathbb{Q}\\end{aligned}",
       "leanType": "structure ORClosedCoefficientFormula",
-      "line": 29
+      "line": 29,
+      "mathematicalMeaning": "Stores a closed rational coefficient formula depending on order, dimension, two weights, and a degree-N OR index.",
+      "mathematicalFormula": "\\Phi:(N,n,w_1,w_2,I)\\longmapsto\\Phi_N(n,w_1,w_2;I)\\in\\mathbb Q."
     },
     {
       "leanDeclaration": "toCoefficientSystem",
       "kind": "def",
-      "mathematicalMeaning": "The coefficient system associated to a closed formula. In explicit terms, for φ of type orclosed coefficient formula, n in the natural numbers, and n, w₁, w₂ of type ℚ, its defining expression is coeff : equals Φ.coeff N n w₁ w₂.",
-      "mathematicalFormula": "\\operatorname{toCoefficientSystem}(Φ,N,n,w₁,w₂)=\\operatorname{coeff} = Φ.\\operatorname{coeff} N n w₁ w₂",
       "leanType": "def toCoefficientSystem (Φ : ORClosedCoefficientFormula) (N : ℕ) (n w₁ w₂ : ℚ) : ORCoefficientSystem N",
-      "line": 36
+      "line": 36,
+      "mathematicalMeaning": "Turns a closed formula at fixed parameters into an OR coefficient system.",
+      "mathematicalFormula": "C_I:=\\Phi_N(n,w_1,w_2;I)."
     },
     {
       "leanDeclaration": "toCoefficientSystem_coeff",
       "kind": "theorem",
-      "mathematicalMeaning": "For Φ of type ORClosed Coefficient Formula, N in the natural numbers, n, w₁, w₂ of type ℚ, and I of type ORIndex N, Φ.to Coefficient System N n w₁ w₂.coeff I equals Φ.coeff N n w₁ w₂ I.",
-      "mathematicalFormula": "\\forall\\,Φ\\colon \\operatorname{ORClosedCoefficientFormula},\\;N\\colon \\mathbb{N},\\;n,w₁,w₂\\colon \\mathbb{Q},\\;I\\colon \\operatorname{ORIndex} N,\\quad (Φ.\\operatorname{toCoefficientSystem} N n w₁ w₂).\\operatorname{coeff} I = Φ.\\operatorname{coeff} N n w₁ w₂ I",
       "leanType": "theorem toCoefficientSystem_coeff (Φ : ORClosedCoefficientFormula) (N : ℕ) (n w₁ w₂ : ℚ) (I : ORIndex N) : (Φ.toCoefficientSystem N n w₁ w₂).coeff I = Φ.coeff N n w₁ w₂ I",
-      "line": 44
+      "line": 44,
+      "mathematicalMeaning": "Unfolds the coefficient of the system obtained from a closed formula.",
+      "mathematicalFormula": "(\\Phi.\\operatorname{toCoefficientSystem})_I=\\Phi_N(n,w_1,w_2;I)."
     },
     {
       "leanDeclaration": "SatisfiesRecurrence",
       "kind": "def",
-      "mathematicalMeaning": "A closed formula satisfies the OR recurrence for a chosen defect basis. In explicit terms, for n in the natural numbers, κ a type, φ of type orclosed coefficient formula, n, w₁, w₂ of type ℚ, k a finite set, and defectcoeffq of type orindex n maps to fin 2 maps to κ maps to ℚ, its defining expression is Satisfies ORRecurrence w₁ w₂ n K Φ.to Coefficient System N n w₁ w₂ defect Coeff Q.",
-      "mathematicalFormula": "\\operatorname{SatisfiesRecurrence}(Φ,n,w₁,w₂,K,defectCoeffQ)=\\operatorname{SatisfiesORRecurrence} w₁ w₂ n K (Φ.\\operatorname{toCoefficientSystem} N n w₁ w₂) \\operatorname{defectCoeffQ}",
       "leanType": "def SatisfiesRecurrence {N : ℕ} {κ : Type _} [DecidableEq κ] (Φ : ORClosedCoefficientFormula) (n w₁ w₂ : ℚ) (K : Finset κ) (defectCoeffQ : ORIndex N → Fin 2 → κ → ℚ) : Prop",
-      "line": 54
+      "line": 54,
+      "mathematicalMeaning": "Defines what it means for a closed formula to satisfy the chosen OR recurrence and defect basis.",
+      "mathematicalFormula": "\\operatorname{SatisfiesRecurrence}(\\Phi)\\iff\\operatorname{ORRecurrence}(w_1,w_2,n;\\Phi_N,d)."
     },
     {
       "leanDeclaration": "ORRegularMultinomialFactor",
       "kind": "def",
-      "mathematicalMeaning": "The multinomial factor in the regular OR formula. In explicit terms, for n in the natural numbers, and i of type orindex n, its defining expression is multinomial Q3 N I.a I.b I.c.",
-      "mathematicalFormula": "\\operatorname{ORRegularMultinomialFactor}(I)=\\operatorname{multinomialQ3} N a_{\\mathrm{I}} b_{\\mathrm{I}} c_{\\mathrm{I}}",
       "leanType": "def ORRegularMultinomialFactor {N : ℕ} (I : ORIndex N) : ℚ",
-      "line": 72
+      "line": 72,
+      "mathematicalMeaning": "Defines the trinomial factor attached to I=(a,b,c).",
+      "mathematicalFormula": "M_I:=\\frac{N!}{a!\\,b!\\,c!}."
     },
     {
       "leanDeclaration": "ORRegularA",
       "kind": "def",
-      "mathematicalMeaning": "The regular Gamma-ratio part a_{s,t} of the OR formula, expressed via Pochhammer symbols. Here I.b = s and I.c = t. In explicit terms, for n in the natural numbers, n, w₁, w₂ of type ℚ, and i of type orindex n, its defining expression is pochhammer Q ORAlpha N n w₁ w₂ I.b plus I.c times pochhammer Q ORBeta N n w₁ N minus I.b times pochhammer Q ORGamma N n w₂ N minus I.c.",
-      "mathematicalFormula": "\\operatorname{ORRegularA}(n,w₁,w₂,I)=\\operatorname{pochhammerQ} (\\operatorname{ORAlpha} N n w₁ w₂) (b_{\\mathrm{I}} + c_{\\mathrm{I}}) \\cdot \\operatorname{pochhammerQ} (\\operatorname{ORBeta} N n w₁) (N - b_{\\mathrm{I}}) \\cdot \\operatorname{pochhammerQ} (\\operatorname{ORGamma} N n w₂) (N - c_{\\mathrm{I}})",
       "leanType": "def ORRegularA {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : ℚ",
-      "line": 79
+      "line": 79,
+      "mathematicalMeaning": "Defines the Gamma-ratio part of the regular coefficient in Pochhammer form.",
+      "mathematicalFormula": "A_I:=(\\alpha)_{b+c}(\\beta)_{N-b}(\\gamma)_{N-c}."
     },
     {
       "leanDeclaration": "ORRegularCoeff",
       "kind": "def",
-      "mathematicalMeaning": "The regular OR coefficient attached to an index (a,b,c). In explicit terms, for n in the natural numbers, n, w₁, w₂ of type ℚ, and i of type orindex n, its defining expression is ORRegular Multinomial Factor I times ORRegular A n w₁ w₂ I.",
-      "mathematicalFormula": "\\operatorname{ORRegularCoeff}(n,w₁,w₂,I)=\\operatorname{ORRegularMultinomialFactor} I \\cdot \\operatorname{ORRegularA} n w₁ w₂ I",
       "leanType": "def ORRegularCoeff {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : ℚ",
-      "line": 88
+      "line": 88,
+      "mathematicalMeaning": "Defines the regular rational coefficient as the trinomial factor times the Pochhammer part.",
+      "mathematicalFormula": "C_I^{\\mathrm{reg}}:=\\frac{N!}{a!b!c!}(\\alpha)_{b+c}(\\beta)_{N-b}(\\gamma)_{N-c}."
     },
     {
       "leanDeclaration": "ORRegularClosedFormula",
       "kind": "def",
-      "mathematicalMeaning": "The regular closed formula from Theorem 1.1, in rational/Pochhammer form. In explicit terms, its defining expression is coeff : equals fun n w₁ w₂ I maps to ORRegular Coeff n w₁ w₂ I.",
-      "mathematicalFormula": "\\operatorname{ORRegularClosedFormula}=\\operatorname{coeff} = \\operatorname{fun} _ n w₁ w₂ I => \\operatorname{ORRegularCoeff} n w₁ w₂ I",
       "leanType": "def ORRegularClosedFormula : ORClosedCoefficientFormula",
-      "line": 95
+      "line": 95,
+      "mathematicalMeaning": "Packages the regular coefficient as a closed formula valid for all parameter inputs.",
+      "mathematicalFormula": "\\Phi^{\\mathrm{reg}}_N(n,w_1,w_2;I):=C_I^{\\mathrm{reg}}."
     },
     {
       "leanDeclaration": "ORCoefficientSystem.regular",
       "kind": "def",
-      "mathematicalMeaning": "The regular OR coefficient system. In explicit terms, for n in the natural numbers, and n, w₁, w₂ of type ℚ, its defining expression is ORRegular Closed Formula.to Coefficient System N n w₁ w₂.",
-      "mathematicalFormula": "\\operatorname{ORCoefficientSystem}.\\operatorname{regular}(N,n,w₁,w₂)=\\operatorname{ORRegularClosedFormula}.\\operatorname{toCoefficientSystem} N n w₁ w₂",
       "leanType": "def ORCoefficientSystem.regular (N : ℕ) (n w₁ w₂ : ℚ) : ORCoefficientSystem N",
-      "line": 99
+      "line": 99,
+      "mathematicalMeaning": "Forms the fixed-parameter coefficient system associated with the regular closed formula.",
+      "mathematicalFormula": "C^{\\mathrm{reg}}(N,n,w_1,w_2):=(C_I^{\\mathrm{reg}})_{I\\in\\operatorname{ORIndex}(N)}."
     },
     {
       "leanDeclaration": "ORCoefficientSystem.regular_coeff",
       "kind": "theorem",
-      "mathematicalMeaning": "For N in the natural numbers, n, w₁, w₂ of type ℚ, and I of type ORIndex N, ORCoefficient System.regular N n w₁ w₂.coeff I equals ORRegular Coeff n w₁ w₂ I.",
-      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;n,w₁,w₂\\colon \\mathbb{Q},\\;I\\colon \\operatorname{ORIndex} N,\\quad (\\operatorname{ORCoefficientSystem}.\\operatorname{regular} N n w₁ w₂).\\operatorname{coeff} I = \\operatorname{ORRegularCoeff} n w₁ w₂ I",
       "leanType": "theorem ORCoefficientSystem.regular_coeff (N : ℕ) (n w₁ w₂ : ℚ) (I : ORIndex N) : (ORCoefficientSystem.regular N n w₁ w₂).coeff I = ORRegularCoeff n w₁ w₂ I",
-      "line": 106
+      "line": 106,
+      "mathematicalMeaning": "Unfolds a coefficient of the regular system.",
+      "mathematicalFormula": "C_I^{\\mathrm{reg}}=\\operatorname{ORRegularCoeff}(n,w_1,w_2;I)."
     }
   ],
   "prerequisites": [
@@ -117,5 +122,5 @@
       "note": "Primary curved ambient source for the encoded OR recurrence."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "The regular coefficient formula is defined, not yet shown here to cancel the geometric defect expansion. SatisfiesRecurrence is only a predicate, and the file contains no tangentiality theorem or analysis of exceptional/singular parameter conventions."
 }

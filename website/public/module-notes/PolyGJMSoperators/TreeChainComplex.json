@@ -1,84 +1,89 @@
 {
   "file": "PolyGJMSoperators/TreeChainComplex.lean",
-  "title": "TreeChainComplex",
+  "title": "First tree-recurrence complex",
   "status": "scaffold",
-  "summary": "Packages first-kernel and Euler-characteristic targets for the prospective rank-general recurrence complex.",
+  "summary": "Records stars-and-bars dimensions, a proposed Euler characteristic, the first recurrence differential, and a placeholder package for a future generic exactness proof.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Packages first-kernel and Euler-characteristic targets for the prospective rank-general recurrence complex.",
-      "formula": null
+      "heading": "Expected dimensions",
+      "body": "The number of degree-s exponent vectors on 2r−1 vertices is the stars-and-bars number C(s+2r−2,2r−2). The proposed generic kernel dimension is C(k+r−2,r−2).",
+      "formula": "|I_s^T|=\\binom{s+2r-2}{2r-2},\\qquad\\dim_{\\mathrm{gen}}\\ker d_1\\stackrel{?}=\\binom{k+r-2}{r-2}."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows PolyGJMSoperators/TreeChainComplex.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Euler characteristic target",
+      "body": "A proposed recurrence complex has alternating sum over q, with natural subtraction k−q as implemented by Lean.",
+      "formula": "\\chi_{r,k}=\\sum_{q=0}^{r}(-1)^q\\binom rq\\,|I_{k-q}^T|."
+    },
+    {
+      "heading": "Implemented differential",
+      "body": "Only the first differential is present. Its kernel is definitionally the rank recurrence from TreeRecurrence.",
+      "formula": "d_1A=(R_1A,\\ldots,R_rA),\\qquad A\\in\\ker d_1\\iff\\operatorname{RankRecurrence}(A)."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "combIndexCard",
       "kind": "def",
-      "mathematicalMeaning": "Number of degree-s tree indices for a left-comb rank-r word, as a stars-and-bars expression. In explicit terms, for r, s in the natural numbers, its defining expression is Nat.choose s plus 2 times r minus 2 2 times r minus 2.",
-      "mathematicalFormula": "\\operatorname{combIndexCard}(r,s)=\\mathbb{N}.\\operatorname{choose} (s + (2 \\cdot r - 2)) (2 \\cdot r - 2)",
       "leanType": "def combIndexCard (r s : ℕ) : ℕ",
-      "line": 34
+      "line": 34,
+      "mathematicalMeaning": "Defines the stars-and-bars count of degree-s exponent assignments on the left-comb vertices.",
+      "mathematicalFormula": "|I_s^T|:=\\binom{s+2r-2}{2r-2}."
     },
     {
       "leanDeclaration": "genericKernelDimensionExpected",
       "kind": "def",
-      "mathematicalMeaning": "The expected generic dimension of ker d_1. For r >= 2, this is the closed form choose (k + r - 2) (r - 2). In explicit terms, for r, k in the natural numbers, its defining expression is Nat.choose k plus r minus 2 r minus 2.",
-      "mathematicalFormula": "\\operatorname{genericKernelDimensionExpected}(r,k)=\\mathbb{N}.\\operatorname{choose} (k + r - 2) (r - 2)",
       "leanType": "def genericKernelDimensionExpected (r k : ℕ) : ℕ",
-      "line": 42
+      "line": 42,
+      "mathematicalMeaning": "Defines the conjectured generic dimension of the first-differential kernel.",
+      "mathematicalFormula": "d_{r,k}^{\\mathrm{expected}}:=\\binom{k+r-2}{r-2}."
     },
     {
       "leanDeclaration": "recurrenceEulerCharacteristic",
       "kind": "def",
-      "mathematicalMeaning": "Euler characteristic of the expected rank-general recurrence complex. This is sum_q (-1)^q choose r q |I_{k-q}^T|. The subtraction in k - q is Lean's truncated natural subtraction; this is harmless for the first scaffold and can later be replaced by a dependent range over q <= min r k. In explicit terms, for r, k in the natural numbers, its defining expression is Finset.range r plus 1.sum the function sending q to -1 : the integers to the power q times Nat.choose r q : the integers times comb Index Card r k minus q : the integers.",
-      "mathematicalFormula": "\\operatorname{recurrenceEulerCharacteristic}(r,k)=(\\operatorname{Finset}.\\operatorname{range} (r + 1)).\\operatorname{sum} q \\longmapsto ((-1 \\colon \\mathbb{Z}) ^ q) \\cdot (\\mathbb{N}.\\operatorname{choose} r q \\colon \\mathbb{Z}) \\cdot (\\operatorname{combIndexCard} r (k - q) \\colon \\mathbb{Z})",
       "leanType": "def recurrenceEulerCharacteristic (r k : ℕ) : ℤ",
-      "line": 55
+      "line": 55,
+      "mathematicalMeaning": "Defines the alternating Euler characteristic proposed for the rank-general recurrence complex.",
+      "mathematicalFormula": "\\chi_{r,k}:=\\sum_{q=0}^{r}(-1)^q\\binom rq\\,|I_{k-q}^T|."
     },
     {
       "leanDeclaration": "GenericDimensionFormula",
       "kind": "def",
-      "mathematicalMeaning": "Statement that the Euler characteristic gives the expected generic dimension. This is the combinatorial target of the eventual generic exactness proof. In explicit terms, for r, k in the natural numbers, its defining expression is recurrence Euler Characteristic r k equals generic Kernel Dimension Expected r k : the integers.",
-      "mathematicalFormula": "\\operatorname{GenericDimensionFormula}(r,k)=\\operatorname{recurrenceEulerCharacteristic} r k = (\\operatorname{genericKernelDimensionExpected} r k \\colon \\mathbb{Z})",
       "leanType": "def GenericDimensionFormula (r k : ℕ) : Prop",
-      "line": 66
+      "line": 66,
+      "mathematicalMeaning": "States the target equality between the proposed Euler characteristic and expected kernel dimension.",
+      "mathematicalFormula": "\\operatorname{GenericDimensionFormula}(r,k)\\iff\\chi_{r,k}=\\binom{k+r-2}{r-2}."
     },
     {
       "leanDeclaration": "firstDifferential",
       "kind": "abbrev",
-      "mathematicalMeaning": "The first differential of the recurrence complex. In explicit terms, for r, s in the natural numbers, n in the real numbers, w of type fin r maps to the real numbers, and a of type comb coeff space r s plus 1, its defining expression is d One n w A.",
-      "mathematicalFormula": "\\operatorname{firstDifferential}(n,w,A)=\\operatorname{dOne} n w A",
       "leanType": "abbrev firstDifferential {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (A : CombCoeffSpace r (s + 1)) : Fin r → CombCoeffSpace r s",
-      "line": 71
+      "line": 71,
+      "mathematicalMeaning": "Aliases the first complex differential to the previously defined path-recurrence map d₁.",
+      "mathematicalFormula": "d_1(A):=\\operatorname{LeftComb.dOne}(n,w,A)."
     },
     {
       "leanDeclaration": "InFirstKernel",
       "kind": "def",
-      "mathematicalMeaning": "Membership in the kernel of the first differential. In explicit terms, for r, s in the natural numbers, n in the real numbers, w of type fin r maps to the real numbers, and a of type comb coeff space r s plus 1, its defining expression is first Differential n w A equals fun j maps to fun β maps to 0.",
-      "mathematicalFormula": "\\operatorname{InFirstKernel}(n,w,A)=\\operatorname{firstDifferential} n w A = \\operatorname{fun} _j => (\\operatorname{fun} _β => 0)",
       "leanType": "def InFirstKernel {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (A : CombCoeffSpace r (s + 1)) : Prop",
-      "line": 79
+      "line": 79,
+      "mathematicalMeaning": "Defines membership in the first kernel by literal vanishing of d₁.",
+      "mathematicalFormula": "A\\in\\ker d_1\\iff d_1A=0."
     },
     {
       "leanDeclaration": "recurrence_iff_in_first_kernel",
       "kind": "theorem",
-      "mathematicalMeaning": "For r, s in the natural numbers, n in the real numbers, w of type Fin r maps to the real numbers, and A of type Comb Coeff Space r s plus 1, Rank Recurrence At Level n w A if and only if In First Kernel n w A.",
-      "mathematicalFormula": "\\forall\\,r,s\\colon \\mathbb{N},\\;n\\colon \\mathbb{R},\\;w\\colon \\operatorname{Fin} r \\longrightarrow \\mathbb{R},\\;A\\colon \\operatorname{CombCoeffSpace} r (s + 1),\\quad \\operatorname{RankRecurrenceAtLevel} n w A \\Longleftrightarrow \\operatorname{InFirstKernel} n w A",
       "leanType": "theorem recurrence_iff_in_first_kernel {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (A : CombCoeffSpace r (s + 1)) : RankRecurrenceAtLevel n w A ↔ InFirstKernel n w A",
-      "line": 85
+      "line": 85,
+      "mathematicalMeaning": "Proves that the rank recurrence predicate is equivalent to membership in the first kernel.",
+      "mathematicalFormula": "\\operatorname{RankRecurrenceAtLevel}(A)\\iff A\\in\\ker d_1."
     },
     {
       "leanDeclaration": "GenericExactnessData",
       "kind": "structure",
-      "mathematicalMeaning": "Package for a future proof of generic exactness. Its mathematical data are: euler formula: Generic Dimension Formula r k.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{euler\\_formula}&\\colon \\operatorname{GenericDimensionFormula} r k\\end{aligned}",
       "leanType": "structure GenericExactnessData (r k : ℕ) : Prop",
-      "line": 96
+      "line": 96,
+      "mathematicalMeaning": "Creates a placeholder proposition containing only a proof of the proposed Euler-characteristic formula.",
+      "mathematicalFormula": "\\operatorname{GenericExactnessData}(r,k)=\\{h:\\chi_{r,k}=d_{r,k}^{\\mathrm{expected}}\\}."
     }
   ],
   "prerequisites": [
@@ -94,5 +99,5 @@
       "note": "Motivation for rank-general nested Laplacian words; the Lean tree complex goes beyond what is currently instantiated."
     }
   ],
-  "limitations": "This file establishes syntax, aggregate imports, or an abstract bridge. It must not be read as a derivation of the corresponding geometric theorem from concrete tensor and analytic data."
+  "limitations": "Only d₁ and definitional kernel equivalence are implemented. Higher Koszul-type differentials, d²=0, exactness, the Euler-characteristic identity, and the claimed generic dimension are not proved; GenericExactnessData merely stores the target equality as an assumption."
 }

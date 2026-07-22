@@ -1,84 +1,89 @@
 {
   "file": "Juhlformula/Juhlcombinatorics/LowOrderCheck.lean",
-  "title": "LowOrderCheck",
-  "status": "verified",
-  "summary": "Normalizes formal expressions and verifies the encoded raw P2 and P4 low-order identities.",
+  "title": "Low-order formal syntax checks",
+  "status": "scaffold",
+  "summary": "Implements a limited syntax normalizer and machine-checks that the recursively generated formal expressions at orders one and two match explicitly written raw P₂ and P₄ syntax trees.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Normalizes formal expressions and verifies the encoded raw P2 and P4 low-order identities.",
-      "formula": null
+      "heading": "Limited normalizer",
+      "body": "The normalizer removes zeros and ones and multiplies rational literals. It intentionally does not reassociate, commute, or distribute products and sums.",
+      "formula": "0+E\\mapsto E,\\quad1\\cdot E\\mapsto E,\\quad q\\cdot r\\mapsto qr."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Juhlformula/Juhlcombinatorics/LowOrderCheck.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Order two",
+      "body": "For the ℓ=2 recursion, the first solved jet is recorded in raw syntax.",
+      "formula": "F_1=\\frac14\\left(D_0f+\\left(\\frac k2-2\\right)\\operatorname{tr}_0f\\right)."
+    },
+    {
+      "heading": "Checked outputs",
+      "body": "Lean uses native_decide to compare normalized syntax trees for formalP 1 and formalP 2 with the explicit raw expressions.",
+      "formula": "\\operatorname{normalize}(P_2^{\\mathrm{formal}})=\\operatorname{normalize}(P_2^{\\mathrm{raw}}),\\qquad\\operatorname{normalize}(P_4^{\\mathrm{formal}})=\\operatorname{normalize}(P_4^{\\mathrm{raw}})."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "normalizeRat",
       "kind": "def",
-      "mathematicalMeaning": "Normalize a rational literal as syntax.",
-      "mathematicalFormula": "\\operatorname{normalizeRat}(q)\\colon \\operatorname{FormalExpr}",
       "leanType": "def normalizeRat (q : ℚ) : FormalExpr",
-      "line": 18
+      "line": 18,
+      "mathematicalMeaning": "Normalizes a rational literal to syntactic zero, one, or a nontrivial rational node.",
+      "mathematicalFormula": "\\operatorname{normalizeRat}(q)=\\begin{cases}0,&q=0,\\\\1,&q=1,\\\\q,&\\text{otherwise}.\\end{cases}"
     },
     {
       "leanDeclaration": "normalize",
       "kind": "def",
-      "mathematicalMeaning": "A small syntax normalizer for low-order raw checks. This only removes syntactic zeros and ones and evaluates rational products. It does not commute, associate, or distribute addition and multiplication.",
-      "mathematicalFormula": "\\operatorname{normalize}\\colon \\operatorname{FormalExpr} \\longrightarrow \\operatorname{FormalExpr}",
       "leanType": "def normalize : FormalExpr → FormalExpr",
-      "line": 31
+      "line": 31,
+      "mathematicalMeaning": "Defines the restricted recursive syntax normalizer used for low-order decidable comparisons.",
+      "mathematicalFormula": "\\operatorname{normalize}(0+E)=\\operatorname{normalize}(E),\\quad\\operatorname{normalize}(1\\cdot E)=\\operatorname{normalize}(E),\\quad\\operatorname{normalize}(qr)=qr."
     },
     {
       "leanDeclaration": "expectedF1ForP4",
       "kind": "def",
-      "mathematicalMeaning": "Expected raw first-order solved jet for the ell = 2 recursion. In explicit terms, its defining expression is Formal Expr.qsmul 1 divided by 4 : ℚ Formal Expr.op D 0 Formal Expr.f plus k Over Two Minus Ell 2 times Formal Expr.tr 0 times Formal Expr.f.",
-      "mathematicalFormula": "\\operatorname{expectedF1ForP4}=\\operatorname{FormalExpr}.\\operatorname{qsmul} ((1 / 4 \\colon \\mathbb{Q})) (\\operatorname{FormalExpr}.\\operatorname{opD} 0 f_{\\mathrm{FormalExpr}} + \\operatorname{kOverTwoMinusEll} 2 \\cdot ((\\operatorname{FormalExpr}.\\operatorname{tr} 0) \\cdot f_{\\mathrm{FormalExpr}}))",
       "leanType": "def expectedF1ForP4 : FormalExpr",
-      "line": 64
+      "line": 64,
+      "mathematicalMeaning": "Records the expected first solved jet in the ℓ=2 calculation.",
+      "mathematicalFormula": "F_1^{(\\ell=2)}:=\\frac14\\left(D_0f+\\left(\\frac k2-2\\right)\\operatorname{tr}_0f\\right)."
     },
     {
       "leanDeclaration": "expectedP2",
       "kind": "def",
-      "mathematicalMeaning": "Raw formal P_2, before distributing the scalar -1. In explicit terms, its defining expression is Formal Expr.qsmul -1 Formal Expr.op D 0 Formal Expr.f plus k Over Two Minus Ell 1 times Formal Expr.tr 0 times Formal Expr.f.",
-      "mathematicalFormula": "\\operatorname{expectedP2}=\\operatorname{FormalExpr}.\\operatorname{qsmul} (-1) (\\operatorname{FormalExpr}.\\operatorname{opD} 0 f_{\\mathrm{FormalExpr}} + \\operatorname{kOverTwoMinusEll} 1 \\cdot ((\\operatorname{FormalExpr}.\\operatorname{tr} 0) \\cdot f_{\\mathrm{FormalExpr}}))",
       "leanType": "def expectedP2 : FormalExpr",
-      "line": 70
+      "line": 70,
+      "mathematicalMeaning": "Records the raw expected formal P₂ before distributing the factor −1.",
+      "mathematicalFormula": "P_2^{\\mathrm{raw}}:=-\\left(D_0f+\\left(\\frac k2-1\\right)\\operatorname{tr}_0f\\right)."
     },
     {
       "leanDeclaration": "expectedP2Expanded",
       "kind": "def",
-      "mathematicalMeaning": "Expanded display form of the expected formal P_2. In explicit terms, its defining expression is - Formal Expr.op D 0 Formal Expr.f minus Formal Expr.qsmul 1 divided by 2 : ℚ Formal Expr.k times Formal Expr.tr 0 times Formal Expr.f plus Formal Expr.tr 0 times Formal Expr.f.",
-      "mathematicalFormula": "\\operatorname{expectedP2Expanded}=- \\operatorname{FormalExpr}.\\operatorname{opD} 0 f_{\\mathrm{FormalExpr}} - (\\operatorname{FormalExpr}.\\operatorname{qsmul} ((1 / 2 \\colon \\mathbb{Q})) k_{\\mathrm{FormalExpr}}) \\cdot (\\operatorname{FormalExpr}.\\operatorname{tr} 0) \\cdot f_{\\mathrm{FormalExpr}} + (\\operatorname{FormalExpr}.\\operatorname{tr} 0) \\cdot f_{\\mathrm{FormalExpr}}",
       "leanType": "def expectedP2Expanded : FormalExpr",
-      "line": 76
+      "line": 76,
+      "mathematicalMeaning": "Records an expanded display syntax for the expected P₂ expression.",
+      "mathematicalFormula": "P_2^{\\mathrm{expanded}}:=-D_0f-\\frac k2\\operatorname{tr}_0f+\\operatorname{tr}_0f."
     },
     {
       "leanDeclaration": "expectedP4Raw",
       "kind": "def",
-      "mathematicalMeaning": "Raw formal P_4, keeping D_0 unapplied to products. In explicit terms, its defining expression is Formal Expr.qsmul 4 Formal Expr.qsmul 2 Formal Expr.tr 0 times expected F1 For P4 plus Formal Expr.op D 0 expected F1 For P4 plus Formal Expr.op D 1 Formal Expr.f plus k Over Two Minus Ell 2 times Formal Expr.tr 0 times expected F1 For P4 plus Formal Expr.tr 1 times Formal Expr.f.",
-      "mathematicalFormula": "\\operatorname{expectedP4Raw}=\\operatorname{FormalExpr}.\\operatorname{qsmul} 4 (\\operatorname{FormalExpr}.\\operatorname{qsmul} 2 ((\\operatorname{FormalExpr}.\\operatorname{tr} 0) \\cdot \\operatorname{expectedF1ForP4}) + (\\operatorname{FormalExpr}.\\operatorname{opD} 0 \\operatorname{expectedF1ForP4} + \\operatorname{FormalExpr}.\\operatorname{opD} 1 f_{\\mathrm{FormalExpr}}) + \\operatorname{kOverTwoMinusEll} 2 \\cdot (((\\operatorname{FormalExpr}.\\operatorname{tr} 0) \\cdot \\operatorname{expectedF1ForP4}) + (\\operatorname{FormalExpr}.\\operatorname{tr} 1) \\cdot f_{\\mathrm{FormalExpr}}))",
       "leanType": "def expectedP4Raw : FormalExpr",
-      "line": 83
+      "line": 83,
+      "mathematicalMeaning": "Records the raw expected P₄ syntax with D₀ left unapplied to products.",
+      "mathematicalFormula": "P_4^{\\mathrm{raw}}:=4\\left(2\\operatorname{tr}_0F_1+D_0F_1+D_1f+\\left(\\frac k2-2\\right)(\\operatorname{tr}_0F_1+\\operatorname{tr}_1f)\\right)."
     },
     {
       "leanDeclaration": "formalP_one_eq_expectedP2",
       "kind": "theorem",
-      "mathematicalMeaning": "formal P 1.normalize equals expected P2.normalize.",
-      "mathematicalFormula": "(\\operatorname{formalP} 1).\\operatorname{normalize} = \\operatorname{expectedP2}.\\operatorname{normalize}",
       "leanType": "theorem formalP_one_eq_expectedP2 : (formalP 1).normalize = expectedP2.normalize",
-      "line": 92
+      "line": 92,
+      "mathematicalMeaning": "Machine-checks equality of the normalized order-one syntax trees.",
+      "mathematicalFormula": "\\operatorname{normalize}(P_2^{\\mathrm{formal}})=\\operatorname{normalize}(P_2^{\\mathrm{raw}})."
     },
     {
       "leanDeclaration": "formalP_two_eq_expectedP4Raw",
       "kind": "theorem",
-      "mathematicalMeaning": "formal P 2.normalize equals expected P4 Raw.normalize.",
-      "mathematicalFormula": "(\\operatorname{formalP} 2).\\operatorname{normalize} = \\operatorname{expectedP4Raw}.\\operatorname{normalize}",
       "leanType": "theorem formalP_two_eq_expectedP4Raw : (formalP 2).normalize = expectedP4Raw.normalize",
-      "line": 96
+      "line": 96,
+      "mathematicalMeaning": "Machine-checks equality of the normalized order-two syntax trees.",
+      "mathematicalFormula": "\\operatorname{normalize}(P_4^{\\mathrm{formal}})=\\operatorname{normalize}(P_4^{\\mathrm{raw}})."
     }
   ],
   "prerequisites": [
@@ -100,5 +105,5 @@
       "note": "Source for the Juhl side of the formal syntax."
     }
   ],
-  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+  "limitations": "The checks concern raw FormalExpr syntax under a deliberately weak normalizer. They do not prove the usual geometric P₂ or P₄ formulas, expand D₀ by a Leibniz rule, compare curvature conventions, or establish the general Juhl identity."
 }

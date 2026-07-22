@@ -1,60 +1,65 @@
 {
   "file": "PolyGJMSoperators/OR/Coefficients/Parameters.lean",
-  "title": "Parameters",
-  "status": "verified-under-interface",
-  "summary": "Defines the dimension, weight, and order parameters appearing in the OR coefficient formulas.",
+  "title": "Regular OR coefficient parameters",
+  "status": "verified",
+  "summary": "Introduces the half-dimension shift and the three rational Pochhammer parameters used in the regular Ovsienko–Redou coefficient formula, with one algebraic rewrite.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Defines the dimension, weight, and order parameters appearing in the OR coefficient formulas.",
-      "formula": null
+      "heading": "Half-dimension shift",
+      "body": "For total degree N and rational dimension parameter n, the common shift is (n−2N)/2.",
+      "formula": "h_N:=\\frac{n-2N}{2}."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows PolyGJMSoperators/OR/Coefficients/Parameters.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Three Pochhammer parameters",
+      "body": "The regular formula uses α for the combined input powers and β,γ for the two separate input factors.",
+      "formula": "\\alpha=-w_1-w_2-h_N,\\qquad\\beta=w_1+h_N,\\qquad\\gamma=w_2+h_N."
+    },
+    {
+      "heading": "Verified rewrite",
+      "body": "Lean proves the displayed form of α+b+c used when matching the local recurrence multiplier.",
+      "formula": "\\alpha+b+c=-\\frac{2w_1+2w_2+n-2N-2b-2c}{2}."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "ORHalfShift",
       "kind": "def",
-      "mathematicalMeaning": "The half-dimension shift (n - 2N) / 2. In explicit terms, for n in the natural numbers, and n of type ℚ, its defining expression is n minus 2 times N : ℚ divided by 2.",
-      "mathematicalFormula": "\\operatorname{ORHalfShift}(N,n)=(n - 2 \\cdot (N \\colon \\mathbb{Q})) / 2",
       "leanType": "def ORHalfShift (N : ℕ) (n : ℚ) : ℚ",
-      "line": 27
+      "line": 27,
+      "mathematicalMeaning": "Defines the shifted half-dimension parameter associated with order N.",
+      "mathematicalFormula": "h_N:=\\frac{n-2N}{2}."
     },
     {
       "leanDeclaration": "ORAlpha",
       "kind": "def",
-      "mathematicalMeaning": "Parameter for the numerator Gamma ratio depending on s + t. In explicit terms, for n in the natural numbers, and n, w₁, w₂ of type ℚ, its defining expression is -w₁ minus w₂ minus ORHalf Shift N n.",
-      "mathematicalFormula": "\\operatorname{ORAlpha}(N,n,w₁,w₂)=-w₁ - w₂ - \\operatorname{ORHalfShift} N n",
       "leanType": "def ORAlpha (N : ℕ) (n w₁ w₂ : ℚ) : ℚ",
-      "line": 31
+      "line": 31,
+      "mathematicalMeaning": "Defines the Pochhammer parameter depending jointly on the two input weights.",
+      "mathematicalFormula": "\\alpha_N(n,w_1,w_2):=-w_1-w_2-\\frac{n-2N}{2}."
     },
     {
       "leanDeclaration": "ORBeta",
       "kind": "def",
-      "mathematicalMeaning": "Parameter for the first-input Gamma ratio. In explicit terms, for n in the natural numbers, and n, w₁ of type ℚ, its defining expression is w₁ plus ORHalf Shift N n.",
-      "mathematicalFormula": "\\operatorname{ORBeta}(N,n,w₁)=w₁ + \\operatorname{ORHalfShift} N n",
       "leanType": "def ORBeta (N : ℕ) (n w₁ : ℚ) : ℚ",
-      "line": 35
+      "line": 35,
+      "mathematicalMeaning": "Defines the first-input Pochhammer parameter.",
+      "mathematicalFormula": "\\beta_N(n,w_1):=w_1+\\frac{n-2N}{2}."
     },
     {
       "leanDeclaration": "ORGamma",
       "kind": "def",
-      "mathematicalMeaning": "Parameter for the second-input Gamma ratio. In explicit terms, for n in the natural numbers, and n, w₂ of type ℚ, its defining expression is w₂ plus ORHalf Shift N n.",
-      "mathematicalFormula": "\\operatorname{ORGamma}(N,n,w₂)=w₂ + \\operatorname{ORHalfShift} N n",
       "leanType": "def ORGamma (N : ℕ) (n w₂ : ℚ) : ℚ",
-      "line": 39
+      "line": 39,
+      "mathematicalMeaning": "Defines the second-input Pochhammer parameter.",
+      "mathematicalFormula": "\\gamma_N(n,w_2):=w_2+\\frac{n-2N}{2}."
     },
     {
       "leanDeclaration": "ORAlpha_add_b_add_c",
       "kind": "theorem",
-      "mathematicalMeaning": "For N in the natural numbers, n, w₁, w₂ of type ℚ, and I of type ORIndex N, ORAlpha N n w₁ w₂ plus I.b plus I.c equals - 2 times w₁ plus 2 times w₂ plus n minus 2 times N : ℚ minus 2 times I.b minus 2 times I.c divided by 2.",
-      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;n,w₁,w₂\\colon \\mathbb{Q},\\;I\\colon \\operatorname{ORIndex} N,\\quad \\operatorname{ORAlpha} N n w₁ w₂ + b_{\\mathrm{I}} + c_{\\mathrm{I}} = -(2 \\cdot w₁ + 2 \\cdot w₂ + n - 2 \\cdot (N \\colon \\mathbb{Q}) - 2 \\cdot b_{\\mathrm{I}} - 2 \\cdot c_{\\mathrm{I}}) / 2",
       "leanType": "theorem ORAlpha_add_b_add_c {N : ℕ} (n w₁ w₂ : ℚ) (I : ORIndex N) : ORAlpha N n w₁ w₂ + (I.b + I.c : ℕ) = -(2 * w₁ + 2 * w₂ + n - 2 * (N : ℚ) - 2 * I.b - 2 * I.c) / 2",
-      "line": 42
+      "line": 42,
+      "mathematicalMeaning": "Rewrites α+b+c as half the negative first/second-slot recurrence multiplier.",
+      "mathematicalFormula": "\\alpha_N+b+c=-\\frac{2w_1+2w_2+n-2N-2b-2c}{2}."
     }
   ],
   "prerequisites": [
@@ -75,5 +80,5 @@
       "note": "Primary curved ambient source for the encoded OR recurrence."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "The parameters and algebraic identity are proved over ℚ. This module neither defines the complete OR coefficient nor establishes recurrence or tangentiality."
 }

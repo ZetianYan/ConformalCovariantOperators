@@ -1,52 +1,57 @@
 {
   "file": "Juhlformula/Juhlcombinatorics/ORBridge.lean",
-  "title": "ORBridge",
+  "title": "Formal Juhl–OR bridge",
   "status": "scaffold",
-  "summary": "Defines an abstract termwise bridge between a formal Juhl right-hand side and an OR right-hand side.",
+  "summary": "Introduces abstract data asserting coefficient and normalized-expression agreement between a formal Juhl side and a formal OR side; no conversion from actual OR operators is implemented.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Defines an abstract termwise bridge between a formal Juhl right-hand side and an OR right-hand side.",
-      "formula": null
+      "heading": "Termwise bridge",
+      "body": "A bridge term stores a Juhl coefficient/expression and an OR coefficient/expression together with proofs that both components agree.",
+      "formula": "c_J=c_{\\mathrm{OR}},\\qquad E_J\\equiv_{\\mathrm{formal}}E_{\\mathrm{OR}}."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Juhlformula/Juhlcombinatorics/ORBridge.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Right-hand-side bridge",
+      "body": "At the finite-sum level the structure stores two formal right-hand sides and directly assumes their normalized equality.",
+      "formula": "R_J\\equiv_{\\mathrm{formal}}R_{\\mathrm{OR}}."
+    },
+    {
+      "heading": "Current concrete construction",
+      "body": "Only the reflexive bridge R↔R is provided. ORFormalizationData contains an order and a formal RHS but no actual OR operator or theorem connecting it to that RHS.",
+      "formula": "R\\equiv_{\\mathrm{formal}}R."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "ORBridgeTerm",
       "kind": "structure",
-      "mathematicalMeaning": "A bridge between one Juhl composition term and one OR/poly-laplacian term. This is intentionally abstract in the first version. Later versions can replace orExpr by a concrete OR operator object and keep this as the formal shadow. Its mathematical data are: juhl Coeff: ℚ; juhl Expr: Formal Expr; or Coeff: ℚ; or Expr: Formal Expr; coeff eq: juhl Coeff equals or Coeff; expr eq: Formal Eq juhl Expr or Expr.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{juhlCoeff}&\\colon \\mathbb{Q}\\\\\\operatorname{juhlExpr}&\\colon \\operatorname{FormalExpr}\\\\\\operatorname{orCoeff}&\\colon \\mathbb{Q}\\\\\\operatorname{orExpr}&\\colon \\operatorname{FormalExpr}\\\\\\operatorname{coeff\\_eq}&\\colon \\operatorname{juhlCoeff} = \\operatorname{orCoeff}\\\\\\operatorname{expr\\_eq}&\\colon \\operatorname{FormalEq} \\operatorname{juhlExpr} \\operatorname{orExpr}\\end{aligned}",
       "leanType": "structure ORBridgeTerm",
-      "line": 24
+      "line": 24,
+      "mathematicalMeaning": "Stores matching Juhl-side and OR-side coefficients and formal expressions, together with their asserted equalities.",
+      "mathematicalFormula": "(c_J,E_J;c_{\\mathrm{OR}},E_{\\mathrm{OR}}),\\qquad c_J=c_{\\mathrm{OR}},\\ E_J\\equiv_{\\mathrm{formal}}E_{\\mathrm{OR}}."
     },
     {
       "leanDeclaration": "ORBridge",
       "kind": "structure",
-      "mathematicalMeaning": "A finite bridge between a formal Juhl RHS and an OR RHS. Its mathematical data are: juhl RHS: Formal Juhl RHS; or RHS: Formal Juhl RHS; bridge eq: Formal Eq juhl RHS.to Expr or RHS.to Expr.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{juhlRHS}&\\colon \\operatorname{FormalJuhlRHS}\\\\\\operatorname{orRHS}&\\colon \\operatorname{FormalJuhlRHS}\\\\\\operatorname{bridge\\_eq}&\\colon \\operatorname{FormalEq} \\operatorname{juhlRHS}.\\operatorname{toExpr} \\operatorname{orRHS}.\\operatorname{toExpr}\\end{aligned}",
       "leanType": "structure ORBridge",
-      "line": 33
+      "line": 33,
+      "mathematicalMeaning": "Stores two finite formal right-hand sides and a proof of normalized formal equality between their total expressions.",
+      "mathematicalFormula": "R_J\\equiv_{\\mathrm{formal}}R_{\\mathrm{OR}}."
     },
     {
       "leanDeclaration": "refl",
       "kind": "def",
-      "mathematicalMeaning": "The identity bridge from a RHS to itself. In explicit terms, for r of type formal juhl rhs, its defining expression is juhl RHS : equals R or RHS : equals R bridge eq : equals Formal Eq.refl R.to Expr.",
-      "mathematicalFormula": "\\operatorname{refl}(R)=\\operatorname{juhlRHS} = R \\operatorname{orRHS} = R \\operatorname{bridge\\_eq} = \\operatorname{FormalEq}.\\operatorname{refl} R.\\operatorname{toExpr}",
       "leanType": "def refl (R : FormalJuhlRHS) : ORBridge",
-      "line": 41
+      "line": 41,
+      "mathematicalMeaning": "Constructs the identity bridge from a formal right-hand side to itself.",
+      "mathematicalFormula": "\\operatorname{refl}(R):\\ R\\equiv_{\\mathrm{formal}}R."
     },
     {
       "leanDeclaration": "ORFormalizationData",
       "kind": "structure",
-      "mathematicalMeaning": "Placeholder for later conversion from actual OR data to a formal RHS. Its mathematical data are: order: the natural numbers; rhs: Formal Juhl RHS.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{order}&\\colon \\mathbb{N}\\\\\\operatorname{rhs}&\\colon \\operatorname{FormalJuhlRHS}\\end{aligned}",
       "leanType": "structure ORFormalizationData",
-      "line": 49
+      "line": 49,
+      "mathematicalMeaning": "Placeholder data consisting only of an order and a formal right-hand side intended for a later actual-OR conversion.",
+      "mathematicalFormula": "D=(N,R_{\\mathrm{formal}})."
     }
   ],
   "prerequisites": [
@@ -71,5 +76,5 @@
       "note": "Source for the Juhl side of the formal syntax."
     }
   ],
-  "limitations": "This file establishes syntax, aggregate imports, or an abstract bridge. It must not be read as a derivation of the corresponding geometric theorem from concrete tensor and analytic data."
+  "limitations": "The bridge structures contain the desired equalities as fields, and the only implemented bridge is reflexive. ORFormalizationData does not include OROperatorData, coefficients, evaluation, or a proof that any curved OR operator realizes the formal expression."
 }

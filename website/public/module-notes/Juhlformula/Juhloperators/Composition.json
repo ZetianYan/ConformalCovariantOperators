@@ -1,132 +1,137 @@
 {
   "file": "Juhlformula/Juhloperators/Composition.lean",
-  "title": "Composition",
-  "status": "verified",
-  "summary": "Evaluates an ordered composition as P_{2I_1} composed with ... composed with P_{2I_r}.",
+  "title": "Composition of abstract GJMS operators",
+  "status": "scaffold",
+  "summary": "Defines ordinary unary-operator composition and associates an ordered composition I with the formal composite P₂I₁∘⋯∘P₂Iᵣ of an abstract GJMS family.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Evaluates an ordered composition as P_{2I_1} composed with ... composed with P_{2I_r}.",
-      "formula": "P_{2I}=P_{2I_1}\\circ\\cdots\\circ P_{2I_r}"
+      "heading": "Unary composition",
+      "body": "The list [P₁,…,Pᵣ] is folded from the right, so it acts as P₁∘⋯∘Pᵣ; the empty list is the identity.",
+      "formula": "(P_1\\circ\\cdots\\circ P_r)(f)=P_1(P_2(\\cdots P_r(f))),\\qquad P_{[\\,]}=\\operatorname{id}."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Juhlformula/Juhloperators/Composition.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Composition indexed by I",
+      "body": "An abstract GJMS family supplies P₂k for each positive k. A composition I=(I₁,…,Iᵣ) selects and composes those operators in order.",
+      "formula": "P_{2I}:=P_{2I_1}\\circ\\cdots\\circ P_{2I_r}."
+    },
+    {
+      "heading": "Singleton check",
+      "body": "For I=(N), the constructed composition is exactly the single abstract GJMS operator P₂N.",
+      "formula": "P_{2(N)}=P_{2N}."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "composeUnary",
       "kind": "def",
-      "mathematicalMeaning": "Ordinary composition of unary ambient operators. In explicit terms, for p, q of type function conf maps to function conf, its defining expression is the function sending f to P Q f.",
-      "mathematicalFormula": "\\operatorname{composeUnary}(P,Q)=f \\longmapsto P (Q f)",
       "leanType": "def composeUnary (P Q : Function Conf → Function Conf) : Function Conf → Function Conf",
-      "line": 23
+      "line": 23,
+      "mathematicalMeaning": "Defines ordinary composition of two unary ambient operators.",
+      "mathematicalFormula": "(P\\circ Q)(f):=P(Q(f))."
     },
     {
       "leanDeclaration": "composeUnary_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "For P, Q of type Function Conf maps to Function Conf, and f of type Function Conf, compose Unary P Q f equals P Q f.",
-      "mathematicalFormula": "\\forall\\,P,Q\\colon \\operatorname{Function} \\operatorname{Conf} \\longrightarrow \\operatorname{Function} \\operatorname{Conf},\\;f\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{composeUnary} P Q f = P (Q f)",
       "leanType": "theorem composeUnary_apply (P Q : Function Conf → Function Conf) (f : Function Conf) : composeUnary P Q f = P (Q f)",
-      "line": 29
+      "line": 29,
+      "mathematicalMeaning": "Unfolds unary composition on an ambient function.",
+      "mathematicalFormula": "\\operatorname{composeUnary}(P,Q)(f)=P(Q(f))."
     },
     {
       "leanDeclaration": "idUnary",
       "kind": "def",
-      "mathematicalMeaning": "The identity unary operator. In explicit terms, its defining expression is the function sending f to f.",
-      "mathematicalFormula": "\\operatorname{idUnary}=f \\longmapsto f",
       "leanType": "def idUnary : Function Conf → Function Conf",
-      "line": 36
+      "line": 36,
+      "mathematicalMeaning": "Defines the identity unary operator.",
+      "mathematicalFormula": "\\operatorname{id}(f):=f."
     },
     {
       "leanDeclaration": "idUnary_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "For f of type Function Conf, id Unary f equals f.",
-      "mathematicalFormula": "\\forall\\,f\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{idUnary} f = f",
       "leanType": "theorem idUnary_apply (f : Function Conf) : idUnary f = f",
-      "line": 40
+      "line": 40,
+      "mathematicalMeaning": "Unfolds the identity operator.",
+      "mathematicalFormula": "\\operatorname{id}(f)=f."
     },
     {
       "leanDeclaration": "abstractToUnary",
       "kind": "def",
-      "mathematicalMeaning": "Extract the underlying ambient unary operator from an abstract GJMS operator. In explicit terms, for p of type gjms.abstract operator cal conf, its defining expression is P.to Weighted Tangential Operator.to Operator.",
-      "mathematicalFormula": "\\operatorname{abstractToUnary}(P)=P.\\operatorname{toWeightedTangentialOperator}.\\operatorname{toOperator}",
       "leanType": "def abstractToUnary (P : GJMS.AbstractOperator CalConf) : Function Conf → Function Conf",
-      "line": 46
+      "line": 46,
+      "mathematicalMeaning": "Forgets the weight/tangentiality package of an abstract GJMS operator and retains its underlying unary ambient operator.",
+      "mathematicalFormula": "P\\longmapsto\\underline P:\\mathcal F\\to\\mathcal F."
     },
     {
       "leanDeclaration": "abstractToUnary_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "For P of type GJMS.Abstract Operator Cal Conf, and f of type Function Conf, abstract To Unary Cal Conf P f equals P.to Weighted Tangential Operator.to Operator f.",
-      "mathematicalFormula": "\\forall\\,P\\colon \\operatorname{GJMS}.\\operatorname{AbstractOperator} \\operatorname{CalConf},\\;f\\colon \\operatorname{Function} \\operatorname{Conf},\\quad \\operatorname{abstractToUnary} \\operatorname{CalConf} P f = P.\\operatorname{toWeightedTangentialOperator}.\\operatorname{toOperator} f",
       "leanType": "theorem abstractToUnary_apply (P : GJMS.AbstractOperator CalConf) (f : Function Conf) : abstractToUnary CalConf P f = P.toWeightedTangentialOperator.toOperator f",
-      "line": 52
+      "line": 52,
+      "mathematicalMeaning": "Unfolds evaluation of the underlying unary operator.",
+      "mathematicalFormula": "\\underline P(f)=P.\\operatorname{toWeightedTangentialOperator}.\\operatorname{toOperator}(f)."
     },
     {
       "leanDeclaration": "composeUnaryList",
       "kind": "def",
-      "mathematicalMeaning": "Compose a list of unary operators from left to right. For [P_1, P_2, P_3], this gives P_1 ∘ P_2 ∘ P_3. In explicit terms, its defining expression is | maps to id Unary | P :: Ps maps to compose Unary P compose Unary List Ps.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{composeUnaryList}([])&=\\operatorname{idUnary}\\\\\\operatorname{composeUnaryList}(P \\colon \\colon \\operatorname{Ps})&=\\operatorname{composeUnary} P (\\operatorname{composeUnaryList} \\operatorname{Ps})\\end{aligned}",
       "leanType": "def composeUnaryList : List (Function Conf → Function Conf) → Function Conf → Function Conf",
-      "line": 63
+      "line": 63,
+      "mathematicalMeaning": "Right-folds a list of unary operators into their ordered composition.",
+      "mathematicalFormula": "\\operatorname{composeUnaryList}([P_1,\\ldots,P_r])=P_1\\circ\\cdots\\circ P_r."
     },
     {
       "leanDeclaration": "composeUnaryList_nil",
       "kind": "theorem",
-      "mathematicalMeaning": "compose Unary List Conf : equals Conf equals id Unary.",
-      "mathematicalFormula": "\\operatorname{composeUnaryList} (\\operatorname{Conf} = \\operatorname{Conf}) [] = \\operatorname{idUnary}",
       "leanType": "theorem composeUnaryList_nil : composeUnaryList (Conf := Conf) [] = idUnary",
-      "line": 69
+      "line": 69,
+      "mathematicalMeaning": "The composition of the empty operator list is the identity.",
+      "mathematicalFormula": "\\operatorname{composeUnaryList}([\\,])=\\operatorname{id}."
     },
     {
       "leanDeclaration": "composeUnaryList_cons",
       "kind": "theorem",
-      "mathematicalMeaning": "For P of type Function Conf maps to Function Conf, and Ps a finite list, compose Unary List Conf : equals Conf P :: Ps equals compose Unary P compose Unary List Ps.",
-      "mathematicalFormula": "\\forall\\,P\\colon \\operatorname{Function} \\operatorname{Conf} \\longrightarrow \\operatorname{Function} \\operatorname{Conf},\\;Ps\\colon \\operatorname{List} (\\operatorname{Function} \\operatorname{Conf} \\longrightarrow \\operatorname{Function} \\operatorname{Conf}),\\quad \\operatorname{composeUnaryList} (\\operatorname{Conf} = \\operatorname{Conf}) (P \\colon \\colon \\operatorname{Ps}) = \\operatorname{composeUnary} P (\\operatorname{composeUnaryList} \\operatorname{Ps})",
       "leanType": "theorem composeUnaryList_cons (P : Function Conf → Function Conf) (Ps : List (Function Conf → Function Conf)) : composeUnaryList (Conf := Conf) (P :: Ps) = composeUnary P (composeUnaryList Ps)",
-      "line": 74
+      "line": 74,
+      "mathematicalMeaning": "A nonempty list composes its head with the composition of its tail.",
+      "mathematicalFormula": "\\operatorname{composeUnaryList}(P::P_s)=P\\circ\\operatorname{composeUnaryList}(P_s)."
     },
     {
       "leanDeclaration": "AbstractGJMSFamily",
       "kind": "abbrev",
-      "mathematicalMeaning": "A general abstract GJMS family indexed by positive integers. In explicit terms, its defining expression is k maps to 0 < k maps to GJMS.Abstract Operator Cal Conf.",
-      "mathematicalFormula": "\\operatorname{AbstractGJMSFamily}=k \\longrightarrow 0 < k \\longrightarrow \\operatorname{GJMS}.\\operatorname{AbstractOperator} \\operatorname{CalConf}",
       "leanType": "abbrev AbstractGJMSFamily",
-      "line": 83
+      "line": 83,
+      "mathematicalMeaning": "Defines an abstract family assigning a GJMS operator to each positive integer k.",
+      "mathematicalFormula": "G=(G_k)_{k>0},\\qquad G_k\\in\\operatorname{AbstractGJMSOperator}."
     },
     {
       "leanDeclaration": "operatorListOfComposition",
       "kind": "def",
-      "mathematicalMeaning": "The list of underlying unary operators associated to a composition. In explicit terms, for g of type abstract gjmsfamily cal conf, n in the natural numbers, and i of type composition n, its defining expression is I.parts.attach.map the function sending x to abstract To Unary Cal Conf G x.val I.positive x.val x.property.",
-      "mathematicalFormula": "\\operatorname{operatorListOfComposition}(G,I)=I.\\operatorname{parts}.\\operatorname{attach}.\\operatorname{map} x \\longmapsto \\operatorname{abstractToUnary} \\operatorname{CalConf} (G x.\\operatorname{val} (I.\\operatorname{positive} x.\\operatorname{val} x.\\operatorname{property}))",
       "leanType": "def operatorListOfComposition (G : AbstractGJMSFamily CalConf) {N : Nat} (I : Composition N) : List (Function Conf → Function Conf)",
-      "line": 87
+      "line": 87,
+      "mathematicalMeaning": "Maps the parts of a composition to the corresponding underlying unary GJMS operators.",
+      "mathematicalFormula": "I=(I_1,\\ldots,I_r)\\longmapsto[\\underline G_{I_1},\\ldots,\\underline G_{I_r}]."
     },
     {
       "leanDeclaration": "composeGJMS",
       "kind": "def",
-      "mathematicalMeaning": "The composed GJMS operator associated to I. In explicit terms, for g of type abstract gjmsfamily cal conf, n in the natural numbers, and i of type composition n, its defining expression is compose Unary List operator List Of Composition Cal Conf G I.",
-      "mathematicalFormula": "\\operatorname{composeGJMS}(G,I)=\\operatorname{composeUnaryList} (\\operatorname{operatorListOfComposition} \\operatorname{CalConf} G I)",
       "leanType": "def composeGJMS (G : AbstractGJMSFamily CalConf) {N : Nat} (I : Composition N) : Function Conf → Function Conf",
-      "line": 96
+      "line": 96,
+      "mathematicalMeaning": "Defines the operator composite associated with a composition.",
+      "mathematicalFormula": "G_I:=\\underline G_{I_1}\\circ\\cdots\\circ\\underline G_{I_r}."
     },
     {
       "leanDeclaration": "operatorList_singleton",
       "kind": "theorem",
-      "mathematicalMeaning": "For G of type Abstract GJMSFamily Cal Conf, N in the natural numbers, and hN of type 0 < N, operator List Of Composition Cal Conf G Composition.singleton N h N equals abstract To Unary Cal Conf G N h N.",
-      "mathematicalFormula": "\\forall\\,G\\colon \\operatorname{AbstractGJMSFamily} \\operatorname{CalConf},\\;N\\colon \\mathbb{N},\\;hN\\colon 0 < N,\\quad \\operatorname{operatorListOfComposition} \\operatorname{CalConf} G (\\operatorname{Composition}.\\operatorname{singleton} N \\operatorname{hN}) = [\\operatorname{abstractToUnary} \\operatorname{CalConf} (G N \\operatorname{hN})]",
       "leanType": "theorem operatorList_singleton (G : AbstractGJMSFamily CalConf) (N : Nat) (hN : 0 < N) : operatorListOfComposition CalConf G (Composition.singleton N hN) = [abstractToUnary CalConf (G N hN)]",
-      "line": 104
+      "line": 104,
+      "mathematicalMeaning": "For a singleton composition, the operator list contains exactly G_N.",
+      "mathematicalFormula": "\\operatorname{operatorList}((N))=[\\underline G_N]."
     },
     {
       "leanDeclaration": "composeGJMS_singleton",
       "kind": "theorem",
-      "mathematicalMeaning": "For G of type Abstract GJMSFamily Cal Conf, N in the natural numbers, and hN of type 0 < N, compose GJMS Cal Conf G Composition.singleton N h N equals abstract To Unary Cal Conf G N h N.",
-      "mathematicalFormula": "\\forall\\,G\\colon \\operatorname{AbstractGJMSFamily} \\operatorname{CalConf},\\;N\\colon \\mathbb{N},\\;hN\\colon 0 < N,\\quad \\operatorname{composeGJMS} \\operatorname{CalConf} G (\\operatorname{Composition}.\\operatorname{singleton} N \\operatorname{hN}) = \\operatorname{abstractToUnary} \\operatorname{CalConf} (G N \\operatorname{hN})",
       "leanType": "theorem composeGJMS_singleton (G : AbstractGJMSFamily CalConf) (N : Nat) (hN : 0 < N) : composeGJMS CalConf G (Composition.singleton N hN) = abstractToUnary CalConf (G N hN)",
-      "line": 113
+      "line": 113,
+      "mathematicalMeaning": "For a singleton composition, the composite equals the underlying operator G_N.",
+      "mathematicalFormula": "G_{(N)}=\\underline G_N."
     }
   ],
   "prerequisites": [
@@ -149,5 +154,5 @@
       "note": "Ambient interpretation of the composition formula."
     }
   ],
-  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+  "limitations": "This is an operator-composition scaffold. It does not prove conformal covariance of arbitrary composites, compatibility of successive input/output weights, or the Juhl sum identity. The abstract family already carries its component operators as supplied data."
 }

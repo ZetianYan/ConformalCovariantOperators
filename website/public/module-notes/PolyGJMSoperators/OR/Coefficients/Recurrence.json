@@ -1,68 +1,73 @@
 {
   "file": "PolyGJMSoperators/OR/Coefficients/Recurrence.lean",
-  "title": "Recurrence",
-  "status": "verified-under-interface",
-  "summary": "States the neighboring-index recurrence equations required for OR defect cancellation.",
+  "title": "OR coefficient and cancellation predicates",
+  "status": "scaffold",
+  "summary": "Defines rational coefficient systems and expresses the intended OR recurrence as vanishing of every finite obstruction-coefficient sum.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "States the neighboring-index recurrence equations required for OR defect cancellation.",
-      "formula": null
+      "heading": "Coefficient system",
+      "body": "At fixed total degree N, a coefficient system assigns a rational number to every triple (a,b,c) with a+b+c=N.",
+      "formula": "C:\\operatorname{ORIndex}(N)\\to\\mathbb Q."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows PolyGJMSoperators/OR/Coefficients/Recurrence.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Defect cancellation",
+      "body": "Given a finite obstruction basis K and word-level rational defects d, cancellation requires the weighted sum to vanish separately for each input slot and basis element.",
+      "formula": "\\sum_{I\\in\\operatorname{supp}(N)}C_I\\,d_{I,s,k}=0\\qquad(s=1,2;\\ k\\in K)."
+    },
+    {
+      "heading": "Current recurrence definition",
+      "body": "SatisfiesORRecurrence presently unfolds exactly to SatisfiesDefectCancellationQ; the parameters w₁,w₂,n are retained but not used in the definition.",
+      "formula": "\\operatorname{ORRecurrence}(w_1,w_2,n;C,d)\\iff\\operatorname{DefectCancellation}_{\\mathbb Q}(C,d)."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "ORCoefficientSystem",
       "kind": "structure",
-      "mathematicalMeaning": "A rational coefficient system on the OR support of total degree N. Its mathematical data are: coeff: ORIndex N maps to ℚ.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{coeff}&\\colon \\operatorname{ORIndex} N \\longrightarrow \\mathbb{Q}\\end{aligned}",
       "leanType": "structure ORCoefficientSystem (N : ℕ)",
-      "line": 28
+      "line": 28,
+      "mathematicalMeaning": "Stores a rational coefficient on each degree-N OR index.",
+      "mathematicalFormula": "C=(C_I)_{I\\in\\operatorname{ORIndex}(N)},\\qquad C_I\\in\\mathbb Q."
     },
     {
       "leanDeclaration": "coeffR",
       "kind": "def",
-      "mathematicalMeaning": "Coefficients cast to real numbers for ambient operators. In explicit terms, for n in the natural numbers, c of type orcoefficient system n, and i of type orindex n, its defining expression is C.coeff I.",
-      "mathematicalFormula": "\\operatorname{coeffR}(C,I)=C.\\operatorname{coeff} I",
       "leanType": "def coeffR {N : ℕ} (C : ORCoefficientSystem N) (I : ORIndex N) : ℝ",
-      "line": 34
+      "line": 34,
+      "mathematicalMeaning": "Casts a rational coefficient to the real number used by ambient operators.",
+      "mathematicalFormula": "C_I^{\\mathbb R}:=(C_I:\\mathbb R)."
     },
     {
       "leanDeclaration": "coeffR_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "For N in the natural numbers, C of type ORCoefficient System N, and I of type ORIndex N, C.coeff R I equals C.coeff I.",
-      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;C\\colon \\operatorname{ORCoefficientSystem} N,\\;I\\colon \\operatorname{ORIndex} N,\\quad C.\\operatorname{coeffR} I = C.\\operatorname{coeff} I",
       "leanType": "theorem coeffR_apply {N : ℕ} (C : ORCoefficientSystem N) (I : ORIndex N) : C.coeffR I = (C.coeff I : ℝ)",
-      "line": 38
+      "line": 38,
+      "mathematicalMeaning": "Unfolds the real-cast coefficient accessor.",
+      "mathematicalFormula": "C.\\operatorname{coeffR}(I)=(C_I:\\mathbb R)."
     },
     {
       "leanDeclaration": "SatisfiesDefectCancellationQ",
       "kind": "def",
-      "mathematicalMeaning": "Rational defect cancellation for an OR coefficient system. defectCoeffQ I slot k is the rational coefficient of the obstruction k created by the word indexed by I in the input slot slot. In explicit terms, for n in the natural numbers, κ a type, k a finite set, c of type orcoefficient system n, and defectcoeffq of type orindex n maps to fin 2 maps to κ maps to ℚ, its defining expression is for every slot : Fin 2 k : κ, k belongs to K maps to ∑ I belongs to ORIndex.support N, C.coeff I times defect Coeff Q I slot k equals 0.",
-      "mathematicalFormula": "\\operatorname{SatisfiesDefectCancellationQ}(K,C,defectCoeffQ)=\\forall (\\operatorname{slot} \\colon \\operatorname{Fin} 2) (k \\colon κ), k \\in K \\longrightarrow \\sum I \\in \\operatorname{ORIndex}.\\operatorname{support} N, C.\\operatorname{coeff} I \\cdot \\operatorname{defectCoeffQ} I \\operatorname{slot} k = 0",
       "leanType": "def SatisfiesDefectCancellationQ {N : ℕ} {κ : Type _} [DecidableEq κ] (K : Finset κ) (C : ORCoefficientSystem N) (defectCoeffQ : ORIndex N → Fin 2 → κ → ℚ) : Prop",
-      "line": 50
+      "line": 50,
+      "mathematicalMeaning": "Defines rational defect cancellation slot-by-slot in a finite obstruction basis.",
+      "mathematicalFormula": "\\operatorname{Cancel}_{\\mathbb Q}(C,d)\\iff\\sum_{I\\in\\operatorname{supp}(N)}C_Id_{I,s,k}=0\\quad\\forall s,k\\in K."
     },
     {
       "leanDeclaration": "SatisfiesORRecurrence",
       "kind": "def",
-      "mathematicalMeaning": "The OR recurrence, recorded in the cancellation form used by the operator proof. The parameters w₁, w₂, and n are kept here so the later paper-specific recurrence can specialize this predicate without changing the downstream API. In explicit terms, for n in the natural numbers, κ a type, w₁, w₂, n of type ℚ, k a finite set, c of type orcoefficient system n, and defectcoeffq of type orindex n maps to fin 2 maps to κ maps to ℚ, its defining expression is Satisfies Defect Cancellation Q K C defect Coeff Q.",
-      "mathematicalFormula": "\\operatorname{SatisfiesORRecurrence}(K,C,defectCoeffQ)=\\operatorname{SatisfiesDefectCancellationQ} K C \\operatorname{defectCoeffQ}",
       "leanType": "def SatisfiesORRecurrence {N : ℕ} {κ : Type _} [DecidableEq κ] (_w₁ _w₂ _n : ℚ) (K : Finset κ) (C : ORCoefficientSystem N) (defectCoeffQ : ORIndex N → Fin 2 → κ → ℚ) : Prop",
-      "line": 66
+      "line": 66,
+      "mathematicalMeaning": "Defines the current OR recurrence predicate to be the same rational cancellation condition.",
+      "mathematicalFormula": "\\operatorname{ORRecurrence}(w_1,w_2,n;C,d):=\\operatorname{Cancel}_{\\mathbb Q}(C,d)."
     },
     {
       "leanDeclaration": "satisfiesORRecurrence_iff_defectCancellationQ",
       "kind": "theorem",
-      "mathematicalMeaning": "For N in the natural numbers, κ a type, w₁, w₂, n of type ℚ, K a finite set, C of type ORCoefficient System N, and defectCoeffQ of type ORIndex N maps to Fin 2 maps to κ maps to ℚ, Satisfies ORRecurrence w₁ w₂ n K C defect Coeff Q if and only if Satisfies Defect Cancellation Q K C defect Coeff Q.",
-      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;κ\\colon \\mathrm{Type} _,\\;\\operatorname{DecidableEq} κ,\\;w₁,w₂,n\\colon \\mathbb{Q},\\;K\\colon \\operatorname{Finset} κ,\\;C\\colon \\operatorname{ORCoefficientSystem} N,\\;defectCoeffQ\\colon \\operatorname{ORIndex} N \\longrightarrow \\operatorname{Fin} 2 \\longrightarrow κ \\longrightarrow \\mathbb{Q},\\quad \\operatorname{SatisfiesORRecurrence} w₁ w₂ n K C \\operatorname{defectCoeffQ} \\Longleftrightarrow \\operatorname{SatisfiesDefectCancellationQ} K C \\operatorname{defectCoeffQ}",
       "leanType": "theorem satisfiesORRecurrence_iff_defectCancellationQ {N : ℕ} {κ : Type _} [DecidableEq κ] (w₁ w₂ n : ℚ) (K : Finset κ) (C : ORCoefficientSystem N) (defectCoeffQ : ORIndex N → Fin 2 → κ → ℚ) : SatisfiesORRecurrence w₁ w₂ n K C defectCoeffQ ↔ SatisfiesDefectCancellationQ K C defectCoeffQ",
-      "line": 76
+      "line": 76,
+      "mathematicalMeaning": "Proves the definitional equivalence between OR recurrence and rational defect cancellation.",
+      "mathematicalFormula": "\\operatorname{ORRecurrence}(w_1,w_2,n;C,d)\\iff\\operatorname{Cancel}_{\\mathbb Q}(C,d)."
     }
   ],
   "prerequisites": [
@@ -84,5 +89,5 @@
       "note": "Primary curved ambient source for the encoded OR recurrence."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "This module records the target cancellation equations rather than deriving them. The displayed w₁, w₂, and n parameters are currently unused by SatisfiesORRecurrence, and no closed coefficient system is proved here to satisfy the predicate."
 }

@@ -1,108 +1,113 @@
 {
   "file": "PolyGJMSoperators/PolyLaplacianCombination.lean",
-  "title": "PolyLaplacianCombination",
+  "title": "Fixed-degree poly-Laplacian combinations",
   "status": "verified-under-interface",
-  "summary": "Specializes linear combinations to Laplacian words of fixed total order.",
+  "summary": "Packages finite sums of rank-r Laplacian words with a common total degree, proves their common output weight under homogeneity interfaces, and derives tangentiality from an explicit defect expansion and coefficient cancellation.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Specializes linear combinations to Laplacian words of fixed total order.",
-      "formula": null
+      "heading": "Fixed total degree",
+      "body": "The data consist of input weights w, a finite set S of Laplacian words, coefficients c_W, and a proof that every supported word has total degree N.",
+      "formula": "P(F)=\\sum_{W\\in S}c_WW(F),\\qquad N(W)=N\\quad(W\\in S)."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows PolyGJMSoperators/PolyLaplacianCombination.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Common output weight",
+      "body": "Because all supported words have degree N, they share the predicted output homogeneity Σᵢwᵢ−2N. The proof uses the ambient algebraic, product-homogeneity, and finite-sum homogeneity interfaces.",
+      "formula": "w_{\\mathrm{out}}=\\sum_iw_i-2N."
+    },
+    {
+      "heading": "Defect cancellation",
+      "body": "An abstract expansion expresses P(F)−P(G) modulo Q as obstruction operators multiplied by support-sums of word-level defect coefficients. If every such coefficient sum vanishes, P is tangential.",
+      "formula": "\\sum_{W\\in S}c_Wd_{W,i,k}=0\\ \\forall i,k\\quad\\Longrightarrow\\quad F\\sim_wG\\Rightarrow P(F)\\equiv P(G)\\pmod Q."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "PolyLaplacianCombinationData",
       "kind": "structure",
-      "mathematicalMeaning": "A finite linear combination of rank-r Laplacian words of fixed total degree. Its mathematical data are: N: the natural numbers; input Weights: Fin r maps to the real numbers; support: Finset Laplacian Word r; coeff: Laplacian Word r maps to the real numbers; support total Power: for every W belongs to support, W.total Power equals N.",
-      "mathematicalFormula": "\\begin{aligned}N&\\colon \\mathbb{N}\\\\\\operatorname{inputWeights}&\\colon \\operatorname{Fin} r \\longrightarrow \\mathbb{R}\\\\\\operatorname{support}&\\colon \\operatorname{Finset} (\\operatorname{LaplacianWord} r)\\\\\\operatorname{coeff}&\\colon \\operatorname{LaplacianWord} r \\longrightarrow \\mathbb{R}\\\\\\operatorname{support\\_totalPower}&\\colon \\forall W \\in \\operatorname{support}, W.\\operatorname{totalPower} = N\\end{aligned}",
       "leanType": "structure PolyLaplacianCombinationData (r : ℕ)",
-      "line": 28
+      "line": 28,
+      "mathematicalMeaning": "Stores a finite coefficient system of rank-r Laplacian words, all having total degree N, together with their input weights.",
+      "mathematicalFormula": "D=(N,w,S,c),\\qquad W\\in S\\Rightarrow N(W)=N."
     },
     {
       "leanDeclaration": "outputWeight",
       "kind": "def",
-      "mathematicalMeaning": "The expected output weight of a fixed-total-degree Laplacian combination. In explicit terms, for r in the natural numbers, d of type poly laplacian combination data r, and calconf of type calculus conf, its defining expression is Cal Conf.output weight D.input Weights D.N.",
-      "mathematicalFormula": "w_{\\mathrm{out}}(D,CalConf)=\\operatorname{CalConf}.\\operatorname{outputWeight} D.\\operatorname{inputWeights} N_{\\mathrm{D}}",
       "leanType": "def outputWeight {r : ℕ} (D : PolyLaplacianCombinationData r) (CalConf : Calculus Conf) : ℝ",
-      "line": 39
+      "line": 39,
+      "mathematicalMeaning": "Defines the common predicted output weight of the combination.",
+      "mathematicalFormula": "w_{\\mathrm{out}}(D)=\\sum_iw_i-2N."
     },
     {
       "leanDeclaration": "toOperator",
       "kind": "def",
-      "mathematicalMeaning": "The rank-r multi-operator represented by a finite Laplacian-word sum. In explicit terms, for r in the natural numbers, d of type poly laplacian combination data r, and calconf of type calculus conf, its defining expression is Cal Conf.operator Sum D.support D.coeff the function sending W to W.to Operator Cal Conf.",
-      "mathematicalFormula": "\\operatorname{toOperator}(D,CalConf)=\\operatorname{CalConf}.\\operatorname{operatorSum} D.\\operatorname{support} D.\\operatorname{coeff} (W \\longmapsto W.\\operatorname{toOperator} \\operatorname{CalConf})",
       "leanType": "def toOperator {r : ℕ} (D : PolyLaplacianCombinationData r) (CalConf : Calculus Conf) : CalConf.MultiOperator r",
-      "line": 46
+      "line": 46,
+      "mathematicalMeaning": "Forms the finite multi-operator represented by the supported words.",
+      "mathematicalFormula": "P_D:=\\sum_{W\\in S}c_WW."
     },
     {
       "leanDeclaration": "toOperator_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "For r in the natural numbers, D of type Poly Laplacian Combination Data r, F of type Cal Conf.Multi Input r, and U of type Conf.Ambient Bundle, D.to Operator Cal Conf F U equals ∑ W belongs to D.support, D.coeff W times W.to Operator Cal Conf F U.",
-      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;D\\colon \\operatorname{PolyLaplacianCombinationData} r,\\;F\\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r,\\;U\\colon \\operatorname{Conf}.\\operatorname{AmbientBundle},\\quad D.\\operatorname{toOperator} \\operatorname{CalConf} F U = \\sum W \\in D.\\operatorname{support}, D.\\operatorname{coeff} W \\cdot W.\\operatorname{toOperator} \\operatorname{CalConf} F U",
       "leanType": "theorem toOperator_apply {r : ℕ} (D : PolyLaplacianCombinationData r) (F : CalConf.MultiInput r) (U : Conf.AmbientBundle) : D.toOperator CalConf F U = ∑ W ∈ D.support, D.coeff W * W.toOperator CalConf F U",
-      "line": 55
+      "line": 55,
+      "mathematicalMeaning": "Expands the combination at an input tuple F and ambient point U.",
+      "mathematicalFormula": "P_D(F)(U)=\\sum_{W\\in S}c_WW(F)(U)."
     },
     {
       "leanDeclaration": "expectedOutputWeight_eq_outputWeight_of_mem",
       "kind": "theorem",
-      "mathematicalMeaning": "For r in the natural numbers, D of type Poly Laplacian Combination Data r, CalConf of type Calculus Conf, W of type Laplacian Word r, and hW of type W belongs to D.support, W.expected Output Weight Cal Conf D.input Weights equals D.output weight Cal Conf.",
-      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;D\\colon \\operatorname{PolyLaplacianCombinationData} r,\\;CalConf\\colon \\operatorname{Calculus} \\operatorname{Conf},\\;W\\colon \\operatorname{LaplacianWord} r,\\;hW\\colon W \\in D.\\operatorname{support},\\quad W.\\operatorname{expectedOutputWeight} \\operatorname{CalConf} D.\\operatorname{inputWeights} = D.\\operatorname{outputWeight} \\operatorname{CalConf}",
       "leanType": "theorem expectedOutputWeight_eq_outputWeight_of_mem {r : ℕ} (D : PolyLaplacianCombinationData r) (CalConf : Calculus Conf) {W : LaplacianWord r} (hW : W ∈ D.support) : W.expectedOutputWeight CalConf D.inputWeights = D.outputWeight CalConf",
-      "line": 65
+      "line": 65,
+      "mathematicalMeaning": "Shows that every supported word has the same expected output weight as the whole fixed-degree combination.",
+      "mathematicalFormula": "W\\in S\\Longrightarrow w_{\\mathrm{out}}(W,w)=w_{\\mathrm{out}}(D)."
     },
     {
       "leanDeclaration": "OperatorSumHomogeneityIdentities",
       "kind": "structure",
-      "mathematicalMeaning": "Abstract homogeneity of finite operator sums. This isolates the extra X-linearity needed to prove that finite linear combinations preserve output homogeneity. Its mathematical data are: operator Sum maps Weights: for every r : the natural numbers ι : Type Decidable Eq ι S : Finset ι c : ι maps to the real numbers P : ι maps to Cal Conf.Multi Operator r w : Fin r maps to the real numbers wout, for every i belongs to S, Cal Conf.Maps Weights P i w wout maps to Cal Conf.Maps Weights Cal Conf.operator Sum S c P w wout.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{operatorSum\\_mapsWeights}&\\colon \\forall {r \\colon \\mathbb{N}} {ι \\colon \\mathrm{Type}} [\\operatorname{DecidableEq} ι] (S \\colon \\operatorname{Finset} ι) (c \\colon ι \\longrightarrow \\mathbb{R}) (P \\colon ι \\longrightarrow \\operatorname{CalConf}.\\operatorname{MultiOperator} r) (w \\colon \\operatorname{Fin} r \\longrightarrow \\mathbb{R}) \\operatorname{wout} , (\\forall i \\in S, \\operatorname{CalConf}.\\operatorname{MapsWeights} (P i) w \\operatorname{wout}) \\longrightarrow \\operatorname{CalConf}.\\operatorname{MapsWeights} (\\operatorname{CalConf}.\\operatorname{operatorSum} S c P) w \\operatorname{wout}\\end{aligned}",
       "leanType": "structure OperatorSumHomogeneityIdentities : Prop",
-      "line": 84
+      "line": 84,
+      "mathematicalMeaning": "Packages the additional principle that a finite sum of operators with one output weight has that same output weight.",
+      "mathematicalFormula": "\\bigl(P_i:\\mathcal E[w]\\to\\mathcal E[w_{\\mathrm{out}}]\\ \\forall i\\in S\\bigr)\\Longrightarrow\\sum_{i\\in S}c_iP_i:\\mathcal E[w]\\to\\mathcal E[w_{\\mathrm{out}}]."
     },
     {
       "leanDeclaration": "mapsWeights",
       "kind": "theorem",
-      "mathematicalMeaning": "Weight mapping for fixed-total-degree Laplacian combinations. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;D\\colon \\operatorname{PolyLaplacianCombinationData} r,\\;H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;Hprod\\colon \\operatorname{CalConf}.\\operatorname{ProductHomogeneityIdentities},\\;Hsum\\colon \\operatorname{OperatorSumHomogeneityIdentities} \\operatorname{CalConf},\\quad \\operatorname{CalConf}.\\operatorname{MapsWeights} (D.\\operatorname{toOperator} \\operatorname{CalConf}) D.\\operatorname{inputWeights} (D.\\operatorname{outputWeight} \\operatorname{CalConf})",
       "leanType": "theorem mapsWeights {r : ℕ} (D : PolyLaplacianCombinationData r) (H : CalConf.AlgebraicIdentities) (Hprod : CalConf.ProductHomogeneityIdentities) (Hsum : OperatorSumHomogeneityIdentities CalConf) : CalConf.MapsWeights (D.toOperator CalConf) D.inputWeights (D.outputWeight CalConf)",
-      "line": 96
+      "line": 96,
+      "mathematicalMeaning": "Under the algebraic, product, and finite-sum homogeneity interfaces, proves the weight mapping of the fixed-degree combination.",
+      "mathematicalFormula": "XF_i=w_iF_i\\ \\forall i\\Longrightarrow X(P_DF)=\\left(\\sum_iw_i-2N\\right)P_DF."
     },
     {
       "leanDeclaration": "PolyDefectExpansion",
       "kind": "structure",
-      "mathematicalMeaning": "Defect expansion for a rank-r Laplacian combination. The field combination_defect says that the total output difference is equivalent modulo Q to a linear combination of obstruction operators whose coefficients are themselves the support-sums of word-level defect coefficients. Its mathematical data are: obstruction: Fin r maps to κ maps to Cal Conf.Multi Operator r; defect Coeff: Laplacian Word r maps to Fin r maps to κ maps to the real numbers; combination defect: for every F G : Cal Conf.Multi Input r, Cal Conf.Is Multi Homogeneous D.input Weights F maps to Cal Conf.Is Multi Homogeneous D.input Weights G maps to Cal Conf.Same Boundary Value At Weights D.input Weights F G maps to Cal Conf.Same Boundary Value the function sending U to D.to Operator Cal Conf F U minus D.to Operator Cal Conf G U the function sending U to ∑ slot : Fin r, ∑ k belongs to K, ∑ W belongs to D.support, D.coeff W times defect Coeff W slot k times obstruction slot k F U.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{obstruction}&\\colon \\operatorname{Fin} r \\longrightarrow κ \\longrightarrow \\operatorname{CalConf}.\\operatorname{MultiOperator} r\\\\\\operatorname{defectCoeff}&\\colon \\operatorname{LaplacianWord} r \\longrightarrow \\operatorname{Fin} r \\longrightarrow κ \\longrightarrow \\mathbb{R}\\\\\\operatorname{combination\\_defect}&\\colon \\forall {F G \\colon \\operatorname{CalConf}.\\operatorname{MultiInput} r}, \\operatorname{CalConf}.\\operatorname{IsMultiHomogeneous} D.\\operatorname{inputWeights} F \\longrightarrow \\operatorname{CalConf}.\\operatorname{IsMultiHomogeneous} D.\\operatorname{inputWeights} G \\longrightarrow \\operatorname{CalConf}.\\operatorname{SameBoundaryValueAtWeights} D.\\operatorname{inputWeights} F G \\longrightarrow \\operatorname{CalConf}.\\operatorname{SameBoundaryValue} (U \\longmapsto D.\\operatorname{toOperator} \\operatorname{CalConf} F U - D.\\operatorname{toOperator} \\operatorname{CalConf} G U) (U \\longmapsto \\sum \\operatorname{slot} \\colon \\operatorname{Fin} r, \\sum k \\in K, (\\sum W \\in D.\\operatorname{support}, D.\\operatorname{coeff} W \\cdot \\operatorname{defectCoeff} W \\operatorname{slot} k) \\cdot \\operatorname{obstruction} \\operatorname{slot} k F U)\\end{aligned}",
       "leanType": "structure PolyDefectExpansion {r : ℕ} {κ : Type _} [DecidableEq κ] (D : PolyLaplacianCombinationData r) (CalConf : Calculus Conf) (K : Finset κ)",
-      "line": 122
+      "line": 122,
+      "mathematicalMeaning": "Stores a word-level boundary-defect expansion in a finite obstruction basis.",
+      "mathematicalFormula": "P_D(F)-P_D(G)\\equiv\\sum_i\\sum_{k\\in K}\\left(\\sum_{W\\in S}c_Wd_{W,i,k}\\right)\\mathcal O_{i,k}(F)\\pmod Q."
     },
     {
       "leanDeclaration": "SatisfiesDefectCancellation",
       "kind": "def",
-      "mathematicalMeaning": "The obstruction coefficients cancel slot-by-slot. In explicit terms, for r in the natural numbers, κ a type, d of type poly laplacian combination data r, calconf of type calculus conf, k a finite set, and e of type poly defect expansion d cal conf k, its defining expression is for every slot : Fin r k : κ, k belongs to K maps to ∑ W belongs to D.support, D.coeff W times E.defect Coeff W slot k equals 0.",
-      "mathematicalFormula": "\\operatorname{SatisfiesDefectCancellation}(D,CalConf,E)=\\forall (\\operatorname{slot} \\colon \\operatorname{Fin} r) (k \\colon κ), k \\in K \\longrightarrow \\sum W \\in D.\\operatorname{support}, D.\\operatorname{coeff} W \\cdot E.\\operatorname{defectCoeff} W \\operatorname{slot} k = 0",
       "leanType": "def SatisfiesDefectCancellation {r : ℕ} {κ : Type _} [DecidableEq κ] (D : PolyLaplacianCombinationData r) (CalConf : Calculus Conf) {K : Finset κ} (E : PolyDefectExpansion D CalConf K) : Prop",
-      "line": 145
+      "line": 145,
+      "mathematicalMeaning": "Defines cancellation by requiring every obstruction coefficient in the expansion to vanish.",
+      "mathematicalFormula": "\\operatorname{Cancel}(D,E)\\iff\\sum_{W\\in S}c_Wd_{W,i,k}=0\\quad\\forall i,\\ k\\in K."
     },
     {
       "leanDeclaration": "isTangentialAtWeights_of_defect_cancellation",
       "kind": "theorem",
-      "mathematicalMeaning": "If the total defect expansion has cancelling coefficients, the finite Laplacian-word combination is tangential. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,r\\colon \\mathbb{N},\\;κ\\colon \\mathrm{Type} _,\\;\\operatorname{DecidableEq} κ,\\;D\\colon \\operatorname{PolyLaplacianCombinationData} r,\\;K\\colon \\operatorname{Finset} κ,\\;E\\colon \\operatorname{PolyDefectExpansion} D \\operatorname{CalConf} K,\\;hcancel\\colon \\operatorname{SatisfiesDefectCancellation} D \\operatorname{CalConf} E,\\quad \\operatorname{CalConf}.\\operatorname{IsTangentialAtWeights} (D.\\operatorname{toOperator} \\operatorname{CalConf}) D.\\operatorname{inputWeights}",
       "leanType": "theorem isTangentialAtWeights_of_defect_cancellation {r : ℕ} {κ : Type _} [DecidableEq κ] (D : PolyLaplacianCombinationData r) {K : Finset κ} (E : PolyDefectExpansion D CalConf K) (hcancel : SatisfiesDefectCancellation D CalConf E) : CalConf.IsTangentialAtWeights (D.toOperator CalConf) D.inputWeights",
-      "line": 175
+      "line": 175,
+      "mathematicalMeaning": "Proves tangentiality from the supplied defect expansion and its coefficient-cancellation equations.",
+      "mathematicalFormula": "\\operatorname{Cancel}(D,E)\\Longrightarrow\\operatorname{Tangential}_w(P_D)."
     },
     {
       "leanDeclaration": "toWeightedMultiTangentialOperator",
       "kind": "def",
-      "mathematicalMeaning": "Package a tangential fixed-degree combination as a weighted rank-r operator. In explicit terms, for r in the natural numbers, d of type poly laplacian combination data r, hmaps of type cal conf.maps weights d.to operator cal conf d.input weights d.output weight cal conf, and htangential of type cal conf.is tangential at weights d.to operator cal conf d.input weights, its defining expression is input Weights : equals D.input Weights output weight : equals D.output weight Cal Conf to Operator : equals D.to Operator Cal Conf maps Weights : equals hmaps tangential : equals htangential.",
-      "mathematicalFormula": "\\operatorname{toWeightedMultiTangentialOperator}(D,hmaps,htangential)=\\operatorname{inputWeights} = D.\\operatorname{inputWeights} w_{\\mathrm{out}} = D.\\operatorname{outputWeight} \\operatorname{CalConf} \\operatorname{toOperator} = D.\\operatorname{toOperator} \\operatorname{CalConf} \\operatorname{mapsWeights} = \\operatorname{hmaps} \\operatorname{tangential} = \\operatorname{htangential}",
       "leanType": "def toWeightedMultiTangentialOperator {r : ℕ} (D : PolyLaplacianCombinationData r) (hmaps : CalConf.MapsWeights (D.toOperator CalConf) D.inputWeights (D.outputWeight CalConf)) (htangential : CalConf.IsTangentialAtWeights (D.toOperator CalConf) D.inputWeights) : CalConf.WeightedMultiTangentialOperator r",
-      "line": 216
+      "line": 216,
+      "mathematicalMeaning": "Packages a combination whose weight mapping and tangentiality have been proved as a weighted multi-tangential operator.",
+      "mathematicalFormula": "(P_D,w,w_{\\mathrm{out}},\\operatorname{MapsWeights},\\operatorname{Tangential})."
     }
   ],
   "prerequisites": [
@@ -119,5 +124,5 @@
       "note": "Source for multilinear tangentiality and Laplacian-word constructions."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "The central geometric input is abstract: ProductHomogeneityIdentities, OperatorSumHomogeneityIdentities, and PolyDefectExpansion are supplied rather than derived in this file. Tangentiality is therefore verified under those interfaces and explicit cancellation hypotheses."
 }

@@ -1,156 +1,161 @@
 {
   "file": "PolyGJMSoperators/TreeRecurrence.lean",
-  "title": "TreeRecurrence",
-  "status": "verified-under-interface",
-  "summary": "Defines paths, descendants, subtree weights, defect coefficients, and the first recurrence differential for a left-comb tree.",
+  "title": "Path-wise tree recurrence",
+  "status": "scaffold",
+  "summary": "Defines the left-comb paths, subtrees, vertex defect coefficients, and the first recurrence differential governing the intended slot-wise Q-commutator cancellation.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Defines paths, descendants, subtree weights, defect coefficients, and the first recurrence differential for a left-comb tree.",
-      "formula": null
+      "heading": "Paths and subtrees",
+      "body": "Each input leaf determines a path to the root. For a vertex v, the recurrence uses the sum of input weights below v and the total exponent on proper descendants of v.",
+      "formula": "W_v=\\sum_{j\\text{ below }v}w_j,\\qquad D_v(\\beta)=\\sum_{x\\in\\operatorname{Desc}(v)}\\beta_x."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows PolyGJMSoperators/TreeRecurrence.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Vertex defect coefficient",
+      "body": "The local coefficient attached to v and a degree-s index β is the dimension/weight expression recorded by the intended commutator calculation.",
+      "formula": "C_v(\\beta)=\\frac n2+W_v-2D_v(\\beta)-\\beta_v-1."
+    },
+    {
+      "heading": "Rank recurrence",
+      "body": "For a coefficient system A of degree s+1, the jth lowering operator sums Cᵥ(β)A(β+eᵥ) along the path from leaf j to the root. The recurrence requires every such sum to vanish.",
+      "formula": "(d_1A)_j(\\beta)=\\sum_{v\\in\\operatorname{Path}(j)}C_v(\\beta)A(\\beta+e_v)=0."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "CombCoeffSpace",
       "kind": "abbrev",
-      "mathematicalMeaning": "Coefficient space of total tree degree k. In explicit terms, for r, k in the natural numbers, its defining expression is Comb Index r k maps to the real numbers.",
-      "mathematicalFormula": "\\operatorname{CombCoeffSpace}(r,k)=\\operatorname{CombIndex} r k \\longrightarrow \\mathbb{R}",
       "leanType": "abbrev CombCoeffSpace (r k : ℕ) : Type",
-      "line": 30
+      "line": 30,
+      "mathematicalMeaning": "Defines degree-k coefficient systems on left-comb indices.",
+      "mathematicalFormula": "\\operatorname{CombCoeffSpace}(r,k)=\\{A:\\operatorname{CombIndex}(r,k)\\to\\mathbb R\\}."
     },
     {
       "leanDeclaration": "leafVertex",
       "kind": "def",
-      "mathematicalMeaning": "Vertex corresponding to the j-th leaf. In explicit terms, for r in the natural numbers, and j of type fin r, its defining expression is ⟨ r minus 1 plus j.val, by have hj : equals j.is Lt unfold left Comb Vertex Count omega⟩.",
-      "mathematicalFormula": "\\operatorname{leafVertex}(j)=⟨(r - 1) + j.\\operatorname{val}, \\operatorname{by} \\operatorname{have} \\operatorname{hj} = j.\\operatorname{isLt} \\operatorname{unfold} \\operatorname{leftCombVertexCount} \\operatorname{omega}⟩",
       "leanType": "def leafVertex {r : ℕ} (j : Fin r) : Fin (leftCombVertexCount r)",
-      "line": 36
+      "line": 36,
+      "mathematicalMeaning": "Returns the vertex representing the jth leaf in the left-comb numbering.",
+      "mathematicalFormula": "\\ell(j)=r-1+j."
     },
     {
       "leanDeclaration": "IsInternal",
       "kind": "def",
-      "mathematicalMeaning": "A vertex is internal in the left-comb layout. In explicit terms, for r in the natural numbers, and v of type fin left comb vertex count r, its defining expression is v.val < r minus 1.",
-      "mathematicalFormula": "\\operatorname{IsInternal}(v)=v.\\operatorname{val} < r - 1",
       "leanType": "def IsInternal {r : ℕ} (v : Fin (leftCombVertexCount r)) : Prop",
-      "line": 43
+      "line": 43,
+      "mathematicalMeaning": "Declares a vertex internal when its code is smaller than r−1.",
+      "mathematicalFormula": "v\\text{ internal}\\iff v<r-1."
     },
     {
       "leanDeclaration": "leafBelow",
       "kind": "def",
-      "mathematicalMeaning": "A leaf lies below a given vertex.",
-      "mathematicalFormula": "\\operatorname{leafBelow}(v,j)\\colon \\mathrm{Prop}",
       "leanType": "def leafBelow {r : ℕ} (v : Fin (leftCombVertexCount r)) (j : Fin r) : Prop",
-      "line": 47
+      "line": 47,
+      "mathematicalMeaning": "Defines when a leaf lies in the subtree rooted at v, using the left-comb layout.",
+      "mathematicalFormula": "j\\preceq v\\iff\\begin{cases}j<r-v,&v\\text{ internal},\\\\v=\\ell(j),&v\\text{ a leaf}.\\end{cases}"
     },
     {
       "leanDeclaration": "onPathToRoot",
       "kind": "def",
-      "mathematicalMeaning": "A vertex lies on the path from leaf j to the root. In explicit terms, for r in the natural numbers, j of type fin r, and v of type fin left comb vertex count r, its defining expression is v equals leaf Vertex j or Is Internal r : equals r v and v.val < r minus j.val.",
-      "mathematicalFormula": "\\operatorname{onPathToRoot}(j,v)=v = \\operatorname{leafVertex} j \\lor (\\operatorname{IsInternal} (r = r) v \\land v.\\operatorname{val} < r - j.\\operatorname{val})",
       "leanType": "def onPathToRoot {r : ℕ} (j : Fin r) (v : Fin (leftCombVertexCount r)) : Prop",
-      "line": 56
+      "line": 56,
+      "mathematicalMeaning": "Defines membership of a vertex in the path from leaf j to the root.",
+      "mathematicalFormula": "v\\in\\operatorname{Path}(j)\\iff v=\\ell(j)\\ \\lor\\ (v\\text{ internal and }v<r-j)."
     },
     {
       "leanDeclaration": "pathToRoot",
       "kind": "def",
-      "mathematicalMeaning": "The path from leaf j to the root, including the leaf and root. In explicit terms, for r in the natural numbers, and j of type fin r, its defining expression is Finset.univ.filter the function sending v to on Path To Root j v.",
-      "mathematicalFormula": "\\operatorname{pathToRoot}(j)=\\operatorname{Finset}.\\operatorname{univ}.\\operatorname{filter} v \\longmapsto \\operatorname{onPathToRoot} j v",
       "leanType": "def pathToRoot {r : ℕ} (j : Fin r) : Finset (Fin (leftCombVertexCount r))",
-      "line": 63
+      "line": 63,
+      "mathematicalMeaning": "Forms the finite set of vertices on the leaf-to-root path.",
+      "mathematicalFormula": "\\operatorname{Path}(j)=\\{v\\in V_r:v\\text{ lies on the path from }j\\text{ to the root}\\}."
     },
     {
       "leanDeclaration": "isDescendant",
       "kind": "def",
-      "mathematicalMeaning": "x is a proper descendant of v in the left-comb tree. In explicit terms, for r in the natural numbers, and v, x of type fin left comb vertex count r, its defining expression is Is Internal r : equals r v and x.val < r minus 1 and v.val < x.val or r minus 1 is at most x.val and x.val < 2 times r minus v.val minus 1.",
-      "mathematicalFormula": "\\operatorname{isDescendant}(v,x)=\\operatorname{IsInternal} (r = r) v \\land ((x.\\operatorname{val} < r - 1 \\land v.\\operatorname{val} < x.\\operatorname{val}) \\lor (r - 1 \\le x.\\operatorname{val} \\land x.\\operatorname{val} < 2 \\cdot r - v.\\operatorname{val} - 1))",
       "leanType": "def isDescendant {r : ℕ} (v x : Fin (leftCombVertexCount r)) : Prop",
-      "line": 68
+      "line": 68,
+      "mathematicalMeaning": "Defines the proper-descendant relation for the chosen left-comb numbering.",
+      "mathematicalFormula": "x\\in\\operatorname{Desc}(v)\\iff v\\text{ is internal and }x\\text{ lies strictly below }v."
     },
     {
       "leanDeclaration": "descendants",
       "kind": "def",
-      "mathematicalMeaning": "Proper descendants of a vertex. In explicit terms, for r in the natural numbers, and v of type fin left comb vertex count r, its defining expression is Finset.univ.filter the function sending x to is Descendant v x.",
-      "mathematicalFormula": "\\operatorname{descendants}(v)=\\operatorname{Finset}.\\operatorname{univ}.\\operatorname{filter} x \\longmapsto \\operatorname{isDescendant} v x",
       "leanType": "def descendants {r : ℕ} (v : Fin (leftCombVertexCount r)) : Finset (Fin (leftCombVertexCount r))",
-      "line": 75
+      "line": 75,
+      "mathematicalMeaning": "Forms the finite set of proper descendants of v.",
+      "mathematicalFormula": "\\operatorname{Desc}(v)=\\{x\\in V_r:x\\text{ is a proper descendant of }v\\}."
     },
     {
       "leanDeclaration": "subtreeWeight",
       "kind": "def",
-      "mathematicalMeaning": "Sum of the input weights under the subtree rooted at v. In explicit terms, for r in the natural numbers, v of type fin left comb vertex count r, and w of type fin r maps to the real numbers, its defining expression is Finset.univ.filter fun j : Fin r maps to leaf Below v j.sum the function sending j to w j.",
-      "mathematicalFormula": "\\operatorname{subtreeWeight}(v,w)=(\\operatorname{Finset}.\\operatorname{univ}.\\operatorname{filter} \\operatorname{fun} j \\colon \\operatorname{Fin} r => \\operatorname{leafBelow} v j).\\operatorname{sum} j \\longmapsto w j",
       "leanType": "def subtreeWeight {r : ℕ} (v : Fin (leftCombVertexCount r)) (w : Fin r → ℝ) : ℝ",
-      "line": 81
+      "line": 81,
+      "mathematicalMeaning": "Sums the input weights over leaves below a vertex.",
+      "mathematicalFormula": "W_v:=\\sum_{j\\preceq v}w_j."
     },
     {
       "leanDeclaration": "descendantPowerSum",
       "kind": "def",
-      "mathematicalMeaning": "Sum of the powers on the proper descendants of v. In explicit terms, for r, s in the natural numbers, β of type comb index r s, and v of type fin left comb vertex count r, its defining expression is descendants v.sum the function sending x to β.power x.",
-      "mathematicalFormula": "\\operatorname{descendantPowerSum}(β,v)=(\\operatorname{descendants} v).\\operatorname{sum} x \\longmapsto β.\\operatorname{power} x",
       "leanType": "def descendantPowerSum {r s : ℕ} (β : CombIndex r s) (v : Fin (leftCombVertexCount r)) : ℕ",
-      "line": 87
+      "line": 87,
+      "mathematicalMeaning": "Sums the tree exponents over proper descendants of a vertex.",
+      "mathematicalFormula": "D_v(\\beta):=\\sum_{x\\in\\operatorname{Desc}(v)}\\beta_x."
     },
     {
       "leanDeclaration": "defectCoeff",
       "kind": "def",
-      "mathematicalMeaning": "The single-vertex defect coefficient C_v(β). Mathematically this is n / 2 + W_v - 2 * sum_{x in Desc(v)} β_x - β_v - 1. In explicit terms, for r, s in the natural numbers, n in the real numbers, w of type fin r maps to the real numbers, β of type comb index r s, and v of type fin left comb vertex count r, its defining expression is n divided by 2 plus subtree Weight v w minus 2 times descendant Power Sum β v minus β.power v minus 1.",
-      "mathematicalFormula": "\\operatorname{defectCoeff}(n,w,β,v)=n / 2 + \\operatorname{subtreeWeight} v w - 2 \\cdot \\operatorname{descendantPowerSum} β v - β.\\operatorname{power} v - 1",
       "leanType": "def defectCoeff {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (β : CombIndex r s) (v : Fin (leftCombVertexCount r)) : ℝ",
-      "line": 98
+      "line": 98,
+      "mathematicalMeaning": "Defines the local defect coefficient used by the recurrence.",
+      "mathematicalFormula": "C_v(\\beta):=\\frac n2+W_v-2D_v(\\beta)-\\beta_v-1."
     },
     {
       "leanDeclaration": "lowerAtVertex",
       "kind": "def",
-      "mathematicalMeaning": "The contribution of one vertex to a lowering recurrence operator. In explicit terms, for r, s in the natural numbers, n in the real numbers, w of type fin r maps to the real numbers, v of type fin left comb vertex count r, and a of type comb coeff space r s plus 1, its defining expression is fun β maps to defect Coeff n w β v times A β.add At v.",
-      "mathematicalFormula": "\\operatorname{lowerAtVertex}(n,w,v,A)=\\operatorname{fun} β => \\operatorname{defectCoeff} n w β v \\cdot A (β.\\operatorname{addAt} v)",
       "leanType": "def lowerAtVertex {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (v : Fin (leftCombVertexCount r)) (A : CombCoeffSpace r (s + 1)) : CombCoeffSpace r s",
-      "line": 109
+      "line": 109,
+      "mathematicalMeaning": "Defines the contribution obtained by raising β at v and multiplying by the local defect coefficient.",
+      "mathematicalFormula": "(R_vA)(\\beta):=C_v(\\beta)A(\\beta+e_v)."
     },
     {
       "leanDeclaration": "pathDefectCoeff",
       "kind": "def",
-      "mathematicalMeaning": "The defect coefficient B_j(β) for the j-th input slot. In explicit terms, for r, s in the natural numbers, n in the real numbers, w of type fin r maps to the real numbers, a of type comb coeff space r s plus 1, j of type fin r, and β of type comb index r s, its defining expression is path To Root j.sum the function sending v to defect Coeff n w β v times A β.add At v.",
-      "mathematicalFormula": "\\operatorname{pathDefectCoeff}(n,w,A,j,β)=(\\operatorname{pathToRoot} j).\\operatorname{sum} v \\longmapsto \\operatorname{defectCoeff} n w β v \\cdot A (β.\\operatorname{addAt} v)",
       "leanType": "def pathDefectCoeff {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (A : CombCoeffSpace r (s + 1)) (j : Fin r) (β : CombIndex r s) : ℝ",
-      "line": 118
+      "line": 118,
+      "mathematicalMeaning": "Sums the vertex contributions along the path of the jth input slot.",
+      "mathematicalFormula": "B_j(\\beta):=\\sum_{v\\in\\operatorname{Path}(j)}C_v(\\beta)A(\\beta+e_v)."
     },
     {
       "leanDeclaration": "dOne",
       "kind": "def",
-      "mathematicalMeaning": "The first differential d_1 A = (R_1 A,..., R_r A). In explicit terms, for r, s in the natural numbers, n in the real numbers, w of type fin r maps to the real numbers, and a of type comb coeff space r s plus 1, its defining expression is fun j β maps to path Defect Coeff n w A j β.",
-      "mathematicalFormula": "\\operatorname{dOne}(n,w,A)=\\operatorname{fun} j β => \\operatorname{pathDefectCoeff} n w A j β",
       "leanType": "def dOne {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (A : CombCoeffSpace r (s + 1)) : Fin r → CombCoeffSpace r s",
-      "line": 128
+      "line": 128,
+      "mathematicalMeaning": "Defines the first recurrence differential as the collection of all slot-wise path defects.",
+      "mathematicalFormula": "(d_1A)_j(\\beta):=B_j(\\beta)."
     },
     {
       "leanDeclaration": "RankRecurrenceAtLevel",
       "kind": "def",
-      "mathematicalMeaning": "Slot-wise recurrence at level s+1. In explicit terms, for r, s in the natural numbers, n in the real numbers, w of type fin r maps to the real numbers, and a of type comb coeff space r s plus 1, its defining expression is for every j : Fin r β : Comb Index r s, path Defect Coeff n w A j β equals 0.",
-      "mathematicalFormula": "\\operatorname{RankRecurrenceAtLevel}(n,w,A)=\\forall (j \\colon \\operatorname{Fin} r) (β \\colon \\operatorname{CombIndex} r s), \\operatorname{pathDefectCoeff} n w A j β = 0",
       "leanType": "def RankRecurrenceAtLevel {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (A : CombCoeffSpace r (s + 1)) : Prop",
-      "line": 136
+      "line": 136,
+      "mathematicalMeaning": "Defines the level-(s+1) recurrence by requiring every slot-wise defect coefficient to vanish.",
+      "mathematicalFormula": "\\operatorname{RankRecurrence}_{s+1}(A)\\iff B_j(\\beta)=0\\quad\\forall j,\\beta."
     },
     {
       "leanDeclaration": "RankRecurrence",
       "kind": "def",
-      "mathematicalMeaning": "Rank recurrence for a coefficient system of total degree k. At k = 0 there is no lowering recurrence.",
-      "mathematicalFormula": "\\operatorname{RankRecurrence}(n,w,A)\\colon \\mathrm{Prop}",
       "leanType": "def RankRecurrence {r k : ℕ} (n : ℝ) (w : Fin r → ℝ) (A : CombCoeffSpace r k) : Prop",
-      "line": 147
+      "line": 147,
+      "mathematicalMeaning": "Defines the full degree-k recurrence; degree zero is vacuous and positive degree uses the preceding level predicate.",
+      "mathematicalFormula": "\\operatorname{RankRecurrence}_0(A):=\\top,\\qquad\\operatorname{RankRecurrence}_{s+1}(A):=\\operatorname{RankRecurrenceAtLevel}_s(A)."
     },
     {
       "leanDeclaration": "recurrence_iff_dOne_zero",
       "kind": "theorem",
-      "mathematicalMeaning": "For r, s in the natural numbers, n in the real numbers, w of type Fin r maps to the real numbers, and A of type Comb Coeff Space r s plus 1, Rank Recurrence At Level n w A if and only if d One n w A equals fun j maps to fun β maps to 0.",
-      "mathematicalFormula": "\\forall\\,r,s\\colon \\mathbb{N},\\;n\\colon \\mathbb{R},\\;w\\colon \\operatorname{Fin} r \\longrightarrow \\mathbb{R},\\;A\\colon \\operatorname{CombCoeffSpace} r (s + 1),\\quad \\operatorname{RankRecurrenceAtLevel} n w A \\Longleftrightarrow \\operatorname{dOne} n w A = \\operatorname{fun} _j => (\\operatorname{fun} _β => 0)",
       "leanType": "theorem recurrence_iff_dOne_zero {r s : ℕ} (n : ℝ) (w : Fin r → ℝ) (A : CombCoeffSpace r (s + 1)) : RankRecurrenceAtLevel n w A ↔ dOne n w A = fun _j => (fun _β => 0)",
-      "line": 155
+      "line": 155,
+      "mathematicalMeaning": "Proves that the recurrence equations are exactly the statement that the first differential is zero.",
+      "mathematicalFormula": "\\operatorname{RankRecurrenceAtLevel}(A)\\iff d_1A=0."
     }
   ],
   "prerequisites": [
@@ -167,5 +172,5 @@
       "note": "Motivation for rank-general nested Laplacian words; the Lean tree complex goes beyond what is currently instantiated."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "The file explicitly records the combinatorial recurrence but does not derive it from the ambient Q-commutator of nested tree words. Consequently it does not prove that a recurrent coefficient system yields a tangential geometric operator."
 }

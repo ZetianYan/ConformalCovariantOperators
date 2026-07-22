@@ -968,9 +968,9 @@
   },
   {
     "file": "Juhlformula/Juhlcombinatorics.lean",
-    "title": "Juhlcombinatorics",
+    "title": "Juhl combinatorics module aggregate",
     "status": "scaffold",
-    "summary": "Aggregate entry point for the formal obstruction recursion and OR–Juhl bridge.",
+    "summary": "Collects the formal jet recursion, low-order syntax checks, formal statement, abstract OR bridge, and curved-OR assembly under one import path.",
     "declarations": [],
     "referenceIds": [
       "ChernYan-2024",
@@ -979,9 +979,9 @@
   },
   {
     "file": "Juhlformula/Juhlcombinatorics/CurvedORJuhlFormula.lean",
-    "title": "CurvedORJuhlFormula",
+    "title": "Formal curved OR Juhl assembly",
     "status": "scaffold",
-    "summary": "Composes FormalJuhlStatement with ORBridge to obtain the final formal curved OR–Juhl equality.",
+    "summary": "Composes a stored formal Juhl statement with a stored formal Juhl–OR bridge and instantiates the construction at orders one and two using only identity bridges.",
     "declarations": [
       "CurvedORJuhlTypeFormula",
       "orSide",
@@ -998,9 +998,9 @@
   },
   {
     "file": "Juhlformula/Juhlcombinatorics/FormalJets.lean",
-    "title": "FormalJets",
-    "status": "verified",
-    "summary": "Defines a purely formal expression language for metric jets, Taylor denominators, and obstruction coefficients.",
+    "title": "Formal jet equations",
+    "status": "scaffold",
+    "summary": "Defines a syntax tree for the symbols in the Juhl obstruction recursion and assembles the formal coefficient equation Lₘ from its highest-jet, trace-derivative, Laplacian-variation, and zeroth-order trace terms.",
     "declarations": [
       "FormalExpr",
       "qsmul",
@@ -1024,9 +1024,9 @@
   },
   {
     "file": "Juhlformula/Juhlcombinatorics/FormalStatement.lean",
-    "title": "FormalStatement",
-    "status": "verified",
-    "summary": "Defines the data of a formal Juhl right-hand side and the proposition that formalP equals that expression.",
+    "title": "Formal Juhl statement scaffold",
+    "status": "scaffold",
+    "summary": "Defines normalized syntax equality and data structures for a finite formal Juhl right-hand side, then packages machine-checked order-one and raw order-two identities.",
     "declarations": [
       "FormalEq",
       "refl",
@@ -1048,9 +1048,9 @@
   },
   {
     "file": "Juhlformula/Juhlcombinatorics/LowOrderCheck.lean",
-    "title": "LowOrderCheck",
-    "status": "verified",
-    "summary": "Normalizes formal expressions and verifies the encoded raw P2 and P4 low-order identities.",
+    "title": "Low-order formal syntax checks",
+    "status": "scaffold",
+    "summary": "Implements a limited syntax normalizer and machine-checks that the recursively generated formal expressions at orders one and two match explicitly written raw P₂ and P₄ syntax trees.",
     "declarations": [
       "normalizeRat",
       "normalize",
@@ -1068,9 +1068,9 @@
   },
   {
     "file": "Juhlformula/Juhlcombinatorics/ORBridge.lean",
-    "title": "ORBridge",
+    "title": "Formal Juhl–OR bridge",
     "status": "scaffold",
-    "summary": "Defines an abstract termwise bridge between a formal Juhl right-hand side and an OR right-hand side.",
+    "summary": "Introduces abstract data asserting coefficient and normalized-expression agreement between a formal Juhl side and a formal OR side; no conversion from actual OR operators is implemented.",
     "declarations": [
       "ORBridgeTerm",
       "ORBridge",
@@ -1084,9 +1084,9 @@
   },
   {
     "file": "Juhlformula/Juhlcombinatorics/Recursion.lean",
-    "title": "Recursion",
-    "status": "verified",
-    "summary": "Performs syntax-level recursive elimination of normal jets and defines the formal obstruction expression formalP.",
+    "title": "Formal obstruction recursion",
+    "status": "scaffold",
+    "summary": "Recursively solves the formal equations Lₛ=0 for normal jets Fₛ₊₁ and defines a normalized formal obstruction expression P₂ℓ, without interpreting it as a geometric differential operator.",
     "declarations": [
       "substF",
       "solveStepCoeff",
@@ -1109,9 +1109,9 @@
   },
   {
     "file": "Juhlformula/Juhloperators/Basic.lean",
-    "title": "Basic",
-    "status": "verified",
-    "summary": "Defines ordered compositions I=(I_1,...,I_r) of an integer N.",
+    "title": "Integer compositions for Juhl formulas",
+    "status": "scaffold",
+    "summary": "Defines ordered compositions I=(I₁,…,Iᵣ) of N with positive parts and provides the empty, singleton, and two-part constructors.",
     "declarations": [
       "Composition",
       "length",
@@ -1130,9 +1130,9 @@
   },
   {
     "file": "Juhlformula/Juhloperators/Coefficients.lean",
-    "title": "Coefficients",
-    "status": "verified",
-    "summary": "Defines abstract composition coefficients and a placeholder closed coefficient system.",
+    "title": "Juhl coefficient-system scaffold",
+    "status": "scaffold",
+    "summary": "Defines abstract direct and inverse coefficient families and basic composition statistics, but the advertised closed coefficients m_I and n_I are currently placeholders equal to one.",
     "declarations": [
       "CoefficientSystem",
       "SingletonNormalized",
@@ -1153,9 +1153,9 @@
   },
   {
     "file": "Juhlformula/Juhloperators/Composition.lean",
-    "title": "Composition",
-    "status": "verified",
-    "summary": "Evaluates an ordered composition as P_{2I_1} composed with ... composed with P_{2I_r}.",
+    "title": "Composition of abstract GJMS operators",
+    "status": "scaffold",
+    "summary": "Defines ordinary unary-operator composition and associates an ordered composition I with the formal composite P₂I₁∘⋯∘P₂Iᵣ of an abstract GJMS family.",
     "declarations": [
       "composeUnary",
       "composeUnary_apply",
@@ -1179,9 +1179,9 @@
   },
   {
     "file": "Juhlformula/Juhloperators/GJMSComposition.lean",
-    "title": "GJMSComposition",
-    "status": "verified",
-    "summary": "Specializes ordered compositions to the canonical ambient GJMS family.",
+    "title": "Canonical GJMS compositions",
+    "status": "verified-under-interface",
+    "summary": "Specializes abstract Juhl compositions to the canonical ambient GJMS family and verifies that the singleton composition is the ambient Laplacian power Δ̃ᴺ under the algebraic-identities interface.",
     "declarations": [
       "canonicalJuhlGJMSFamily",
       "canonicalGJMSComposition",
@@ -1318,9 +1318,9 @@
   },
   {
     "file": "PolyGJMSoperators/LinearCombination.lean",
-    "title": "LinearCombination",
+    "title": "Finite sums of ambient operators",
     "status": "verified-under-interface",
-    "summary": "Defines finite linear combinations of multilinear ambient operators and their evaluation.",
+    "summary": "Defines finite real linear combinations of rank-r ambient operators and proves that a finite sum of operators tangential at the same input weights remains tangential.",
     "declarations": [
       "singleOperator",
       "operatorSum",
@@ -1359,9 +1359,9 @@
   },
   {
     "file": "PolyGJMSoperators/OR.lean",
-    "title": "OR",
-    "status": "verified-under-interface",
-    "summary": "Aggregate entry point for OR indices, recurrence, defect cancellation, coefficients, and the closed operator.",
+    "title": "Ovsienko–Redou module aggregate",
+    "status": "scaffold",
+    "summary": "Provides a single import path for the OR index, coefficient, operator-data, defect-cancellation, and closed-operator layers.",
     "declarations": [],
     "referenceIds": [
       "OvsienkoRedou-2001",
@@ -1370,9 +1370,9 @@
   },
   {
     "file": "PolyGJMSoperators/OR/ClosedOperator.lean",
-    "title": "ClosedOperator",
+    "title": "Regular closed OR operator",
     "status": "verified-under-interface",
-    "summary": "Builds the closed OR linear combination from its coefficient system and packages its stated properties.",
+    "summary": "Instantiates OR operator data with the regular closed rational coefficients and proves tangentiality conditional on a compatible defect expansion and rational cancellation proof.",
     "declarations": [
       "regular",
       "regular_coeffSystem_coeff",
@@ -1386,9 +1386,9 @@
   },
   {
     "file": "PolyGJMSoperators/OR/Coefficients/ClosedFormula.lean",
-    "title": "ClosedFormula",
-    "status": "verified-under-interface",
-    "summary": "Defines the proposed closed product formula for OR coefficients.",
+    "title": "Regular closed OR coefficients",
+    "status": "scaffold",
+    "summary": "Defines the rational/Pochhammer form of the regular Ovsienko–Redou coefficient and packages it as a coefficient system, while leaving its global defect-cancellation recurrence separate.",
     "declarations": [
       "ORClosedCoefficientFormula",
       "toCoefficientSystem",
@@ -1408,9 +1408,9 @@
   },
   {
     "file": "PolyGJMSoperators/OR/Coefficients/ClosedSatisfiesRecurrence.lean",
-    "title": "ClosedSatisfiesRecurrence",
+    "title": "Closed-form recurrence bridge",
     "status": "verified-under-interface",
-    "summary": "Proves that the closed coefficient formula satisfies the encoded OR recurrence relations.",
+    "summary": "Records the conditional bridge from a supplied rational defect-cancellation proof to the closed-form recurrence predicate and imports the independently proved two local Pochhammer recurrences.",
     "declarations": [
       "ORRegularClosedFormula_satisfiesRecurrence_of_defectCancellationQ",
       "ORRegularClosedFormula_satisfiesLemma31LocalRecurrences"
@@ -1422,9 +1422,9 @@
   },
   {
     "file": "PolyGJMSoperators/OR/Coefficients/Combinatorics.lean",
-    "title": "Combinatorics",
-    "status": "verified-under-interface",
-    "summary": "Provides factorial, Pochhammer-type, and rational combinatorial identities used by the coefficient proof.",
+    "title": "Rational coefficient combinatorics",
+    "status": "verified",
+    "summary": "Defines factorial, binomial, trinomial, rising-factorial, and falling-factorial expressions over the rationals and proves their zero, successor, and predecessor product identities.",
     "declarations": [
       "factorialQ",
       "binomQ",
@@ -1449,9 +1449,9 @@
   },
   {
     "file": "PolyGJMSoperators/OR/Coefficients/Parameters.lean",
-    "title": "Parameters",
-    "status": "verified-under-interface",
-    "summary": "Defines the dimension, weight, and order parameters appearing in the OR coefficient formulas.",
+    "title": "Regular OR coefficient parameters",
+    "status": "verified",
+    "summary": "Introduces the half-dimension shift and the three rational Pochhammer parameters used in the regular Ovsienko–Redou coefficient formula, with one algebraic rewrite.",
     "declarations": [
       "ORHalfShift",
       "ORAlpha",
@@ -1466,9 +1466,9 @@
   },
   {
     "file": "PolyGJMSoperators/OR/Coefficients/RatioLemmas.lean",
-    "title": "RatioLemmas",
-    "status": "verified-under-interface",
-    "summary": "Proves ratios of neighboring closed coefficients needed to discharge the recurrence equations.",
+    "title": "Local OR coefficient recurrences",
+    "status": "verified",
+    "summary": "Proves the two adjacent-index recurrence identities for the regular Pochhammer factor by moving one unit of Laplacian degree from the output exponent to either input exponent.",
     "declarations": [
       "ORFirstSlotMultiplier",
       "ORSecondSlotMultiplier",
@@ -1493,9 +1493,9 @@
   },
   {
     "file": "PolyGJMSoperators/OR/Coefficients/Recurrence.lean",
-    "title": "Recurrence",
-    "status": "verified-under-interface",
-    "summary": "States the neighboring-index recurrence equations required for OR defect cancellation.",
+    "title": "OR coefficient and cancellation predicates",
+    "status": "scaffold",
+    "summary": "Defines rational coefficient systems and expresses the intended OR recurrence as vanishing of every finite obstruction-coefficient sum.",
     "declarations": [
       "ORCoefficientSystem",
       "coeffR",
@@ -1511,9 +1511,9 @@
   },
   {
     "file": "PolyGJMSoperators/OR/DefectCancellation.lean",
-    "title": "DefectCancellation",
+    "title": "OR defect cancellation and tangentiality",
     "status": "verified-under-interface",
-    "summary": "Encodes coefficient conditions that cancel Q-commutator defects in the two input slots.",
+    "summary": "Expresses the boundary defect of an OR-indexed operator in a finite obstruction basis, converts rational cancellation to real cancellation, and proves conditional bidifferential tangentiality.",
     "declarations": [
       "ORDefectExpansion",
       "SatisfiesDefectCancellation",
@@ -1530,9 +1530,9 @@
   },
   {
     "file": "PolyGJMSoperators/OR/Index.lean",
-    "title": "Index",
-    "status": "verified-under-interface",
-    "summary": "Defines triples (a,b,c) of Laplacian exponents with a+b+c=N and the elementary moves between neighboring terms.",
+    "title": "OR degree indices and adjacent moves",
+    "status": "scaffold",
+    "summary": "Encodes triples (a,b,c) with a+b+c=N for the words Δ̃ᵃ((Δ̃ᵇf)(Δ̃ᶜg)), constructs their finite support, and defines degree-preserving adjacent moves.",
     "declarations": [
       "ORIndex",
       "toWord",
@@ -1560,9 +1560,9 @@
   },
   {
     "file": "PolyGJMSoperators/OR/OperatorData.lean",
-    "title": "OperatorData",
+    "title": "OR operators from rational coefficients",
     "status": "verified-under-interface",
-    "summary": "Packages the weighted OR operator data and the Laplacian word attached to each OR index.",
+    "summary": "Turns a rational degree-N OR coefficient system into a concrete finite ambient bidifferential sum and proves its common output weight under product and finite-sum homogeneity interfaces.",
     "declarations": [
       "OROperatorData",
       "inputWeights",
@@ -1580,9 +1580,9 @@
   },
   {
     "file": "PolyGJMSoperators/OvsienkoRedou.lean",
-    "title": "OvsienkoRedou",
+    "title": "Abstract Ovsienko–Redou construction",
     "status": "verified-under-interface",
-    "summary": "Provides the initial bidifferential ambient ansatz and coefficient recurrence for curved Ovsienko–Redou-type operators.",
+    "summary": "Specializes fixed-degree poly-Laplacian combinations to two inputs and shows how weight mapping plus defect cancellation produce a weighted bidifferential tangential operator.",
     "declarations": [
       "OvsienkoRedouData",
       "inputWeights",
@@ -1605,9 +1605,9 @@
   },
   {
     "file": "PolyGJMSoperators/PolyLaplacianCombination.lean",
-    "title": "PolyLaplacianCombination",
+    "title": "Fixed-degree poly-Laplacian combinations",
     "status": "verified-under-interface",
-    "summary": "Specializes linear combinations to Laplacian words of fixed total order.",
+    "summary": "Packages finite sums of rank-r Laplacian words with a common total degree, proves their common output weight under homogeneity interfaces, and derives tangentiality from an explicit defect expansion and coefficient cancellation.",
     "declarations": [
       "PolyLaplacianCombinationData",
       "outputWeight",
@@ -1647,9 +1647,9 @@
   },
   {
     "file": "PolyGJMSoperators/Tree.lean",
-    "title": "Tree",
-    "status": "verified-under-interface",
-    "summary": "Aggregate entry point for rank-general left-comb Laplacian words and recurrence interfaces.",
+    "title": "Tree-operator module aggregate",
+    "status": "scaffold",
+    "summary": "Collects the left-comb tree-word, recurrence, defect-cancellation, and first chain-complex modules under one import path.",
     "declarations": [],
     "referenceIds": [
       "CaseCieslak-2025"
@@ -1657,9 +1657,9 @@
   },
   {
     "file": "PolyGJMSoperators/TreeChainComplex.lean",
-    "title": "TreeChainComplex",
+    "title": "First tree-recurrence complex",
     "status": "scaffold",
-    "summary": "Packages first-kernel and Euler-characteristic targets for the prospective rank-general recurrence complex.",
+    "summary": "Records stars-and-bars dimensions, a proposed Euler characteristic, the first recurrence differential, and a placeholder package for a future generic exactness proof.",
     "declarations": [
       "combIndexCard",
       "genericKernelDimensionExpected",
@@ -1676,9 +1676,9 @@
   },
   {
     "file": "PolyGJMSoperators/TreeDefectCancellation.lean",
-    "title": "TreeDefectCancellation",
-    "status": "scaffold",
-    "summary": "States an abstract interface that turns the path-wise recurrence into cancellation of slot defects and hence tangentiality.",
+    "title": "Tree recurrence and tangentiality interface",
+    "status": "verified-under-interface",
+    "summary": "Builds finite sums of left-comb words and proves their tangentiality once a RecurrenceImpliesTangentiality principle is supplied together with a recurrent coefficient system.",
     "declarations": [
       "OperatorData",
       "toOperator",
@@ -1695,9 +1695,9 @@
   },
   {
     "file": "PolyGJMSoperators/TreeLaplacianWords.lean",
-    "title": "TreeLaplacianWords",
-    "status": "verified-under-interface",
-    "summary": "Defines rank-general left-comb indices and evaluates the associated nested multilinear Laplacian word.",
+    "title": "Left-comb Laplacian words",
+    "status": "scaffold",
+    "summary": "Defines rank-general nested Laplacian monomials on a left-comb binary tree, their degree indices, vertex updates, multinomial coefficients, and recursive evaluation.",
     "declarations": [
       "leftCombVertexCount",
       "CombIndex",
@@ -1720,9 +1720,9 @@
   },
   {
     "file": "PolyGJMSoperators/TreeRecurrence.lean",
-    "title": "TreeRecurrence",
-    "status": "verified-under-interface",
-    "summary": "Defines paths, descendants, subtree weights, defect coefficients, and the first recurrence differential for a left-comb tree.",
+    "title": "Path-wise tree recurrence",
+    "status": "scaffold",
+    "summary": "Defines the left-comb paths, subtrees, vertex defect coefficients, and the first recurrence differential governing the intended slot-wise Q-commutator cancellation.",
     "declarations": [
       "CombCoeffSpace",
       "leafVertex",

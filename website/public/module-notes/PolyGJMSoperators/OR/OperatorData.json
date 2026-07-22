@@ -1,84 +1,89 @@
 {
   "file": "PolyGJMSoperators/OR/OperatorData.lean",
-  "title": "OperatorData",
+  "title": "OR operators from rational coefficients",
   "status": "verified-under-interface",
-  "summary": "Packages the weighted OR operator data and the Laplacian word attached to each OR index.",
+  "summary": "Turns a rational degree-N OR coefficient system into a concrete finite ambient bidifferential sum and proves its common output weight under product and finite-sum homogeneity interfaces.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Packages the weighted OR operator data and the Laplacian word attached to each OR index.",
-      "formula": null
+      "heading": "Operator data",
+      "body": "The datum fixes N, rational input weights and dimension parameter, and a rational coefficient C_I for every degree-N index.",
+      "formula": "D=(N,w_1,w_2,n,C),\\qquad C_I\\in\\mathbb Q."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows PolyGJMSoperators/OR/OperatorData.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Ambient operator",
+      "body": "Coefficients and weights are cast to ℝ before forming the finite word sum.",
+      "formula": "P_D(f,g)=\\sum_{I\\in\\operatorname{supp}(N)}C_I\\,\\widetilde\\Delta^a\\!\\left((\\widetilde\\Delta^bf)(\\widetilde\\Delta^cg)\\right)."
+    },
+    {
+      "heading": "Weight theorem",
+      "body": "Every supported word has total degree N, so under the algebraic/product/sum interfaces the entire operator has weight w₁+w₂−2N.",
+      "formula": "P_D:\\mathcal E[w_1]\\times\\mathcal E[w_2]\\longrightarrow\\mathcal E[w_1+w_2-2N]."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "OROperatorData",
       "kind": "structure",
-      "mathematicalMeaning": "Concrete OR operator data with rational coefficient parameters. Its mathematical data are: N: the natural numbers w₁ : ℚ w₂ : ℚ; n: ℚ; coeff System: ORCoefficient System N.",
-      "mathematicalFormula": "\\begin{aligned}N&\\colon \\mathbb{N} w₁ \\colon \\mathbb{Q} w₂ \\colon \\mathbb{Q}\\\\n&\\colon \\mathbb{Q}\\\\\\operatorname{coeffSystem}&\\colon \\operatorname{ORCoefficientSystem} N\\end{aligned}",
       "leanType": "structure OROperatorData",
-      "line": 30
+      "line": 30,
+      "mathematicalMeaning": "Stores the order, two rational weights, rational dimension parameter, and degree-N rational coefficient system.",
+      "mathematicalFormula": "D=(N,w_1,w_2,n,C)."
     },
     {
       "leanDeclaration": "inputWeights",
       "kind": "def",
-      "mathematicalMeaning": "Input weights cast to real numbers for the ambient calculus. In explicit terms, for d of type oroperator data, and calconf of type calculus conf, its defining expression is Cal Conf.bi Weights D.w₁ D.w₂.",
-      "mathematicalFormula": "\\operatorname{inputWeights}(D,CalConf)=\\operatorname{CalConf}.\\operatorname{biWeights} w_{\\mathrm{D}}₁ w_{\\mathrm{D}}₂",
       "leanType": "def inputWeights (D : OROperatorData) (CalConf : Calculus Conf) : Fin 2 → ℝ",
-      "line": 40
+      "line": 40,
+      "mathematicalMeaning": "Casts the two rational input weights to a real two-slot weight vector.",
+      "mathematicalFormula": "w(D)=((w_1:\\mathbb R),(w_2:\\mathbb R))."
     },
     {
       "leanDeclaration": "outputWeight",
       "kind": "def",
-      "mathematicalMeaning": "Expected real output weight of an OR operator of total degree N. In explicit terms, for d of type oroperator data, its defining expression is D.w₁ plus D.w₂ minus 2 times D.N.",
-      "mathematicalFormula": "w_{\\mathrm{out}}(D)=w_{\\mathrm{D}}₁ + w_{\\mathrm{D}}₂ - 2 \\cdot N_{\\mathrm{D}}",
       "leanType": "def outputWeight (D : OROperatorData) : ℝ",
-      "line": 46
+      "line": 46,
+      "mathematicalMeaning": "Defines the real expected output weight.",
+      "mathematicalFormula": "w_{\\mathrm{out}}(D)=(w_1:\\mathbb R)+(w_2:\\mathbb R)-2N."
     },
     {
       "leanDeclaration": "toOperator",
       "kind": "def",
-      "mathematicalMeaning": "The rank-two ambient operator associated to the OR data. In explicit terms, for d of type oroperator data, and calconf of type calculus conf, its defining expression is Cal Conf.operator Sum ORIndex.support D.N the function sending I to D.coeff System.coeff R I the function sending I to I.to Word.to Operator Cal Conf.",
-      "mathematicalFormula": "\\operatorname{toOperator}(D,CalConf)=\\operatorname{CalConf}.\\operatorname{operatorSum} (\\operatorname{ORIndex}.\\operatorname{support} N_{\\mathrm{D}}) (I \\longmapsto D.\\operatorname{coeffSystem}.\\operatorname{coeffR} I) (I \\longmapsto I.\\operatorname{toWord}.\\operatorname{toOperator} \\operatorname{CalConf})",
       "leanType": "def toOperator (D : OROperatorData) (CalConf : Calculus Conf) : CalConf.BiOperator",
-      "line": 50
+      "line": 50,
+      "mathematicalMeaning": "Forms the finite OR-indexed ambient bidifferential operator.",
+      "mathematicalFormula": "P_D:=\\sum_{I\\in\\operatorname{supp}(N)}(C_I:\\mathbb R)W_I."
     },
     {
       "leanDeclaration": "toOperator_apply",
       "kind": "theorem",
-      "mathematicalMeaning": "For D of type OROperator Data, F of type Cal Conf.Bi Input, and U of type Conf.Ambient Bundle, D.to Operator Cal Conf F U equals ∑ I belongs to ORIndex.support D.N, D.coeff System.coeff I times I.to Word.to Operator Cal Conf F U.",
-      "mathematicalFormula": "\\forall\\,D\\colon \\operatorname{OROperatorData},\\;F\\colon \\operatorname{CalConf}.\\operatorname{BiInput},\\;U\\colon \\operatorname{Conf}.\\operatorname{AmbientBundle},\\quad D.\\operatorname{toOperator} \\operatorname{CalConf} F U = \\sum I \\in \\operatorname{ORIndex}.\\operatorname{support} N_{\\mathrm{D}}, D.\\operatorname{coeffSystem}.\\operatorname{coeff} I \\cdot I.\\operatorname{toWord}.\\operatorname{toOperator} \\operatorname{CalConf} F U",
       "leanType": "theorem toOperator_apply (D : OROperatorData) (F : CalConf.BiInput) (U : Conf.AmbientBundle) : D.toOperator CalConf F U = ∑ I ∈ ORIndex.support D.N, (D.coeffSystem.coeff I : ℝ) * I.toWord.toOperator CalConf F U",
-      "line": 60
+      "line": 60,
+      "mathematicalMeaning": "Expands the OR operator at inputs F and ambient point U.",
+      "mathematicalFormula": "P_D(F)(U)=\\sum_{I\\in\\operatorname{supp}(N)}(C_I:\\mathbb R)W_I(F)(U)."
     },
     {
       "leanDeclaration": "toWord_expectedOutputWeight",
       "kind": "theorem",
-      "mathematicalMeaning": "For D of type OROperator Data, and I of type ORIndex D.N, I.to Word.expected Output Weight Cal Conf D.input Weights Cal Conf equals D.output weight.",
-      "mathematicalFormula": "\\forall\\,D\\colon \\operatorname{OROperatorData},\\;I\\colon \\operatorname{ORIndex} N_{\\mathrm{D}},\\quad I.\\operatorname{toWord}.\\operatorname{expectedOutputWeight} \\operatorname{CalConf} (D.\\operatorname{inputWeights} \\operatorname{CalConf}) = D.\\operatorname{outputWeight}",
       "leanType": "theorem toWord_expectedOutputWeight (D : OROperatorData) (I : ORIndex D.N) : I.toWord.expectedOutputWeight CalConf (D.inputWeights CalConf) = D.outputWeight",
-      "line": 69
+      "line": 69,
+      "mathematicalMeaning": "Proves that each degree-N word has the same expected output weight as the OR datum.",
+      "mathematicalFormula": "w_{\\mathrm{out}}(W_I,w(D))=w_{\\mathrm{out}}(D)."
     },
     {
       "leanDeclaration": "mapsWeights",
       "kind": "theorem",
-      "mathematicalMeaning": "Weight mapping for the OR operator, assuming product homogeneity for words and homogeneity of finite operator sums. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,D\\colon \\operatorname{OROperatorData},\\;H\\colon \\operatorname{CalConf}.\\operatorname{AlgebraicIdentities},\\;Hprod\\colon \\operatorname{CalConf}.\\operatorname{ProductHomogeneityIdentities},\\;Hsum\\colon \\operatorname{PolyLaplacianCombinationData}.\\operatorname{OperatorSumHomogeneityIdentities} \\operatorname{CalConf},\\quad \\operatorname{CalConf}.\\operatorname{MapsWeights} (D.\\operatorname{toOperator} \\operatorname{CalConf}) (D.\\operatorname{inputWeights} \\operatorname{CalConf}) D.\\operatorname{outputWeight}",
       "leanType": "theorem mapsWeights (D : OROperatorData) (H : CalConf.AlgebraicIdentities) (Hprod : CalConf.ProductHomogeneityIdentities) (Hsum : PolyLaplacianCombinationData.OperatorSumHomogeneityIdentities CalConf) : CalConf.MapsWeights (D.toOperator CalConf) (D.inputWeights CalConf) D.outputWeight",
-      "line": 81
+      "line": 81,
+      "mathematicalMeaning": "Under algebraic, product-homogeneity, and finite-sum homogeneity interfaces, proves the operator's weight mapping.",
+      "mathematicalFormula": "P_D:\\mathcal E[w_1]\\times\\mathcal E[w_2]\\to\\mathcal E[w_1+w_2-2N]."
     },
     {
       "leanDeclaration": "toOvsienkoRedouData",
       "kind": "def",
-      "mathematicalMeaning": "A word-indexed shadow of the OR data. This is useful for reusing the generic Level 8 API, though toOperator above remains the preferred OR-indexed sum. In explicit terms, for d of type oroperator data, its defining expression is N : equals D.N w₁ : equals D.w₁ w₂ : equals D.w₂ support : equals ORIndex.support D.N.image the function sending I to I.to Word coeff : equals the function sending W to ∑ I belongs to ORIndex.support D.N, if I.to Word equals W then D.coeff System.coeff I else 0 support total Power : equals by intro W h W rcases Finset.mem image.mp h W with ⟨I, h I, rfl⟩ exact I.to Word total Power.",
-      "mathematicalFormula": "\\operatorname{toOvsienkoRedouData}(D)=N = N_{\\mathrm{D}} w₁ = w_{\\mathrm{D}}₁ w₂ = w_{\\mathrm{D}}₂ \\operatorname{support} = (\\operatorname{ORIndex}.\\operatorname{support} N_{\\mathrm{D}}).\\operatorname{image} (I \\longmapsto I.\\operatorname{toWord}) \\operatorname{coeff} = W \\longmapsto \\sum I \\in \\operatorname{ORIndex}.\\operatorname{support} N_{\\mathrm{D}}, \\operatorname{if} I.\\operatorname{toWord} = W \\operatorname{then} D.\\operatorname{coeffSystem}.\\operatorname{coeff} I \\operatorname{else} 0 \\operatorname{support\\_totalPower} = \\operatorname{by} \\operatorname{intro} W \\operatorname{hW} \\operatorname{rcases} \\operatorname{Finset}.\\operatorname{mem\\_image}.\\operatorname{mp} \\operatorname{hW} \\operatorname{with} ⟨I, _\\operatorname{hI}, \\operatorname{rfl}⟩ \\operatorname{exact} I.\\operatorname{toWord\\_totalPower}",
       "leanType": "def toOvsienkoRedouData (D : OROperatorData) : OvsienkoRedouData",
-      "line": 108
+      "line": 108,
+      "mathematicalMeaning": "Builds a word-indexed shadow datum by imaging the OR support and summing coefficients of indices that represent the same word.",
+      "mathematicalFormula": "c_D(W):=\\sum_{I\\in\\operatorname{supp}(N)}\\mathbf 1_{W_I=W}(C_I:\\mathbb R)."
     }
   ],
   "prerequisites": [
@@ -100,5 +105,5 @@
       "note": "Primary curved ambient source for the encoded OR recurrence."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "The output-weight theorem depends on three abstract homogeneity interfaces. The word-indexed shadow is constructed, but this file does not prove equality between its operator and the preferred OR-indexed sum, nor any defect cancellation or tangentiality."
 }

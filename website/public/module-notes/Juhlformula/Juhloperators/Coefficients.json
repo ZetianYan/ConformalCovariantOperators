@@ -1,108 +1,113 @@
 {
   "file": "Juhlformula/Juhloperators/Coefficients.lean",
-  "title": "Coefficients",
-  "status": "verified",
-  "summary": "Defines abstract composition coefficients and a placeholder closed coefficient system.",
+  "title": "Juhl coefficient-system scaffold",
+  "status": "scaffold",
+  "summary": "Defines abstract direct and inverse coefficient families and basic composition statistics, but the advertised closed coefficients m_I and n_I are currently placeholders equal to one.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Defines abstract composition coefficients and a placeholder closed coefficient system.",
-      "formula": null
+      "heading": "Abstract coefficient families",
+      "body": "A coefficient system assigns two rational coefficients m_I and n_I to every ordered composition, allowing direct and inverse Juhl formulas to use different weights.",
+      "formula": "I\\vDash N\\quad\\longmapsto\\quad m_I,n_I\\in\\mathbb Q."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Juhlformula/Juhloperators/Coefficients.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Composition statistics",
+      "body": "The module records partial sums, the product of parts, and the product of factorials of parts for later closed formulas.",
+      "formula": "S_j=I_1+\\cdots+I_j,\\qquad I!=\\prod_jI_j,\\qquad I!_{\\mathrm{fact}}=\\prod_j(I_j!)."
+    },
+    {
+      "heading": "Current placeholder",
+      "body": "Both mCoeffQ and nCoeffQ ignore I and return 1. The resulting singleton normalization theorem is therefore definitional and is not the actual general Juhl coefficient formula.",
+      "formula": "m_I:=1,\\qquad n_I:=1\\quad\\text{(current scaffold only)}."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "CoefficientSystem",
       "kind": "structure",
-      "mathematicalMeaning": "Abstract coefficient system for Juhl-type formulas. mCoeff and nCoeff are kept separate because Juhl formulas often use one family for the direct formula and another for the inverse formula. Its mathematical data are: m Coeff: for every N : the natural numbers, Composition N maps to ℚ; n Coeff: for every N : the natural numbers, Composition N maps to ℚ.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{mCoeff}&\\colon \\forall {N \\colon \\mathbb{N}}, \\operatorname{Composition} N \\longrightarrow \\mathbb{Q}\\\\\\operatorname{nCoeff}&\\colon \\forall {N \\colon \\mathbb{N}}, \\operatorname{Composition} N \\longrightarrow \\mathbb{Q}\\end{aligned}",
       "leanType": "structure CoefficientSystem",
-      "line": 21
+      "line": 21,
+      "mathematicalMeaning": "Stores two rational coefficient families m_I and n_I on all ordered compositions.",
+      "mathematicalFormula": "C=(m_I,n_I)_{I\\vDash N,\\ N\\ge0}."
     },
     {
       "leanDeclaration": "SingletonNormalized",
       "kind": "def",
-      "mathematicalMeaning": "Singleton coefficient condition. In explicit terms, for c of type coefficient system, its defining expression is for every N h N : 0 < N, C.n Coeff Composition.singleton N h N equals 1.",
-      "mathematicalFormula": "\\operatorname{SingletonNormalized}(C)=\\forall N (\\operatorname{hN} \\colon 0 < N), C.\\operatorname{nCoeff} (\\operatorname{Composition}.\\operatorname{singleton} N \\operatorname{hN}) = 1",
       "leanType": "def SingletonNormalized (C : CoefficientSystem) : Prop",
-      "line": 28
+      "line": 28,
+      "mathematicalMeaning": "Defines singleton normalization for the inverse coefficients.",
+      "mathematicalFormula": "\\operatorname{SingletonNormalized}(C)\\iff n_{(N)}=1\\quad\\forall N>0."
     },
     {
       "leanDeclaration": "pairNCoeff",
       "kind": "def",
-      "mathematicalMeaning": "Pair coefficient accessor. In explicit terms, for c of type coefficient system, a, b in the natural numbers, ha of type 0 < a, and hb of type 0 < b, its defining expression is C.n Coeff Composition.pair a b ha hb.",
-      "mathematicalFormula": "\\operatorname{pairNCoeff}(C,a,b,ha,hb)=C.\\operatorname{nCoeff} (\\operatorname{Composition}.\\operatorname{pair} a b \\operatorname{ha} \\operatorname{hb})",
       "leanType": "def pairNCoeff (C : CoefficientSystem) (a b : ℕ) (ha : 0 < a) (hb : 0 < b) : ℚ",
-      "line": 33
+      "line": 33,
+      "mathematicalMeaning": "Returns the inverse coefficient attached to the two-part composition (a,b).",
+      "mathematicalFormula": "\\operatorname{pairNCoeff}(C,a,b):=n_{(a,b)}."
     },
     {
       "leanDeclaration": "partialSums",
       "kind": "def",
-      "mathematicalMeaning": "Initial partial sums of the parts of a composition. In explicit terms, for n in the natural numbers, and i of type composition n, its defining expression is I.parts.scanl · plus · 0.",
-      "mathematicalFormula": "\\operatorname{partialSums}(I)=I.\\operatorname{parts}.\\operatorname{scanl} (\\cdot + \\cdot) 0",
       "leanType": "def partialSums {N : ℕ} (I : Composition N) : List ℕ",
-      "line": 45
+      "line": 45,
+      "mathematicalMeaning": "Computes the scan of initial sums, beginning with zero.",
+      "mathematicalFormula": "\\operatorname{partialSums}(I)=(0,I_1,I_1+I_2,\\ldots,N)."
     },
     {
       "leanDeclaration": "partsProdQ",
       "kind": "def",
-      "mathematicalMeaning": "Product of parts as a rational number. In explicit terms, for n in the natural numbers, and i of type composition n, its defining expression is I.parts.foldl fun acc : ℚ n maps to acc times n : ℚ 1 : ℚ.",
-      "mathematicalFormula": "\\operatorname{partsProdQ}(I)=I.\\operatorname{parts}.\\operatorname{foldl} (\\operatorname{fun} (\\operatorname{acc} \\colon \\mathbb{Q}) n => \\operatorname{acc} \\cdot (n \\colon \\mathbb{Q})) (1 \\colon \\mathbb{Q})",
       "leanType": "def partsProdQ {N : ℕ} (I : Composition N) : ℚ",
-      "line": 49
+      "line": 49,
+      "mathematicalMeaning": "Multiplies the composition parts after casting to ℚ.",
+      "mathematicalFormula": "\\operatorname{partsProdQ}(I):=\\prod_{j=1}^{r}I_j."
     },
     {
       "leanDeclaration": "factorialPartsProdQ",
       "kind": "def",
-      "mathematicalMeaning": "Factorial product of parts as a rational number. In explicit terms, for n in the natural numbers, and i of type composition n, its defining expression is I.parts.foldl fun acc : ℚ n maps to acc times Nat.factorial n : ℚ 1 : ℚ.",
-      "mathematicalFormula": "\\operatorname{factorialPartsProdQ}(I)=I.\\operatorname{parts}.\\operatorname{foldl} (\\operatorname{fun} (\\operatorname{acc} \\colon \\mathbb{Q}) n => \\operatorname{acc} \\cdot (\\mathbb{N}.\\operatorname{factorial} n \\colon \\mathbb{Q})) (1 \\colon \\mathbb{Q})",
       "leanType": "def factorialPartsProdQ {N : ℕ} (I : Composition N) : ℚ",
-      "line": 53
+      "line": 53,
+      "mathematicalMeaning": "Multiplies the factorials of all composition parts in ℚ.",
+      "mathematicalFormula": "\\operatorname{factorialPartsProdQ}(I):=\\prod_{j=1}^{r}I_j!."
     },
     {
       "leanDeclaration": "mCoeffQ",
       "kind": "def",
-      "mathematicalMeaning": "Closed-form Juhl m coefficient placeholder. This intentionally keeps the interface stable while the exact product normalization is fixed against the chosen Juhl convention. In explicit terms, for n in the natural numbers, and i of type composition n, its defining expression is 1.",
-      "mathematicalFormula": "\\operatorname{mCoeffQ}=1",
       "leanType": "def mCoeffQ {N : ℕ} (_I : Composition N) : ℚ",
-      "line": 65
+      "line": 65,
+      "mathematicalMeaning": "Current placeholder for the closed Juhl m-coefficient; it returns one for every composition.",
+      "mathematicalFormula": "m_I:=1\\quad\\text{(placeholder)}."
     },
     {
       "leanDeclaration": "nCoeffQ",
       "kind": "def",
-      "mathematicalMeaning": "Closed-form Juhl n coefficient placeholder. This intentionally keeps the interface stable while the exact inverse coefficient formula is introduced later. In explicit terms, for n in the natural numbers, and i of type composition n, its defining expression is 1.",
-      "mathematicalFormula": "\\operatorname{nCoeffQ}=1",
       "leanType": "def nCoeffQ {N : ℕ} (_I : Composition N) : ℚ",
-      "line": 73
+      "line": 73,
+      "mathematicalMeaning": "Current placeholder for the closed Juhl n-coefficient; it returns one for every composition.",
+      "mathematicalFormula": "n_I:=1\\quad\\text{(placeholder)}."
     },
     {
       "leanDeclaration": "closedCoefficientSystem",
       "kind": "def",
-      "mathematicalMeaning": "The closed-form coefficient system. In explicit terms, its defining expression is m Coeff : equals the function sending I to m Coeff Q I n Coeff : equals the function sending I to n Coeff Q I.",
-      "mathematicalFormula": "\\operatorname{closedCoefficientSystem}=\\operatorname{mCoeff} = I \\longmapsto \\operatorname{mCoeffQ} I \\operatorname{nCoeff} = I \\longmapsto \\operatorname{nCoeffQ} I",
       "leanType": "def closedCoefficientSystem : CoefficientSystem",
-      "line": 77
+      "line": 77,
+      "mathematicalMeaning": "Packages the two constant-one placeholder families as a coefficient system.",
+      "mathematicalFormula": "C^{\\mathrm{closed}}=(m_I\\equiv1,n_I\\equiv1)."
     },
     {
       "leanDeclaration": "nCoeffQ_singleton",
       "kind": "theorem",
-      "mathematicalMeaning": "For N in the natural numbers, and hN of type 0 < N, n Coeff Q Composition.singleton N h N equals 1.",
-      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;hN\\colon 0 < N,\\quad \\operatorname{nCoeffQ} (\\operatorname{Composition}.\\operatorname{singleton} N \\operatorname{hN}) = 1",
       "leanType": "theorem nCoeffQ_singleton (N : ℕ) (hN : 0 < N) : nCoeffQ (Composition.singleton N hN) = 1",
-      "line": 82
+      "line": 82,
+      "mathematicalMeaning": "Proves the singleton n-coefficient is one by unfolding the placeholder.",
+      "mathematicalFormula": "n_{(N)}=1."
     },
     {
       "leanDeclaration": "closedCoefficientSystem_singletonNormalized",
       "kind": "theorem",
-      "mathematicalMeaning": "Coefficient System.Singleton Normalized closed Coefficient System.",
-      "mathematicalFormula": "\\operatorname{CoefficientSystem}.\\operatorname{SingletonNormalized} \\operatorname{closedCoefficientSystem}",
       "leanType": "theorem closedCoefficientSystem_singletonNormalized : CoefficientSystem.SingletonNormalized closedCoefficientSystem",
-      "line": 87
+      "line": 87,
+      "mathematicalMeaning": "Proves singleton normalization for the constant-one placeholder system.",
+      "mathematicalFormula": "\\operatorname{SingletonNormalized}(C^{\\mathrm{closed}})."
     }
   ],
   "prerequisites": [
@@ -125,5 +130,5 @@
       "note": "Ambient interpretation of the composition formula."
     }
   ],
-  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+  "limitations": "The exact Juhl product normalizations have not been implemented: mCoeffQ and nCoeffQ are literally constant 1. Accordingly, closedCoefficientSystem and its normalization theorem must not be presented as the genuine closed coefficient theorem."
 }

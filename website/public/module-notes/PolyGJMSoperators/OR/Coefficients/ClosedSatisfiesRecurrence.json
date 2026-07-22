@@ -1,36 +1,36 @@
 {
   "file": "PolyGJMSoperators/OR/Coefficients/ClosedSatisfiesRecurrence.lean",
-  "title": "ClosedSatisfiesRecurrence",
+  "title": "Closed-form recurrence bridge",
   "status": "verified-under-interface",
-  "summary": "Proves that the closed coefficient formula satisfies the encoded OR recurrence relations.",
+  "summary": "Records the conditional bridge from a supplied rational defect-cancellation proof to the closed-form recurrence predicate and imports the independently proved two local Pochhammer recurrences.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Proves that the closed coefficient formula satisfies the encoded OR recurrence relations.",
-      "formula": null
+      "heading": "Conditional global statement",
+      "body": "If the regular coefficient system already satisfies every rational defect-cancellation equation for a chosen basis, then the regular closed formula satisfies the recurrence predicate—because that predicate is definitionally the same condition.",
+      "formula": "\\operatorname{Cancel}_{\\mathbb Q}(C^{\\mathrm{reg}},d)\\Longrightarrow\\operatorname{SatisfiesRecurrence}(\\Phi^{\\mathrm{reg}},d)."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows PolyGJMSoperators/OR/Coefficients/ClosedSatisfiesRecurrence.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Unconditional local statement",
+      "body": "The two Lemma 3.1 adjacent-index identities for the Pochhammer factor have been proved in RatioLemmas and are re-exported here.",
+      "formula": "\\forall I,\\quad R_1(A,I)\\land R_2(A,I)."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "ORRegularClosedFormula_satisfiesRecurrence_of_defectCancellationQ",
       "kind": "theorem",
-      "mathematicalMeaning": "The regular closed formula satisfies the OR recurrence as soon as the chosen rational defect coefficients cancel against the regular closed coefficient system. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;κ\\colon \\mathrm{Type} _,\\;\\operatorname{DecidableEq} κ,\\;n,w₁,w₂\\colon \\mathbb{Q},\\;K\\colon \\operatorname{Finset} κ,\\;defectCoeffQ\\colon \\operatorname{ORIndex} N \\longrightarrow \\operatorname{Fin} 2 \\longrightarrow κ \\longrightarrow \\mathbb{Q},\\;hcancel\\colon \\operatorname{SatisfiesDefectCancellationQ} K (\\operatorname{ORCoefficientSystem}.\\operatorname{regular} N n w₁ w₂) \\operatorname{defectCoeffQ},\\quad \\operatorname{ORRegularClosedFormula}.\\operatorname{SatisfiesRecurrence} n w₁ w₂ K \\operatorname{defectCoeffQ}",
       "leanType": "theorem ORRegularClosedFormula_satisfiesRecurrence_of_defectCancellationQ {N : ℕ} {κ : Type _} [DecidableEq κ] (n w₁ w₂ : ℚ) (K : Finset κ) (defectCoeffQ : ORIndex N → Fin 2 → κ → ℚ) (hcancel : SatisfiesDefectCancellationQ K (ORCoefficientSystem.regular N n w₁ w₂) defectCoeffQ) : ORRegularClosedFormula.SatisfiesRecurrence n w₁ w₂ K defectCoeffQ",
-      "line": 33
+      "line": 33,
+      "mathematicalMeaning": "Shows that a supplied rational cancellation proof is exactly enough to inhabit the closed formula's recurrence predicate.",
+      "mathematicalFormula": "\\operatorname{Cancel}_{\\mathbb Q}(C^{\\mathrm{reg}},d)\\Longrightarrow\\operatorname{SatisfiesRecurrence}(\\Phi^{\\mathrm{reg}},d)."
     },
     {
       "leanDeclaration": "ORRegularClosedFormula_satisfiesLemma31LocalRecurrences",
       "kind": "theorem",
-      "mathematicalMeaning": "The regular closed formula supplies Gamma-ratio coefficients satisfying the two local recurrence equations of Lemma 3.1. In symbols, the proposition is the statement displayed below.",
-      "mathematicalFormula": "\\forall\\,N\\colon \\mathbb{N},\\;n,w₁,w₂\\colon \\mathbb{Q},\\quad (\\forall I \\colon \\operatorname{ORIndex} N, \\operatorname{ORRegularAFirstRecurrence} n w₁ w₂ I) \\land (\\forall I \\colon \\operatorname{ORIndex} N, \\operatorname{ORRegularASecondRecurrence} n w₁ w₂ I)",
       "leanType": "theorem ORRegularClosedFormula_satisfiesLemma31LocalRecurrences {N : ℕ} (n w₁ w₂ : ℚ) : (∀ I : ORIndex N, ORRegularAFirstRecurrence n w₁ w₂ I) ∧ (∀ I : ORIndex N, ORRegularASecondRecurrence n w₁ w₂ I)",
-      "line": 53
+      "line": 53,
+      "mathematicalMeaning": "States the already proved pair of local Lemma 3.1 recurrences for the regular Pochhammer coefficients.",
+      "mathematicalFormula": "\\bigl(\\forall I,\\ R_1(A,I)\\bigr)\\land\\bigl(\\forall I,\\ R_2(A,I)\\bigr)."
     }
   ],
   "prerequisites": [
@@ -51,5 +51,5 @@
       "note": "Primary curved ambient source for the encoded OR recurrence."
     }
   ],
-  "limitations": "The displayed Lean results are checked relative to structures, typeclasses, certificates, or model laws supplied as hypotheses. The module does not by itself derive every interface field from a concrete geometric backend."
+  "limitations": "The first theorem assumes the full rational defect cancellation and then returns it through a definitional wrapper; it does not derive global cancellation from the local recurrences. Only the two local coefficient identities are unconditional."
 }

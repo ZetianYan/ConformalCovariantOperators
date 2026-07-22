@@ -1,116 +1,126 @@
 {
   "file": "Juhlformula/Juhlcombinatorics/FormalStatement.lean",
-  "title": "FormalStatement",
-  "status": "verified",
-  "summary": "Defines the data of a formal Juhl right-hand side and the proposition that formalP equals that expression.",
+  "title": "Formal Juhl statement scaffold",
+  "status": "scaffold",
+  "summary": "Defines normalized syntax equality and data structures for a finite formal Juhl right-hand side, then packages machine-checked order-one and raw order-two identities.",
   "mathematicalContent": [
     {
-      "heading": "Mathematical role",
-      "body": "Defines the data of a formal Juhl right-hand side and the proposition that formalP equals that expression.",
-      "formula": null
+      "heading": "Formal equality",
+      "body": "Two FormalExpr values are declared equal when the limited low-order normalizer returns exactly the same syntax tree.",
+      "formula": "A\\equiv_{\\mathrm{formal}}B\\iff\\operatorname{normalize}(A)=\\operatorname{normalize}(B)."
     },
     {
-      "heading": "How to read the translation",
-      "body": "The correspondence below follows Juhlformula/Juhlcombinatorics/FormalStatement.lean declaration by declaration. A definition is translated by its defining expression, a theorem by its quantified proposition, and a structure, class, or inductive type by the mathematical data encoded in its fields or constructors. The original Lean signature remains visible beside every translation.",
-      "formula": null
+      "heading": "Composition-side placeholder",
+      "body": "A composition I=(I₁,…,Iᵣ) is represented syntactically by nesting formal D-operators around f. This is not identified with the actual canonical GJMS composite.",
+      "formula": "\\mathcal P_I^{\\mathrm{syntax}}f:=D_{I_1}(D_{I_2}(\\cdots D_{I_r}(f)))."
+    },
+    {
+      "heading": "Formal statement",
+      "body": "A statement consists of a finite rational linear combination of formal expressions together with normalized syntax equality to formalP N.",
+      "formula": "P_{2N}^{\\mathrm{formal}}\\equiv_{\\mathrm{formal}}\\sum_{j=1}^{m}c_jE_j."
+    },
+    {
+      "heading": "Implemented orders",
+      "body": "Orders one and two use a one-term right-hand side equal to the already checked raw P₂ or P₄ expression.",
+      "formula": "P_2^{\\mathrm{formal}}\\equiv P_2^{\\mathrm{raw}},\\qquad P_4^{\\mathrm{formal}}\\equiv P_4^{\\mathrm{raw}}."
     }
   ],
   "correspondence": [
     {
       "leanDeclaration": "FormalEq",
       "kind": "def",
-      "mathematicalMeaning": "Normalized equality of formal expressions. In explicit terms, for a, b of type formal expr, its defining expression is A.normalize equals B.normalize.",
-      "mathematicalFormula": "\\operatorname{FormalEq}(A,B)=A.\\operatorname{normalize} = B.\\operatorname{normalize}",
       "leanType": "def FormalEq (A B : FormalExpr) : Prop",
-      "line": 18
+      "line": 18,
+      "mathematicalMeaning": "Defines equality of formal expressions as literal equality after applying the restricted normalizer.",
+      "mathematicalFormula": "A\\equiv_{\\mathrm{formal}}B\\iff\\operatorname{normalize}(A)=\\operatorname{normalize}(B)."
     },
     {
       "leanDeclaration": "refl",
       "kind": "theorem",
-      "mathematicalMeaning": "For A of type Formal Expr, Formal Eq A A.",
-      "mathematicalFormula": "\\forall\\,A\\colon \\operatorname{FormalExpr},\\quad \\operatorname{FormalEq} A A",
       "leanType": "theorem refl (A : FormalExpr) : FormalEq A A",
-      "line": 23
+      "line": 23,
+      "mathematicalMeaning": "Proves reflexivity of normalized formal equality.",
+      "mathematicalFormula": "A\\equiv_{\\mathrm{formal}}A."
     },
     {
       "leanDeclaration": "trans",
       "kind": "theorem",
-      "mathematicalMeaning": "For A, B, C of type Formal Expr, hAB of type Formal Eq A B, and hBC of type Formal Eq B C, Formal Eq A C.",
-      "mathematicalFormula": "\\forall\\,A,B,C\\colon \\operatorname{FormalExpr},\\;hAB\\colon \\operatorname{FormalEq} A B,\\;hBC\\colon \\operatorname{FormalEq} B C,\\quad \\operatorname{FormalEq} A C",
       "leanType": "theorem trans {A B C : FormalExpr} (hAB : FormalEq A B) (hBC : FormalEq B C) : FormalEq A C",
-      "line": 28
+      "line": 28,
+      "mathematicalMeaning": "Proves transitivity of normalized formal equality.",
+      "mathematicalFormula": "A\\equiv B\\land B\\equiv C\\Longrightarrow A\\equiv C."
     },
     {
       "leanDeclaration": "symm",
       "kind": "theorem",
-      "mathematicalMeaning": "For A, B of type Formal Expr, and hAB of type Formal Eq A B, Formal Eq B A.",
-      "mathematicalFormula": "\\forall\\,A,B\\colon \\operatorname{FormalExpr},\\;hAB\\colon \\operatorname{FormalEq} A B,\\quad \\operatorname{FormalEq} B A",
       "leanType": "theorem symm {A B : FormalExpr} (hAB : FormalEq A B) : FormalEq B A",
-      "line": 35
+      "line": 35,
+      "mathematicalMeaning": "Proves symmetry of normalized formal equality.",
+      "mathematicalFormula": "A\\equiv B\\Longrightarrow B\\equiv A."
     },
     {
       "leanDeclaration": "formalGJMSCompositionExpr",
       "kind": "def",
-      "mathematicalMeaning": "Formal expression representing the composition P_{2I} f. This is a syntax-level placeholder for the composition side. It is deliberately not identified with the formal Laplacian-variation operators from the obstruction recursion. In explicit terms, for n in the natural numbers, and i of type composition n, its defining expression is I.parts.foldr fun j acc maps to Formal Expr.op D j acc Formal Expr.f.",
-      "mathematicalFormula": "\\operatorname{formalGJMSCompositionExpr}(I)=I.\\operatorname{parts}.\\operatorname{foldr} (\\operatorname{fun} j \\operatorname{acc} => \\operatorname{FormalExpr}.\\operatorname{opD} j \\operatorname{acc}) f_{\\mathrm{FormalExpr}}",
       "leanType": "def formalGJMSCompositionExpr {N : ℕ} (I : Composition N) : FormalExpr",
-      "line": 49
+      "line": 49,
+      "mathematicalMeaning": "Represents a composition by nesting formal D-operators according to its ordered parts.",
+      "mathematicalFormula": "\\mathcal P_I^{\\mathrm{syntax}}f:=D_{I_1}(D_{I_2}(\\cdots D_{I_r}(f)))."
     },
     {
       "leanDeclaration": "FormalJuhlTerm",
       "kind": "structure",
-      "mathematicalMeaning": "One term in a formal Juhl expansion. Its mathematical data are: coeff: ℚ; expr: Formal Expr.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{coeff}&\\colon \\mathbb{Q}\\\\\\operatorname{expr}&\\colon \\operatorname{FormalExpr}\\end{aligned}",
       "leanType": "structure FormalJuhlTerm",
-      "line": 57
+      "line": 57,
+      "mathematicalMeaning": "Stores one rational coefficient and one formal expression in a Juhl right-hand side.",
+      "mathematicalFormula": "T=(c,E),\\qquad c\\in\\mathbb Q."
     },
     {
       "leanDeclaration": "toExpr",
       "kind": "def",
-      "mathematicalMeaning": "Convert a formal Juhl term into syntax. In explicit terms, for t of type formal juhl term, its defining expression is Formal Expr.qsmul T.coeff T.expr.",
-      "mathematicalFormula": "\\operatorname{toExpr}(T)=\\operatorname{FormalExpr}.\\operatorname{qsmul} T.\\operatorname{coeff} T.\\operatorname{expr}",
       "leanType": "def toExpr (T : FormalJuhlTerm) : FormalExpr",
-      "line": 65
+      "line": 65,
+      "mathematicalMeaning": "Converts one formal term to the scaled expression cE.",
+      "mathematicalFormula": "\\operatorname{toExpr}(c,E):=cE."
     },
     {
       "leanDeclaration": "FormalJuhlRHS",
       "kind": "structure",
-      "mathematicalMeaning": "A finite formal Juhl right-hand side. Its mathematical data are: terms: List Formal Juhl Term.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{terms}&\\colon \\operatorname{List} \\operatorname{FormalJuhlTerm}\\end{aligned}",
       "leanType": "structure FormalJuhlRHS",
-      "line": 71
+      "line": 71,
+      "mathematicalMeaning": "Stores a finite ordered list of formal Juhl terms.",
+      "mathematicalFormula": "R=[(c_1,E_1),\\ldots,(c_m,E_m)]."
     },
     {
       "leanDeclaration": "toExpr",
       "kind": "def",
-      "mathematicalMeaning": "Convert a finite formal Juhl RHS into syntax. In explicit terms, for r of type formal juhl rhs, its defining expression is list Sum R.terms.map Formal Juhl Term.to Expr.",
-      "mathematicalFormula": "\\operatorname{toExpr}(R)=\\operatorname{listSum} (R.\\operatorname{terms}.\\operatorname{map} \\operatorname{FormalJuhlTerm}.\\operatorname{toExpr})",
       "leanType": "def toExpr (R : FormalJuhlRHS) : FormalExpr",
-      "line": 78
+      "line": 78,
+      "mathematicalMeaning": "Converts a formal right-hand side to the sum of its scaled terms.",
+      "mathematicalFormula": "R.\\operatorname{toExpr}:=\\sum_{j=1}^{m}c_jE_j."
     },
     {
       "leanDeclaration": "FormalJuhlStatement",
       "kind": "structure",
-      "mathematicalMeaning": "The formal Juhl formula at order N. Its mathematical data are: rhs: Formal Juhl RHS; formula: Formal Eq formal P N rhs.to Expr.",
-      "mathematicalFormula": "\\begin{aligned}\\operatorname{rhs}&\\colon \\operatorname{FormalJuhlRHS}\\\\\\operatorname{formula}&\\colon \\operatorname{FormalEq} (\\operatorname{formalP} N) \\operatorname{rhs}.\\operatorname{toExpr}\\end{aligned}",
       "leanType": "structure FormalJuhlStatement (N : ℕ)",
-      "line": 84
+      "line": 84,
+      "mathematicalMeaning": "Packages a formal order-N right-hand side and a normalized syntax equality with formalP N.",
+      "mathematicalFormula": "\\operatorname{FormalJuhlStatement}(N)=\\{R:P_{2N}^{\\mathrm{formal}}\\equiv_{\\mathrm{formal}}R\\}."
     },
     {
       "leanDeclaration": "formalJuhlStatement_one",
       "kind": "def",
-      "mathematicalMeaning": "The order-one formal Juhl statement, using the checked raw P_2. In explicit terms, its defining expression is rhs : equals terms : equals coeff : equals 1, expr : equals expected P2 formula : equals by unfold Formal Eq Formal Juhl RHS.to Expr Formal Juhl Term.to Expr native decide.",
-      "mathematicalFormula": "\\operatorname{formalJuhlStatement\\_one}=\\operatorname{rhs} = { \\operatorname{terms} = [ { \\operatorname{coeff} = 1, \\operatorname{expr} = \\operatorname{expectedP2} } ] } \\operatorname{formula} = \\operatorname{by} \\operatorname{unfold} \\operatorname{FormalEq} \\operatorname{FormalJuhlRHS}.\\operatorname{toExpr} \\operatorname{FormalJuhlTerm}.\\operatorname{toExpr} \\operatorname{native\\_decide}",
       "leanType": "def formalJuhlStatement_one : FormalJuhlStatement 1",
-      "line": 89
+      "line": 89,
+      "mathematicalMeaning": "Builds the order-one formal statement with the one-term raw P₂ expression.",
+      "mathematicalFormula": "P_2^{\\mathrm{formal}}\\equiv_{\\mathrm{formal}}1\\cdot P_2^{\\mathrm{raw}}."
     },
     {
       "leanDeclaration": "formalJuhlStatement_two_raw",
       "kind": "def",
-      "mathematicalMeaning": "The order-two formal Juhl statement, using the checked raw P_4. In explicit terms, its defining expression is rhs : equals terms : equals coeff : equals 1, expr : equals expected P4 Raw formula : equals by unfold Formal Eq Formal Juhl RHS.to Expr Formal Juhl Term.to Expr native decide.",
-      "mathematicalFormula": "\\operatorname{formalJuhlStatement\\_two\\_raw}=\\operatorname{rhs} = { \\operatorname{terms} = [ { \\operatorname{coeff} = 1, \\operatorname{expr} = \\operatorname{expectedP4Raw} } ] } \\operatorname{formula} = \\operatorname{by} \\operatorname{unfold} \\operatorname{FormalEq} \\operatorname{FormalJuhlRHS}.\\operatorname{toExpr} \\operatorname{FormalJuhlTerm}.\\operatorname{toExpr} \\operatorname{native\\_decide}",
       "leanType": "def formalJuhlStatement_two_raw : FormalJuhlStatement 2",
-      "line": 100
+      "line": 100,
+      "mathematicalMeaning": "Builds the order-two formal statement with the one-term raw P₄ expression.",
+      "mathematicalFormula": "P_4^{\\mathrm{formal}}\\equiv_{\\mathrm{formal}}1\\cdot P_4^{\\mathrm{raw}}."
     }
   ],
   "prerequisites": [
@@ -134,5 +144,5 @@
       "note": "Source for the Juhl side of the formal syntax."
     }
   ],
-  "limitations": "Verified means that Lean checks the propositions encoded in this file and their imported assumptions. It does not assert that the present formal statement exhausts every analytic hypothesis or convention in the cited literature."
+  "limitations": "The equality is only equality after a weak syntax normalizer. The composition expression uses formal Dⱼ nodes and is explicitly not identified with the ambient GJMS compositions. The order-one and order-two statements are one-term restatements of prior raw checks, not the general Juhl composition formula."
 }
